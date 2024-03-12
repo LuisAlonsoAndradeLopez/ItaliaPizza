@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ItalianPizzaServerBDModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ItalianPizzaServerBDModelStoreContainer">
+    <EntitySet Name="SupplierSet" EntityType="ItalianPizzaServerBDModel.Store.SupplierSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductSet" EntityType="ItalianPizzaServerBDModel.Store.ProductSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderCustomerSet" EntityType="ItalianPizzaServerBDModel.Store.OrderCustomerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecipeSet" EntityType="ItalianPizzaServerBDModel.Store.RecipeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierOrderSet" EntityType="ItalianPizzaServerBDModel.Store.SupplierOrderSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplySet" EntityType="ItalianPizzaServerBDModel.Store.SupplySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderCustomerProductSet" EntityType="ItalianPizzaServerBDModel.Store.OrderCustomerProductSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerSet" EntityType="ItalianPizzaServerBDModel.Store.CustomerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierOrderSupplySet" EntityType="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecipeSupplySet" EntityType="ItalianPizzaServerBDModel.Store.RecipeSupplySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeSet" EntityType="ItalianPizzaServerBDModel.Store.EmployeeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="EmployeeRoleSet" EntityType="ItalianPizzaServerBDModel.Store.EmployeeRoleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AddressSet" EntityType="ItalianPizzaServerBDModel.Store.AddressSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierSupplySet" EntityType="ItalianPizzaServerBDModel.Store.SupplierSupplySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DealerSet" EntityType="ItalianPizzaServerBDModel.Store.DealerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DealerOrderCustomerSet" EntityType="ItalianPizzaServerBDModel.Store.DealerOrderCustomerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductOrderCustomerProduct" EntityType="ItalianPizzaServerBDModel.Store.ProductOrderCustomerProduct" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderCustomerProductOrderCustomer" EntityType="ItalianPizzaServerBDModel.Store.OrderCustomerProductOrderCustomer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplyRecipeSupply" EntityType="ItalianPizzaServerBDModel.Store.SupplyRecipeSupply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="RecipeRecipeSupply" EntityType="ItalianPizzaServerBDModel.Store.RecipeRecipeSupply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierSupplierProduct" EntityType="ItalianPizzaServerBDModel.Store.SupplierSupplierProduct" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierOrderSupplySupply" EntityType="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySupply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierSupplySupply" EntityType="ItalianPizzaServerBDModel.Store.SupplierSupplySupply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SupplierOrderSupplierOrderSupply" EntityType="ItalianPizzaServerBDModel.Store.SupplierOrderSupplierOrderSupply" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="OrderCustomerDealerOrderCustomer" EntityType="ItalianPizzaServerBDModel.Store.OrderCustomerDealerOrderCustomer" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DealerOrderCustomerDealer" EntityType="ItalianPizzaServerBDModel.Store.DealerOrderCustomerDealer" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ProductOrderCustomerProduct_Product" Association="ItalianPizzaServerBDModel.Store.FK_ProductOrderCustomerProduct_Product">
+      <End Role="Product" EntitySet="ProductSet" />
+      <End Role="ProductOrderCustomerProduct" EntitySet="ProductOrderCustomerProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductOrderCustomerProduct_OrderCustomerProduct" Association="ItalianPizzaServerBDModel.Store.FK_ProductOrderCustomerProduct_OrderCustomerProduct">
+      <End Role="OrderCustomerProduct" EntitySet="OrderCustomerProductSet" />
+      <End Role="ProductOrderCustomerProduct" EntitySet="ProductOrderCustomerProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderCustomerProductOrderCustomer_OrderCustomerProduct" Association="ItalianPizzaServerBDModel.Store.FK_OrderCustomerProductOrderCustomer_OrderCustomerProduct">
+      <End Role="OrderCustomerProduct" EntitySet="OrderCustomerProductSet" />
+      <End Role="OrderCustomerProductOrderCustomer" EntitySet="OrderCustomerProductOrderCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderCustomerProductOrderCustomer_OrderCustomer" Association="ItalianPizzaServerBDModel.Store.FK_OrderCustomerProductOrderCustomer_OrderCustomer">
+      <End Role="OrderCustomer" EntitySet="OrderCustomerSet" />
+      <End Role="OrderCustomerProductOrderCustomer" EntitySet="OrderCustomerProductOrderCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="OrderCustomerCustomer" Association="ItalianPizzaServerBDModel.Store.OrderCustomerCustomer">
+      <End Role="OrderCustomer" EntitySet="OrderCustomerSet" />
+      <End Role="Customer" EntitySet="CustomerSet" />
+    </AssociationSet>
+    <AssociationSet Name="RecipeProduct" Association="ItalianPizzaServerBDModel.Store.RecipeProduct">
+      <End Role="Recipe" EntitySet="RecipeSet" />
+      <End Role="Product" EntitySet="ProductSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplyRecipeSupply_Supply" Association="ItalianPizzaServerBDModel.Store.FK_SupplyRecipeSupply_Supply">
+      <End Role="Supply" EntitySet="SupplySet" />
+      <End Role="SupplyRecipeSupply" EntitySet="SupplyRecipeSupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplyRecipeSupply_RecipeSupply" Association="ItalianPizzaServerBDModel.Store.FK_SupplyRecipeSupply_RecipeSupply">
+      <End Role="RecipeSupply" EntitySet="RecipeSupplySet" />
+      <End Role="SupplyRecipeSupply" EntitySet="SupplyRecipeSupply" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeProduct" Association="ItalianPizzaServerBDModel.Store.EmployeeProduct">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="Product" EntitySet="ProductSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeAddress" Association="ItalianPizzaServerBDModel.Store.EmployeeAddress">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="Address" EntitySet="AddressSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeOrderCustomer" Association="ItalianPizzaServerBDModel.Store.EmployeeOrderCustomer">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="OrderCustomer" EntitySet="OrderCustomerSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecipeRecipeSupply_Recipe" Association="ItalianPizzaServerBDModel.Store.FK_RecipeRecipeSupply_Recipe">
+      <End Role="Recipe" EntitySet="RecipeSet" />
+      <End Role="RecipeRecipeSupply" EntitySet="RecipeRecipeSupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RecipeRecipeSupply_RecipeSupply" Association="ItalianPizzaServerBDModel.Store.FK_RecipeRecipeSupply_RecipeSupply">
+      <End Role="RecipeSupply" EntitySet="RecipeSupplySet" />
+      <End Role="RecipeRecipeSupply" EntitySet="RecipeRecipeSupply" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeRecipe" Association="ItalianPizzaServerBDModel.Store.EmployeeRecipe">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="Recipe" EntitySet="RecipeSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeCustomer" Association="ItalianPizzaServerBDModel.Store.EmployeeCustomer">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="Customer" EntitySet="CustomerSet" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeEmployeeRole" Association="ItalianPizzaServerBDModel.Store.EmployeeEmployeeRole">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="EmployeeRole" EntitySet="EmployeeRoleSet" />
+    </AssociationSet>
+    <AssociationSet Name="AddressCustomer" Association="ItalianPizzaServerBDModel.Store.AddressCustomer">
+      <End Role="Address" EntitySet="AddressSet" />
+      <End Role="Customer" EntitySet="CustomerSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierSupplierProduct_Supplier" Association="ItalianPizzaServerBDModel.Store.FK_SupplierSupplierProduct_Supplier">
+      <End Role="Supplier" EntitySet="SupplierSet" />
+      <End Role="SupplierSupplierProduct" EntitySet="SupplierSupplierProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierSupplierProduct_SupplierProduct" Association="ItalianPizzaServerBDModel.Store.FK_SupplierSupplierProduct_SupplierProduct">
+      <End Role="SupplierProduct" EntitySet="SupplierSupplySet" />
+      <End Role="SupplierSupplierProduct" EntitySet="SupplierSupplierProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierOrderSupplySupply_SupplierOrderSupply" Association="ItalianPizzaServerBDModel.Store.FK_SupplierOrderSupplySupply_SupplierOrderSupply">
+      <End Role="SupplierOrderSupply" EntitySet="SupplierOrderSupplySet" />
+      <End Role="SupplierOrderSupplySupply" EntitySet="SupplierOrderSupplySupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierOrderSupplySupply_Supply" Association="ItalianPizzaServerBDModel.Store.FK_SupplierOrderSupplySupply_Supply">
+      <End Role="Supply" EntitySet="SupplySet" />
+      <End Role="SupplierOrderSupplySupply" EntitySet="SupplierOrderSupplySupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierSupplySupply_SupplierSupply" Association="ItalianPizzaServerBDModel.Store.FK_SupplierSupplySupply_SupplierSupply">
+      <End Role="SupplierSupply" EntitySet="SupplierSupplySet" />
+      <End Role="SupplierSupplySupply" EntitySet="SupplierSupplySupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierSupplySupply_Supply" Association="ItalianPizzaServerBDModel.Store.FK_SupplierSupplySupply_Supply">
+      <End Role="Supply" EntitySet="SupplySet" />
+      <End Role="SupplierSupplySupply" EntitySet="SupplierSupplySupply" />
+    </AssociationSet>
+    <AssociationSet Name="EmployeeSupplierOrder" Association="ItalianPizzaServerBDModel.Store.EmployeeSupplierOrder">
+      <End Role="Employee" EntitySet="EmployeeSet" />
+      <End Role="SupplierOrder" EntitySet="SupplierOrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierOrderSupplierOrderSupply_SupplierOrder" Association="ItalianPizzaServerBDModel.Store.FK_SupplierOrderSupplierOrderSupply_SupplierOrder">
+      <End Role="SupplierOrder" EntitySet="SupplierOrderSet" />
+      <End Role="SupplierOrderSupplierOrderSupply" EntitySet="SupplierOrderSupplierOrderSupply" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SupplierOrderSupplierOrderSupply_SupplierOrderSupply" Association="ItalianPizzaServerBDModel.Store.FK_SupplierOrderSupplierOrderSupply_SupplierOrderSupply">
+      <End Role="SupplierOrderSupply" EntitySet="SupplierOrderSupplySet" />
+      <End Role="SupplierOrderSupplierOrderSupply" EntitySet="SupplierOrderSupplierOrderSupply" />
+    </AssociationSet>
+    <AssociationSet Name="SupplierSupplierOrder" Association="ItalianPizzaServerBDModel.Store.SupplierSupplierOrder">
+      <End Role="Supplier" EntitySet="SupplierSet" />
+      <End Role="SupplierOrder" EntitySet="SupplierOrderSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderCustomerDealerOrderCustomer_OrderCustomer" Association="ItalianPizzaServerBDModel.Store.FK_OrderCustomerDealerOrderCustomer_OrderCustomer">
+      <End Role="OrderCustomer" EntitySet="OrderCustomerSet" />
+      <End Role="OrderCustomerDealerOrderCustomer" EntitySet="OrderCustomerDealerOrderCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderCustomerDealerOrderCustomer_DealerOrderCustomer" Association="ItalianPizzaServerBDModel.Store.FK_OrderCustomerDealerOrderCustomer_DealerOrderCustomer">
+      <End Role="DealerOrderCustomer" EntitySet="DealerOrderCustomerSet" />
+      <End Role="OrderCustomerDealerOrderCustomer" EntitySet="OrderCustomerDealerOrderCustomer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DealerOrderCustomerDealer_DealerOrderCustomer" Association="ItalianPizzaServerBDModel.Store.FK_DealerOrderCustomerDealer_DealerOrderCustomer">
+      <End Role="DealerOrderCustomer" EntitySet="DealerOrderCustomerSet" />
+      <End Role="DealerOrderCustomerDealer" EntitySet="DealerOrderCustomerDealer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DealerOrderCustomerDealer_Dealer" Association="ItalianPizzaServerBDModel.Store.FK_DealerOrderCustomerDealer_Dealer">
+      <End Role="Dealer" EntitySet="DealerSet" />
+      <End Role="DealerOrderCustomerDealer" EntitySet="DealerOrderCustomerDealer" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="SupplierSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="int" Nullable="false" />
+    <Property Name="Company" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="smallint" Nullable="false" />
+    <Property Name="Amount" Type="smallint" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderCustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="TotalCost" Type="float" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="Customer_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="RecipeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProductID" Type="smallint" Nullable="false" />
+    <Property Name="EmployeID" Type="int" Nullable="false" />
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrderSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" Nullable="false" />
+    <Property Name="TotalCost" Type="float" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Category" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cost" Type="int" Nullable="false" />
+    <Property Name="Picture" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Amount" Type="smallint" Nullable="false" />
+    <Property Name="EmployeeID" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderCustomerProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderCustomerID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="IndividualProductCost" Type="float" Nullable="false" />
+    <Property Name="ProductCount" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="AddressID" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrderSupplySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IndividualSupplyCost" Type="float" Nullable="false" />
+    <Property Name="SupplyCount" Type="smallint" Nullable="false" />
+    <Property Name="SupplyID" Type="int" Nullable="false" />
+    <Property Name="OrderSupplierID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecipeSupplySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AmountSupplies" Type="smallint" Nullable="false" />
+    <Property Name="RecipeID" Type="smallint" Nullable="false" />
+    <Property Name="SupplyID" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rol" Type="int" Nullable="false" />
+    <Property Name="AddressID" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address_Id" Type="int" Nullable="false" />
+    <Property Name="EmployeeRole_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeRoleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Rol" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AddressSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ZipCode" Type="int" Nullable="false" />
+    <Property Name="StreetNumber" Type="smallint" Nullable="false" />
+    <Property Name="Customer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierSupplySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SupplyID" Type="int" Nullable="false" />
+    <Property Name="SupplierID" Type="int" Nullable="false" />
+    <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DealerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DealerOrderCustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderCustomerID" Type="int" Nullable="false" />
+    <Property Name="DealerID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductOrderCustomerProduct">
+    <Key>
+      <PropertyRef Name="Product_Id" />
+      <PropertyRef Name="OrderCustomerProduct_Id" />
+    </Key>
+    <Property Name="Product_Id" Type="int" Nullable="false" />
+    <Property Name="OrderCustomerProduct_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderCustomerProductOrderCustomer">
+    <Key>
+      <PropertyRef Name="OrderCustomerProduct_Id" />
+      <PropertyRef Name="OrderCustomer_Id" />
+    </Key>
+    <Property Name="OrderCustomerProduct_Id" Type="int" Nullable="false" />
+    <Property Name="OrderCustomer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplyRecipeSupply">
+    <Key>
+      <PropertyRef Name="Supply_Id" />
+      <PropertyRef Name="RecipeSupply_Id" />
+    </Key>
+    <Property Name="Supply_Id" Type="int" Nullable="false" />
+    <Property Name="RecipeSupply_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RecipeRecipeSupply">
+    <Key>
+      <PropertyRef Name="Recipe_Id" />
+      <PropertyRef Name="RecipeSupply_Id" />
+    </Key>
+    <Property Name="Recipe_Id" Type="int" Nullable="false" />
+    <Property Name="RecipeSupply_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierSupplierProduct">
+    <Key>
+      <PropertyRef Name="Supplier_Id" />
+      <PropertyRef Name="SupplierProduct_Id" />
+    </Key>
+    <Property Name="Supplier_Id" Type="int" Nullable="false" />
+    <Property Name="SupplierProduct_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrderSupplySupply">
+    <Key>
+      <PropertyRef Name="SupplierOrderSupply_Id" />
+      <PropertyRef Name="Supply_Id" />
+    </Key>
+    <Property Name="SupplierOrderSupply_Id" Type="int" Nullable="false" />
+    <Property Name="Supply_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierSupplySupply">
+    <Key>
+      <PropertyRef Name="SupplierSupply_Id" />
+      <PropertyRef Name="Supply_Id" />
+    </Key>
+    <Property Name="SupplierSupply_Id" Type="int" Nullable="false" />
+    <Property Name="Supply_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SupplierOrderSupplierOrderSupply">
+    <Key>
+      <PropertyRef Name="SupplierOrder_Id" />
+      <PropertyRef Name="SupplierOrderSupply_Id" />
+    </Key>
+    <Property Name="SupplierOrder_Id" Type="int" Nullable="false" />
+    <Property Name="SupplierOrderSupply_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderCustomerDealerOrderCustomer">
+    <Key>
+      <PropertyRef Name="OrderCustomer_Id" />
+      <PropertyRef Name="DealerOrderCustomer_Id" />
+    </Key>
+    <Property Name="OrderCustomer_Id" Type="int" Nullable="false" />
+    <Property Name="DealerOrderCustomer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DealerOrderCustomerDealer">
+    <Key>
+      <PropertyRef Name="DealerOrderCustomer_Id" />
+      <PropertyRef Name="Dealer_Id" />
+    </Key>
+    <Property Name="DealerOrderCustomer_Id" Type="int" Nullable="false" />
+    <Property Name="Dealer_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="OrderCustomerCustomer">
+    <End Role="OrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerSet" Multiplicity="*" />
+    <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomer">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="RecipeProduct">
+    <End Role="Recipe" Type="ItalianPizzaServerBDModel.Store.RecipeSet" Multiplicity="*" />
+    <End Role="Product" Type="ItalianPizzaServerBDModel.Store.ProductSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeProduct">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="Product" Type="ItalianPizzaServerBDModel.Store.ProductSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeAddress">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="*" />
+    <End Role="Address" Type="ItalianPizzaServerBDModel.Store.AddressSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="Address_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeOrderCustomer">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="OrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomer">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeRecipe">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="Recipe" Type="ItalianPizzaServerBDModel.Store.RecipeSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipe">
+        <PropertyRef Name="EmployeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeCustomer">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeEmployeeRole">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="*" />
+    <End Role="EmployeeRole" Type="ItalianPizzaServerBDModel.Store.EmployeeRoleSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeRole">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="EmployeeRole_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AddressCustomer">
+    <End Role="Address" Type="ItalianPizzaServerBDModel.Store.AddressSet" Multiplicity="*" />
+    <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmployeeSupplierOrder">
+    <End Role="Employee" Type="ItalianPizzaServerBDModel.Store.EmployeeSet" Multiplicity="1" />
+    <End Role="SupplierOrder" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrder">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SupplierSupplierOrder">
+    <End Role="Supplier" Type="ItalianPizzaServerBDModel.Store.SupplierSet" Multiplicity="1" />
+    <End Role="SupplierOrder" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrder">
+        <PropertyRef Name="SupplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOrderCustomerProduct_Product">
+    <End Role="Product" Type="ItalianPizzaServerBDModel.Store.ProductSet" Multiplicity="1" />
+    <End Role="ProductOrderCustomerProduct" Type="ItalianPizzaServerBDModel.Store.ProductOrderCustomerProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductOrderCustomerProduct">
+        <PropertyRef Name="Product_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductOrderCustomerProduct_OrderCustomerProduct">
+    <End Role="ProductOrderCustomerProduct" Type="ItalianPizzaServerBDModel.Store.ProductOrderCustomerProduct" Multiplicity="*" />
+    <End Role="OrderCustomerProduct" Type="ItalianPizzaServerBDModel.Store.OrderCustomerProductSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderCustomerProduct">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductOrderCustomerProduct">
+        <PropertyRef Name="OrderCustomerProduct_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderCustomerProductOrderCustomer_OrderCustomerProduct">
+    <End Role="OrderCustomerProduct" Type="ItalianPizzaServerBDModel.Store.OrderCustomerProductSet" Multiplicity="1" />
+    <End Role="OrderCustomerProductOrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerProductOrderCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderCustomerProduct">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomerProductOrderCustomer">
+        <PropertyRef Name="OrderCustomerProduct_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderCustomerProductOrderCustomer_OrderCustomer">
+    <End Role="OrderCustomerProductOrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerProductOrderCustomer" Multiplicity="*" />
+    <End Role="OrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="OrderCustomer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomerProductOrderCustomer">
+        <PropertyRef Name="OrderCustomer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplyRecipeSupply_Supply">
+    <End Role="Supply" Type="ItalianPizzaServerBDModel.Store.SupplySet" Multiplicity="1" />
+    <End Role="SupplyRecipeSupply" Type="ItalianPizzaServerBDModel.Store.SupplyRecipeSupply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplyRecipeSupply">
+        <PropertyRef Name="Supply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplyRecipeSupply_RecipeSupply">
+    <End Role="SupplyRecipeSupply" Type="ItalianPizzaServerBDModel.Store.SupplyRecipeSupply" Multiplicity="*" />
+    <End Role="RecipeSupply" Type="ItalianPizzaServerBDModel.Store.RecipeSupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="RecipeSupply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplyRecipeSupply">
+        <PropertyRef Name="RecipeSupply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecipeRecipeSupply_Recipe">
+    <End Role="Recipe" Type="ItalianPizzaServerBDModel.Store.RecipeSet" Multiplicity="1" />
+    <End Role="RecipeRecipeSupply" Type="ItalianPizzaServerBDModel.Store.RecipeRecipeSupply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecipeRecipeSupply">
+        <PropertyRef Name="Recipe_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RecipeRecipeSupply_RecipeSupply">
+    <End Role="RecipeRecipeSupply" Type="ItalianPizzaServerBDModel.Store.RecipeRecipeSupply" Multiplicity="*" />
+    <End Role="RecipeSupply" Type="ItalianPizzaServerBDModel.Store.RecipeSupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="RecipeSupply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RecipeRecipeSupply">
+        <PropertyRef Name="RecipeSupply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierSupplierProduct_Supplier">
+    <End Role="Supplier" Type="ItalianPizzaServerBDModel.Store.SupplierSet" Multiplicity="1" />
+    <End Role="SupplierSupplierProduct" Type="ItalianPizzaServerBDModel.Store.SupplierSupplierProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Supplier">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierSupplierProduct">
+        <PropertyRef Name="Supplier_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierSupplierProduct_SupplierProduct">
+    <End Role="SupplierSupplierProduct" Type="ItalianPizzaServerBDModel.Store.SupplierSupplierProduct" Multiplicity="*" />
+    <End Role="SupplierProduct" Type="ItalianPizzaServerBDModel.Store.SupplierSupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierProduct">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierSupplierProduct">
+        <PropertyRef Name="SupplierProduct_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierOrderSupplySupply_SupplierOrderSupply">
+    <End Role="SupplierOrderSupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySet" Multiplicity="1" />
+    <End Role="SupplierOrderSupplySupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySupply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierOrderSupply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrderSupplySupply">
+        <PropertyRef Name="SupplierOrderSupply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierOrderSupplySupply_Supply">
+    <End Role="SupplierOrderSupplySupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySupply" Multiplicity="*" />
+    <End Role="Supply" Type="ItalianPizzaServerBDModel.Store.SupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Supply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrderSupplySupply">
+        <PropertyRef Name="Supply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierSupplySupply_SupplierSupply">
+    <End Role="SupplierSupply" Type="ItalianPizzaServerBDModel.Store.SupplierSupplySet" Multiplicity="1" />
+    <End Role="SupplierSupplySupply" Type="ItalianPizzaServerBDModel.Store.SupplierSupplySupply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierSupply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierSupplySupply">
+        <PropertyRef Name="SupplierSupply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierSupplySupply_Supply">
+    <End Role="SupplierSupplySupply" Type="ItalianPizzaServerBDModel.Store.SupplierSupplySupply" Multiplicity="*" />
+    <End Role="Supply" Type="ItalianPizzaServerBDModel.Store.SupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Supply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierSupplySupply">
+        <PropertyRef Name="Supply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierOrderSupplierOrderSupply_SupplierOrder">
+    <End Role="SupplierOrder" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSet" Multiplicity="1" />
+    <End Role="SupplierOrderSupplierOrderSupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplierOrderSupply" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrderSupplierOrderSupply">
+        <PropertyRef Name="SupplierOrder_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SupplierOrderSupplierOrderSupply_SupplierOrderSupply">
+    <End Role="SupplierOrderSupplierOrderSupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplierOrderSupply" Multiplicity="*" />
+    <End Role="SupplierOrderSupply" Type="ItalianPizzaServerBDModel.Store.SupplierOrderSupplySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="SupplierOrderSupply">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SupplierOrderSupplierOrderSupply">
+        <PropertyRef Name="SupplierOrderSupply_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderCustomerDealerOrderCustomer_OrderCustomer">
+    <End Role="OrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerSet" Multiplicity="1" />
+    <End Role="OrderCustomerDealerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerDealerOrderCustomer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderCustomer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomerDealerOrderCustomer">
+        <PropertyRef Name="OrderCustomer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderCustomerDealerOrderCustomer_DealerOrderCustomer">
+    <End Role="OrderCustomerDealerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.OrderCustomerDealerOrderCustomer" Multiplicity="*" />
+    <End Role="DealerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.DealerOrderCustomerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="DealerOrderCustomer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderCustomerDealerOrderCustomer">
+        <PropertyRef Name="DealerOrderCustomer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DealerOrderCustomerDealer_DealerOrderCustomer">
+    <End Role="DealerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.DealerOrderCustomerSet" Multiplicity="1" />
+    <End Role="DealerOrderCustomerDealer" Type="ItalianPizzaServerBDModel.Store.DealerOrderCustomerDealer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DealerOrderCustomer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DealerOrderCustomerDealer">
+        <PropertyRef Name="DealerOrderCustomer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DealerOrderCustomerDealer_Dealer">
+    <End Role="DealerOrderCustomerDealer" Type="ItalianPizzaServerBDModel.Store.DealerOrderCustomerDealer" Multiplicity="*" />
+    <End Role="Dealer" Type="ItalianPizzaServerBDModel.Store.DealerSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Dealer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DealerOrderCustomerDealer">
+        <PropertyRef Name="Dealer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
