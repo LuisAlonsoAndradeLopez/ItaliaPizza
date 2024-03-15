@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ItalianPizzaServerBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ClienteOrdenCliente">
+    <Key>
+      <PropertyRef Name="Cliente_Id" />
+      <PropertyRef Name="OrdenCliente_Id" />
+    </Key>
+    <Property Name="Cliente_Id" Type="int" Nullable="false" />
+    <Property Name="OrdenCliente_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DirecciónId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CorteDiarioOrdenCliente">
+    <Key>
+      <PropertyRef Name="CorteDiario_Id" />
+      <PropertyRef Name="OrdenCliente_Id" />
+    </Key>
+    <Property Name="CorteDiario_Id" Type="int" Nullable="false" />
+    <Property Name="OrdenCliente_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CorteDiarioSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="MontoTotal" Type="float" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CuentaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usuario" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Contraseña" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DirecciónSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Calle" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ciudad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CodigoPostal" Type="int" Nullable="false" />
+    <Property Name="NumeroCalle" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmpleadoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DirecciónId" Type="int" Nullable="false" />
+    <Property Name="Cuenta_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InsumoPedidoProveedor">
+    <Key>
+      <PropertyRef Name="Insumo_Id" />
+      <PropertyRef Name="PedidoProveedor_Id" />
+    </Key>
+    <Property Name="Insumo_Id" Type="int" Nullable="false" />
+    <Property Name="PedidoProveedor_Id" Type="int" Nullable="false" />
+    <Property Name="CantidadInsumo" Type="int" />
+    <Property Name="CostoInsumo" Type="money" />
+  </EntityType>
+  <EntityType Name="InsumoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Costo" Type="float" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tipo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Cantidad" Type="int" Nullable="false" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrdenClienteSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="nvarchar(max)" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="CostoTotal" Type="float" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="PedidoProveedorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CostoTotal" Type="float" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+    <Property Name="ProveedorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductoOrdenCliente">
+    <Key>
+      <PropertyRef Name="Producto_Id" />
+      <PropertyRef Name="OrdenCliente_Id" />
+    </Key>
+    <Property Name="Producto_Id" Type="int" Nullable="false" />
+    <Property Name="OrdenCliente_Id" Type="int" Nullable="false" />
+    <Property Name="CantidadProducto" Type="int" />
+    <Property Name="CostoProducto" Type="money" />
+  </EntityType>
+  <EntityType Name="ProductoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Costo" Type="float" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Categoria" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Foto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProveedorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Empresa" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RepartidorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombres" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoPaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ApellidoMaterno" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Correo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Estado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+    <Property Name="OrdenCliente_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ValidacionInventarioSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Fecha" Type="datetime" Nullable="false" />
+    <Property Name="Hora" Type="time" Precision="7" Nullable="false" />
+    <Property Name="Descripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ClienteOrdenCliente_Cliente">
+    <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="1" />
+    <End Role="ClienteOrdenCliente" Type="Self.ClienteOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClienteSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteOrdenCliente">
+        <PropertyRef Name="Cliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClienteOrdenCliente_OrdenCliente">
+    <End Role="OrdenClienteSet" Type="Self.OrdenClienteSet" Multiplicity="1" />
+    <End Role="ClienteOrdenCliente" Type="Self.ClienteOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenClienteSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteOrdenCliente">
+        <PropertyRef Name="OrdenCliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CorteDiarioOrdenCliente_CorteDiario">
+    <End Role="CorteDiarioSet" Type="Self.CorteDiarioSet" Multiplicity="1" />
+    <End Role="CorteDiarioOrdenCliente" Type="Self.CorteDiarioOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CorteDiarioSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CorteDiarioOrdenCliente">
+        <PropertyRef Name="CorteDiario_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CorteDiarioOrdenCliente_OrdenCliente">
+    <End Role="OrdenClienteSet" Type="Self.OrdenClienteSet" Multiplicity="1" />
+    <End Role="CorteDiarioOrdenCliente" Type="Self.CorteDiarioOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenClienteSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CorteDiarioOrdenCliente">
+        <PropertyRef Name="OrdenCliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DirecciónCliente">
+    <End Role="DirecciónSet" Type="Self.DirecciónSet" Multiplicity="1" />
+    <End Role="ClienteSet" Type="Self.ClienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DirecciónSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ClienteSet">
+        <PropertyRef Name="DirecciónId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DirecciónEmpleado">
+    <End Role="DirecciónSet" Type="Self.DirecciónSet" Multiplicity="1" />
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DirecciónSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoSet">
+        <PropertyRef Name="DirecciónId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoCorteDiario">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="CorteDiarioSet" Type="Self.CorteDiarioSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CorteDiarioSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoCuenta">
+    <End Role="CuentaSet" Type="Self.CuentaSet" Multiplicity="1" />
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CuentaSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="EmpleadoSet">
+        <PropertyRef Name="Cuenta_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoInsumo">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="InsumoSet" Type="Self.InsumoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InsumoSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoOrdenCliente">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="OrdenClienteSet" Type="Self.OrdenClienteSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenClienteSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoPedidoProveedor">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="PedidoProveedorSet" Type="Self.PedidoProveedorSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoProveedorSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoProducto">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductoSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoProveedor">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="ProveedorSet" Type="Self.ProveedorSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProveedorSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoRepartidor">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="RepartidorSet" Type="Self.RepartidorSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RepartidorSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EmpleadoValidacionInventario">
+    <End Role="EmpleadoSet" Type="Self.EmpleadoSet" Multiplicity="1" />
+    <End Role="ValidacionInventarioSet" Type="Self.ValidacionInventarioSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmpleadoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ValidacionInventarioSet">
+        <PropertyRef Name="EmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InsumoPedidoProveedor_Insumo">
+    <End Role="InsumoSet" Type="Self.InsumoSet" Multiplicity="1" />
+    <End Role="InsumoPedidoProveedor" Type="Self.InsumoPedidoProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="InsumoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InsumoPedidoProveedor">
+        <PropertyRef Name="Insumo_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InsumoPedidoProveedor_PedidoProveedor">
+    <End Role="PedidoProveedorSet" Type="Self.PedidoProveedorSet" Multiplicity="1" />
+    <End Role="InsumoPedidoProveedor" Type="Self.InsumoPedidoProveedor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PedidoProveedorSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InsumoPedidoProveedor">
+        <PropertyRef Name="PedidoProveedor_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrdenClienteRepartidor">
+    <End Role="OrdenClienteSet" Type="Self.OrdenClienteSet" Multiplicity="1" />
+    <End Role="RepartidorSet" Type="Self.RepartidorSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenClienteSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RepartidorSet">
+        <PropertyRef Name="OrdenCliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoOrdenCliente_OrdenCliente">
+    <End Role="OrdenClienteSet" Type="Self.OrdenClienteSet" Multiplicity="1" />
+    <End Role="ProductoOrdenCliente" Type="Self.ProductoOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenClienteSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductoOrdenCliente">
+        <PropertyRef Name="OrdenCliente_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoOrdenCliente_Producto">
+    <End Role="ProductoSet" Type="Self.ProductoSet" Multiplicity="1" />
+    <End Role="ProductoOrdenCliente" Type="Self.ProductoOrdenCliente" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductoSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductoOrdenCliente">
+        <PropertyRef Name="Producto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProveedorPedidoProveedor">
+    <End Role="ProveedorSet" Type="Self.ProveedorSet" Multiplicity="1" />
+    <End Role="PedidoProveedorSet" Type="Self.PedidoProveedorSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProveedorSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoProveedorSet">
+        <PropertyRef Name="ProveedorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ItalianPizzaServerBDModelStoreContainer">
+    <EntitySet Name="ClienteOrdenCliente" EntityType="Self.ClienteOrdenCliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClienteSet" EntityType="Self.ClienteSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CorteDiarioOrdenCliente" EntityType="Self.CorteDiarioOrdenCliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CorteDiarioSet" EntityType="Self.CorteDiarioSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CuentaSet" EntityType="Self.CuentaSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DirecciónSet" EntityType="Self.DirecciónSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpleadoSet" EntityType="Self.EmpleadoSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsumoPedidoProveedor" EntityType="Self.InsumoPedidoProveedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InsumoSet" EntityType="Self.InsumoSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrdenClienteSet" EntityType="Self.OrdenClienteSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PedidoProveedorSet" EntityType="Self.PedidoProveedorSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductoOrdenCliente" EntityType="Self.ProductoOrdenCliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductoSet" EntityType="Self.ProductoSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProveedorSet" EntityType="Self.ProveedorSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RepartidorSet" EntityType="Self.RepartidorSet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ValidacionInventarioSet" EntityType="Self.ValidacionInventarioSet" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ClienteOrdenCliente_Cliente" Association="Self.FK_ClienteOrdenCliente_Cliente">
+      <End Role="ClienteSet" EntitySet="ClienteSet" />
+      <End Role="ClienteOrdenCliente" EntitySet="ClienteOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClienteOrdenCliente_OrdenCliente" Association="Self.FK_ClienteOrdenCliente_OrdenCliente">
+      <End Role="OrdenClienteSet" EntitySet="OrdenClienteSet" />
+      <End Role="ClienteOrdenCliente" EntitySet="ClienteOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CorteDiarioOrdenCliente_CorteDiario" Association="Self.FK_CorteDiarioOrdenCliente_CorteDiario">
+      <End Role="CorteDiarioSet" EntitySet="CorteDiarioSet" />
+      <End Role="CorteDiarioOrdenCliente" EntitySet="CorteDiarioOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CorteDiarioOrdenCliente_OrdenCliente" Association="Self.FK_CorteDiarioOrdenCliente_OrdenCliente">
+      <End Role="OrdenClienteSet" EntitySet="OrdenClienteSet" />
+      <End Role="CorteDiarioOrdenCliente" EntitySet="CorteDiarioOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DirecciónCliente" Association="Self.FK_DirecciónCliente">
+      <End Role="DirecciónSet" EntitySet="DirecciónSet" />
+      <End Role="ClienteSet" EntitySet="ClienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DirecciónEmpleado" Association="Self.FK_DirecciónEmpleado">
+      <End Role="DirecciónSet" EntitySet="DirecciónSet" />
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoCorteDiario" Association="Self.FK_EmpleadoCorteDiario">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="CorteDiarioSet" EntitySet="CorteDiarioSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoCuenta" Association="Self.FK_EmpleadoCuenta">
+      <End Role="CuentaSet" EntitySet="CuentaSet" />
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoInsumo" Association="Self.FK_EmpleadoInsumo">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="InsumoSet" EntitySet="InsumoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoOrdenCliente" Association="Self.FK_EmpleadoOrdenCliente">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="OrdenClienteSet" EntitySet="OrdenClienteSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoPedidoProveedor" Association="Self.FK_EmpleadoPedidoProveedor">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="PedidoProveedorSet" EntitySet="PedidoProveedorSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoProducto" Association="Self.FK_EmpleadoProducto">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="ProductoSet" EntitySet="ProductoSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoProveedor" Association="Self.FK_EmpleadoProveedor">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="ProveedorSet" EntitySet="ProveedorSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoRepartidor" Association="Self.FK_EmpleadoRepartidor">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="RepartidorSet" EntitySet="RepartidorSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EmpleadoValidacionInventario" Association="Self.FK_EmpleadoValidacionInventario">
+      <End Role="EmpleadoSet" EntitySet="EmpleadoSet" />
+      <End Role="ValidacionInventarioSet" EntitySet="ValidacionInventarioSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InsumoPedidoProveedor_Insumo" Association="Self.FK_InsumoPedidoProveedor_Insumo">
+      <End Role="InsumoSet" EntitySet="InsumoSet" />
+      <End Role="InsumoPedidoProveedor" EntitySet="InsumoPedidoProveedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InsumoPedidoProveedor_PedidoProveedor" Association="Self.FK_InsumoPedidoProveedor_PedidoProveedor">
+      <End Role="PedidoProveedorSet" EntitySet="PedidoProveedorSet" />
+      <End Role="InsumoPedidoProveedor" EntitySet="InsumoPedidoProveedor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrdenClienteRepartidor" Association="Self.FK_OrdenClienteRepartidor">
+      <End Role="OrdenClienteSet" EntitySet="OrdenClienteSet" />
+      <End Role="RepartidorSet" EntitySet="RepartidorSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoOrdenCliente_OrdenCliente" Association="Self.FK_ProductoOrdenCliente_OrdenCliente">
+      <End Role="OrdenClienteSet" EntitySet="OrdenClienteSet" />
+      <End Role="ProductoOrdenCliente" EntitySet="ProductoOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoOrdenCliente_Producto" Association="Self.FK_ProductoOrdenCliente_Producto">
+      <End Role="ProductoSet" EntitySet="ProductoSet" />
+      <End Role="ProductoOrdenCliente" EntitySet="ProductoOrdenCliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProveedorPedidoProveedor" Association="Self.FK_ProveedorPedidoProveedor">
+      <End Role="ProveedorSet" EntitySet="ProveedorSet" />
+      <End Role="PedidoProveedorSet" EntitySet="PedidoProveedorSet" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

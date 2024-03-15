@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ItalianPizzaServerBDModelStoreContainer" CdmEntityContainer="ItalianPizzaServerBDEntities">
+    <EntitySetMapping Name="SupplierSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Supplier)">
+        <MappingFragment StoreEntitySet="SupplierSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Company" ColumnName="Company" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Product)">
+        <MappingFragment StoreEntitySet="ProductSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderCustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.OrderCustomer)">
+        <MappingFragment StoreEntitySet="OrderCustomerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecipeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Recipe)">
+        <MappingFragment StoreEntitySet="RecipeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierOrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplierOrder)">
+        <MappingFragment StoreEntitySet="SupplierOrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="SupplierId" ColumnName="SupplierId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplySet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Supply)">
+        <MappingFragment StoreEntitySet="SupplySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Customer)">
+        <MappingFragment StoreEntitySet="CustomerSet">
+          <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Employee)">
+        <MappingFragment StoreEntitySet="EmployeeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliverymanSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.Deliveryman)">
+        <MappingFragment StoreEntitySet="DeliverymanSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="OrderCustomerCustomer" TypeName="ItalianPizzaServerBDModel.OrderCustomerCustomer" StoreEntitySet="OrderCustomerSet">
+      <EndProperty Name="OrderCustomer">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="OrderCustomerDeliveryman" TypeName="ItalianPizzaServerBDModel.OrderCustomerDeliveryman" StoreEntitySet="DeliverymanSet">
+      <EndProperty Name="OrderCustomer">
+        <ScalarProperty Name="Id" ColumnName="OrderCustomer_Id" />
+      </EndProperty>
+      <EndProperty Name="Deliveryman">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProductOrderCustomer" TypeName="ItalianPizzaServerBDModel.ProductOrderCustomer" StoreEntitySet="ProductOrderCustomer">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="Id" ColumnName="Product_Id" />
+      </EndProperty>
+      <EndProperty Name="OrderCustomer">
+        <ScalarProperty Name="Id" ColumnName="OrderCustomer_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SupplierOrderSupply" TypeName="ItalianPizzaServerBDModel.SupplierOrderSupply" StoreEntitySet="SupplierOrderSupply">
+      <EndProperty Name="SupplierOrder">
+        <ScalarProperty Name="Id" ColumnName="SupplierOrder_Id" />
+      </EndProperty>
+      <EndProperty Name="Supply">
+        <ScalarProperty Name="Id" ColumnName="Supply_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SupplierSupply" TypeName="ItalianPizzaServerBDModel.SupplierSupply" StoreEntitySet="SupplierSupply">
+      <EndProperty Name="Supplier">
+        <ScalarProperty Name="Id" ColumnName="Supplier_Id" />
+      </EndProperty>
+      <EndProperty Name="Supply">
+        <ScalarProperty Name="Id" ColumnName="Supply_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SupplyRecipe" TypeName="ItalianPizzaServerBDModel.SupplyRecipe" StoreEntitySet="SupplyRecipe">
+      <EndProperty Name="Supply">
+        <ScalarProperty Name="Id" ColumnName="Supply_Id" />
+      </EndProperty>
+      <EndProperty Name="Recipe">
+        <ScalarProperty Name="Id" ColumnName="Recipe_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProductRecipe" TypeName="ItalianPizzaServerBDModel.ProductRecipe" StoreEntitySet="RecipeSet">
+      <EndProperty Name="Product">
+        <ScalarProperty Name="Id" ColumnName="Product_Id" />
+      </EndProperty>
+      <EndProperty Name="Recipe">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="CustomerOrderCustomer">
+      <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderCustomer">
+        <MappingFragment StoreEntitySet="CustomerOrderCustomer">
+          <ScalarProperty Name="OrderCustomer_Id" ColumnName="OrderCustomer_Id" />
+          <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAddressSet">
+      <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.UserAddressSet">
+        <MappingFragment StoreEntitySet="UserAddressSet">
+          <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

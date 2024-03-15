@@ -6,45 +6,57 @@
         xmlns:local="clr-namespace:ItalianPizza"
         mc:Ignorable="d"
         Title="MainWindow" 
-        WindowState="Maximized" 
-        d:DesignHeight="922.16" 
-        d:DesignWidth="1542.8">
+        Height="790" Width="1179">
 
-    <Grid Background="#070711" Margin="0,0,-128,0" >
-        <Rectangle HorizontalAlignment="Left" Height="906" Stroke="Black" VerticalAlignment="Center" Width="261" Fill="#FF171721"/>
-        <Rectangle HorizontalAlignment="Left" Height="865" Margin="278,13,0,0" Stroke="#FF11111D" VerticalAlignment="Top" Width="892" Fill="#FF11111D" RadiusX="20" RadiusY="20"/>
-        <Image HorizontalAlignment="Left" Height="177" Margin="33,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-        <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,247,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,258,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-        <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,336,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="29,347,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-        <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,428,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="32,439,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-        <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,525,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,536,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-        <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,619,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,630,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
-        <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,715,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="44" Margin="29,727,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
-        <Label Content="Historial de pedidos" HorizontalAlignment="Left" Margin="310,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFFFFDFD" FontSize="28"/>
-        <Label Content="Selecione Fecha: " HorizontalAlignment="Left" Margin="317,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
-        <Label Content="Selecione Estatus: " HorizontalAlignment="Left" Margin="317,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-        <DatePicker HorizontalAlignment="Left" Margin="485,99,0,0" VerticalAlignment="Top" Height="35" Width="242" FontSize="20" Background="#FF070711" BorderBrush="#FF070711"/>
-        <ComboBox HorizontalAlignment="Left" Margin="496,155,0,0" VerticalAlignment="Top" Width="231" Height="33" Background="#FF070711"/>
-        <Button Content="Realizar corte de hoy" HorizontalAlignment="Left" Margin="846,130,0,0" VerticalAlignment="Top" Height="47" Width="230" Background="#FF11111D" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="14" BorderBrush="#FF19D1DD" BorderThickness="3" FontWeight="Thin" Click="Button_Click"/>
-        <Button Content="Agregar Nuevo Pedido Hoy" HorizontalAlignment="Left" Margin="846,62,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF11111D" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="14" BorderBrush="#FF19D1DD" FontWeight="Thin" BorderThickness="3" Click="Button_Click"/>
-        <Rectangle HorizontalAlignment="Left" Height="48" Margin="294,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF070711"/>
-        <Label Content="Selecione un pedido" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222"/>
-        <Label Content="Nombre del pedido " HorizontalAlignment="Left" Margin="393,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Fecha Registro " HorizontalAlignment="Left" Margin="606,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Hora Registro" HorizontalAlignment="Left" Margin="792,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Estatus del pedido" HorizontalAlignment="Left" Margin="961,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Button Content="" HorizontalAlignment="Left" Margin="294,281,0,0" VerticalAlignment="Top" Height="68" Width="861" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="Button_Click"/>
-        <Image HorizontalAlignment="Left" Height="46" Margin="326,292,0,0" VerticalAlignment="Top" Width="45" Source="\Resources\Pictures\ICON-Domicilio.png"/>
-        <Label Content="Pedido de Envio #1" HorizontalAlignment="Left" Margin="403,301,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial" RenderTransformOrigin="0.54,0.632" FontWeight="Bold"/>
-        <Label Content="10/03/2024" HorizontalAlignment="Left" Margin="626,301,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial" RenderTransformOrigin="0.54,0.632" FontWeight="Bold"/>
-        <Label Content="10:31 p.m" HorizontalAlignment="Left" Margin="816,300,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial" RenderTransformOrigin="0.54,0.632" FontWeight="Bold"/>
-        <Label Content="Entregado" HorizontalAlignment="Left" Margin="1003,301,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial" RenderTransformOrigin="2.488,0.513" FontWeight="Bold"/>
-
+    <Grid Background="#070711" Margin="0,0,0,-6" >
+        <Image HorizontalAlignment="Center" Height="787" VerticalAlignment="Top" Width="1180" Source="D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\Resources\Pictures\FONDO-LOGIN.jpg"/>
+        <Rectangle HorizontalAlignment="Left" Height="524" Margin="82,105,0,0" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="453" Opacity="0.3">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle HorizontalAlignment="Left" Height="523" Margin="82,106,0,0" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="453" Opacity="0.3">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.948"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF171717" Offset="0.862"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Label Content="Pizza" HorizontalAlignment="Left" Margin="303,131,0,0" VerticalAlignment="Top" Foreground="#FFDEAB04" FontFamily="Arial" FontWeight="Bold" FontSize="30"/>
+        <Label Content="Italian" HorizontalAlignment="Left" Margin="217,131,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Arial" FontWeight="Bold" FontSize="30" RenderTransformOrigin="-0.025,-0.215"/>
+        <Label Content="Ingrese nombre de usuario " HorizontalAlignment="Left" Margin="117,211,0,0" VerticalAlignment="Top" Foreground="#FFF8F3F3" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Margin="120,249,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" Background="{x:Null}" BorderBrush="#FFF0F0F0" Foreground="White" Height="34" FontSize="18"/>
+        <Label Content="Ingrese su contraseña" HorizontalAlignment="Left" Margin="118,306,0,0" VerticalAlignment="Top" Foreground="#FFF8F3F3" FontFamily="Arial" FontSize="18" FontWeight="Bold"/>
+        <TextBox HorizontalAlignment="Left" Margin="121,344,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" Background="{x:Null}" BorderBrush="White" Foreground="White" Height="34" FontSize="18"/>
+        <Button Content="Login" HorizontalAlignment="Left" Margin="121,418,0,0" VerticalAlignment="Top" BorderBrush="#FFDEAB04" Background="#FFDEAB04" Height="34" Width="374" Foreground="White" FontFamily="Segoe UI Variable Small Semibold" FontSize="18" FontWeight="Bold" Click="Button_Click"/>
+        <GridSplitter HorizontalAlignment="Left" Height="146" Margin="205,418,0,0" VerticalAlignment="Top" Width="2" RenderTransformOrigin="0.5,0.5">
+            <GridSplitter.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </GridSplitter.RenderTransform>
+        </GridSplitter>
+        <GridSplitter HorizontalAlignment="Left" Height="148" Margin="411,417,0,0" VerticalAlignment="Top" Width="2" RenderTransformOrigin="0.5,0.5">
+            <GridSplitter.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </GridSplitter.RenderTransform>
+        </GridSplitter>
+        <Label Content="Ó" HorizontalAlignment="Left" Margin="296,476,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFFAF1F1" FontSize="18"/>
+        <Label Content="¿Aún no tienes una cuenta?" HorizontalAlignment="Left" Margin="191,526,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FFFFF9F9"/>
+        <Label Content="De clic aquí para registrarse" HorizontalAlignment="Left" Margin="191,563,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Segoe UI Semibold" Foreground="#FFE4AE1F"/>
     </Grid>
+
 </Window>

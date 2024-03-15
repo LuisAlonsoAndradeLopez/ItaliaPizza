@@ -8,8 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemodel.context.tt")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemodel.edmx.sql")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemodel.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemapping/datamodel.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemapping/datamodel.edmx.sql")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("databasemodel/databasemapping/datamodel.tt")]
 
 

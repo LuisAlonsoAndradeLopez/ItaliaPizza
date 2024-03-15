@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ItalianPizza.XAMLViews;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +28,9 @@ namespace ItalianPizza
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            GUI_CustomerOrders VENTANA = new GUI_CustomerOrders();
+            VENTANA.Show();
+            this.Close();
         }
     }
 }
