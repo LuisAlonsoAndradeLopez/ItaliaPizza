@@ -34,6 +34,12 @@
         <AssociationConnector Association="ItalianPizzaServerBDModel.DirecciónEmpleado" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Cuenta" Width="1.5" PointX="19.25" PointY="5.5" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.EmpleadoCuenta" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrdenClienteDetalle" Width="2" PointX="1.625" PointY="6.875" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.OrdenClienteOrdenClienteDetalle" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.ProductoOrdenClienteDetalle" ></AssociationConnector>
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.PedidoProveedorDetalle" Width="1.5" PointX="10.75" PointY="13" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.PedidoProveedorPedidoProveedorDetalle" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.InsumoPedidoProveedorDetalle" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -18,6 +18,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public PedidoProveedor()
         {
             this.Insumo = new HashSet<Insumo>();
+            this.PedidoProveedorDetalle = new HashSet<PedidoProveedorDetalle>();
         }
     
         public int Id { get; set; }
@@ -33,5 +34,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual Proveedor Proveedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insumo> Insumo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PedidoProveedorDetalle> PedidoProveedorDetalle { get; set; }
     }
 }

@@ -37,5 +37,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual DbSet<CorteDiario> CorteDiarioSet { get; set; }
         public virtual DbSet<ValidacionInventario> ValidacionInventarioSet { get; set; }
         public virtual DbSet<Cuenta> CuentaSet { get; set; }
+        public virtual DbSet<OrdenClienteDetalle> OrdenClienteDetalleSet { get; set; }
+        public virtual DbSet<PedidoProveedorDetalle> PedidoProveedorDetalleSet { get; set; }
     }
 }

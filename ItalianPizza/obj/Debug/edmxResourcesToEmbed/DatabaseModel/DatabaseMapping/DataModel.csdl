@@ -81,6 +81,24 @@
       <End Role="Empleado" EntitySet="EmpleadoSet" />
       <End Role="Cuenta" EntitySet="CuentaSet" />
     </AssociationSet>
+    <EntitySet Name="OrdenClienteDetalleSet" EntityType="ItalianPizzaServerBDModel.OrdenClienteDetalle" />
+    <AssociationSet Name="OrdenClienteOrdenClienteDetalle" Association="ItalianPizzaServerBDModel.OrdenClienteOrdenClienteDetalle">
+      <End Role="OrdenCliente" EntitySet="OrdenClienteSet" />
+      <End Role="OrdenClienteDetalle" EntitySet="OrdenClienteDetalleSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProductoOrdenClienteDetalle" Association="ItalianPizzaServerBDModel.ProductoOrdenClienteDetalle">
+      <End Role="Producto" EntitySet="ProductoSet" />
+      <End Role="OrdenClienteDetalle" EntitySet="OrdenClienteDetalleSet" />
+    </AssociationSet>
+    <EntitySet Name="PedidoProveedorDetalleSet" EntityType="ItalianPizzaServerBDModel.PedidoProveedorDetalle" />
+    <AssociationSet Name="PedidoProveedorPedidoProveedorDetalle" Association="ItalianPizzaServerBDModel.PedidoProveedorPedidoProveedorDetalle">
+      <End Role="PedidoProveedor" EntitySet="PedidoProveedorSet" />
+      <End Role="PedidoProveedorDetalle" EntitySet="PedidoProveedorDetalleSet" />
+    </AssociationSet>
+    <AssociationSet Name="InsumoPedidoProveedorDetalle" Association="ItalianPizzaServerBDModel.InsumoPedidoProveedorDetalle">
+      <End Role="Insumo" EntitySet="InsumoSet" />
+      <End Role="PedidoProveedorDetalle" EntitySet="PedidoProveedorDetalleSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Producto">
     <Key>
@@ -96,6 +114,7 @@
     <NavigationProperty Name="OrdenCliente" Relationship="ItalianPizzaServerBDModel.ProductoOrdenCliente" FromRole="Producto" ToRole="OrdenCliente" />
     <NavigationProperty Name="Empleado" Relationship="ItalianPizzaServerBDModel.EmpleadoProducto" FromRole="Producto" ToRole="Empleado" />
     <Property Name="EmpleadoId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrdenClienteDetalle" Relationship="ItalianPizzaServerBDModel.ProductoOrdenClienteDetalle" FromRole="Producto" ToRole="OrdenClienteDetalle" />
   </EntityType>
   <EntityType Name="OrdenCliente">
     <Key>
@@ -113,6 +132,7 @@
     <NavigationProperty Name="CorteDiario" Relationship="ItalianPizzaServerBDModel.CorteDiarioOrdenCliente" FromRole="OrdenCliente" ToRole="CorteDiario" />
     <NavigationProperty Name="Cliente" Relationship="ItalianPizzaServerBDModel.ClienteOrdenCliente" FromRole="OrdenCliente" ToRole="Cliente" />
     <Property Name="Estado" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="OrdenClienteDetalle" Relationship="ItalianPizzaServerBDModel.OrdenClienteOrdenClienteDetalle" FromRole="OrdenCliente" ToRole="OrdenClienteDetalle" />
   </EntityType>
   <EntityType Name="Empleado">
     <Key>
@@ -211,6 +231,7 @@
     <NavigationProperty Name="Empleado" Relationship="ItalianPizzaServerBDModel.EmpleadoInsumo" FromRole="Insumo" ToRole="Empleado" />
     <Property Name="EmpleadoId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="PedidoProveedor" Relationship="ItalianPizzaServerBDModel.InsumoPedidoProveedor" FromRole="Insumo" ToRole="PedidoProveedor" />
+    <NavigationProperty Name="PedidoProveedorDetalle" Relationship="ItalianPizzaServerBDModel.InsumoPedidoProveedorDetalle" FromRole="Insumo" ToRole="PedidoProveedorDetalle" />
   </EntityType>
   <EntityType Name="PedidoProveedor">
     <Key>
@@ -227,6 +248,7 @@
     <NavigationProperty Name="Proveedor" Relationship="ItalianPizzaServerBDModel.ProveedorPedidoProveedor" FromRole="PedidoProveedor" ToRole="Proveedor" />
     <Property Name="ProveedorId" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Insumo" Relationship="ItalianPizzaServerBDModel.InsumoPedidoProveedor" FromRole="PedidoProveedor" ToRole="Insumo" />
+    <NavigationProperty Name="PedidoProveedorDetalle" Relationship="ItalianPizzaServerBDModel.PedidoProveedorPedidoProveedorDetalle" FromRole="PedidoProveedor" ToRole="PedidoProveedorDetalle" />
   </EntityType>
   <Association Name="ProductoOrdenCliente">
     <End Type="ItalianPizzaServerBDModel.Producto" Role="Producto" Multiplicity="*" />
@@ -416,5 +438,77 @@
   <Association Name="EmpleadoCuenta">
     <End Type="ItalianPizzaServerBDModel.Empleado" Role="Empleado" Multiplicity="1" />
     <End Type="ItalianPizzaServerBDModel.Cuenta" Role="Cuenta" Multiplicity="1" />
+  </Association>
+  <EntityType Name="OrdenClienteDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="OrdenCliente" Relationship="ItalianPizzaServerBDModel.OrdenClienteOrdenClienteDetalle" FromRole="OrdenClienteDetalle" ToRole="OrdenCliente" />
+    <Property Name="OrdenClienteId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="ItalianPizzaServerBDModel.ProductoOrdenClienteDetalle" FromRole="OrdenClienteDetalle" ToRole="Producto" />
+    <Property Name="ProductoId" Type="Int32" Nullable="false" />
+    <Property Name="CantidadProducto" Type="String" Nullable="false" />
+    <Property Name="CostoProducto" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="OrdenClienteOrdenClienteDetalle">
+    <End Type="ItalianPizzaServerBDModel.OrdenCliente" Role="OrdenCliente" Multiplicity="1" />
+    <End Type="ItalianPizzaServerBDModel.OrdenClienteDetalle" Role="OrdenClienteDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrdenCliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenClienteDetalle">
+        <PropertyRef Name="OrdenClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProductoOrdenClienteDetalle">
+    <End Type="ItalianPizzaServerBDModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="ItalianPizzaServerBDModel.OrdenClienteDetalle" Role="OrdenClienteDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrdenClienteDetalle">
+        <PropertyRef Name="ProductoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PedidoProveedorDetalle">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="PedidoProveedor" Relationship="ItalianPizzaServerBDModel.PedidoProveedorPedidoProveedorDetalle" FromRole="PedidoProveedorDetalle" ToRole="PedidoProveedor" />
+    <Property Name="PedidoProveedorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Insumo" Relationship="ItalianPizzaServerBDModel.InsumoPedidoProveedorDetalle" FromRole="PedidoProveedorDetalle" ToRole="Insumo" />
+    <Property Name="InsumoId" Type="Int32" Nullable="false" />
+    <Property Name="CantidadInsumo" Type="String" Nullable="false" />
+    <Property Name="CostoInsumo" Type="String" Nullable="false" />
+  </EntityType>
+  <Association Name="PedidoProveedorPedidoProveedorDetalle">
+    <End Type="ItalianPizzaServerBDModel.PedidoProveedor" Role="PedidoProveedor" Multiplicity="1" />
+    <End Type="ItalianPizzaServerBDModel.PedidoProveedorDetalle" Role="PedidoProveedorDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PedidoProveedor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoProveedorDetalle">
+        <PropertyRef Name="PedidoProveedorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="InsumoPedidoProveedorDetalle">
+    <End Type="ItalianPizzaServerBDModel.Insumo" Role="Insumo" Multiplicity="1" />
+    <End Type="ItalianPizzaServerBDModel.PedidoProveedorDetalle" Role="PedidoProveedorDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Insumo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PedidoProveedorDetalle">
+        <PropertyRef Name="InsumoId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

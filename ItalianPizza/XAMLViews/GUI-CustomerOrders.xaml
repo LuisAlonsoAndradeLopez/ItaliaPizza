@@ -10,94 +10,129 @@
         d:DesignHeight="922.16" 
         d:DesignWidth="1742.8">
 
-    <Grid Background="#070711" >
-        <Rectangle HorizontalAlignment="Left" Height="906" Stroke="Black" VerticalAlignment="Center" Width="261" Fill="#FF171721"/>
-        <Image HorizontalAlignment="Left" Height="177" Margin="33,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-        <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,247,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,258,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-        <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,336,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="29,347,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-        <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,428,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="32,439,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-        <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,525,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,536,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-        <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,619,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,630,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
-        <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,715,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="44" Margin="29,727,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
+    <Grid Background="#FF131313" >
 
-        <Rectangle HorizontalAlignment="Left" Height="865" Margin="278,13,0,0" Stroke="#FF11111D" VerticalAlignment="Top" Width="892" Fill="#FF11111D" RadiusX="20" RadiusY="20"/>
-        <Label Content="Historial de pedidos" HorizontalAlignment="Left" Margin="310,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFFFFDFD" FontSize="28"/>
-        <Label Content="Selecione Fecha: " HorizontalAlignment="Left" Margin="317,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
-        <Label Content="Selecione Estatus: " HorizontalAlignment="Left" Margin="317,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-        <DatePicker x:Name="datePicker1" HorizontalAlignment="Left" Margin="485,99,0,0" VerticalAlignment="Top" Height="35" Width="242" FontSize="20" Background="#FF070711" BorderBrush="#FF070711" SelectedDateChanged="DatePicker1_ValueChanged" />
-        <ComboBox x:Name="cboStatusCustomerOrders" HorizontalAlignment="Left" Margin="496,155,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_SelectionChanged"/>
-        <Button Content="Realizar corte de hoy" HorizontalAlignment="Left" Margin="846,130,0,0" VerticalAlignment="Top" Height="47" Width="230" Background="#FF11111D" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="14" BorderBrush="#FF19D1DD" BorderThickness="3" FontWeight="Thin"/>
-        <Button Content="Agregar Nuevo Pedido Hoy" HorizontalAlignment="Left" Margin="846,62,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF11111D" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="14" BorderBrush="#FF19D1DD" FontWeight="Thin" BorderThickness="3"/>
-        <Rectangle HorizontalAlignment="Left" Height="48" Margin="294,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF070711"/>
+        <Rectangle HorizontalAlignment="Left" Height="906" Stroke="#FF1C1C1C" VerticalAlignment="Center" Width="244" Fill="#FF1C1C1C"/>
+        <Image HorizontalAlignment="Left" Height="177" Margin="27,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
+        <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,251,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="28,262,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
+        <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,340,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="29,351,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
+        <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,432,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="32,443,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
+        <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,529,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="28,540,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
+        <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,623,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="45" Margin="28,634,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
+        <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,719,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
+        <Image HorizontalAlignment="Left" Height="44" Margin="29,731,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
 
-        <Label Content="Nombre del pedido " HorizontalAlignment="Left" Margin="393,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Fecha Registro " HorizontalAlignment="Left" Margin="606,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Hora Registro" HorizontalAlignment="Left" Margin="792,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <Label Content="Estatus del pedido" HorizontalAlignment="Left" Margin="961,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-        <WrapPanel x:Name="wpCustomerOrders" Margin="294,281,516,53">
-            <WrapPanel/>
-        </WrapPanel>
+        <Rectangle HorizontalAlignment="Left" Height="865" Margin="256,13,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="892" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
 
-        <Label x:Name="lblOrderSelectionSignal" Content="Selecione un pedido" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222" Visibility="Collapsed"/>
+        <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0">
+            <Label Content="Historial de pedidos" HorizontalAlignment="Left" Margin="290,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFDB4B2C" FontSize="28"/>
+            <Label Content="Selecione Fecha: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
+            <Label Content="Selecione Estatus: " HorizontalAlignment="Left" Margin="297,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
+            <DatePicker x:Name="dpOrderDateFilter" HorizontalAlignment="Left" Margin="465,99,0,0" VerticalAlignment="Top" Height="35" Width="242" FontSize="20" Background="#FF070711" BorderBrush="#FF070711" SelectedDateChanged="DatePicker_OrderDateSelection" />
+            <ComboBox x:Name="cboStatusCustomerOrders" HorizontalAlignment="Left" Margin="476,155,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_OrderStatusSelection"/>
+            <Button Content="Realizar corte de hoy" HorizontalAlignment="Left" Margin="826,130,0,0" VerticalAlignment="Top" Height="47" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderThickness="3" FontWeight="Thin" BorderBrush="#FFDB4B2C"/>
+            <Button Content="Agregar Nuevo Pedido Hoy" HorizontalAlignment="Left" Margin="826,62,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="GoToCreateOrderVirtualWindow"/>
+            <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF1C0D02"/>
 
-        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Visibility="Collapsed">
-            <Label x:Name="lblXD" Content="Camilo chinga tu madre" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222"/>
+            <Label Content="Nombre del pedido " HorizontalAlignment="Left" Margin="373,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Fecha Registro " HorizontalAlignment="Left" Margin="586,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Hora Registro" HorizontalAlignment="Left" Margin="772,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Estatus del pedido" HorizontalAlignment="Left" Margin="941,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+
+            <WrapPanel x:Name="wpCustomerOrders" Margin="276,281,534,53">
+                <WrapPanel/>
+            </WrapPanel>
+
+            <Label x:Name="lblOrderSelectionSignal" Content="Selecione un pedido" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222" Visibility="Collapsed"/>
         </Grid>
 
-        <Label Content="Detalles del pedido" HorizontalAlignment="Left" Margin="1336,28,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF216EBC" FontFamily="Tahoma" FontSize="20" FontWeight="Bold"/>
-        <Label Content="Pedido de envio 1#" HorizontalAlignment="Left" Margin="1346,64,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Tahoma" Foreground="White"/>
-        <Label Content="Cliente Relacionado" HorizontalAlignment="Left" Margin="1342,108,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF216EBC" FontFamily="Tahoma" FontSize="18" FontWeight="Bold"/>
-        <Rectangle HorizontalAlignment="Left" Height="35" Margin="1282,142,0,0" Stroke="Black" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="309" Fill="#FF171721"/>
-        <Label Content="Miguel Angel Camo Rincón" HorizontalAlignment="Left" Margin="1326,144,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
-        <Label Content="Registrado por:" HorizontalAlignment="Left" Margin="1361,189,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF216EBC" FontFamily="Tahoma" FontSize="18" FontWeight="Bold"/>
-        <Rectangle HorizontalAlignment="Left" Height="34" Margin="1282,222,0,0" Stroke="Black" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="309" Fill="#FF171721"/>
-        <Label Content="Miguel Angel Camo Rincón" HorizontalAlignment="Left" Margin="1326,224,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
-        <Label Content="Contenido del pedido" HorizontalAlignment="Left" Margin="1329,285,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF216EBC" FontFamily="Tahoma" FontSize="20" FontWeight="Bold"/>
-        <GridSplitter HorizontalAlignment="Left" Height="512" Margin="1441,75,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
-            <GridSplitter.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </GridSplitter.RenderTransform>
-        </GridSplitter>
-        <Label Content="Nombre Producto" HorizontalAlignment="Left" Margin="1232,328,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
-        <Label Content="Cantidad" HorizontalAlignment="Left" Margin="1434,329,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
-        <Label Content="Costo por pieza" HorizontalAlignment="Left" Margin="1547,329,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
-        <GridSplitter HorizontalAlignment="Left" Height="25" Margin="1426,333,0,0" VerticalAlignment="Top" Width="1"/>
-        <GridSplitter HorizontalAlignment="Left" Height="24" Margin="1522,334,0,0" VerticalAlignment="Top" Width="1"/>
-        <GridSplitter HorizontalAlignment="Left" Height="512" Margin="1442,105,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
-            <GridSplitter.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90.009"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </GridSplitter.RenderTransform>
-        </GridSplitter>
-        <Button Content="Modificar Pedido" HorizontalAlignment="Left" Margin="1345,810,0,0" VerticalAlignment="Top" Height="44" Width="206" Background="#FF11111D" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF19D1DD" BorderThickness="3" FontWeight="Thin"/>
-        <Label Content="Costo Final: " HorizontalAlignment="Left" Margin="1488,761,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Calibri" Foreground="White"/>
-        <Label Content="$ 120,000.00" HorizontalAlignment="Left" Margin="1577,761,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Calibri" Foreground="White"/>
-        <GridSplitter Height="751" Margin="0,383,390,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
-            <GridSplitter.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </GridSplitter.RenderTransform>
-        </GridSplitter>
-        <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1187,366,48,154"/>
+        <Grid x:Name="grdVirtualWindowCustomerOrderInformation">
+            <Label Content="Detalles del pedido: " HorizontalAlignment="Left" Margin="1182,39,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFDB4B2C" FontFamily="Tahoma" FontSize="20" FontWeight="Bold"/>
+            <Label Content="Pedido de envio 1#" HorizontalAlignment="Left" Margin="1393,39,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Tahoma" Foreground="White"/>
+            <Label Content="Cliente Relacionado" HorizontalAlignment="Left" Margin="1189,88,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#ffbc11" FontFamily="Tahoma" FontSize="18" FontWeight="Bold"/>
+            <Rectangle HorizontalAlignment="Left" Height="41" Margin="1222,122,0,0" Stroke="Black" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="309" Fill="#FF934B3B"/>
+            <Label x:Name="lblFullNameCustomer" Content="Miguel Angel Camo Rincón" HorizontalAlignment="Left" Margin="1266,127,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+            <Label Content="Registrado por:" HorizontalAlignment="Left" Margin="1189,170,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#ffbc11" FontFamily="Tahoma" FontSize="18" FontWeight="Bold"/>
+            <Rectangle HorizontalAlignment="Left" Height="41" Margin="1226,206,0,0" Stroke="Black" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="309" Fill="#FF934B3B"/>
+            <Label x:Name="lblFullNameEmployee" Content="Miguel Angel Camo Rincón" HorizontalAlignment="Left" Margin="1270,211,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+            <Label Content="Repartidor encargado: " HorizontalAlignment="Left" Margin="1189,255,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#ffbc11" FontFamily="Tahoma" FontSize="18" FontWeight="Bold"/>
+            <Rectangle HorizontalAlignment="Left" Height="41" Margin="1226,288,0,0" Stroke="Black" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="309" Fill="#FF171721"/>
+            <Label x:Name="lblFullNameEmployee1" Content="Miguel Angel Camo Rincón" HorizontalAlignment="Left" Margin="1270,293,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+        </Grid>
+
+        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0">
+            <Label Content="Contenido del pedido" HorizontalAlignment="Left" Margin="1323,344,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFDB4B2C" FontFamily="Tahoma" FontSize="20" FontWeight="Bold"/>
+            <GridSplitter HorizontalAlignment="Left" Height="512" Margin="1424,130,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+            <Label Content="Nombre Producto" HorizontalAlignment="Left" Margin="1216,383,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+            <Label Content="Cantidad" HorizontalAlignment="Left" Margin="1417,383,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+            <Label Content="Costo por pieza" HorizontalAlignment="Left" Margin="1526,382,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White"/>
+            <GridSplitter HorizontalAlignment="Left" Height="26" Margin="1409,386,0,0" VerticalAlignment="Top" Width="1"/>
+            <GridSplitter HorizontalAlignment="Left" Height="26" Margin="1505,386,0,0" VerticalAlignment="Top" Width="1"/>
+            <GridSplitter HorizontalAlignment="Left" Height="512" Margin="1425,156,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90.009"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+            <Button Content="Modificar Pedido" HorizontalAlignment="Left" Margin="1438,819,0,0" VerticalAlignment="Top" Height="44" Width="206" Background="#FFDB4B2C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FFBC8B21" BorderThickness="0" FontWeight="Thin"/>
+            <Label Content="Costo Final: " HorizontalAlignment="Left" Margin="1469,761,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Calibri" Foreground="White"/>
+            <Label x:Name="lblTotalOrderCost" Content="$ 0.00" HorizontalAlignment="Left" Margin="1558,761,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Calibri" Foreground="White"/>
+            <GridSplitter Height="751" Margin="0,383,399,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+            <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1169,417,18,154"/>
+            <Button Content="Cancelar Pedido" HorizontalAlignment="Left" Margin="1208,819,0,0" VerticalAlignment="Top" Height="44" Width="206" Background="#FFDB4B2C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderThickness="0" FontWeight="Thin"/>
+        </Grid>
+
+        <Grid x:Name="grdVirtualWindowCreateOrder" Visibility="Collapsed">
+            <Rectangle HorizontalAlignment="Left" Height="63" Margin="285,89,0,0" Stroke="#FF262222" VerticalAlignment="Top" Width="826" Fill="#FF262222" RadiusX="30" RadiusY="30"/>
+            <Image HorizontalAlignment="Left" Height="42" Margin="313,100,0,0" VerticalAlignment="Top" Width="43" Source="\Resources\Pictures\ICON-Buscar.png"/>
+            <TextBox HorizontalAlignment="Left" Margin="380,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="697" Height="48" Background="#FF262222" Foreground="#FFECD9D9" BorderBrush="#FF262222"/>
+            <Label Content="Crear Pedido" HorizontalAlignment="Left" Margin="285,35,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFFFFDFD" FontSize="28"/>
+            <Label Content="Seleciona tus productos" HorizontalAlignment="Left" Margin="313,238,0,0" VerticalAlignment="Top" FontFamily="Tahoma" Foreground="#FFC39533" FontSize="19" FontWeight="Bold"/>
+            <Label Content="Filtrar por tipo:" HorizontalAlignment="Left" Margin="313,168,0,0" VerticalAlignment="Top" FontFamily="Tahoma" Foreground="#FFFFFDFD" FontSize="20" FontWeight="Bold"/>
+            <Label Content="Filtrar por estado:" HorizontalAlignment="Left" Margin="698,168,0,0" VerticalAlignment="Top" FontFamily="Tahoma" Foreground="#FFFFFDFD" FontSize="20" FontWeight="Bold"/>
+            <ComboBox HorizontalAlignment="Left" Margin="481,180,0,0" VerticalAlignment="Top" Width="185" Height="30"/>
+            <ComboBox HorizontalAlignment="Left" Margin="894,180,0,0" VerticalAlignment="Top" Width="185" Height="30"/>
+            <WrapPanel x:Name="wpProducts" Margin="285,284,549,46"/>
+        </Grid>
+
+        <Grid x:Name="grdVirtualWindowOrderDataForm" Visibility="Collapsed">
+            <Label Content="Detalles Producto" HorizontalAlignment="Left" Margin="1340,19,0,0" VerticalAlignment="Top" Foreground="#FFBC8B21" FontFamily="Tahoma" FontSize="20" FontWeight="Bold"/>
+            <Label Content="Tipo de pedido" HorizontalAlignment="Left" Margin="1220,64,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Arial" Foreground="White" FontWeight="Bold"/>
+            <ComboBox HorizontalAlignment="Left" Margin="1189,103,0,0" VerticalAlignment="Top" Width="213" Height="29"/>
+            <Label Content="Estado del pedido" HorizontalAlignment="Left" Margin="1486,64,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.43,0.621"/>
+            <ComboBox HorizontalAlignment="Left" Margin="1464,103,0,0" VerticalAlignment="Top" Width="214" Height="29"/>
+            <Label Content="Nombre del cliente" HorizontalAlignment="Left" Margin="1189,153,0,0" VerticalAlignment="Top" FontSize="18" FontFamily="Tahoma" Foreground="White" FontWeight="Bold"/>
+            <ComboBox HorizontalAlignment="Left" Margin="1375,159,0,0" VerticalAlignment="Top" Width="303" Height="29"/>
+            <Button Content="Nuevo cliente" HorizontalAlignment="Left" Margin="1497,209,0,0" VerticalAlignment="Top" Background="#FF11111D" BorderBrush="#FFCF8F1C" Foreground="#FFF8F5F5" BorderThickness="3" Height="41" Width="181" FontFamily="Arial" FontWeight="Bold" FontSize="18"/>
+        </Grid>
+
 
 
     </Grid>

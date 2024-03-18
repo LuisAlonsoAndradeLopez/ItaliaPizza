@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\UserDAO.cs" />
     <Compile Include="DatabaseModel\DatabaseMapping\Cliente.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -108,7 +112,13 @@
     <Compile Include="DatabaseModel\DatabaseMapping\OrdenCliente.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\OrdenClienteDetalle.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedor.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedorDetalle.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\Producto.cs">
@@ -204,6 +214,13 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\FondoVentana.jpg" />
+    <Resource Include="Resources\Pictures\Product\FrappeOreo.jpeg" />
+    <Resource Include="Resources\Pictures\Product\HamburguesaClasica.jpeg" />
+    <Resource Include="Resources\Pictures\Product\HamburguesaDoble.jpeg" />
+    <Resource Include="Resources\Pictures\Product\PizzaPepperoni.jpeg" />
+    <Resource Include="Resources\Pictures\Product\PizzaTradicionalItaliana.jpg" />
+    <Resource Include="Resources\Pictures\ICON-Buscar.png" />
     <Resource Include="Resources\Pictures\FONDO-LOGIN.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

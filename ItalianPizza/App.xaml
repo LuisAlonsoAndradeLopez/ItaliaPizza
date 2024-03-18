@@ -11,13 +11,25 @@
                         <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="30">
+                            CornerRadius="23">
                             <ContentPresenter HorizontalAlignment="Center"
                                           VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Red" />
+                    <!-- Cambia aquí el color de fondo -->
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="False">
+                    <Setter Property="Background" Value="White" />
+                    <!-- Cambia aquí el color de fondo -->
+                </Trigger>
+            </Style.Triggers>
         </Style>
+
     </Application.Resources>
 </Application>

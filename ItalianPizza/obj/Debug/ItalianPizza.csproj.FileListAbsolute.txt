@@ -1,10 +1,3 @@
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\MainWindow.g.cs
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\App.g.cs
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_Content.g.cs
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_MarkupCompile.cache
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_MarkupCompile.lref
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\XAMLViews\GUI-CustomerOrders.g.cs
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\ItalianPizza.exe.config
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\ItalianPizza.exe
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\ItalianPizza.pdb
@@ -12,6 +5,13 @@ D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\EntityFramework.
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\EntityFramework.SqlServer.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\EntityFramework.xml
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\bin\Debug\EntityFramework.SqlServer.xml
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza.csproj.AssemblyReference.cache
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\MainWindow.g.cs
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\XAMLViews\GUI-CustomerOrders.g.cs
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\App.g.cs
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_Content.g.cs
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_MarkupCompile.cache
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\ItalianPizza_MarkupCompile.lref
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\App.baml
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\MainWindow.baml
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\XAMLViews\GUI-CustomerOrders.baml
