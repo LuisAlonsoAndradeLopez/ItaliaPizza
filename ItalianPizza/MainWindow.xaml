@@ -9,7 +9,7 @@
         Height="790" Width="1179">
 
     <Grid Background="#070711" Margin="0,0,0,-6" >
-        <Image HorizontalAlignment="Center" Height="787" VerticalAlignment="Top" Width="1180" Source="D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\Resources\Pictures\FONDO-LOGIN.jpg"/>
+        <Image HorizontalAlignment="Center" Height="787" VerticalAlignment="Top" Width="1180" Source="/Resources/Pictures/FONDO-LOGIN.jpg"/>
         <Rectangle HorizontalAlignment="Left" Height="524" Margin="82,105,0,0" RadiusX="30" RadiusY="30" VerticalAlignment="Top" Width="453" Opacity="0.3">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

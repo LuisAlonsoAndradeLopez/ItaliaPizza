@@ -136,6 +136,9 @@
     <Compile Include="XAMLViews\GUI-CustomerOrders.xaml.cs">
       <DependentUpon>GUI-CustomerOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\GUI_Inventory.xaml.cs">
+      <DependentUpon>GUI_Inventory.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -149,6 +152,26 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="XAMLViews\GUI-CustomerOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUI_Inventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

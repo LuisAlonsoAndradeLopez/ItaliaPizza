@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\obj\Debug\
+C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\obj\Debug\
 ItalianPizza
 none
 false
 DEBUG;TRACE
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\App.xaml
-2-863655780
+C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\App.xaml
+71205168420
 3744758661
-291030468742
-221131914321
-MainWindow.xaml;XAMLViews\GUI-CustomerOrders.xaml;
+301909213048
+221631098633
+MainWindow.xaml;XAMLViews\GUI-CustomerOrders.xaml;XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml;XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml;XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml;XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml;XAMLViews\GUI_Inventory.xaml;
 
 False
 
