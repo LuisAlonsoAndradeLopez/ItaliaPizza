@@ -1,11 +1,13 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Navigation;
 
 namespace ItalianPizza.XAMLViews
 {
     /// <summary>
     /// Lógica de interacción para GUI_Inventory.xaml
     /// </summary>
-    public partial class GUI_Inventory : Window
+    public partial class GUI_Inventory : Page
     {
         public GUI_Inventory()
         {
@@ -39,7 +41,8 @@ namespace ItalianPizza.XAMLViews
 
         private void AddArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
-
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService.Navigate(new GUI_AddArticle());
         }
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)

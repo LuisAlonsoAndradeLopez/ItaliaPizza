@@ -12,7 +12,6 @@
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="IsEnabled" Value="True"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
@@ -23,7 +22,7 @@
 
 
                         <Grid Margin="{TemplateBinding Padding}">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden"/>
+                            
                         </Grid>
                     </Border>
                 </ControlTemplate>
