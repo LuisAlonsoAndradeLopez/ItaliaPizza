@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/15/2024 22:47:04
--- Generated from EDMX file: D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\DatabaseModel\DatabaseMapping\DataModel.edmx
+-- Date Created: 03/21/2024 16:57:11
+-- Generated from EDMX file: C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DatabaseMapping\DataModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,32 +17,14 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_ClienteOrdenCliente_Cliente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ClienteOrdenCliente] DROP CONSTRAINT [FK_ClienteOrdenCliente_Cliente];
+IF OBJECT_ID(N'[dbo].[FK_ProductoOrdenCliente_Producto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoOrdenCliente] DROP CONSTRAINT [FK_ProductoOrdenCliente_Producto];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ClienteOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ClienteOrdenCliente] DROP CONSTRAINT [FK_ClienteOrdenCliente_OrdenCliente];
+IF OBJECT_ID(N'[dbo].[FK_ProductoOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoOrdenCliente] DROP CONSTRAINT [FK_ProductoOrdenCliente_OrdenCliente];
 GO
-IF OBJECT_ID(N'[dbo].[FK_CorteDiarioOrdenCliente_CorteDiario]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CorteDiarioOrdenCliente] DROP CONSTRAINT [FK_CorteDiarioOrdenCliente_CorteDiario];
-GO
-IF OBJECT_ID(N'[dbo].[FK_CorteDiarioOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CorteDiarioOrdenCliente] DROP CONSTRAINT [FK_CorteDiarioOrdenCliente_OrdenCliente];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DirecciónCliente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ClienteSet] DROP CONSTRAINT [FK_DirecciónCliente];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DirecciónEmpleado]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[EmpleadoSet] DROP CONSTRAINT [FK_DirecciónEmpleado];
-GO
-IF OBJECT_ID(N'[dbo].[FK_EmpleadoCorteDiario]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CorteDiarioSet] DROP CONSTRAINT [FK_EmpleadoCorteDiario];
-GO
-IF OBJECT_ID(N'[dbo].[FK_EmpleadoCuenta]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[EmpleadoSet] DROP CONSTRAINT [FK_EmpleadoCuenta];
-GO
-IF OBJECT_ID(N'[dbo].[FK_EmpleadoInsumo]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[InsumoSet] DROP CONSTRAINT [FK_EmpleadoInsumo];
+IF OBJECT_ID(N'[dbo].[FK_EmpleadoProducto]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_EmpleadoProducto];
 GO
 IF OBJECT_ID(N'[dbo].[FK_EmpleadoOrdenCliente]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[OrdenClienteSet] DROP CONSTRAINT [FK_EmpleadoOrdenCliente];
@@ -50,8 +32,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_EmpleadoPedidoProveedor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[PedidoProveedorSet] DROP CONSTRAINT [FK_EmpleadoPedidoProveedor];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EmpleadoProducto]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoSet] DROP CONSTRAINT [FK_EmpleadoProducto];
+IF OBJECT_ID(N'[dbo].[FK_EmpleadoInsumo]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InsumoSet] DROP CONSTRAINT [FK_EmpleadoInsumo];
 GO
 IF OBJECT_ID(N'[dbo].[FK_EmpleadoProveedor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProveedorSet] DROP CONSTRAINT [FK_EmpleadoProveedor];
@@ -59,8 +41,8 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_EmpleadoRepartidor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RepartidorSet] DROP CONSTRAINT [FK_EmpleadoRepartidor];
 GO
-IF OBJECT_ID(N'[dbo].[FK_EmpleadoValidacionInventario]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ValidacionInventarioSet] DROP CONSTRAINT [FK_EmpleadoValidacionInventario];
+IF OBJECT_ID(N'[dbo].[FK_ProveedorPedidoProveedor]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PedidoProveedorSet] DROP CONSTRAINT [FK_ProveedorPedidoProveedor];
 GO
 IF OBJECT_ID(N'[dbo].[FK_InsumoPedidoProveedor_Insumo]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[InsumoPedidoProveedor] DROP CONSTRAINT [FK_InsumoPedidoProveedor_Insumo];
@@ -71,67 +53,103 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_OrdenClienteRepartidor]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[RepartidorSet] DROP CONSTRAINT [FK_OrdenClienteRepartidor];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProductoOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoOrdenCliente] DROP CONSTRAINT [FK_ProductoOrdenCliente_OrdenCliente];
+IF OBJECT_ID(N'[dbo].[FK_CorteDiarioOrdenCliente_CorteDiario]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CorteDiarioOrdenCliente] DROP CONSTRAINT [FK_CorteDiarioOrdenCliente_CorteDiario];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProductoOrdenCliente_Producto]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[ProductoOrdenCliente] DROP CONSTRAINT [FK_ProductoOrdenCliente_Producto];
+IF OBJECT_ID(N'[dbo].[FK_CorteDiarioOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CorteDiarioOrdenCliente] DROP CONSTRAINT [FK_CorteDiarioOrdenCliente_OrdenCliente];
 GO
-IF OBJECT_ID(N'[dbo].[FK_ProveedorPedidoProveedor]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[PedidoProveedorSet] DROP CONSTRAINT [FK_ProveedorPedidoProveedor];
+IF OBJECT_ID(N'[dbo].[FK_EmpleadoCorteDiario]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CorteDiarioSet] DROP CONSTRAINT [FK_EmpleadoCorteDiario];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmpleadoValidacionInventario]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ValidacionInventarioSet] DROP CONSTRAINT [FK_EmpleadoValidacionInventario];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClienteOrdenCliente_Cliente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ClienteOrdenCliente] DROP CONSTRAINT [FK_ClienteOrdenCliente_Cliente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ClienteOrdenCliente_OrdenCliente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ClienteOrdenCliente] DROP CONSTRAINT [FK_ClienteOrdenCliente_OrdenCliente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DirecciónCliente]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ClienteSet] DROP CONSTRAINT [FK_DirecciónCliente];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DirecciónEmpleado]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmpleadoSet] DROP CONSTRAINT [FK_DirecciónEmpleado];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmpleadoCuenta]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmpleadoSet] DROP CONSTRAINT [FK_EmpleadoCuenta];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrdenClienteOrdenClienteDetalle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrdenClienteDetalleSet] DROP CONSTRAINT [FK_OrdenClienteOrdenClienteDetalle];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductoOrdenClienteDetalle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[OrdenClienteDetalleSet] DROP CONSTRAINT [FK_ProductoOrdenClienteDetalle];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PedidoProveedorPedidoProveedorDetalle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PedidoProveedorDetalleSet] DROP CONSTRAINT [FK_PedidoProveedorPedidoProveedorDetalle];
+GO
+IF OBJECT_ID(N'[dbo].[FK_InsumoPedidoProveedorDetalle]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[PedidoProveedorDetalleSet] DROP CONSTRAINT [FK_InsumoPedidoProveedorDetalle];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[ClienteOrdenCliente]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ClienteOrdenCliente];
-GO
-IF OBJECT_ID(N'[dbo].[ClienteSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ClienteSet];
-GO
-IF OBJECT_ID(N'[dbo].[CorteDiarioOrdenCliente]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CorteDiarioOrdenCliente];
-GO
-IF OBJECT_ID(N'[dbo].[CorteDiarioSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CorteDiarioSet];
-GO
-IF OBJECT_ID(N'[dbo].[CuentaSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[CuentaSet];
-GO
-IF OBJECT_ID(N'[dbo].[DirecciónSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[DirecciónSet];
-GO
-IF OBJECT_ID(N'[dbo].[EmpleadoSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[EmpleadoSet];
-GO
-IF OBJECT_ID(N'[dbo].[InsumoPedidoProveedor]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[InsumoPedidoProveedor];
-GO
-IF OBJECT_ID(N'[dbo].[InsumoSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[InsumoSet];
+IF OBJECT_ID(N'[dbo].[ProductoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductoSet];
 GO
 IF OBJECT_ID(N'[dbo].[OrdenClienteSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[OrdenClienteSet];
 GO
-IF OBJECT_ID(N'[dbo].[PedidoProveedorSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[PedidoProveedorSet];
-GO
-IF OBJECT_ID(N'[dbo].[ProductoOrdenCliente]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProductoOrdenCliente];
-GO
-IF OBJECT_ID(N'[dbo].[ProductoSet]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[ProductoSet];
+IF OBJECT_ID(N'[dbo].[EmpleadoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmpleadoSet];
 GO
 IF OBJECT_ID(N'[dbo].[ProveedorSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProveedorSet];
 GO
+IF OBJECT_ID(N'[dbo].[ClienteSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClienteSet];
+GO
+IF OBJECT_ID(N'[dbo].[DirecciónSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DirecciónSet];
+GO
 IF OBJECT_ID(N'[dbo].[RepartidorSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[RepartidorSet];
 GO
+IF OBJECT_ID(N'[dbo].[InsumoSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InsumoSet];
+GO
+IF OBJECT_ID(N'[dbo].[PedidoProveedorSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PedidoProveedorSet];
+GO
+IF OBJECT_ID(N'[dbo].[CorteDiarioSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CorteDiarioSet];
+GO
 IF OBJECT_ID(N'[dbo].[ValidacionInventarioSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ValidacionInventarioSet];
+GO
+IF OBJECT_ID(N'[dbo].[CuentaSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CuentaSet];
+GO
+IF OBJECT_ID(N'[dbo].[OrdenClienteDetalleSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrdenClienteDetalleSet];
+GO
+IF OBJECT_ID(N'[dbo].[PedidoProveedorDetalleSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PedidoProveedorDetalleSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProductoOrdenCliente]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductoOrdenCliente];
+GO
+IF OBJECT_ID(N'[dbo].[InsumoPedidoProveedor]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InsumoPedidoProveedor];
+GO
+IF OBJECT_ID(N'[dbo].[CorteDiarioOrdenCliente]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CorteDiarioOrdenCliente];
+GO
+IF OBJECT_ID(N'[dbo].[ClienteOrdenCliente]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ClienteOrdenCliente];
 GO
 
 -- --------------------------------------------------

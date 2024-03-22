@@ -2,12 +2,10 @@
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 
@@ -62,29 +60,22 @@ namespace ItalianPizza.XAMLViews
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "Image Files (*.jpg, *.png, *jpeg)|*.jpg;*.png;*.jpeg",
+                Filter = "Image Files (*.png)|*.png",
                 Title = "Selecciona una imágen"
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
-                ArticleImage.Source = imageSource;
 
-                //if (imageSource.StreamSource != null)
-                //{
-                //    MemoryStream memoryStream = new MemoryStream();
-                //    imageSource.StreamSource.CopyTo(memoryStream);
-                //
-                //    if (memoryStream.Length <= 1048576)
-                //    {
-                //        ArticleImage.Source = imageSource;
-                //    }
-                //    else
-                //    {
-                //        new AlertPopUpGenerator().OpenErrorPopUp("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB");
-                //    }
-                //}
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
+                {
+                    ArticleImage.Source = imageSource;
+                }
+                else
+                {
+                    new AlertPopUpGenerator().OpenErrorPopUp("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB");
+                }
             }
         }
 
@@ -126,27 +117,53 @@ namespace ItalianPizza.XAMLViews
 
         private void AddArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
-            if(InvalidValuesInTextFieldsTextGenerator() == "")
+            try
             {
-                if(ArticleTypesComboBox.SelectedItem?.ToString() == "Insumo") 
+                if(InvalidValuesInTextFieldsTextGenerator() == "")
                 {
-                    Insumo ingredient = new Insumo
+                    if(ArticleTypesComboBox.SelectedItem?.ToString() == "Insumo") 
                     {
-                        Nombre = ArticleNameTextBox.Text,
-                        Costo = (double)PriceDecimalUpDown.Value,
-                        Descripcion = DescriptionTextBox.Text,
-                        Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                        Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                        Foto = ,
-                        Estado = ArticleStatus.Activo.ToString()
-                    };
+                        Insumo ingredient = new Insumo
+                        {
+                            Nombre = ArticleNameTextBox.Text,
+                            Costo = (double)PriceDecimalUpDown.Value,
+                            Descripcion = DescriptionTextBox.Text,
+                            Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                            Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                            Foto = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString(),
+                            Estado = ArticleStatus.Activo.ToString()
+                        };
 
-                    new IngredientDAO().AddIngredient(ingredient);
+                            new IngredientDAO().AddIngredient(ingredient);                    
+                    }
+
+                    if (ArticleTypesComboBox.SelectedItem?.ToString() == "Producto")
+                    {
+                        Producto product = new Producto
+                        {
+                            Nombre = ArticleNameTextBox.Text,
+                            Costo = (double)PriceDecimalUpDown.Value,
+                            Descripcion = DescriptionTextBox.Text,
+                            Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                            //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                            Foto = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString(),
+                            Estado = ArticleStatus.Activo.ToString()
+                        };
+
+                        new ProductDAO().AddProduct(product);
+                    }
+
+                    new AlertPopUpGenerator().OpenSuccessPopUp("¡Muy Bien!", "¡Artículo registrado con éxito!");
+                }
+                else
+                {
+                    new AlertPopUpGenerator().OpenErrorPopUp("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator());
                 }
             }
-            else
+            catch (Exception ex)
             {
-                new AlertPopUpGenerator().OpenErrorPopUp("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator());
+                new AlertPopUpGenerator().OpenSuccessPopUp("¡Error!", "¡Inténtelo más tarde!");
+                new ExceptionLogger().LogException(ex);
             }
         }
 
@@ -169,9 +186,9 @@ namespace ItalianPizza.XAMLViews
 
             string finalText = "";
 
-            string articleNamePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]$";
-            string codePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]$";
-            string descriptionPattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]$";
+            string articleNamePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string codePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string descriptionPattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
 
             Regex articleNameRegex = new Regex(articleNamePattern);
             Regex codeRegex = new Regex(codePattern);

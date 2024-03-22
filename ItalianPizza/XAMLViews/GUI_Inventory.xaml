@@ -62,7 +62,7 @@
 
             <ScrollViewer x:Name="ArticlesScrollViewer" Margin="276,281,608,30">
                 <StackPanel Name="ArticlesStackPanel">
-                    <Border Height="142" Margin="5,4,5,0" CornerRadius="10" Background="#7E1616" MouseLeftButtonDown="ArticleButtonOnClick">
+                    <Border Cursor="Hand" Height="142" Margin="5,4,5,0" CornerRadius="10" Background="#7E1616" MouseLeftButtonDown="ArticleButtonOnClick">
                         <StackPanel Orientation="Horizontal">
                             <Image Width="100" Height="100" Margin="40, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
                             <TextBlock Foreground="White" Margin="47, 0, 0, 0" Width="290" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Articulo 1"/>

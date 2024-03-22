@@ -14,5 +14,15 @@ namespace ItalianPizza.Auxiliary
                 MessageBoxImage.Error
             );
         }
+
+        public  void OpenSuccessPopUp(String header, String message)
+        {
+            MessageBox.Show(
+                message,
+                header,
+                MessageBoxButton.OK,
+                MessageBoxImage.None
+            );
+        }
     }
 }

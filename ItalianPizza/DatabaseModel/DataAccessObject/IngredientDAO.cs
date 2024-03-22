@@ -17,6 +17,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     context.InsumoSet.Add(ingredient);
+                    context.SaveChanges();
                 }
 
                 result = 1;

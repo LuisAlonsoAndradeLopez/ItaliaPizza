@@ -88,6 +88,8 @@
     </ApplicationDefinition>
     <Compile Include="Auxiliary\AlertPopUpGenerator.cs" />
     <Compile Include="Auxiliary\EntitiesEnums.cs" />
+    <Compile Include="Auxiliary\ExceptionLogger.cs" />
+    <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\IngredientDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
