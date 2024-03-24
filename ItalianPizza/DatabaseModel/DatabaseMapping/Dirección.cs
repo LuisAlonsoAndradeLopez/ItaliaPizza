@@ -18,7 +18,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public Dirección()
         {
             this.Cliente = new HashSet<Cliente>();
-            this.Empleado = new HashSet<Empleado>();
         }
     
         public int Id { get; set; }
@@ -29,7 +28,5 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente> Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
     }
 }

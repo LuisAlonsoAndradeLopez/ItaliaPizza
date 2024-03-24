@@ -17,14 +17,14 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empleado()
         {
-            this.Producto = new HashSet<Producto>();
-            this.OrdenCliente = new HashSet<OrdenCliente>();
-            this.PedidoProveedor = new HashSet<PedidoProveedor>();
+            this.CorteDiarioSet = new HashSet<CorteDiarioSet>();
             this.Insumo = new HashSet<Insumo>();
-            this.Proveedor = new HashSet<Proveedor>();
-            this.Repartidor = new HashSet<Repartidor>();
-            this.CorteDiario = new HashSet<CorteDiario>();
-            this.ValidacionInventario = new HashSet<ValidacionInventario>();
+            this.OrdenCliente = new HashSet<OrdenCliente>();
+            this.PedidoProveedorSet = new HashSet<PedidoProveedorSet>();
+            this.Producto = new HashSet<Producto>();
+            this.ProveedorSet = new HashSet<ProveedorSet>();
+            this.RepartidorSet = new HashSet<RepartidorSet>();
+            this.ValidacionInventarioSet = new HashSet<ValidacionInventarioSet>();
         }
     
         public int Id { get; set; }
@@ -32,28 +32,27 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public string ApellidoPaterno { get; set; }
         public string ApellidoMaterno { get; set; }
         public string Telefono { get; set; }
-        public string Correo { get; set; }
         public string Estado { get; set; }
         public string Tipo { get; set; }
-        public int DirecciónId { get; set; }
+        public int Cuenta_Id { get; set; }
+        public byte[] DatosImagen { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producto> Producto { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdenCliente> OrdenCliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoProveedor> PedidoProveedor { get; set; }
+        public virtual ICollection<CorteDiarioSet> CorteDiarioSet { get; set; }
+        public virtual Cuenta Cuenta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Insumo> Insumo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Proveedor> Proveedor { get; set; }
+        public virtual ICollection<OrdenCliente> OrdenCliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Repartidor> Repartidor { get; set; }
+        public virtual ICollection<PedidoProveedorSet> PedidoProveedorSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CorteDiario> CorteDiario { get; set; }
+        public virtual ICollection<Producto> Producto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ValidacionInventario> ValidacionInventario { get; set; }
-        public virtual Dirección Dirección { get; set; }
-        public virtual Cuenta Cuenta { get; set; }
+        public virtual ICollection<ProveedorSet> ProveedorSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RepartidorSet> RepartidorSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ValidacionInventarioSet> ValidacionInventarioSet { get; set; }
     }
 }

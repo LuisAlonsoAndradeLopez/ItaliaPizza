@@ -29,8 +29,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public string Estado { get; set; }
         public int DirecciónId { get; set; }
     
+        public virtual Dirección Dirección { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdenCliente> OrdenCliente { get; set; }
-        public virtual Dirección Dirección { get; set; }
     }
 }

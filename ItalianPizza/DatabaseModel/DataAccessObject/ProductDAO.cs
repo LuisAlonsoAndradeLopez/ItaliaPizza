@@ -15,7 +15,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                activeProducts = context.ProductoSet.ToList();
+                activeProducts = context.Producto.ToList();
             }
 
             return activeProducts;

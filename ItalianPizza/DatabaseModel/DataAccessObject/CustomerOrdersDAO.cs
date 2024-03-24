@@ -22,7 +22,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.ToList();
+                    orders = context.OrdenCliente.ToList();
                 }
             }
             catch (EntityException ex)
@@ -45,7 +45,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.Where(o => o.Fecha == date).ToList();
+                    orders = context.OrdenCliente.Where(o => o.Fecha == date).ToList();
                 }
             }
             catch (EntityException ex)
@@ -68,7 +68,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.Where(o => o.Estado == status).ToList();
+                    orders = context.OrdenCliente.Where(o => o.Estado == status).ToList();
                 }
             }
             catch (EntityException ex)

@@ -17,8 +17,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Insumo()
         {
-            this.PedidoProveedor = new HashSet<PedidoProveedor>();
-            this.PedidoProveedorDetalle = new HashSet<PedidoProveedorDetalle>();
+            this.PedidoProveedorDetalleSet = new HashSet<PedidoProveedorDetalleSet>();
+            this.PedidoProveedorSet = new HashSet<PedidoProveedorSet>();
         }
     
         public int Id { get; set; }
@@ -33,8 +33,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     
         public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoProveedor> PedidoProveedor { get; set; }
+        public virtual ICollection<PedidoProveedorDetalleSet> PedidoProveedorDetalleSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoProveedorDetalle> PedidoProveedorDetalle { get; set; }
+        public virtual ICollection<PedidoProveedorSet> PedidoProveedorSet { get; set; }
     }
 }

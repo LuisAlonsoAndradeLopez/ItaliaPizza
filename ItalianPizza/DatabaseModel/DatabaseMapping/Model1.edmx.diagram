@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5da2babc40554e25a3adf5817473f3aa" Name="Diagram1">
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Cliente" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CorteDiarioSet" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Cuenta" Width="1.5" PointX="0.75" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Dirección" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Empleado" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Insumo" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrdenCliente" Width="1.5" PointX="7.5" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrdenClienteDetalle" Width="1.5" PointX="9.75" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.PedidoProveedorDetalleSet" Width="1.5" PointX="10.5" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.PedidoProveedorSet" Width="1.5" PointX="7.5" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.Producto" Width="1.5" PointX="9.75" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProveedorSet" Width="1.5" PointX="5.25" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RepartidorSet" Width="1.5" PointX="12.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ValidacionInventarioSet" Width="1.5" PointX="5.25" PointY="18.625" IsExpanded="true" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_DirecciónCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoCorteDiario" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoCuenta" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoInsumo" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoOrdenCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoPedidoProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoProducto" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoRepartidor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmpleadoValidacionInventario" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_InsumoPedidoProveedorDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_OrdenClienteOrdenClienteDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_OrdenClienteRepartidor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_ProductoOrdenClienteDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_PedidoProveedorPedidoProveedorDetalle" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_ProveedorPedidoProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.ClienteOrdenCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.CorteDiarioOrdenCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.InsumoPedidoProveedor" ManuallyRouted="false" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.ProductoOrdenCliente" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
