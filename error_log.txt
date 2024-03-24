@@ -43,3 +43,103 @@ The statement has been terminated.
    en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 137
 --------------------------------------------------
 
+Timestamp: 23/03/2024 03:51:42 p. m.
+Exception Details:
+System.Windows.Markup.XamlParseException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '13'; posición de línea: '14'). ---> System.Exception: No se puede encontrar el recurso con el nombre 'RedButton'. Los nombres de recursos distinguen mayúsculas de minúsculas.
+   en System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   en System.Windows.StaticResourceExtension.ProvideValue(IServiceProvider serviceProvider)
+   en MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   en System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   en System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   en System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   en ItalianPizza.XAMLViews.AlertPopup.InitializeComponent() en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml:línea 1
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 12
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 03:51:51 p. m.
+Exception Details:
+System.Windows.Markup.XamlParseException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '13'; posición de línea: '14'). ---> System.Exception: No se puede encontrar el recurso con el nombre 'RedButton'. Los nombres de recursos distinguen mayúsculas de minúsculas.
+   en System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   en System.Windows.StaticResourceExtension.ProvideValue(IServiceProvider serviceProvider)
+   en MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   en System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   en System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   en System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   en ItalianPizza.XAMLViews.AlertPopup.InitializeComponent() en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml:línea 1
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 12
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:04:38 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, String alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 32
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:07:17 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, String alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 33
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:13:15 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 34
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:17:18 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 126
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:18:33 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 34
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 07:26:39 p. m.
+Exception Details:
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 22
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+

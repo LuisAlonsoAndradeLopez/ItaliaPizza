@@ -157,7 +157,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    new AlertPopUpGenerator().OpenErrorPopUp("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator());
+                    new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
                 }
             }
             catch (Exception ex)

@@ -26,5 +26,25 @@ namespace ItalianPizza.Auxiliary
 
             return bytes;
         }
+
+        public BitmapImage GetImageByItaliaPizzaStoragedImagePath(string filePath)
+        {
+            string incompletePath = Path.GetFullPath(filePath);
+            string pathPartToDelete = "bin\\Debug\\";
+            string completePath = incompletePath.Replace(pathPartToDelete, "");
+
+            byte[] imageData = File.ReadAllBytes(completePath);
+
+            BitmapImage imageSource = new BitmapImage();
+
+            if (imageData != null)
+            {
+                imageSource.BeginInit();
+                imageSource.StreamSource = new MemoryStream(imageData);
+                imageSource.EndInit();
+            }
+
+            return imageSource;
+        }
     }
 }

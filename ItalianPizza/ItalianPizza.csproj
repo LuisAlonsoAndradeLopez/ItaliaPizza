@@ -87,6 +87,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Auxiliary\AlertPopUpGenerator.cs" />
+    <Compile Include="Auxiliary\AlertPopupTypes.cs" />
     <Compile Include="Auxiliary\EntitiesEnums.cs" />
     <Compile Include="Auxiliary\ExceptionLogger.cs" />
     <Compile Include="Auxiliary\ImageManager.cs" />
@@ -153,6 +154,9 @@
     <Compile Include="DatabaseModel\DatabaseMapping\ValidacionInventario.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\AlertPopup.xaml.cs">
+      <DependentUpon>AlertPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\GUI-CustomerOrders.xaml.cs">
       <DependentUpon>GUI-CustomerOrders.xaml</DependentUpon>
     </Compile>
@@ -174,6 +178,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="XAMLViews\AlertPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAMLViews\GUI-CustomerOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -264,6 +272,10 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Decision.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Error.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Success.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Warning.png" />
     <Resource Include="Resources\Pictures\FondoVentana.jpg" />
     <Resource Include="Resources\Pictures\Product\FrappeOreo.jpeg" />
     <Resource Include="Resources\Pictures\Product\HamburguesaClasica.jpeg" />

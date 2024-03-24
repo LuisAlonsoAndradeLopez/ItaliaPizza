@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\App.xaml
-81940171069
+9744025387
 3744758661
-36920939348
+381118275701
 271383044842
-MainWindow.xaml;XAMLViews\GUI-CustomerOrders.xaml;XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml;XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml;XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml;XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml;XAMLViews\GUI_AddArticle.xaml;XAMLViews\GUI_Inventory.xaml;
+MainWindow.xaml;XAMLViews\AlertPopup.xaml;XAMLViews\GUI-CustomerOrders.xaml;XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml;XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml;XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml;XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml;XAMLViews\GUI_AddArticle.xaml;XAMLViews\GUI_Inventory.xaml;
 
-True
+False
 
