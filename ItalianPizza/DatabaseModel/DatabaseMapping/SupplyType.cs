@@ -12,12 +12,18 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class Cuenta
+    public partial class SupplyType
     {
-        public int Id { get; set; }
-        public string Usuario { get; set; }
-        public string Contraseña { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SupplyType()
+        {
+            this.Supply = new HashSet<Supply>();
+        }
     
-        public virtual Empleado Empleado { get; set; }
+        public int Id { get; set; }
+        public string Type { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Supply> Supply { get; set; }
     }
 }

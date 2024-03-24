@@ -12,18 +12,19 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class Repartidor
+    public partial class DeliveryDriver
     {
         public int Id { get; set; }
-        public string Nombres { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string Telefono { get; set; }
-        public string Correo { get; set; }
-        public string Estado { get; set; }
-        public int EmpleadoId { get; set; }
+        public string Names { get; set; }
+        public string LastName { get; set; }
+        public string SecondLastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public int EmployeeId { get; set; }
+        public int UserStatusId { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual OrdenCliente OrdenCliente { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual UserStatus UserStatus { get; set; }
+        public virtual CustomerOrder CustomerOrder { get; set; }
     }
 }

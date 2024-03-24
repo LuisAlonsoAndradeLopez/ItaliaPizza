@@ -12,29 +12,21 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class PedidoProveedor
+    public partial class OrderStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PedidoProveedor()
+        public OrderStatus()
         {
-            this.Insumo = new HashSet<Insumo>();
-            this.PedidoProveedorDetalle = new HashSet<PedidoProveedorDetalle>();
+            this.CustomerOrder = new HashSet<CustomerOrder>();
+            this.SupplierOrder = new HashSet<SupplierOrder>();
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public System.TimeSpan Hora { get; set; }
-        public string Estado { get; set; }
-        public double CostoTotal { get; set; }
-        public int EmpleadoId { get; set; }
-        public int ProveedorId { get; set; }
+        public string Status { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
-        public virtual Proveedor Proveedor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Insumo> Insumo { get; set; }
+        public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoProveedorDetalle> PedidoProveedorDetalle { get; set; }
+        public virtual ICollection<SupplierOrder> SupplierOrder { get; set; }
     }
 }

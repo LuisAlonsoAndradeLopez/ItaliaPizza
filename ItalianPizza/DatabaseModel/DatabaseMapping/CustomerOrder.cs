@@ -12,24 +12,31 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class Dirección
+    public partial class CustomerOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Dirección()
+        public CustomerOrder()
         {
-            this.Cliente = new HashSet<Cliente>();
-            this.Empleado = new HashSet<Empleado>();
+            this.CustomerOrderDetail = new HashSet<CustomerOrderDetail>();
+            this.FinancialTransaction = new HashSet<FinancialTransaction>();
         }
     
         public int Id { get; set; }
-        public string Calle { get; set; }
-        public string Ciudad { get; set; }
-        public int CodigoPostal { get; set; }
-        public int NumeroCalle { get; set; }
+        public System.DateTime OrderDate { get; set; }
+        public double TotalAmount { get; set; }
+        public System.TimeSpan RegistrationTime { get; set; }
+        public int OrderStatusId { get; set; }
+        public int OrderTypeId { get; set; }
+        public int EmployeeId { get; set; }
     
+        public virtual OrderStatus OrderStatus { get; set; }
+        public virtual OrderType OrderType { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual DeliveryDriver DeliveryDriver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
+        public virtual ICollection<CustomerOrderDetail> CustomerOrderDetail { get; set; }
+        public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Empleado> Empleado { get; set; }
+        public virtual ICollection<FinancialTransaction> FinancialTransaction { get; set; }
     }
 }

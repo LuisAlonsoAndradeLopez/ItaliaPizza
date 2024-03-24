@@ -12,15 +12,15 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class PedidoProveedorDetalle
+    public partial class SupplierOrderDetails
     {
         public int Id { get; set; }
-        public int PedidoProveedorId { get; set; }
-        public int InsumoId { get; set; }
-        public string CantidadInsumo { get; set; }
-        public string CostoInsumo { get; set; }
+        public int SupplyQuantity { get; set; }
+        public double PricePerUnit { get; set; }
+        public int SupplierOrderId { get; set; }
+        public int SupplyId { get; set; }
     
-        public virtual PedidoProveedor PedidoProveedor { get; set; }
-        public virtual Insumo Insumo { get; set; }
+        public virtual SupplierOrder SupplierOrder { get; set; }
+        public virtual Supply Supply { get; set; }
     }
 }

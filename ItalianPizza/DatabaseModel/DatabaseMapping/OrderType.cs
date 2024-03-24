@@ -12,28 +12,18 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class Producto
+    public partial class OrderType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Producto()
+        public OrderType()
         {
-            this.OrdenCliente = new HashSet<OrdenCliente>();
-            this.OrdenClienteDetalle = new HashSet<OrdenClienteDetalle>();
+            this.CustomerOrder = new HashSet<CustomerOrder>();
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public double Costo { get; set; }
-        public string Descripcion { get; set; }
-        public string Categoria { get; set; }
-        public string Foto { get; set; }
-        public string Estado { get; set; }
-        public int EmpleadoId { get; set; }
+        public string Type { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdenCliente> OrdenCliente { get; set; }
-        public virtual Empleado Empleado { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdenClienteDetalle> OrdenClienteDetalle { get; set; }
+        public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
     }
 }

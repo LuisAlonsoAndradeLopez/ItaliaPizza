@@ -12,26 +12,22 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class Proveedor
+    public partial class DailyClosing
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Proveedor()
+        public DailyClosing()
         {
-            this.PedidoProveedor = new HashSet<PedidoProveedor>();
+            this.FinancialTransaction = new HashSet<FinancialTransaction>();
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string ApellidoPaterno { get; set; }
-        public string ApellidoMaterno { get; set; }
-        public string Telefono { get; set; }
-        public string Correo { get; set; }
-        public string Empresa { get; set; }
-        public string Estado { get; set; }
-        public int EmpleadoId { get; set; }
+        public System.DateTime ClosingDate { get; set; }
+        public string Description { get; set; }
+        public double TotalAmount { get; set; }
+        public int EmployeeId { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PedidoProveedor> PedidoProveedor { get; set; }
+        public virtual ICollection<FinancialTransaction> FinancialTransaction { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

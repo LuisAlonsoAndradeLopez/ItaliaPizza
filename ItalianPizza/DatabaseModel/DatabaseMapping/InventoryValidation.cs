@@ -12,14 +12,13 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class ValidacionInventario
+    public partial class InventoryValidation
     {
         public int Id { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public System.TimeSpan Hora { get; set; }
-        public string Descripcion { get; set; }
-        public int EmpleadoId { get; set; }
+        public System.DateTime InventoryValidationDate { get; set; }
+        public string Description { get; set; }
+        public int EmployeeId { get; set; }
     
-        public virtual Empleado Empleado { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }

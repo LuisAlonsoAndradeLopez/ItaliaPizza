@@ -12,23 +12,18 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class CorteDiario
+    public partial class SupplyUnit
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public CorteDiario()
+        public SupplyUnit()
         {
-            this.OrdenCliente = new HashSet<OrdenCliente>();
+            this.Supply = new HashSet<Supply>();
         }
     
         public int Id { get; set; }
-        public System.DateTime Fecha { get; set; }
-        public System.TimeSpan Hora { get; set; }
-        public double MontoTotal { get; set; }
-        public string Descripcion { get; set; }
-        public int EmpleadoId { get; set; }
+        public string Unit { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdenCliente> OrdenCliente { get; set; }
-        public virtual Empleado Empleado { get; set; }
+        public virtual ICollection<Supply> Supply { get; set; }
     }
 }

@@ -12,34 +12,27 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class OrdenCliente
+    public partial class UserStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrdenCliente()
+        public UserStatus()
         {
-            this.Producto = new HashSet<Producto>();
-            this.CorteDiario = new HashSet<CorteDiario>();
-            this.Cliente = new HashSet<Cliente>();
-            this.OrdenClienteDetalle = new HashSet<OrdenClienteDetalle>();
+            this.DeliveryDriver = new HashSet<DeliveryDriver>();
+            this.Supplier = new HashSet<Supplier>();
+            this.Employee = new HashSet<Employee>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int Id { get; set; }
-        public string Nombre { get; set; }
-        public string Fecha { get; set; }
-        public System.TimeSpan Hora { get; set; }
-        public double CostoTotal { get; set; }
-        public int EmpleadoId { get; set; }
-        public string Estado { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Producto> Producto { get; set; }
-        public virtual Empleado Empleado { get; set; }
-        public virtual Repartidor Repartidor { get; set; }
+        public virtual ICollection<DeliveryDriver> DeliveryDriver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CorteDiario> CorteDiario { get; set; }
+        public virtual ICollection<Supplier> Supplier { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
+        public virtual ICollection<Employee> Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdenClienteDetalle> OrdenClienteDetalle { get; set; }
+        public virtual ICollection<Customer> Customer { get; set; }
     }
 }
