@@ -143,3 +143,122 @@ System.NullReferenceException: Referencia a objeto no establecida como instancia
    en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
 --------------------------------------------------
 
+Timestamp: 23/03/2024 11:59:03 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 126
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:30:13 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 141
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:41:16 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 142
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:42:12 p. m.
+Exception Details:
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlClient.SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_EmpleadoInsumo". The conflict occurred in database "ItalianPizzaServerBD", table "dbo.EmpleadoSet", column 'Id'.
+The statement has been terminated.
+   en System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   en System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   en System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   en System.Data.SqlClient.SqlDataReader.get_MetaData()
+   en System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<>c.<Reader>b__6_0(DbCommand t, DbCommandInterceptionContext`1 c)
+   en System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   en System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<>c.<Update>b__21_0(UpdateTranslator ut)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   en System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__153_0()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass148_0.<SaveChangesInternal>b__0()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 139
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:45:51 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 139
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:47:49 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 127
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:56:16 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 144
+--------------------------------------------------
+
+Timestamp: 24/03/2024 04:00:46 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 157
+--------------------------------------------------
+
+Timestamp: 24/03/2024 04:05:56 p. m.
+Exception Details:
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 128
+--------------------------------------------------
+

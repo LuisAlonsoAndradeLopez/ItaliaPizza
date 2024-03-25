@@ -46,18 +46,18 @@
         <Rectangle HorizontalAlignment="Left" Height="880" Margin="256,13,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="892" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2"/>
 
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
-            <TextBox Name="ArticleNameTextBox" HorizontalAlignment="Left" Margin="297,35,0,0" TextWrapping="Wrap" Text="Ingrese nombre del artículo" VerticalAlignment="Top" Height="39" Width="526"/>
+            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="297,35,0,0" TextWrapping="Wrap" Text="Ingrese nombre del artículo" VerticalAlignment="Top" Height="39" Width="526" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
             <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
-            <ComboBox x:Name="cmbBox_Show" HorizontalAlignment="Left" Margin="382,99,0,0" VerticalAlignment="Top" Height="35" Width="441"/>
+            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="382,99,0,0" VerticalAlignment="Top" Height="35" Width="441" SelectionChanged="ShowComboBoxSelectionChanged"/>
             <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="297,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-            <ComboBox x:Name="cmbBox_FindBy" HorizontalAlignment="Left" Margin="412,161,0,0" VerticalAlignment="Top" FontSize="20" Width="411" Height="33"/>
+            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="412,161,0,0" VerticalAlignment="Top" FontSize="20" Width="411" Height="33" SelectionChanged="FindByComboBoxSelectionChanged"/>
             <Button Content="Agregar Artículo" HorizontalAlignment="Left" Margin="864,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
             <Button Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="864,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
 
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#000000"/>
             <Label Content="Imágen" HorizontalAlignment="Left" Margin="341,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
             <Label Content="Nombre del Artículo" HorizontalAlignment="Left" Margin="528,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-            <Label HorizontalAlignment="Left" Margin="819,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Tipo" HorizontalAlignment="Left" Margin="819,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
             <Label Content="Estado" HorizontalAlignment="Left" Margin="965,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
 
             <ScrollViewer x:Name="ArticlesScrollViewer" Margin="276,281,608,30">

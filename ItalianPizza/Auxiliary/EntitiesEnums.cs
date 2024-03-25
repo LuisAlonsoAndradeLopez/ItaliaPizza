@@ -5,4 +5,10 @@
         Activo,
         Inactivo
     }
+
+    public enum ArticleTypes
+    {
+        Insumo,
+        Producto
+    }
 }

@@ -15,7 +15,7 @@ namespace ItalianPizza
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
             NavigationService navigationService = MainFrame.NavigationService;
-            navigationService.Navigate(new GUI_AddArticle());
+            navigationService.Navigate(new GUI_Inventory());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

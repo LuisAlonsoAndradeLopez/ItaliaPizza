@@ -1,13 +1,13 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System.Data.Entity.Core;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
     public class IngredientDAO
     {
-        public IngredientDAO() { }
-
         public int AddIngredient(Insumo ingredient)
         {
             int result = 0;
@@ -32,6 +32,26 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return result;
+        }
+
+        public List<Insumo> GetSpecifiedIngredientsByNameOrCode(string textForFindingArticle, string findByType)
+        {
+            List<Insumo> specifiedIngredients = new List<Insumo>();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                if (findByType == "Nombre")
+                {
+                    specifiedIngredients = context.InsumoSet.Where(p => p.Nombre.StartsWith(textForFindingArticle)).ToList();
+                }
+
+                if (findByType == "Código")
+                {
+                    //specifiedIngredients = context.InsumoSet.Where(p => p.Código.StartsWith(textForFindingArticle)).ToList();
+                }
+            }
+
+            return specifiedIngredients;
         }
     }
 }

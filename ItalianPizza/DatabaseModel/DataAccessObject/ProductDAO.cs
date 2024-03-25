@@ -17,6 +17,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     context.ProductoSet.Add(product);
+                    context.SaveChanges();
                 }
 
                 result = 1;
@@ -43,6 +44,26 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return activeProducts;
+        }
+
+        public List<Producto> GetSpecifiedProductsByNameOrCode(string textForFindingArticle, string findByType)
+        {
+            List<Producto> specifiedProducts = new List<Producto>();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                if (findByType == "Nombre")
+                {
+                    specifiedProducts = context.ProductoSet.Where(p => p.Nombre.StartsWith(textForFindingArticle)).ToList();
+                }
+
+                if (findByType == "Código")
+                {
+                    //specifiedProducts = context.ProductoSet.Where(p => p.Código.StartsWith(textForFindingArticle)).ToList();
+                }
+            }
+
+            return specifiedProducts;
         }
     }
 }

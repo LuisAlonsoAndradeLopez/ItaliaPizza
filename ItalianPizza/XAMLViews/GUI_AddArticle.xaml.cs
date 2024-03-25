@@ -2,6 +2,7 @@
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
+using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -90,7 +91,7 @@ namespace ItalianPizza.XAMLViews
             string[] products = { "Bebida", "Dedos de Queso", "Hamburguesa", "Pizza" };
 
 
-            if(selectedOption == "Insumo")
+            if(selectedOption == ArticleTypes.Insumo.ToString())
             {
                 foreach (var ingredient in ingredients)
                 {
@@ -98,7 +99,7 @@ namespace ItalianPizza.XAMLViews
                 }
             }
 
-            if (selectedOption == "Producto")
+            if (selectedOption == ArticleTypes.Producto.ToString())
             {
                 foreach (var product in products)
                 {
@@ -121,56 +122,113 @@ namespace ItalianPizza.XAMLViews
             {
                 if(InvalidValuesInTextFieldsTextGenerator() == "")
                 {
-                    if(ArticleTypesComboBox.SelectedItem?.ToString() == "Insumo") 
+                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source)?.ToString() != null)
                     {
-                        Insumo ingredient = new Insumo
+                        string selectedImage = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString();
+                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString()) 
                         {
-                            Nombre = ArticleNameTextBox.Text,
-                            Costo = (double)PriceDecimalUpDown.Value,
-                            Descripcion = DescriptionTextBox.Text,
-                            Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                            Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                            Foto = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString(),
-                            Estado = ArticleStatus.Activo.ToString()
-                        };
+                            Insumo ingredient = new Insumo
+                            {
+                                Nombre = ArticleNameTextBox.Text,
+                                Costo = (double)PriceDecimalUpDown.Value,
+                                Descripcion = DescriptionTextBox.Text,
+                                Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                                Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                Foto = selectedImage,
+                                Estado = ArticleStatus.Activo.ToString(),
+                                Empleado = new Empleado
+                                {
+                                    Id = 12,
+                                    Nombres = "Usuario1",
+                                    ApellidoPaterno = "ApellidoPaterno1",
+                                    ApellidoMaterno = "ApellidoMaterno1",
+                                    Telefono = "12345678",
+                                    Correo = "usuario2@gmail.com",
+                                    Estado = "Activo",
+                                    Tipo = "Administrador",
+                                    Dirección = new Dirección
+                                    {
+                                        Id = 1,
+                                        Calle = "Calle1",
+                                        Ciudad = "Ciudad1",
+                                        CodigoPostal = 1,
+                                        NumeroCalle = 1
+                                    },
+
+                                    Cuenta = new Cuenta
+                                    {
+                                        Id = 1,
+                                        Usuario = "Usuario1",
+                                        Contraseña = "12345678"
+                                    }
+                                }
+                            };
 
                             new IngredientDAO().AddIngredient(ingredient);                    
-                    }
+                        }
 
-                    if (ArticleTypesComboBox.SelectedItem?.ToString() == "Producto")
-                    {
-                        Producto product = new Producto
+                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
                         {
-                            Nombre = ArticleNameTextBox.Text,
-                            Costo = (double)PriceDecimalUpDown.Value,
-                            Descripcion = DescriptionTextBox.Text,
-                            Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                            //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                            Foto = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString(),
-                            Estado = ArticleStatus.Activo.ToString()
-                        };
+                            Producto product = new Producto
+                            {
+                                Nombre = ArticleNameTextBox.Text,
+                                Costo = (double)PriceDecimalUpDown.Value,
+                                Descripcion = DescriptionTextBox.Text,
+                                Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                                //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                Foto = selectedImage,
+                                Estado = ArticleStatus.Activo.ToString(),
+                                Empleado = new Empleado { 
+                                    Id = 12,
+                                    Nombres = "Usuario1",
+                                    ApellidoPaterno = "ApellidoPaterno1",
+                                    ApellidoMaterno = "ApellidoMaterno1",
+                                    Telefono = "12345678",
+                                    Correo = "usuario2@gmail.com",
+                                    Estado = "Activo",
+                                    Tipo = "Administrador",
+                                    Dirección = new Dirección { 
+                                        Id = 1,
+                                        Calle = "Calle1",
+                                        Ciudad = "Ciudad1",
+                                        CodigoPostal = 1,
+                                        NumeroCalle = 1
+                                    },
 
-                        new ProductDAO().AddProduct(product);
+                                    Cuenta = new Cuenta { 
+                                        Id = 1,
+                                        Usuario = "Usuario1",
+                                        Contraseña = "12345678"
+                                    }
+                                }
+                            };
+
+                            new ProductDAO().AddProduct(product);
+                        }
+
+                        new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
+                    }           
+                    else
+                    {
+                        new AlertPopup("¡Falta la imágen!", "Falta que selecciones la imágen", AlertPopupTypes.Error);
                     }
-
-                    new AlertPopUpGenerator().OpenSuccessPopUp("¡Muy Bien!", "¡Artículo registrado con éxito!");
                 }
                 else
                 {
                     new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
                 }
             }
-            catch (Exception ex)
+            catch (EntityException ex)
             {
-                new AlertPopUpGenerator().OpenSuccessPopUp("¡Error!", "¡Inténtelo más tarde!");
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
         }
 
 
-        public void InitializeComboBoxes()
+        private void InitializeComboBoxes()
         {
-            string[] articleTypes = { "Insumo", "Producto" };
+            string[] articleTypes = { ArticleTypes.Insumo.ToString(), ArticleTypes.Producto.ToString() };
 
             foreach (var articleType in articleTypes)
             {

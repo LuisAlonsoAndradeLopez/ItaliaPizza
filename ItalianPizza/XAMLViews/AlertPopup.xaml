@@ -18,7 +18,7 @@
     <Grid Background="#000000">
         <!-- Design your custom message box UI here -->
         <Image Name="AlertPopupImage" Margin="16,16,484,220"/>
-        <TextBlock Name="MessageTextBlock" TextAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Margin="28,138,28,0" FontSize="18" Foreground="White" Height="78"/>
+        <TextBlock Name="MessageTextBlock" TextAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Margin="28,135,28,0" FontSize="18" Foreground="White" Height="78"/>
         <Border Margin="0,234,0,0" Background="#FF1C1C1C">
             <StackPanel>
                 <StackPanel Name="ErrorSuccessOrWarningAlertPopupButtonsPane" Height="80" Visibility="Collapsed">
