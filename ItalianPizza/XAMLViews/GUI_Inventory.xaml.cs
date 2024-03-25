@@ -8,7 +8,10 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Navigation;
-using System.Windows.Input;
+using System.Windows.Forms;
+using Cursors = System.Windows.Input.Cursors;
+using Orientation = System.Windows.Controls.Orientation;
+
 
 namespace ItalianPizza.XAMLViews
 {
@@ -18,7 +21,17 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_Inventory : Page
     {
         public GUI_Inventory()
-        {
+        {/*
+          TODO:
+            *Manejo de excepciones en los daos de producto e insumos, GUI_Inventory y GUI_AddArticle
+            *Cargar la imágen de la base de datos crashea en cualquier parte (no la warda bien)
+            *Crasheo cuando se descomenta el código del metodo: TextForFindingArticleTextBoxTextChanged
+            *Modificar la imágen del artículo seleccionado
+          
+          
+          */
+
+
             InitializeComponent();
             InitializeComboBoxes();
 
@@ -52,7 +65,7 @@ namespace ItalianPizza.XAMLViews
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
 
         private void ShowComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -79,27 +92,63 @@ namespace ItalianPizza.XAMLViews
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
+            SelectAnArticleTextBlock1.Visibility = Visibility.Collapsed;
+            SelectAnArticleTextBlock2.Visibility = Visibility.Collapsed;
+            SelectAnArticleTextBlock3.Visibility = Visibility.Collapsed;
 
+            ArticleImageStackPanel.Visibility = Visibility.Visible;
+            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
+            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void SelectImageButtonOnClick(object sender, RoutedEventArgs e)
         {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.png)|*.png",
+                Title = "Selecciona una imágen"
+            };
 
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
+                {
+                    SelectedArticleImage1.Source = imageSource;
+                }
+                else
+                {
+                    new AlertPopUpGenerator().OpenErrorPopUp("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB");
+                }
+            }
         }
 
         private void ModifyArticleButtonOnClick1(object sender, RoutedEventArgs e)
         {
+            ArticleImageStackPanel.Visibility = Visibility.Collapsed;
+            ArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+            SelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
 
+            ModifyArticleImageStackPanel.Visibility = Visibility.Visible;
+            ModifyArticleDetailsStackPanel.Visibility = Visibility.Visible;
+            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void ConsultArticleRecipeButtonOnClick(object sender, RoutedEventArgs e)
         {
-
+            //Este método lo hace el Álvaro
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
         {
+            ModifyArticleImageStackPanel.Visibility = Visibility.Collapsed;
+            ModifyArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
 
+            ArticleImageStackPanel.Visibility = Visibility.Visible;
+            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
+            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void DisableArticleButtonOnClick(object sender, RoutedEventArgs e)
@@ -139,6 +188,8 @@ namespace ItalianPizza.XAMLViews
             List<Insumo> ingredients = new List<Insumo>();
             List<Producto> products = new List<Producto>();
 
+            
+
             if (showType == ArticleTypes.Insumo.ToString())
             {
                 ingredients = new IngredientDAO().GetSpecifiedIngredientsByNameOrCode(textForFindingArticle, findByType);
@@ -150,7 +201,7 @@ namespace ItalianPizza.XAMLViews
             }
 
 
-            ArticlesScrollViewer.Content = null;
+            ArticlesStackPanel.Children.Clear();
 
             foreach (var product in products)
             {
@@ -175,7 +226,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new BitmapImage(new Uri(@"C:\Users\Luis Alonso\Pictures\boja.png"))
+                    //Source = new ProductDAO().GetImageByProductName(product.Nombre)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -211,7 +262,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = product.Estado,
+                    Text = product.Estado
                 };
 
                 
