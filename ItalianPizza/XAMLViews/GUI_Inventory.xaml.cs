@@ -25,8 +25,8 @@ namespace ItalianPizza.XAMLViews
           TODO:
             *Manejo de excepciones en los daos de producto e insumos, GUI_Inventory y GUI_AddArticle
             *Cargar la imágen de la base de datos crashea en cualquier parte (no la warda bien)
-            *Crasheo cuando se descomenta el código del metodo: TextForFindingArticleTextBoxTextChanged
             *Modificar la imágen del artículo seleccionado
+            *Mostrar Insumos y productos en la tabla
           
           
           */
@@ -65,7 +65,10 @@ namespace ItalianPizza.XAMLViews
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            if (ShowComboBox != null)
+            {
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            }
         }
 
         private void ShowComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,13 +95,57 @@ namespace ItalianPizza.XAMLViews
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
-            SelectAnArticleTextBlock1.Visibility = Visibility.Collapsed;
-            SelectAnArticleTextBlock2.Visibility = Visibility.Collapsed;
-            SelectAnArticleTextBlock3.Visibility = Visibility.Collapsed;
+            if (sender is Border border)
+            {
+                StackPanel borderStackPanelChild = (StackPanel)VisualTreeHelper.GetChild(border, 0);
+                TextBlock selectedArticleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 1);
+                TextBlock selectedArticleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 2);
 
-            ArticleImageStackPanel.Visibility = Visibility.Visible;
-            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
-            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+                Insumo ingredient = null;
+                Producto product = null;
+
+                if (selectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                {
+                    ingredient = new IngredientDAO().GetIngredientByName(selectedArticleNameTextBlock.Text);
+                }
+
+                if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                {
+                    product = new ProductDAO().GetProductByName(selectedArticleNameTextBlock.Text);
+                }
+
+                if (ingredient != null)
+                {
+                    //SelectedArticleImage1.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
+                    ArticleNameTextBlock.Text = ingredient.Nombre;
+                    ArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
+                    ArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
+                    ArticleStatusTextBlock.Text = ingredient.Estado;
+                    ArticleCodeTextBlock.Text = "Pendiente";
+                    ArticlePriceTextBlock.Text = "N/A";
+                    ArticleDescriptionTextBlock.Text = ingredient.Descripcion;
+                }
+
+                if (product != null)
+                {
+                    //SelectedArticleImage1.Source = new ProductDAO().GetImageByProductName(product.Nombre);
+                    ArticleNameTextBlock.Text = product.Nombre;
+                    ArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
+                    ArticleQuantityTextBlock.Text = "Pendiente";
+                    ArticleStatusTextBlock.Text = product.Estado;
+                    ArticleCodeTextBlock.Text = "Pendiente";
+                    ArticlePriceTextBlock.Text = product.Costo.ToString();
+                    ArticleDescriptionTextBlock.Text = product.Descripcion;
+                }
+
+                SelectAnArticleTextBlock1.Visibility = Visibility.Collapsed;
+                SelectAnArticleTextBlock2.Visibility = Visibility.Collapsed;
+                SelectAnArticleTextBlock3.Visibility = Visibility.Collapsed;
+
+                ArticleImageStackPanel.Visibility = Visibility.Visible;
+                ArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+            }
         }
 
         private void SelectImageButtonOnClick(object sender, RoutedEventArgs e)
@@ -119,7 +166,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    new AlertPopUpGenerator().OpenErrorPopUp("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB");
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
                 }
             }
         }
@@ -188,8 +235,6 @@ namespace ItalianPizza.XAMLViews
             List<Insumo> ingredients = new List<Insumo>();
             List<Producto> products = new List<Producto>();
 
-            
-
             if (showType == ArticleTypes.Insumo.ToString())
             {
                 ingredients = new IngredientDAO().GetSpecifiedIngredientsByNameOrCode(textForFindingArticle, findByType);
@@ -199,7 +244,6 @@ namespace ItalianPizza.XAMLViews
             {
                 products = new ProductDAO().GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
             }
-
 
             ArticlesStackPanel.Children.Clear();
 
@@ -266,6 +310,79 @@ namespace ItalianPizza.XAMLViews
                 };
 
                 
+                articleStackPanel.Children.Add(articleImage);
+                articleStackPanel.Children.Add(articleNameTextBlock);
+                articleStackPanel.Children.Add(articleTypeTextBlock);
+                articleStackPanel.Children.Add(articleStatusTextBlock);
+
+                articleBorder.Child = articleStackPanel;
+
+                ArticlesStackPanel.Children.Add(articleBorder);
+            }
+
+            foreach (var ingredient in ingredients)
+            {
+                Border articleBorder = new Border
+                {
+                    Cursor = Cursors.Hand,
+                    Height = 142,
+                    Margin = new Thickness(5, 4, 5, 0),
+                    CornerRadius = new CornerRadius(10),
+                    Background = new SolidColorBrush(Color.FromRgb(126, 22, 22)) // Equivalent to "#7E1616"
+                };
+
+                articleBorder.MouseLeftButtonDown += ArticleButtonOnClick;
+
+                StackPanel articleStackPanel = new StackPanel
+                {
+                    Orientation = Orientation.Horizontal
+                };
+
+                Image articleImage = new Image
+                {
+                    Width = 100,
+                    Height = 100,
+                    Margin = new Thickness(40, 0, 0, 0),
+                    //Source = new ingredientDAO().GetImageByingredientName(ingredient.Nombre)
+                };
+
+                TextBlock articleNameTextBlock = new TextBlock
+                {
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(47, 0, 0, 0),
+                    Width = 290,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = ingredient.Nombre
+                };
+
+                TextBlock articleTypeTextBlock = new TextBlock
+                {
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(10, 0, 0, 0),
+                    Width = 142,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = ArticleTypes.Insumo.ToString()
+                };
+
+                TextBlock articleStatusTextBlock = new TextBlock
+                {
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(10, 0, 0, 0),
+                    Width = 144,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = ingredient.Estado
+                };
+
+
                 articleStackPanel.Children.Add(articleImage);
                 articleStackPanel.Children.Add(articleNameTextBlock);
                 articleStackPanel.Children.Add(articleTypeTextBlock);

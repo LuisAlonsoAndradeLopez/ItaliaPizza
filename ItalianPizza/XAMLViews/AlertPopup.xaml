@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
         mc:Ignorable="d"
+        Title="Alerta"
         Height="350" Width="600">
 
     <Window.Resources>
@@ -18,6 +19,7 @@
     <Grid Background="#000000">
         <!-- Design your custom message box UI here -->
         <Image Name="AlertPopupImage" Margin="16,16,484,220"/>
+        <TextBlock Name="HeaderTextBlock" TextAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Margin="132,53,132,0" FontSize="20" Height="28"/>
         <TextBlock Name="MessageTextBlock" TextAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Margin="28,135,28,0" FontSize="18" Foreground="White" Height="78"/>
         <Border Margin="0,234,0,0" Background="#FF1C1C1C">
             <StackPanel>

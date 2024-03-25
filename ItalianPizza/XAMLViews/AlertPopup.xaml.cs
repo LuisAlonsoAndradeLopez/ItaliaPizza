@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -15,10 +16,10 @@ namespace ItalianPizza.XAMLViews
         {
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             this.ResizeMode = ResizeMode.NoResize;
-            this.Title = header;
 
             InitializeComponent();
 
+            HeaderTextBlock.Text = header;
             MessageTextBlock.Text = message;
 
 
@@ -27,21 +28,25 @@ namespace ItalianPizza.XAMLViews
                 case AlertPopupTypes.Decision:
                     DecisionAlertPopupButtonsPane.Visibility = Visibility.Visible;
                     AlertPopupImage.Source = new ImageManager().GetImageByItaliaPizzaStoragedImagePath("Resources\\Pictures\\AlertPopupImages\\ICON-Decision.png");
+                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.Blue);
                     break;
 
                 case AlertPopupTypes.Error:
                     ErrorSuccessOrWarningAlertPopupButtonsPane.Visibility = Visibility.Visible;
                     AlertPopupImage.Source = new ImageManager().GetImageByItaliaPizzaStoragedImagePath("Resources\\Pictures\\AlertPopupImages\\ICON-Error.png");
+                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.Red);
                     break;
 
                 case AlertPopupTypes.Success:
                     ErrorSuccessOrWarningAlertPopupButtonsPane.Visibility = Visibility.Visible;
                     AlertPopupImage.Source = new ImageManager().GetImageByItaliaPizzaStoragedImagePath("Resources\\Pictures\\AlertPopupImages\\ICON-Success.png");
+                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.Green);
                     break;
 
                 case AlertPopupTypes.Warning:
                     ErrorSuccessOrWarningAlertPopupButtonsPane.Visibility = Visibility.Visible;
                     AlertPopupImage.Source = new ImageManager().GetImageByItaliaPizzaStoragedImagePath("Resources\\Pictures\\AlertPopupImages\\ICON-Warning.png");
+                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.Yellow);
                     break;
 
                 default:

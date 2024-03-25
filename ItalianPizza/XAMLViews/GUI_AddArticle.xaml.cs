@@ -75,7 +75,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    new AlertPopUpGenerator().OpenErrorPopUp("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB");
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
                 }
             }
         }
