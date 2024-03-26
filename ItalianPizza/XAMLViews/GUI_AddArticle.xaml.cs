@@ -122,9 +122,10 @@ namespace ItalianPizza.XAMLViews
             {
                 if(InvalidValuesInTextFieldsTextGenerator() == "")
                 {
-                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source)?.ToString() != null)
+                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source) != null)
                     {
-                        string selectedImage = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source).ToString();
+                        string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source));
+
                         if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString()) 
                         {
                             Insumo ingredient = new Insumo
@@ -136,32 +137,7 @@ namespace ItalianPizza.XAMLViews
                                 Cantidad = QuantityIntegerUpDown.Value ?? 0,
                                 Foto = selectedImage,
                                 Estado = ArticleStatus.Activo.ToString(),
-                                Empleado = new Empleado
-                                {
-                                    Id = 12,
-                                    Nombres = "Usuario1",
-                                    ApellidoPaterno = "ApellidoPaterno1",
-                                    ApellidoMaterno = "ApellidoMaterno1",
-                                    Telefono = "12345678",
-                                    Correo = "usuario2@gmail.com",
-                                    Estado = "Activo",
-                                    Tipo = "Administrador",
-                                    Dirección = new Dirección
-                                    {
-                                        Id = 1,
-                                        Calle = "Calle1",
-                                        Ciudad = "Ciudad1",
-                                        CodigoPostal = 1,
-                                        NumeroCalle = 1
-                                    },
-
-                                    Cuenta = new Cuenta
-                                    {
-                                        Id = 1,
-                                        Usuario = "Usuario1",
-                                        Contraseña = "12345678"
-                                    }
-                                }
+                                EmpleadoId = 12
                             };
 
                             new IngredientDAO().AddIngredient(ingredient);                    
@@ -178,29 +154,7 @@ namespace ItalianPizza.XAMLViews
                                 //Cantidad = QuantityIntegerUpDown.Value ?? 0,
                                 Foto = selectedImage,
                                 Estado = ArticleStatus.Activo.ToString(),
-                                Empleado = new Empleado { 
-                                    Id = 12,
-                                    Nombres = "Usuario1",
-                                    ApellidoPaterno = "ApellidoPaterno1",
-                                    ApellidoMaterno = "ApellidoMaterno1",
-                                    Telefono = "12345678",
-                                    Correo = "usuario2@gmail.com",
-                                    Estado = "Activo",
-                                    Tipo = "Administrador",
-                                    Dirección = new Dirección { 
-                                        Id = 1,
-                                        Calle = "Calle1",
-                                        Ciudad = "Ciudad1",
-                                        CodigoPostal = 1,
-                                        NumeroCalle = 1
-                                    },
-
-                                    Cuenta = new Cuenta { 
-                                        Id = 1,
-                                        Usuario = "Usuario1",
-                                        Contraseña = "12345678"
-                                    }
-                                }
+                                EmpleadoId = 12
                             };
 
                             new ProductDAO().AddProduct(product);

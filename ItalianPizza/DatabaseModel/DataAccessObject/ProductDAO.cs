@@ -89,16 +89,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 imageDataInString = context.ProductoSet.Where(p => p.Nombre == productName).First().Foto;
             }
 
-            MessageBox.Show(imageDataInString, "Hello, World!", MessageBoxButton.OK, MessageBoxImage.Information);
-
-            int numberChars = imageDataInString.Length / 2;
-            byte[] imageData = new byte[numberChars];
-
-            for (int i = 0; i < numberChars; i++)
-            {
-                string byteValue = imageDataInString.Substring(i * 2, 2);
-                imageData[i] = byte.Parse(byteValue, System.Globalization.NumberStyles.HexNumber);
-            }
+            byte[] imageData = Convert.FromBase64String(imageDataInString);
 
             BitmapImage imageSource = new BitmapImage();
 

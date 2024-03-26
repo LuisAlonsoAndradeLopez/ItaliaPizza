@@ -11,6 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
 using Orientation = System.Windows.Controls.Orientation;
+using System.Reflection;
 
 
 namespace ItalianPizza.XAMLViews
@@ -24,10 +25,8 @@ namespace ItalianPizza.XAMLViews
         {/*
           TODO:
             *Manejo de excepciones en los daos de producto e insumos, GUI_Inventory y GUI_AddArticle
-            *Cargar la imágen de la base de datos crashea en cualquier parte (no la warda bien)
-            *Modificar la imágen del artículo seleccionado
-            *Mostrar Insumos y productos en la tabla
-          
+            *Validaciones de que si el nombre y el código ya están usados al registrar o modificar artículo
+            *Mismas validaciones en guiaddarticle y guiinventory para agregar y modificar artículos
           
           */
 
@@ -116,7 +115,7 @@ namespace ItalianPizza.XAMLViews
 
                 if (ingredient != null)
                 {
-                    //SelectedArticleImage1.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
+                    SelectedArticleImage1.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
                     ArticleNameTextBlock.Text = ingredient.Nombre;
                     ArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
                     ArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
@@ -128,7 +127,7 @@ namespace ItalianPizza.XAMLViews
 
                 if (product != null)
                 {
-                    //SelectedArticleImage1.Source = new ProductDAO().GetImageByProductName(product.Nombre);
+                    SelectedArticleImage1.Source = new ProductDAO().GetImageByProductName(product.Nombre);
                     ArticleNameTextBlock.Text = product.Nombre;
                     ArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
                     ArticleQuantityTextBlock.Text = "Pendiente";
@@ -172,7 +171,44 @@ namespace ItalianPizza.XAMLViews
         }
 
         private void ModifyArticleButtonOnClick1(object sender, RoutedEventArgs e)
-        {
+        {          
+            Insumo ingredient = null;
+            Producto product = null;
+
+            if (ArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            {
+                ingredient = new IngredientDAO().GetIngredientByName(ArticleNameTextBlock.Text);
+            }
+
+            if (ArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            {
+                product = new ProductDAO().GetProductByName(ArticleNameTextBlock.Text);
+            }
+
+            if (ingredient != null)
+            {
+                SelectedArticleImage2.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
+                ArticleNameTextBox.Text = ingredient.Nombre;
+                ArticleTypeTextBox.Text = ArticleTypes.Insumo.ToString();
+                ArticleQuantityTextBox.Text = ingredient.Cantidad.ToString();
+                ArticleStatusTextBox.Text = ingredient.Estado;
+                ArticleCodeTextBox.Text = "Pendiente";
+                ArticlePriceTextBox.Text = "N/A";
+                ArticleDescriptionTextBox.Text = ingredient.Descripcion;
+            }
+
+            if (product != null)
+            {
+                SelectedArticleImage2.Source = new ProductDAO().GetImageByProductName(product.Nombre);
+                ArticleNameTextBox.Text = product.Nombre;
+                ArticleTypeTextBox.Text = ArticleTypes.Producto.ToString();
+                ArticleQuantityTextBox.Text = "Pendiente";
+                ArticleStatusTextBox.Text = product.Estado;
+                ArticleCodeTextBox.Text = "Pendiente";
+                ArticlePriceTextBox.Text = product.Costo.ToString();
+                ArticleDescriptionTextBox.Text = product.Descripcion;
+            }
+
             ArticleImageStackPanel.Visibility = Visibility.Collapsed;
             ArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
             SelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
@@ -205,7 +241,49 @@ namespace ItalianPizza.XAMLViews
 
         private void ModifyArticleButtonOnClick2(object sender, RoutedEventArgs e)
         {
+            if (ArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            {
+                Insumo ingredient = new Insumo
+                {
+                    Nombre = ArticleNameTextBox.Text,
+                    //Costo = (double)PriceDecimalUpDown.Value,
+                    //Descripcion = DescriptionTextBox.Text,
+                    //Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                    //Foto = selectedImage,
+                    Estado = ArticleStatus.Activo.ToString(),
+                    EmpleadoId = 12
+                };
 
+                new IngredientDAO().ModifyIngredient(ingredient);
+            }
+
+            if (ArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            {
+                Producto product = new Producto
+                {
+                    Nombre = ArticleNameTextBox.Text,
+                    //Costo = (double)PriceDecimalUpDown.Value,
+                    //Descripcion = DescriptionTextBox.Text,
+                    //Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                    //Foto = selectedImage,
+                    //Estado = ArticleStatus.Activo.ToString(),
+                    EmpleadoId = 12
+                };
+
+                new ProductDAO().ModifyProduct(product);
+            }
+
+            new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
+
+            ModifyArticleImageStackPanel.Visibility = Visibility.Collapsed;
+            ModifyArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+            ArticleImageStackPanel.Visibility = Visibility.Visible;
+            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
+            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void InitializeComboBoxes()
@@ -270,7 +348,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    //Source = new ProductDAO().GetImageByProductName(product.Nombre)
+                    Source = new ProductDAO().GetImageByProductName(product.Nombre)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -343,7 +421,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    //Source = new ingredientDAO().GetImageByingredientName(ingredient.Nombre)
+                    Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock

@@ -139,7 +139,7 @@
                 <StackPanel Name="ModifyArticleDetailsStackPanel" Height="548" Visibility="Collapsed">
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Nombre del Artículo: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="171" Height="26"/>
-                        <TextBox FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="367" Height="26"/>
+                        <TextBox Name="ArticleNameTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="367" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">

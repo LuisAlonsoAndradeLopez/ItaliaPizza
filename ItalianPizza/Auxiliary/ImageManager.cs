@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Windows.Media.Imaging;
 
 namespace ItalianPizza.Auxiliary
@@ -13,20 +14,14 @@ namespace ItalianPizza.Auxiliary
 
                 // Convert BitmapSource to Bitmap
                 BitmapEncoder encoder = new PngBitmapEncoder();
-                MemoryStream memoryStream = new MemoryStream();
-                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                encoder.Save(memoryStream);
-                System.Drawing.Bitmap bitmap = new System.Drawing.Bitmap(memoryStream);
-
-                // Get the bytes of the Bitmap
-                byte[] bytes;
-                using (MemoryStream stream = new MemoryStream())
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                    bytes = stream.ToArray();
-                }
+                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                    encoder.Save(memoryStream);
 
-                return bytes;
+                    // Convert the bitmap to a byte array
+                    return memoryStream.ToArray();
+                }
             }
 
             return null;

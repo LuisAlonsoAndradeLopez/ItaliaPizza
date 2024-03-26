@@ -76,13 +76,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 imageDataInString = context.InsumoSet.Where(i => i.Nombre == ingredientName).First().Foto;
             }
 
-            int numberChars = imageDataInString.Length / 2;
-            byte[] imageData = new byte[numberChars];
-
-            for (int i = 0; i < numberChars; i++)
-            {
-                imageData[i] = Convert.ToByte(imageDataInString.Substring(i * 2, 2), 16);
-            }
+            byte[] imageData = Convert.FromBase64String(imageDataInString);
 
             BitmapImage imageSource = new BitmapImage();
 
