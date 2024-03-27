@@ -3,6 +3,8 @@ using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Data.Entity.Core;
+using System.Data.Entity.Validation;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -124,43 +126,51 @@ namespace ItalianPizza.XAMLViews
                 {
                     if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source) != null)
                     {
-                        string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source));
-
-                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString()) 
+                        if (!new IngredientDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text) &&
+                            !new ProductDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text))
                         {
-                            Insumo ingredient = new Insumo
+                            string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source));
+
+                            if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString()) 
                             {
-                                Nombre = ArticleNameTextBox.Text,
-                                Costo = (double)PriceDecimalUpDown.Value,
-                                Descripcion = DescriptionTextBox.Text,
-                                Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                                Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                                Foto = selectedImage,
-                                Estado = ArticleStatus.Activo.ToString(),
-                                EmpleadoId = 12
-                            };
+                                Insumo ingredient = new Insumo
+                                {
+                                    Nombre = ArticleNameTextBox.Text,
+                                    Costo = (double)PriceDecimalUpDown.Value,
+                                    Descripcion = DescriptionTextBox.Text,
+                                    Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                                    Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                    Foto = selectedImage,
+                                    Estado = ArticleStatus.Activo.ToString(),
+                                    EmpleadoId = 12
+                                };
 
-                            new IngredientDAO().AddIngredient(ingredient);                    
+                                new IngredientDAO().AddIngredient(ingredient);                    
+                            }
+
+                            if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
+                            {
+                                Producto product = new Producto
+                                {
+                                    Nombre = ArticleNameTextBox.Text,
+                                    Costo = (double)PriceDecimalUpDown.Value,
+                                    Descripcion = DescriptionTextBox.Text,
+                                    Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
+                                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                    Foto = selectedImage,
+                                    Estado = ArticleStatus.Activo.ToString(),
+                                    EmpleadoId = 12
+                                };
+
+                                new ProductDAO().AddProduct(product);
+                            }
+
+                            new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
                         }
-
-                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
+                        else
                         {
-                            Producto product = new Producto
-                            {
-                                Nombre = ArticleNameTextBox.Text,
-                                Costo = (double)PriceDecimalUpDown.Value,
-                                Descripcion = DescriptionTextBox.Text,
-                                Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                                //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                                Foto = selectedImage,
-                                Estado = ArticleStatus.Activo.ToString(),
-                                EmpleadoId = 12
-                            };
-
-                            new ProductDAO().AddProduct(product);
+                            new AlertPopup("¡Nombre ya usado!", "El nombre ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
                         }
-
-                        new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
                     }           
                     else
                     {
@@ -170,6 +180,25 @@ namespace ItalianPizza.XAMLViews
                 else
                 {
                     new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+
+                string incompletePath = Path.GetFullPath("ValidationErrors.txt");
+                string pathPartToDelete = "ItalianPizza\\bin\\Debug\\";
+                string completePath = incompletePath.Replace(pathPartToDelete, "");
+
+                using (StreamWriter writer = new StreamWriter(completePath))
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            writer.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                        }
+                    }
                 }
             }
             catch (EntityException ex)

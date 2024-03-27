@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.IO;
 using System.Linq;
-using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
@@ -145,7 +144,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return specifiedProducts;
         }
 
-        public int ModifyProduct(Producto modifiedProduct)
+        public int ModifyProduct(Producto originalProduct, Producto modifiedProduct)
         {
             int generatedID = 0;
 
@@ -153,18 +152,17 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    Producto productToModify = context.ProductoSet.Where(p => p.Nombre == modifiedProduct.Nombre).FirstOrDefault();
-                    if (productToModify != null)
+                    Producto productFound = context.ProductoSet.Where(p => p.Nombre == originalProduct.Nombre).FirstOrDefault();
+                    if (productFound != null)
                     {
-                        productToModify.Nombre = modifiedProduct.Nombre;
-                        productToModify.Costo = modifiedProduct.Costo;
-                        productToModify.Descripcion = modifiedProduct.Descripcion;
-                        productToModify.Categoria = modifiedProduct.Categoria;
-                        productToModify.Foto = modifiedProduct.Foto;
-                        productToModify.Estado = modifiedProduct.Estado;
-                        productToModify.Empleado = modifiedProduct.Empleado;
+                        productFound.Nombre = modifiedProduct.Nombre;
+                        productFound.Costo = modifiedProduct.Costo;
+                        productFound.Descripcion = modifiedProduct.Descripcion;
+                        productFound.Categoria = modifiedProduct.Categoria;
+                        productFound.Foto = modifiedProduct.Foto;
+                        //productFound.Empleado = modifiedProduct.Empleado;
                         context.SaveChanges();
-                        generatedID = (int)productToModify.Id;
+                        generatedID = (int)productFound.Id;
                     }
                 }
             }
@@ -178,6 +176,31 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return generatedID;
+        }
+
+        public bool TheNameIsAlreadyRegistred(string productName)
+        {
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    Producto product = context.ProductoSet.Where(p => p.Nombre == productName).FirstOrDefault();
+                    if (product != null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
         }
     }
 }

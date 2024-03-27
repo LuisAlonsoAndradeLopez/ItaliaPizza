@@ -101,39 +101,44 @@
                 <TextBlock Name="SelectAnArticleTextBlock2" Text="Selecciona un Artículo" Foreground="White" FontSize="50" Margin="0,220,0,0" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
 
                 <StackPanel Name="SelectedArticleDetailsStackPanel" Height="548" Visibility="Collapsed">
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Nombre del Artículo: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="171" Height="26"/>
                         <TextBlock Name="SelectedArticleNameTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="367" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Tipo: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="43" Height="26"/>
                         <TextBlock Name="SelectedArticleTypeTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="499" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
+                        <TextBlock Text="Categoría: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="86" Height="26"/>
+                        <TextBlock Name="SelectedArticleCategoryTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="452" Height="26"/>
+                    </StackPanel>
+
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Cantidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="79" Height="26"/>
                         <TextBlock Name="SelectedArticleQuantityTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="463" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Estado: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="65" Height="26"/>
                         <TextBlock Name="SelectedArticleStatusTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="476" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Código: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="68" Height="26"/>
                         <TextBlock Name="SelectedArticleCodeTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="472" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Horizontal" Height="61">
+                    <StackPanel Width="569" Orientation="Horizontal" Height="52">
                         <TextBlock Text="Precio: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="58" Height="26"/>
                         <TextBlock Name="SelectedArticlePriceTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="481" Height="26"/>
                     </StackPanel>
 
-                    <StackPanel Width="569" Orientation="Vertical" Height="180">
+                    <StackPanel Width="569" Orientation="Vertical" Height="183">
                         <TextBlock Text="Descripción: " Foreground="White" FontSize="18" Margin="16,10,0,0" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" Width="101" Height="26"/>
-                        <TextBlock Name="SelectedArticleDescriptionTextBlock" Foreground="White" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="547" Height="120"/>
+                        <TextBlock Name="SelectedArticleDescriptionTextBlock" Foreground="White" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="547" Height="125"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -144,28 +149,28 @@
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
-                        <TextBlock Name="ModifySelectedArticleTypeTextBlock" Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="147" Height="26"/>
-                        <ComboBox Name="ModifySelectedArticleTypeComboBox" FontSize="18" Margin="0,0,0,0" Width="391" Height="26"/>
+                        <TextBlock Text="Categoría: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="86" Height="26"/>
+                        <ComboBox Name="ModifySelectedArticleCategoryComboBox" FontSize="18" Margin="0,0,0,0" Width="451" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Cantidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="79" Height="26"/>
-                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="460" Height="26"/>
+                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="457" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Código: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="68" Height="26"/>
-                        <TextBox Name="ModifySelectedArticleCodeTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="472" Height="26" MaxLength="12"/>
+                        <TextBox Name="ModifySelectedArticleCodeTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="468" Height="26" MaxLength="12"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Precio: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="58" Height="26"/>
-                        <xctk:DecimalUpDown Name="ModifySelectedArticlePriceDecimalUpDown" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="481" Height="26"/>
+                        <xctk:DecimalUpDown Name="ModifySelectedArticlePriceDecimalUpDown" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="478" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Vertical" Height="243">
                         <TextBlock Text="Descripción: " Foreground="White" FontSize="18" Margin="16,10,0,0" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" Width="101" Height="26"/>
-                        <TextBox Name="ModifySelectedArticleDescriptionTextBox" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="547" Height="185" MaxLength="75"/>
+                        <TextBox Name="ModifySelectedArticleDescriptionTextBox" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="539" Height="185" MaxLength="75"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

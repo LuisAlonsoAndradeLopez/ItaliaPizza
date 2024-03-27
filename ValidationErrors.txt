@@ -1,0 +1,1 @@
+Property: Categoria Error: El campo Categoria es obligatorio.

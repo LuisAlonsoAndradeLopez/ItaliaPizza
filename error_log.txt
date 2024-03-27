@@ -262,3 +262,23 @@ System.NullReferenceException: Referencia a objeto no establecida como instancia
    en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 128
 --------------------------------------------------
 
+Timestamp: 26/03/2024 10:47:26 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.ProductDAO.ModifyProduct(Producto originalProduct, Producto modifiedProduct) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\ProductDAO.cs:línea 165
+   en ItalianPizza.XAMLViews.GUI_Inventory.ModifyArticleButtonOnClick2(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 304
+--------------------------------------------------
+
+Timestamp: 26/03/2024 10:50:37 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.ProductDAO.ModifyProduct(Producto originalProduct, Producto modifiedProduct) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\ProductDAO.cs:línea 165
+   en ItalianPizza.XAMLViews.GUI_Inventory.ModifyArticleButtonOnClick2(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 304
+--------------------------------------------------
+

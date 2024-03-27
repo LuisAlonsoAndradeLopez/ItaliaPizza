@@ -13,6 +13,9 @@ using Cursors = System.Windows.Input.Cursors;
 using Orientation = System.Windows.Controls.Orientation;
 using System.Reflection;
 using System.Data.Entity.Core;
+using System.Text.RegularExpressions;
+using System.Data.Entity.Validation;
+using System.IO;
 
 
 namespace ItalianPizza.XAMLViews
@@ -25,9 +28,14 @@ namespace ItalianPizza.XAMLViews
         public GUI_Inventory()
         {/*
           TODO:
-            *Validaciones de que si el nombre y el código ya están usados al registrar o modificar artículo
-            *Mismas validaciones en guiaddarticle y guiinventory para agregar y modificar artículos
-          
+            *DAOS para categorias de insumo y producto
+            *Crear Tablas para categorias de insumo y producto
+            *Categorias de insumo y producto en comboboxes para agregar y modificar artículo
+            *Preguntarle a camo si agregar el código o descartarlo, si se agrega agregar campos en la base
+            *Cambiar la columna tipo a categoria a la tabla Insumo
+            *Objeto "Precio" con sus enteros y centavos (como dice ocharán)
+            *Bloquear DecimalCombobox para que solamente acepte dos decimales
+            *Crear y conservar consultas para categorias de insumo y producto
           */
 
 
@@ -255,55 +263,101 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source));
-
-                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                if (InvalidValuesInTextFieldsTextGenerator() == "")
                 {
-                    Insumo ingredient = new Insumo
+                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source) != null)
                     {
-                        Nombre = ModifySelectedArticleNameTextBox.Text,
-                        Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                        Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
-                        Tipo = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
-                        Cantidad = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
-                        Foto = selectedImage,
-                        Estado = ArticleStatus.Activo.ToString(),
-                        EmpleadoId = 12
-                    };
+                        if ( (!new IngredientDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
+                            !new ProductDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text)) ||
+                            SelectedArticleNameTextBlock.Text == ModifySelectedArticleNameTextBox.Text)
+                        {
+                            string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source));
 
-                    new IngredientDAO().ModifyIngredient(ingredient);
+                            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                            {
+                                Insumo originalIngredient = new IngredientDAO().GetIngredientByName(SelectedArticleNameTextBlock.Text);
+
+                                Insumo modifiedIngredient = new Insumo
+                                {
+                                    Nombre = ModifySelectedArticleNameTextBox.Text,
+                                    Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                    Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
+                                    //Tipo = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
+                                    Cantidad = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                                    Foto = selectedImage,
+                                    Estado = ArticleStatus.Activo.ToString(),
+                                    EmpleadoId = 12
+                                };
+
+                                new IngredientDAO().ModifyIngredient(originalIngredient, modifiedIngredient);
+                            }
+
+                            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                            {
+                                Producto originalProduct = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+
+                                Producto modifiedProduct = new Producto
+                                {
+                                    Nombre = ModifySelectedArticleNameTextBox.Text,
+                                    Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                    Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
+                                    Categoria = ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString(),
+                                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                    Foto = selectedImage,
+                                    Estado = ArticleStatus.Activo.ToString(),
+                                    EmpleadoId = 12
+                                };
+
+                                new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
+                            }
+
+                            new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
+
+                            UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
+                            UpdateModifySelectedArticleDetailsStackPanel();
+                            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+
+                            ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+                            ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+                            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+                            SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                            SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+                        }
+                        else
+                        {
+                            new AlertPopup("¡Nombre ya usado!", "El nombre ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
+                        }
+                    }
+                    else
+                    {
+                        new AlertPopup("¡Falta la imágen!", "Falta que selecciones la imágen", AlertPopupTypes.Error);
+                    }
                 }
-
-                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                else
                 {
-                    Producto product = new Producto
-                    {
-                        Nombre = ModifySelectedArticleNameTextBox.Text,
-                        Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                        Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
-                        Categoria = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
-                        //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                        Foto = selectedImage,
-                        Estado = ArticleStatus.Activo.ToString(),
-                        EmpleadoId = 12
-                    };
-
-                    new ProductDAO().ModifyProduct(product);
+                    new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
                 }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
 
-                new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
+                string incompletePath = Path.GetFullPath("ValidationErrors.txt");
+                string pathPartToDelete = "ItalianPizza\\bin\\Debug\\";
+                string completePath = incompletePath.Replace(pathPartToDelete, "");
 
-                UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
-                UpdateModifySelectedArticleDetailsStackPanel();
-                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
-
-                ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
-                ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
-                ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
-
-                SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
-                SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
-                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+                using (StreamWriter writer = new StreamWriter(completePath))
+                {
+                    foreach (var validationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            writer.WriteLine($"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}");
+                        }
+                    }
+                }
             }
             catch (EntityException ex)
             {
@@ -518,6 +572,7 @@ namespace ItalianPizza.XAMLViews
                 SelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
                 SelectedArticleNameTextBlock.Text = ingredient.Nombre;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
+                SelectedArticleCategoryTextBlock.Text = "Pendiente";
                 SelectedArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
                 SelectedArticleStatusTextBlock.Text = ingredient.Estado;
                 SelectedArticleCodeTextBlock.Text = "Pendiente";
@@ -530,6 +585,7 @@ namespace ItalianPizza.XAMLViews
                 SelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
                 SelectedArticleNameTextBlock.Text = product.Nombre;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
+                SelectedArticleCategoryTextBlock.Text = product.Categoria;
                 SelectedArticleQuantityTextBlock.Text = "Pendiente";
                 SelectedArticleStatusTextBlock.Text = product.Estado;
                 SelectedArticleCodeTextBlock.Text = "Pendiente";
@@ -557,7 +613,7 @@ namespace ItalianPizza.XAMLViews
             {
                 ModifySelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
                 ModifySelectedArticleNameTextBox.Text = ingredient.Nombre;
-                ModifySelectedArticleTypeComboBox.Text = ArticleTypes.Insumo.ToString();
+                ModifySelectedArticleCategoryComboBox.SelectedItem = "Pendiente";
                 ModifySelectedArticleQuantityIntegerUpDown.Text = ingredient.Cantidad.ToString();
                 ModifySelectedArticleCodeTextBox.Text = "Pendiente";
                 ModifySelectedArticlePriceDecimalUpDown.Text = "N/A";
@@ -568,12 +624,72 @@ namespace ItalianPizza.XAMLViews
             {
                 ModifySelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
                 ModifySelectedArticleNameTextBox.Text = product.Nombre;
-                ModifySelectedArticleTypeComboBox.Text = ArticleTypes.Producto.ToString();
+                ModifySelectedArticleCategoryComboBox.SelectedItem = product.Categoria;
                 ModifySelectedArticleQuantityIntegerUpDown.Text = "Pendiente";
                 ModifySelectedArticleCodeTextBox.Text = "Pendiente";
                 ModifySelectedArticlePriceDecimalUpDown.Text = product.Costo.ToString();
                 ModifySelectedArticleDescriptionTextBox.Text = product.Descripcion;
             }
+        }
+
+        private string InvalidValuesInTextFieldsTextGenerator()
+        {
+            int textFieldsWithIncorrectValues = 0;
+
+            string finalText = "";
+
+            string articleNamePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string codePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string descriptionPattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+
+            Regex articleNameRegex = new Regex(articleNamePattern);
+            Regex codeRegex = new Regex(codePattern);
+            Regex descriptionRegex = new Regex(descriptionPattern);
+
+            Match articleNameMatch = articleNameRegex.Match(ModifySelectedArticleNameTextBox.Text);
+            Match codeMatch = codeRegex.Match(ModifySelectedArticleCodeTextBox.Text);
+            Match descriptionMatch = descriptionRegex.Match(ModifySelectedArticleDescriptionTextBox.Text);
+
+            if (!articleNameMatch.Success || !codeMatch.Success || !descriptionMatch.Success)
+            {
+                finalText += "Los campos con valores inválidos son: ";
+            }
+
+            if (!articleNameMatch.Success)
+            {
+                finalText = finalText + "Nombre del Artículo" + ".";
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!codeMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Código" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Código" + ".";
+                }
+
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!descriptionMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Descripción" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Descripción" + ".";
+                }
+            }
+
+            return finalText;
         }
     }
 }

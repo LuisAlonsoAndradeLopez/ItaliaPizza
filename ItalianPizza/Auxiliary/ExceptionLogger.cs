@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows;
 
 namespace ItalianPizza.Auxiliary
 {
@@ -7,10 +8,13 @@ namespace ItalianPizza.Auxiliary
     {
         public void LogException(Exception ex)
         {
-            string logFilePath = "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\error_log.txt";
+            string incompletePath = Path.GetFullPath("error_log.txt");
+            string pathPartToDelete = "ItalianPizza\\bin\\Debug\\";
+            string completePath = incompletePath.Replace(pathPartToDelete, "");
+
             try
             {
-                using (StreamWriter writer = new StreamWriter(logFilePath, true))
+                using (StreamWriter writer = new StreamWriter(completePath, true))
                 {
                     writer.WriteLine($"Timestamp: {DateTime.Now}");
                     writer.WriteLine("Exception Details:");

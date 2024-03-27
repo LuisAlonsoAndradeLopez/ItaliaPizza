@@ -132,7 +132,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return specifiedIngredients;
         }
 
-        public int ModifyIngredient(Insumo modifiedIngredient)
+        public int ModifyIngredient(Insumo originalIngredient, Insumo modifiedIngredient)
         {
             int generatedID = 0;
 
@@ -140,18 +140,17 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    Insumo ingredientToDisable = context.InsumoSet.Where(i => i.Nombre == modifiedIngredient.Nombre).FirstOrDefault();
-                    if (ingredientToDisable != null)
+                    Insumo ingredientFound = context.InsumoSet.Where(i => i.Nombre == originalIngredient.Nombre).FirstOrDefault();
+                    if (ingredientFound != null)
                     {
-                        ingredientToDisable.Nombre = modifiedIngredient.Nombre;
-                        ingredientToDisable.Costo = modifiedIngredient.Costo;
-                        ingredientToDisable.Descripcion = modifiedIngredient.Descripcion;
-                        //ingredientToDisable.Categoria = modifiedIngredient.Categoria;
-                        ingredientToDisable.Foto = modifiedIngredient.Foto;
-                        ingredientToDisable.Estado = modifiedIngredient.Estado;
-                        ingredientToDisable.Empleado = modifiedIngredient.Empleado;
+                        ingredientFound.Nombre = modifiedIngredient.Nombre;
+                        ingredientFound.Costo = modifiedIngredient.Costo;
+                        ingredientFound.Descripcion = modifiedIngredient.Descripcion;
+                        //ingredientFound.Categoria = modifiedIngredient.Categoria;
+                        ingredientFound.Foto = modifiedIngredient.Foto;
+                        //ingredientFound.Empleado = modifiedIngredient.Empleado;
                         context.SaveChanges();
-                        generatedID = (int)ingredientToDisable.Id;
+                        generatedID = (int)ingredientFound.Id;
                     }
                 }
             }
@@ -165,6 +164,31 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return generatedID;
+        }
+
+        public bool TheNameIsAlreadyRegistred(string ingredientName)
+        {
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    Insumo ingredient = context.InsumoSet.Where(i => i.Nombre == ingredientName).FirstOrDefault();
+                    if (ingredient != null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
         }
     }
 }
