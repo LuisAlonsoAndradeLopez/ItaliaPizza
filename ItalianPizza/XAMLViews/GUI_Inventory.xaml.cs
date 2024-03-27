@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
 using Orientation = System.Windows.Controls.Orientation;
 using System.Reflection;
+using System.Data.Entity.Core;
 
 
 namespace ItalianPizza.XAMLViews
@@ -24,7 +25,6 @@ namespace ItalianPizza.XAMLViews
         public GUI_Inventory()
         {/*
           TODO:
-            *Manejo de excepciones en los daos de producto e insumos, GUI_Inventory y GUI_AddArticle
             *Validaciones de que si el nombre y el código ya están usados al registrar o modificar artículo
             *Mismas validaciones en guiaddarticle y guiinventory para agregar y modificar artículos
           
@@ -64,20 +64,44 @@ namespace ItalianPizza.XAMLViews
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
         {
-            if (ShowComboBox != null)
+            try
             {
-                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                if (ShowComboBox != null)
+                {
+                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                }
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
         }
 
         private void ShowComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            try
+            {
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void FindByComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            try
+            {
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            }
+            catch (EntityException ex)
+            { 
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error); 
+                new ExceptionLogger().LogException(ex); 
+            }
         }
 
         private void AddArticleButtonOnClick(object sender, RoutedEventArgs e)
@@ -94,56 +118,29 @@ namespace ItalianPizza.XAMLViews
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
-            if (sender is Border border)
+            try
             {
-                StackPanel borderStackPanelChild = (StackPanel)VisualTreeHelper.GetChild(border, 0);
-                TextBlock selectedArticleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 1);
-                TextBlock selectedArticleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 2);
-
-                Insumo ingredient = null;
-                Producto product = null;
-
-                if (selectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                if (sender is Border border)
                 {
-                    ingredient = new IngredientDAO().GetIngredientByName(selectedArticleNameTextBlock.Text);
+                    StackPanel borderStackPanelChild = (StackPanel)VisualTreeHelper.GetChild(border, 0);
+                    TextBlock selectedArticleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 1);
+                    TextBlock selectedArticleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(borderStackPanelChild, 2);
+
+                    UpdateSelectedArticleDetailsStackPanel(selectedArticleNameTextBlock.Text, selectedArticleTypeTextBlock.Text);
+
+                    SelectAnArticleTextBlock1.Visibility = Visibility.Collapsed;
+                    SelectAnArticleTextBlock2.Visibility = Visibility.Collapsed;
+                    SelectAnArticleTextBlock3.Visibility = Visibility.Collapsed;
+
+                    SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                    SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                    SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
                 }
-
-                if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
-                {
-                    product = new ProductDAO().GetProductByName(selectedArticleNameTextBlock.Text);
-                }
-
-                if (ingredient != null)
-                {
-                    SelectedArticleImage1.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
-                    ArticleNameTextBlock.Text = ingredient.Nombre;
-                    ArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
-                    ArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
-                    ArticleStatusTextBlock.Text = ingredient.Estado;
-                    ArticleCodeTextBlock.Text = "Pendiente";
-                    ArticlePriceTextBlock.Text = "N/A";
-                    ArticleDescriptionTextBlock.Text = ingredient.Descripcion;
-                }
-
-                if (product != null)
-                {
-                    SelectedArticleImage1.Source = new ProductDAO().GetImageByProductName(product.Nombre);
-                    ArticleNameTextBlock.Text = product.Nombre;
-                    ArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
-                    ArticleQuantityTextBlock.Text = "Pendiente";
-                    ArticleStatusTextBlock.Text = product.Estado;
-                    ArticleCodeTextBlock.Text = "Pendiente";
-                    ArticlePriceTextBlock.Text = product.Costo.ToString();
-                    ArticleDescriptionTextBlock.Text = product.Descripcion;
-                }
-
-                SelectAnArticleTextBlock1.Visibility = Visibility.Collapsed;
-                SelectAnArticleTextBlock2.Visibility = Visibility.Collapsed;
-                SelectAnArticleTextBlock3.Visibility = Visibility.Collapsed;
-
-                ArticleImageStackPanel.Visibility = Visibility.Visible;
-                ArticleDetailsStackPanel.Visibility = Visibility.Visible;
-                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
         }
 
@@ -161,7 +158,7 @@ namespace ItalianPizza.XAMLViews
 
                 if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
                 {
-                    SelectedArticleImage1.Source = imageSource;
+                    ModifySelectedArticleImage.Source = imageSource;
                 }
                 else
                 {
@@ -171,51 +168,34 @@ namespace ItalianPizza.XAMLViews
         }
 
         private void ModifyArticleButtonOnClick1(object sender, RoutedEventArgs e)
-        {          
-            Insumo ingredient = null;
-            Producto product = null;
-
-            if (ArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+        {
+            try
             {
-                ingredient = new IngredientDAO().GetIngredientByName(ArticleNameTextBlock.Text);
-            }
+                UpdateModifySelectedArticleDetailsStackPanel();
 
-            if (ArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                if (SelectedArticleStatusTextBlock.Text == ArticleStatus.Activo.ToString())
+                {
+                    DisableArticleButton.Visibility = Visibility.Visible;
+                }
+
+                if (SelectedArticleStatusTextBlock.Text == ArticleStatus.Inactivo.ToString())
+                {
+                    DisableArticleButton.Visibility = Visibility.Hidden;
+                }
+
+                SelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+                SelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+                SelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+                ModifySelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+            }
+            catch (EntityException ex)
             {
-                product = new ProductDAO().GetProductByName(ArticleNameTextBlock.Text);
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
-
-            if (ingredient != null)
-            {
-                SelectedArticleImage2.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
-                ArticleNameTextBox.Text = ingredient.Nombre;
-                ArticleTypeTextBox.Text = ArticleTypes.Insumo.ToString();
-                ArticleQuantityTextBox.Text = ingredient.Cantidad.ToString();
-                ArticleStatusTextBox.Text = ingredient.Estado;
-                ArticleCodeTextBox.Text = "Pendiente";
-                ArticlePriceTextBox.Text = "N/A";
-                ArticleDescriptionTextBox.Text = ingredient.Descripcion;
-            }
-
-            if (product != null)
-            {
-                SelectedArticleImage2.Source = new ProductDAO().GetImageByProductName(product.Nombre);
-                ArticleNameTextBox.Text = product.Nombre;
-                ArticleTypeTextBox.Text = ArticleTypes.Producto.ToString();
-                ArticleQuantityTextBox.Text = "Pendiente";
-                ArticleStatusTextBox.Text = product.Estado;
-                ArticleCodeTextBox.Text = "Pendiente";
-                ArticlePriceTextBox.Text = product.Costo.ToString();
-                ArticleDescriptionTextBox.Text = product.Descripcion;
-            }
-
-            ArticleImageStackPanel.Visibility = Visibility.Collapsed;
-            ArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
-            SelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
-
-            ModifyArticleImageStackPanel.Visibility = Visibility.Visible;
-            ModifyArticleDetailsStackPanel.Visibility = Visibility.Visible;
-            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void ConsultArticleRecipeButtonOnClick(object sender, RoutedEventArgs e)
@@ -225,65 +205,111 @@ namespace ItalianPizza.XAMLViews
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
         {
-            ModifyArticleImageStackPanel.Visibility = Visibility.Collapsed;
-            ModifyArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+            ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+            ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
             ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
 
-            ArticleImageStackPanel.Visibility = Visibility.Visible;
-            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
+            SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+            SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
             SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void DisableArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if(new AlertPopup("¿Está seguro?", "¿Está seguro que quiere desactivar este artículo?", AlertPopupTypes.Decision).GetDecisionOfDecisionPopup())
+                {
+                    if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                    {
+                        new IngredientDAO().DisableIngredient(SelectedArticleNameTextBlock.Text);
+                    }
+                
+                    if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                    {
+                        new ProductDAO().DisableProduct(SelectedArticleNameTextBlock.Text);
+                    }
+                
+                    new AlertPopup("¡Muy bien!", "Artículo desactivado con éxito", AlertPopupTypes.Success);
+                
+                    UpdateSelectedArticleDetailsStackPanel(SelectedArticleNameTextBlock.Text, SelectedArticleTypeTextBlock.Text);
+                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
 
+                    ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+                    ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+                    ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+                    SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                    SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                    SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+                }
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void ModifyArticleButtonOnClick2(object sender, RoutedEventArgs e)
         {
-            if (ArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            try
             {
-                Insumo ingredient = new Insumo
+                string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source));
+
+                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                 {
-                    Nombre = ArticleNameTextBox.Text,
-                    //Costo = (double)PriceDecimalUpDown.Value,
-                    //Descripcion = DescriptionTextBox.Text,
-                    //Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                    //Foto = selectedImage,
-                    Estado = ArticleStatus.Activo.ToString(),
-                    EmpleadoId = 12
-                };
+                    Insumo ingredient = new Insumo
+                    {
+                        Nombre = ModifySelectedArticleNameTextBox.Text,
+                        Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                        Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
+                        Tipo = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
+                        Cantidad = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                        Foto = selectedImage,
+                        Estado = ArticleStatus.Activo.ToString(),
+                        EmpleadoId = 12
+                    };
 
-                new IngredientDAO().ModifyIngredient(ingredient);
+                    new IngredientDAO().ModifyIngredient(ingredient);
+                }
+
+                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                {
+                    Producto product = new Producto
+                    {
+                        Nombre = ModifySelectedArticleNameTextBox.Text,
+                        Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                        Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
+                        Categoria = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
+                        //Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                        Foto = selectedImage,
+                        Estado = ArticleStatus.Activo.ToString(),
+                        EmpleadoId = 12
+                    };
+
+                    new ProductDAO().ModifyProduct(product);
+                }
+
+                new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
+
+                UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
+                UpdateModifySelectedArticleDetailsStackPanel();
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+
+                ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+                ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+                ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+                SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
             }
-
-            if (ArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            catch (EntityException ex)
             {
-                Producto product = new Producto
-                {
-                    Nombre = ArticleNameTextBox.Text,
-                    //Costo = (double)PriceDecimalUpDown.Value,
-                    //Descripcion = DescriptionTextBox.Text,
-                    //Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                    //Foto = selectedImage,
-                    //Estado = ArticleStatus.Activo.ToString(),
-                    EmpleadoId = 12
-                };
-
-                new ProductDAO().ModifyProduct(product);
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
-
-            new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
-
-            ModifyArticleImageStackPanel.Visibility = Visibility.Collapsed;
-            ModifyArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
-            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
-
-            ArticleImageStackPanel.Visibility = Visibility.Visible;
-            ArticleDetailsStackPanel.Visibility = Visibility.Visible;
-            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
         }
 
         private void InitializeComboBoxes()
@@ -469,6 +495,84 @@ namespace ItalianPizza.XAMLViews
                 articleBorder.Child = articleStackPanel;
 
                 ArticlesStackPanel.Children.Add(articleBorder);
+            }
+        }
+
+        private void UpdateSelectedArticleDetailsStackPanel(string articleName, string articleType)
+        {
+            Insumo ingredient = null;
+            Producto product = null;
+
+            if (articleType == ArticleTypes.Insumo.ToString())
+            {
+                ingredient = new IngredientDAO().GetIngredientByName(articleName);
+            }
+
+            if (articleType == ArticleTypes.Producto.ToString())
+            {
+                product = new ProductDAO().GetProductByName(articleName);
+            }
+
+            if (ingredient != null)
+            {
+                SelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
+                SelectedArticleNameTextBlock.Text = ingredient.Nombre;
+                SelectedArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
+                SelectedArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
+                SelectedArticleStatusTextBlock.Text = ingredient.Estado;
+                SelectedArticleCodeTextBlock.Text = "Pendiente";
+                SelectedArticlePriceTextBlock.Text = "N/A";
+                SelectedArticleDescriptionTextBlock.Text = ingredient.Descripcion;
+            }
+
+            if (product != null)
+            {
+                SelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
+                SelectedArticleNameTextBlock.Text = product.Nombre;
+                SelectedArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
+                SelectedArticleQuantityTextBlock.Text = "Pendiente";
+                SelectedArticleStatusTextBlock.Text = product.Estado;
+                SelectedArticleCodeTextBlock.Text = "Pendiente";
+                SelectedArticlePriceTextBlock.Text = product.Costo.ToString();
+                SelectedArticleDescriptionTextBlock.Text = product.Descripcion;
+            }
+        }
+
+        private void UpdateModifySelectedArticleDetailsStackPanel()
+        {
+            Insumo ingredient = null;
+            Producto product = null;
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            {
+                ingredient = new IngredientDAO().GetIngredientByName(SelectedArticleNameTextBlock.Text);
+            }
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            {
+                product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+            }
+
+            if (ingredient != null)
+            {
+                ModifySelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
+                ModifySelectedArticleNameTextBox.Text = ingredient.Nombre;
+                ModifySelectedArticleTypeComboBox.Text = ArticleTypes.Insumo.ToString();
+                ModifySelectedArticleQuantityIntegerUpDown.Text = ingredient.Cantidad.ToString();
+                ModifySelectedArticleCodeTextBox.Text = "Pendiente";
+                ModifySelectedArticlePriceDecimalUpDown.Text = "N/A";
+                ModifySelectedArticleDescriptionTextBox.Text = ingredient.Descripcion;
+            }
+
+            if (product != null)
+            {
+                ModifySelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
+                ModifySelectedArticleNameTextBox.Text = product.Nombre;
+                ModifySelectedArticleTypeComboBox.Text = ArticleTypes.Producto.ToString();
+                ModifySelectedArticleQuantityIntegerUpDown.Text = "Pendiente";
+                ModifySelectedArticleCodeTextBox.Text = "Pendiente";
+                ModifySelectedArticlePriceDecimalUpDown.Text = product.Costo.ToString();
+                ModifySelectedArticleDescriptionTextBox.Text = product.Descripcion;
             }
         }
     }

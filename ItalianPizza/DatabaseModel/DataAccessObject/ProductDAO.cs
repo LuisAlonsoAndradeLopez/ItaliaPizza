@@ -156,7 +156,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     Producto productToModify = context.ProductoSet.Where(p => p.Nombre == modifiedProduct.Nombre).FirstOrDefault();
                     if (productToModify != null)
                     {
-                        productToModify.Id = modifiedProduct.Id;
                         productToModify.Nombre = modifiedProduct.Nombre;
                         productToModify.Costo = modifiedProduct.Costo;
                         productToModify.Descripcion = modifiedProduct.Descripcion;

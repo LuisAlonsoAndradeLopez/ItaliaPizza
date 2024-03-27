@@ -143,7 +143,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     Insumo ingredientToDisable = context.InsumoSet.Where(i => i.Nombre == modifiedIngredient.Nombre).FirstOrDefault();
                     if (ingredientToDisable != null)
                     {
-                        ingredientToDisable.Id = modifiedIngredient.Id;
                         ingredientToDisable.Nombre = modifiedIngredient.Nombre;
                         ingredientToDisable.Costo = modifiedIngredient.Costo;
                         ingredientToDisable.Descripcion = modifiedIngredient.Descripcion;
