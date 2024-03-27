@@ -19,6 +19,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         {
             this.CustomerOrderDetail = new HashSet<CustomerOrderDetail>();
             this.FinancialTransaction = new HashSet<FinancialTransaction>();
+            this.DeliveryDriver = new HashSet<DeliveryDriver>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int Id { get; set; }
@@ -31,12 +33,14 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     
         public virtual OrderStatus OrderStatus { get; set; }
         public virtual OrderType OrderType { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual DeliveryDriver DeliveryDriver { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerOrderDetail> CustomerOrderDetail { get; set; }
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FinancialTransaction> FinancialTransaction { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DeliveryDriver> DeliveryDriver { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
     }
 }

@@ -28,6 +28,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int ProductStatusId { get; set; }
         public int ProductTypeId { get; set; }
         public int EmployeeId { get; set; }
+        public string IdentificationCode { get; set; }
+        public string Description { get; set; }
     
         public virtual ProductStatus ProductStatus { get; set; }
         public virtual ProductType ProductType { get; set; }

@@ -21,6 +21,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public string Colony { get; set; }
         public string State { get; set; }
         public int ZipCode { get; set; }
+        public string Township { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Employee Employee { get; set; }

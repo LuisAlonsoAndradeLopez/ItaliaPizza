@@ -76,13 +76,19 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\UserDAO.cs" />
-    <Compile Include="DatabaseModel\DatabaseMapping\Cliente.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\Address.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\CorteDiario.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\Customer.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Cuenta.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDetail.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\DailyClosing.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\DataModel.Context.cs">
@@ -100,41 +106,77 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Dirección.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\DeliveryDriver.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Empleado.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\Employee.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Insumo.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\EmployeePosition.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\OrdenCliente.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransaction.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\OrdenClienteDetalle.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\InventoryValidation.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedor.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\OrderStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedorDetalle.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\OrderType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Producto.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductSale.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Proveedor.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Repartidor.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductType.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\ValidacionInventario.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\Recipe.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\RecipeDetails.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\Supplier.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplierOrder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplierOrderDetails.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\Supply.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyType.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyUnit.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\UserAccount.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\UserStatus.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
+      <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
+      <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\GUI-CustomerOrders.xaml.cs">
       <DependentUpon>GUI-CustomerOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI-Login.xaml.cs">
+      <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -148,7 +190,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAMLViews\GUI-CustomerOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUI-Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,6 +268,17 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\FONDO-RegistroCliente.jpg" />
+    <Resource Include="Resources\Pictures\ICON-Agregar.png" />
+    <Resource Include="Resources\Pictures\ICON-Calle.png" />
+    <Resource Include="Resources\Pictures\ICON-Ciudad.png" />
+    <Resource Include="Resources\Pictures\ICON-Cliente.png" />
+    <Resource Include="Resources\Pictures\ICON-CodigoPostal.png" />
+    <Resource Include="Resources\Pictures\ICON-Disminuir.png" />
+    <Resource Include="Resources\Pictures\ICON-ID.png" />
+    <Resource Include="Resources\Pictures\ICON-Numero.png" />
+    <Resource Include="Resources\Pictures\ICON-NumeroCalle.png" />
+    <Resource Include="Resources\Pictures\ICON-Repartidor.png" />
     <Resource Include="Resources\Pictures\FondoVentana.jpg" />
     <Resource Include="Resources\Pictures\Product\FrappeOreo.jpeg" />
     <Resource Include="Resources\Pictures\Product\HamburguesaClasica.jpeg" />

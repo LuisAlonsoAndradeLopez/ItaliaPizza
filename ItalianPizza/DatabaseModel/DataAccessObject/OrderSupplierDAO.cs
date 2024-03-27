@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
-    internal class OrderSupplierDAO
+    public class OrderSupplierDAO
     {
     }
 }

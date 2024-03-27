@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/24/2024 01:54:37
+-- Date Created: 03/26/2024 00:37:47
 -- Generated from EDMX file: D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\DatabaseModel\DatabaseMapping\DataModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,233 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_CustomerAddress]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerSet] DROP CONSTRAINT [FK_CustomerAddress];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerSet] DROP CONSTRAINT [FK_EmployeeCustomer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeAddress]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeSet] DROP CONSTRAINT [FK_EmployeeAddress];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeUserAccount]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeSet] DROP CONSTRAINT [FK_EmployeeUserAccount];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeDeliveryDriver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeliveryDriverSet] DROP CONSTRAINT [FK_EmployeeDeliveryDriver];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeSupplier]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierSet] DROP CONSTRAINT [FK_EmployeeSupplier];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserStatusDeliveryDriver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeliveryDriverSet] DROP CONSTRAINT [FK_UserStatusDeliveryDriver];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserStatusSupplier]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierSet] DROP CONSTRAINT [FK_UserStatusSupplier];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserStatusEmployee]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeSet] DROP CONSTRAINT [FK_UserStatusEmployee];
+GO
+IF OBJECT_ID(N'[dbo].[FK_UserStatusCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerSet] DROP CONSTRAINT [FK_UserStatusCustomer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeePositionEmployee]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[EmployeeSet] DROP CONSTRAINT [FK_EmployeePositionEmployee];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrderStatusCustomerOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderSet] DROP CONSTRAINT [FK_OrderStatusCustomerOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrderTypeCustomerOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderSet] DROP CONSTRAINT [FK_OrderTypeCustomerOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerOrderCustomerOrderDetail]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderDetailSet] DROP CONSTRAINT [FK_CustomerOrderCustomerOrderDetail];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeCustomerOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderSet] DROP CONSTRAINT [FK_EmployeeCustomerOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductStatusProductSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductSaleSet] DROP CONSTRAINT [FK_ProductStatusProductSale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductTypeProductSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductSaleSet] DROP CONSTRAINT [FK_ProductTypeProductSale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductSaleCustomerOrderDetail]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderDetailSet] DROP CONSTRAINT [FK_ProductSaleCustomerOrderDetail];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeProductSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProductSaleSet] DROP CONSTRAINT [FK_EmployeeProductSale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierOrderSupplier]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierOrderSet] DROP CONSTRAINT [FK_SupplierOrderSupplier];
+GO
+IF OBJECT_ID(N'[dbo].[FK_OrderStatusSupplierOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierOrderSet] DROP CONSTRAINT [FK_OrderStatusSupplierOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierOrderSupplierOrderDetails]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierOrderDetailsSet] DROP CONSTRAINT [FK_SupplierOrderSupplierOrderDetails];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplySupplierOrderDetails]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierOrderDetailsSet] DROP CONSTRAINT [FK_SupplySupplierOrderDetails];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeSupplierOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierOrderSet] DROP CONSTRAINT [FK_EmployeeSupplierOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplyUnitSupply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplySet] DROP CONSTRAINT [FK_SupplyUnitSupply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductStatusSupply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplySet] DROP CONSTRAINT [FK_ProductStatusSupply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplyRecipeDetails]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RecipeDetailsSet] DROP CONSTRAINT [FK_SupplyRecipeDetails];
+GO
+IF OBJECT_ID(N'[dbo].[FK_RecipeRecipeDetails]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RecipeDetailsSet] DROP CONSTRAINT [FK_RecipeRecipeDetails];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplyTypeSupply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplySet] DROP CONSTRAINT [FK_SupplyTypeSupply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeSupply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplySet] DROP CONSTRAINT [FK_EmployeeSupply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductSaleRecipe]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RecipeSet] DROP CONSTRAINT [FK_ProductSaleRecipe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeRecipe]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[RecipeSet] DROP CONSTRAINT [FK_EmployeeRecipe];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierSupply_Supplier]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierSupply] DROP CONSTRAINT [FK_SupplierSupply_Supplier];
+GO
+IF OBJECT_ID(N'[dbo].[FK_SupplierSupply_Supply]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[SupplierSupply] DROP CONSTRAINT [FK_SupplierSupply_Supply];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeInventoryValidation]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[InventoryValidationSet] DROP CONSTRAINT [FK_EmployeeInventoryValidation];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FinancialTransactionCustomerOrder_FinancialTransaction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FinancialTransactionCustomerOrder] DROP CONSTRAINT [FK_FinancialTransactionCustomerOrder_FinancialTransaction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FinancialTransactionCustomerOrder_CustomerOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FinancialTransactionCustomerOrder] DROP CONSTRAINT [FK_FinancialTransactionCustomerOrder_CustomerOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FinancialTransactionSupplierOrder_FinancialTransaction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FinancialTransactionSupplierOrder] DROP CONSTRAINT [FK_FinancialTransactionSupplierOrder_FinancialTransaction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_FinancialTransactionSupplierOrder_SupplierOrder]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FinancialTransactionSupplierOrder] DROP CONSTRAINT [FK_FinancialTransactionSupplierOrder_SupplierOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeFinancialTransaction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[FinancialTransactionSet] DROP CONSTRAINT [FK_EmployeeFinancialTransaction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DailyClosingFinancialTransaction_DailyClosing]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DailyClosingFinancialTransaction] DROP CONSTRAINT [FK_DailyClosingFinancialTransaction_DailyClosing];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DailyClosingFinancialTransaction_FinancialTransaction]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DailyClosingFinancialTransaction] DROP CONSTRAINT [FK_DailyClosingFinancialTransaction_FinancialTransaction];
+GO
+IF OBJECT_ID(N'[dbo].[FK_EmployeeDailyClosing]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DailyClosingSet] DROP CONSTRAINT [FK_EmployeeDailyClosing];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerOrderDeliveryDriver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[DeliveryDriverSet] DROP CONSTRAINT [FK_CustomerOrderDeliveryDriver];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerOrderCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerSet] DROP CONSTRAINT [FK_CustomerOrderCustomer];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[ProductSaleSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductSaleSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerOrderDetailSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerOrderDetailSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProductTypeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductTypeSet];
+GO
+IF OBJECT_ID(N'[dbo].[OrderTypeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrderTypeSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProductStatusSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProductStatusSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerOrderSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerOrderSet];
+GO
+IF OBJECT_ID(N'[dbo].[OrderStatusSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[OrderStatusSet];
+GO
+IF OBJECT_ID(N'[dbo].[DailyClosingSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DailyClosingSet];
+GO
+IF OBJECT_ID(N'[dbo].[InventoryValidationSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[InventoryValidationSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierOrderDetailsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierOrderDetailsSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplySet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplySet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplyUnitSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplyUnitSet];
+GO
+IF OBJECT_ID(N'[dbo].[FinancialTransactionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FinancialTransactionSet];
+GO
+IF OBJECT_ID(N'[dbo].[RecipeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RecipeSet];
+GO
+IF OBJECT_ID(N'[dbo].[RecipeDetailsSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[RecipeDetailsSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserAccountSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserAccountSet];
+GO
+IF OBJECT_ID(N'[dbo].[EmployeeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmployeeSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerSet];
+GO
+IF OBJECT_ID(N'[dbo].[DeliveryDriverSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DeliveryDriverSet];
+GO
+IF OBJECT_ID(N'[dbo].[EmployeePositionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[EmployeePositionSet];
+GO
+IF OBJECT_ID(N'[dbo].[UserStatusSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UserStatusSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierSet];
+GO
+IF OBJECT_ID(N'[dbo].[AddressSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[AddressSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierOrderSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierOrderSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplyTypeSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplyTypeSet];
+GO
+IF OBJECT_ID(N'[dbo].[SupplierSupply]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[SupplierSupply];
+GO
+IF OBJECT_ID(N'[dbo].[FinancialTransactionCustomerOrder]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FinancialTransactionCustomerOrder];
+GO
+IF OBJECT_ID(N'[dbo].[FinancialTransactionSupplierOrder]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[FinancialTransactionSupplierOrder];
+GO
+IF OBJECT_ID(N'[dbo].[DailyClosingFinancialTransaction]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DailyClosingFinancialTransaction];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables
@@ -33,10 +255,12 @@ CREATE TABLE [dbo].[ProductSaleSet] (
     [Name] nvarchar(max)  NOT NULL,
     [Quantity] int  NOT NULL,
     [PricePerUnit] float  NOT NULL,
-    [Picture] varbinary(max)  NOT NULL,
+    [Picture] varbinary(max)  NULL,
     [ProductStatusId] int  NOT NULL,
     [ProductTypeId] int  NOT NULL,
-    [EmployeeId] int  NOT NULL
+    [EmployeeId] int  NOT NULL,
+    [IdentificationCode] nvarchar(20)  NOT NULL,
+    [Description] nvarchar(300)  NOT NULL
 );
 GO
 
@@ -125,11 +349,12 @@ CREATE TABLE [dbo].[SupplySet] (
     [Name] nvarchar(max)  NOT NULL,
     [Quantity] int  NOT NULL,
     [PricePerUnit] float  NOT NULL,
-    [Picture] varbinary(max)  NOT NULL,
+    [Picture] varbinary(max)  NULL,
     [SupplyUnitId] int  NOT NULL,
     [ProductStatusId] int  NOT NULL,
     [SupplyTypeId] int  NOT NULL,
-    [EmployeeId] int  NOT NULL
+    [EmployeeId] int  NOT NULL,
+    [IdentificationCode] nvarchar(20)  NOT NULL
 );
 GO
 
@@ -186,7 +411,7 @@ CREATE TABLE [dbo].[EmployeeSet] (
     [SecondLastName] nvarchar(70)  NOT NULL,
     [Email] nvarchar(100)  NOT NULL,
     [Phone] nvarchar(12)  NOT NULL,
-    [ProfilePhoto] varbinary(max)  NOT NULL,
+    [ProfilePhoto] varbinary(max)  NULL,
     [UserStatusId] int  NOT NULL,
     [EmployeePositionId] int  NOT NULL,
     [Address_Id] int  NOT NULL,
@@ -204,8 +429,7 @@ CREATE TABLE [dbo].[CustomerSet] (
     [Phone] nvarchar(12)  NOT NULL,
     [EmployeeId] int  NOT NULL,
     [UserStatusId] int  NOT NULL,
-    [Address_Id] int  NOT NULL,
-    [CustomerOrder_Id] int  NOT NULL
+    [Address_Id] int  NOT NULL
 );
 GO
 
@@ -218,8 +442,7 @@ CREATE TABLE [dbo].[DeliveryDriverSet] (
     [Email] nvarchar(100)  NOT NULL,
     [Phone] nvarchar(12)  NOT NULL,
     [EmployeeId] int  NOT NULL,
-    [UserStatusId] int  NOT NULL,
-    [CustomerOrder_Id] int  NOT NULL
+    [UserStatusId] int  NOT NULL
 );
 GO
 
@@ -258,7 +481,8 @@ CREATE TABLE [dbo].[AddressSet] (
     [City] nvarchar(70)  NOT NULL,
     [Colony] nvarchar(70)  NOT NULL,
     [State] nvarchar(70)  NOT NULL,
-    [ZipCode] int  NOT NULL
+    [ZipCode] int  NOT NULL,
+    [Township] nvarchar(50)  NOT NULL
 );
 GO
 
@@ -306,6 +530,20 @@ GO
 CREATE TABLE [dbo].[DailyClosingFinancialTransaction] (
     [DailyClosing_Id] int  NOT NULL,
     [FinancialTransaction_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustomerOrderDeliveryDriver'
+CREATE TABLE [dbo].[CustomerOrderDeliveryDriver] (
+    [CustomerOrder_Id] int  NOT NULL,
+    [DeliveryDriver_Id] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustomerOrderCustomer'
+CREATE TABLE [dbo].[CustomerOrderCustomer] (
+    [CustomerOrder_Id] int  NOT NULL,
+    [Customer_Id] int  NOT NULL
 );
 GO
 
@@ -485,6 +723,18 @@ GO
 ALTER TABLE [dbo].[DailyClosingFinancialTransaction]
 ADD CONSTRAINT [PK_DailyClosingFinancialTransaction]
     PRIMARY KEY CLUSTERED ([DailyClosing_Id], [FinancialTransaction_Id] ASC);
+GO
+
+-- Creating primary key on [CustomerOrder_Id], [DeliveryDriver_Id] in table 'CustomerOrderDeliveryDriver'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
+ADD CONSTRAINT [PK_CustomerOrderDeliveryDriver]
+    PRIMARY KEY CLUSTERED ([CustomerOrder_Id], [DeliveryDriver_Id] ASC);
+GO
+
+-- Creating primary key on [CustomerOrder_Id], [Customer_Id] in table 'CustomerOrderCustomer'
+ALTER TABLE [dbo].[CustomerOrderCustomer]
+ADD CONSTRAINT [PK_CustomerOrderCustomer]
+    PRIMARY KEY CLUSTERED ([CustomerOrder_Id], [Customer_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -684,36 +934,6 @@ GO
 CREATE INDEX [IX_FK_OrderTypeCustomerOrder]
 ON [dbo].[CustomerOrderSet]
     ([OrderTypeId]);
-GO
-
--- Creating foreign key on [CustomerOrder_Id] in table 'CustomerSet'
-ALTER TABLE [dbo].[CustomerSet]
-ADD CONSTRAINT [FK_CustomerOrderCustomer]
-    FOREIGN KEY ([CustomerOrder_Id])
-    REFERENCES [dbo].[CustomerOrderSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderCustomer'
-CREATE INDEX [IX_FK_CustomerOrderCustomer]
-ON [dbo].[CustomerSet]
-    ([CustomerOrder_Id]);
-GO
-
--- Creating foreign key on [CustomerOrder_Id] in table 'DeliveryDriverSet'
-ALTER TABLE [dbo].[DeliveryDriverSet]
-ADD CONSTRAINT [FK_CustomerOrderDeliveryDriver]
-    FOREIGN KEY ([CustomerOrder_Id])
-    REFERENCES [dbo].[CustomerOrderSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderDeliveryDriver'
-CREATE INDEX [IX_FK_CustomerOrderDeliveryDriver]
-ON [dbo].[DeliveryDriverSet]
-    ([CustomerOrder_Id]);
 GO
 
 -- Creating foreign key on [CustomerOrderId] in table 'CustomerOrderDetailSet'
@@ -1140,6 +1360,54 @@ GO
 CREATE INDEX [IX_FK_EmployeeDailyClosing]
 ON [dbo].[DailyClosingSet]
     ([EmployeeId]);
+GO
+
+-- Creating foreign key on [CustomerOrder_Id] in table 'CustomerOrderDeliveryDriver'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
+ADD CONSTRAINT [FK_CustomerOrderDeliveryDriver_CustomerOrder]
+    FOREIGN KEY ([CustomerOrder_Id])
+    REFERENCES [dbo].[CustomerOrderSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [DeliveryDriver_Id] in table 'CustomerOrderDeliveryDriver'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
+ADD CONSTRAINT [FK_CustomerOrderDeliveryDriver_DeliveryDriver]
+    FOREIGN KEY ([DeliveryDriver_Id])
+    REFERENCES [dbo].[DeliveryDriverSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderDeliveryDriver_DeliveryDriver'
+CREATE INDEX [IX_FK_CustomerOrderDeliveryDriver_DeliveryDriver]
+ON [dbo].[CustomerOrderDeliveryDriver]
+    ([DeliveryDriver_Id]);
+GO
+
+-- Creating foreign key on [CustomerOrder_Id] in table 'CustomerOrderCustomer'
+ALTER TABLE [dbo].[CustomerOrderCustomer]
+ADD CONSTRAINT [FK_CustomerOrderCustomer_CustomerOrder]
+    FOREIGN KEY ([CustomerOrder_Id])
+    REFERENCES [dbo].[CustomerOrderSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating foreign key on [Customer_Id] in table 'CustomerOrderCustomer'
+ALTER TABLE [dbo].[CustomerOrderCustomer]
+ADD CONSTRAINT [FK_CustomerOrderCustomer_Customer]
+    FOREIGN KEY ([Customer_Id])
+    REFERENCES [dbo].[CustomerSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderCustomer_Customer'
+CREATE INDEX [IX_FK_CustomerOrderCustomer_Customer]
+ON [dbo].[CustomerOrderCustomer]
+    ([Customer_Id]);
 GO
 
 -- --------------------------------------------------

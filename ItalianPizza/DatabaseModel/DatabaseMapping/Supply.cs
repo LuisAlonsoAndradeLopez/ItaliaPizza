@@ -31,6 +31,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int ProductStatusId { get; set; }
         public int SupplyTypeId { get; set; }
         public int EmployeeId { get; set; }
+        public string IdentificationCode { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierOrderDetails> SupplierOrderDetails { get; set; }
