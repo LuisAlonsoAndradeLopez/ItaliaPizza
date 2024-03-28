@@ -25,19 +25,30 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Cliente> Cliente { get; set; }
-        public virtual DbSet<CorteDiarioSet> CorteDiarioSet { get; set; }
-        public virtual DbSet<Cuenta> Cuenta { get; set; }
-        public virtual DbSet<Dirección> Dirección { get; set; }
-        public virtual DbSet<Empleado> Empleado { get; set; }
-        public virtual DbSet<Insumo> Insumo { get; set; }
-        public virtual DbSet<OrdenCliente> OrdenCliente { get; set; }
-        public virtual DbSet<OrdenClienteDetalle> OrdenClienteDetalle { get; set; }
-        public virtual DbSet<PedidoProveedorDetalleSet> PedidoProveedorDetalleSet { get; set; }
-        public virtual DbSet<PedidoProveedorSet> PedidoProveedorSet { get; set; }
-        public virtual DbSet<Producto> Producto { get; set; }
-        public virtual DbSet<ProveedorSet> ProveedorSet { get; set; }
-        public virtual DbSet<RepartidorSet> RepartidorSet { get; set; }
-        public virtual DbSet<ValidacionInventarioSet> ValidacionInventarioSet { get; set; }
+        public virtual DbSet<AddressSet> AddressSet { get; set; }
+        public virtual DbSet<CustomerOrderDetailSet> CustomerOrderDetailSet { get; set; }
+        public virtual DbSet<CustomerOrderSet> CustomerOrderSet { get; set; }
+        public virtual DbSet<CustomerSet> CustomerSet { get; set; }
+        public virtual DbSet<DailyClosingSet> DailyClosingSet { get; set; }
+        public virtual DbSet<DeliveryDriverSet> DeliveryDriverSet { get; set; }
+        public virtual DbSet<EmployeePositionSet> EmployeePositionSet { get; set; }
+        public virtual DbSet<EmployeeSet> EmployeeSet { get; set; }
+        public virtual DbSet<FinancialTransactionSet> FinancialTransactionSet { get; set; }
+        public virtual DbSet<InventoryValidationSet> InventoryValidationSet { get; set; }
+        public virtual DbSet<OrderStatusSet> OrderStatusSet { get; set; }
+        public virtual DbSet<OrderTypeSet> OrderTypeSet { get; set; }
+        public virtual DbSet<ProductSaleSet> ProductSaleSet { get; set; }
+        public virtual DbSet<ProductStatusSet> ProductStatusSet { get; set; }
+        public virtual DbSet<ProductTypeSet> ProductTypeSet { get; set; }
+        public virtual DbSet<RecipeDetailsSet> RecipeDetailsSet { get; set; }
+        public virtual DbSet<RecipeSet> RecipeSet { get; set; }
+        public virtual DbSet<SupplierOrderDetailsSet> SupplierOrderDetailsSet { get; set; }
+        public virtual DbSet<SupplierOrderSet> SupplierOrderSet { get; set; }
+        public virtual DbSet<SupplierSet> SupplierSet { get; set; }
+        public virtual DbSet<SupplySet> SupplySet { get; set; }
+        public virtual DbSet<SupplyTypeSet> SupplyTypeSet { get; set; }
+        public virtual DbSet<SupplyUnitSet> SupplyUnitSet { get; set; }
+        public virtual DbSet<UserAccountSet> UserAccountSet { get; set; }
+        public virtual DbSet<UserStatusSet> UserStatusSet { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 
@@ -28,60 +29,21 @@ namespace UnitTesting
             userDAO = new UserDAO();
             employeeToRegist = new Empleado()
             {
-                Nombre = "Test",
-                Apellido = "Test",
-                Direccion = "Test",
-                Telefono = "Test",
-                Correo = "Test",
-                FechaNacimiento = "Test",
-                FechaContratacion = "Test",
-                Puesto = "Test",
-                Salario = "Test",
-                Activo = "Test"
             };
             employeeAlreadyRegistered = new Empleado()
             {
-                Nombre = "Test",
-                Apellido = "Test",
-                Direccion = "Test",
-                Telefono = "Test",
-                Correo = "Test",
-                FechaNacimiento = "Test",
-                FechaContratacion = "Test",
-                Puesto = "Test",
-                Salario = "Test",
-                Activo = "Test"
             };
             employeeToGet = new Empleado()
             {
-                Nombre = "Test",
-                Apellido = "Test",
-                Direccion = "Test",
-                Telefono = "Test",
-                Correo = "Test",
-                FechaNacimiento = "Test",
-                FechaContratacion = "Test",
-                Puesto = "Test",
-                Salario = "Test",
-                Activo = "Test"
             };
             accountToRegist = new Cuenta()
             {
-                Usuario = "Test",
-                Contrasena = "Test",
-                Activo = "Test"
             };
             accountAlreadyRegistered = new Cuenta()
             {
-                Usuario = "Test",
-                Contrasena = "Test",
-                Activo = "Test"
             };
             accountToGet = new Cuenta()
             {
-                Usuario = "Test",
-                Contrasena = "Test",
-                Activo = "Test"
             };
         }
 
