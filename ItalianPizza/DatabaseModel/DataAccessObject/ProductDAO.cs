@@ -1,5 +1,4 @@
-﻿using ItalianPizza.Auxiliary;
-using ItalianPizza.DatabaseModel.DatabaseMapping;
+﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -11,7 +10,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
     public class ProductDAO
     {
-        public int AddProduct(Producto product)
+        public int AddProduct(ProductSaleSet product)
         {
             int result = 0;
 
@@ -19,7 +18,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    context.ProductoSet.Add(product);
+                    context.ProductSaleSet.Add(product);
                     context.SaveChanges();
                 }
 
@@ -45,10 +44,10 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    Producto productToDisable = context.ProductoSet.Where(p => p.Nombre == productName).FirstOrDefault();
+                    ProductSaleSet productToDisable = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
                     if (productToDisable != null)
                     {
-                        productToDisable.Estado = ArticleStatus.Inactivo.ToString();
+                        productToDisable.ProductStatusId = 2;
                         context.SaveChanges();
                     }
                 }
@@ -67,13 +66,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-        public List<Producto> GetAllActiveProducts()
+        public List<ProductSaleSet> GetAllActiveProducts()
         {
-            List<Producto> activeProducts = new List<Producto>();
+            List<ProductSaleSet> activeProducts = new List<ProductSaleSet>();
 
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                activeProducts = context.ProductoSet.ToList();
+                activeProducts = context.ProductSaleSet.ToList();
             }
 
             return activeProducts;
@@ -85,7 +84,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                imageDataInString = context.ProductoSet.Where(p => p.Nombre == productName).First().Foto;
+                imageDataInString = context.ProductSaleSet.Where(p => p.Name == productName).First().Picture.ToString();
             }
 
             byte[] imageData = Convert.FromBase64String(imageDataInString);
@@ -102,14 +101,14 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return imageSource;
         }
 
-        public Producto GetProductByName(string productName)
+        public ProductSaleSet GetProductByName(string productName)
         {
-            Producto product = new Producto();
+            ProductSaleSet product = new ProductSaleSet();
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    product = context.ProductoSet.Where(p => p.Nombre == productName).FirstOrDefault();
+                    product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
                 }
             }
             catch (EntityException ex)
@@ -124,27 +123,27 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return product;
         }
 
-        public List<Producto> GetSpecifiedProductsByNameOrCode(string textForFindingArticle, string findByType)
+        public List<ProductSaleSet> GetSpecifiedProductsByNameOrCode(string textForFindingArticle, string findByType)
         {
-            List<Producto> specifiedProducts = new List<Producto>();
+            List<ProductSaleSet> specifiedProducts = new List<ProductSaleSet>();
 
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                if (findByType == "Nombre")
+                if (findByType == "Name")
                 {
-                    specifiedProducts = context.ProductoSet.Where(p => p.Nombre.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
                 }
 
                 if (findByType == "Código")
                 {
-                    //specifiedProducts = context.ProductoSet.Where(p => p.Código.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
                 }
             }
 
             return specifiedProducts;
         }
 
-        public int ModifyProduct(Producto originalProduct, Producto modifiedProduct)
+        public int ModifyProduct(ProductSaleSet originalProduct, ProductSaleSet modifiedProduct)
         {
             int generatedID = 0;
 
@@ -152,15 +151,17 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    Producto productFound = context.ProductoSet.Where(p => p.Nombre == originalProduct.Nombre).FirstOrDefault();
+                    ProductSaleSet productFound = context.ProductSaleSet.Where(p => p.Name == originalProduct.Name).FirstOrDefault();
                     if (productFound != null)
                     {
-                        productFound.Nombre = modifiedProduct.Nombre;
-                        productFound.Costo = modifiedProduct.Costo;
-                        productFound.Descripcion = modifiedProduct.Descripcion;
-                        productFound.Categoria = modifiedProduct.Categoria;
-                        productFound.Foto = modifiedProduct.Foto;
-                        //productFound.Empleado = modifiedProduct.Empleado;
+                        productFound.Name = modifiedProduct.Name;
+                        productFound.Quantity = modifiedProduct.Quantity;
+                        productFound.PricePerUnit = modifiedProduct.PricePerUnit;
+                        productFound.Picture = modifiedProduct.Picture;
+                        productFound.ProductTypeId = modifiedProduct.ProductTypeId;
+                        productFound.EmployeeId = modifiedProduct.EmployeeId;
+                        productFound.IdentificationCode = modifiedProduct.IdentificationCode;
+                        productFound.Description = modifiedProduct.Description;
                         context.SaveChanges();
                         generatedID = (int)productFound.Id;
                     }
@@ -184,7 +185,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    Producto product = context.ProductoSet.Where(p => p.Nombre == productName).FirstOrDefault();
+                    ProductSaleSet product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
                     if (product != null)
                     {
                         return true;

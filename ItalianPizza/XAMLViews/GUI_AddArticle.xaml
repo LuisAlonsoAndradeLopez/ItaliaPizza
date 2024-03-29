@@ -58,7 +58,7 @@
             <Label Content="Tipo de Artículo: " HorizontalAlignment="Left" Margin="1423,49,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34" FontFamily="Arial"/>
             <ComboBox Name="ArticleTypesComboBox" HorizontalAlignment="Left" Margin="1423,103,0,0" VerticalAlignment="Top" Height="64" Width="283" FontSize="24" SelectionChanged="ArticleTypesComboBoxSelectionChanged"/>
             <Label Content="Tipo de Insumo: " HorizontalAlignment="Left" Margin="1037,191,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34" FontFamily="Arial"/>
-            <ComboBox Name="IngredientOrProductTypesComboBox" HorizontalAlignment="Left" Margin="1033,245,0,0" VerticalAlignment="Top" Height="64" Width="359" FontSize="24" />
+            <ComboBox Name="SupplyOrProductTypesComboBox" HorizontalAlignment="Left" Margin="1033,245,0,0" VerticalAlignment="Top" Height="64" Width="359" FontSize="24" />
             <Label Content="Cantidad: " HorizontalAlignment="Left" Margin="1423,191,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34" FontFamily="Arial"/>
             <xctk:IntegerUpDown Name="QuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" HorizontalAlignment="Left" Margin="1423,245,0,0" VerticalAlignment="Top" Height="64" Width="283" FontSize="24"/>
             <Label Content="Código: " HorizontalAlignment="Left" Margin="1037,334,0,0" VerticalAlignment="Top" Foreground="White" FontSize="34" FontFamily="Arial"/>

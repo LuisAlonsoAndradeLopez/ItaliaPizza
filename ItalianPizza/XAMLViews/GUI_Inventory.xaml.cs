@@ -11,7 +11,6 @@ using System.Windows.Navigation;
 using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
 using Orientation = System.Windows.Controls.Orientation;
-using System.Reflection;
 using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Validation;
@@ -28,19 +27,15 @@ namespace ItalianPizza.XAMLViews
         public GUI_Inventory()
         {/*
           TODO:
-            *DAOS para categorias de insumo y producto
-            *Crear Tablas para categorias de insumo y producto
-            *Categorias de insumo y producto en comboboxes para agregar y modificar artículo
-            *Preguntarle a camo si agregar el código o descartarlo, si se agrega agregar campos en la base
-            *Cambiar la columna tipo a categoria a la tabla Insumo
+            *Categorias de SupplySet y ProductSaleSet en comboboxes para agregar y modificar artículo
             *Objeto "Precio" con sus enteros y centavos (como dice ocharán)
             *Bloquear DecimalCombobox para que solamente acepte dos decimales
-            *Crear y conservar consultas para categorias de insumo y producto
+            *Arreglar el despapayo de la base
           */
 
 
             InitializeComponent();
-            InitializeComboBoxes();
+            InitializeSearchComboBoxes();
 
             ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
@@ -230,7 +225,7 @@ namespace ItalianPizza.XAMLViews
                 {
                     if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                     {
-                        new IngredientDAO().DisableIngredient(SelectedArticleNameTextBlock.Text);
+                        new SupplyDAO().DisableSupply(SelectedArticleNameTextBlock.Text);
                     }
                 
                     if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
@@ -267,45 +262,45 @@ namespace ItalianPizza.XAMLViews
                 {
                     if (new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source) != null)
                     {
-                        if ( (!new IngredientDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
+                        if ( (!new SupplyDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
                             !new ProductDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text)) ||
                             SelectedArticleNameTextBlock.Text == ModifySelectedArticleNameTextBox.Text)
                         {
-                            string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source));
-
                             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                             {
-                                Insumo originalIngredient = new IngredientDAO().GetIngredientByName(SelectedArticleNameTextBlock.Text);
+                                SupplySet originalSupply = new SupplyDAO().GetSupplyByName(SelectedArticleNameTextBlock.Text);
 
-                                Insumo modifiedIngredient = new Insumo
+                                SupplySet modifiedSupply = new SupplySet
                                 {
-                                    Nombre = ModifySelectedArticleNameTextBox.Text,
-                                    Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                    Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
-                                    //Tipo = ModifySelectedArticleTypeComboBox.SelectedItem?.ToString(),
-                                    Cantidad = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
-                                    Foto = selectedImage,
-                                    Estado = ArticleStatus.Activo.ToString(),
-                                    EmpleadoId = 12
+                                    Name = ModifySelectedArticleNameTextBox.Text,
+                                    Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                                    PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                    SupplyUnitId = new SupplyTypeDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
+                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
+                                    SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
+                                    EmployeeId = 1,
+                                    IdentificationCode = ModifySelectedArticleCodeTextBox.Text
                                 };
 
-                                new IngredientDAO().ModifyIngredient(originalIngredient, modifiedIngredient);
+                                new SupplyDAO().ModifySupply(originalSupply, modifiedSupply);
                             }
 
                             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
                             {
-                                Producto originalProduct = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+                                ProductSaleSet originalProduct = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
 
-                                Producto modifiedProduct = new Producto
+                                ProductSaleSet modifiedProduct = new ProductSaleSet
                                 {
-                                    Nombre = ModifySelectedArticleNameTextBox.Text,
-                                    Costo = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                    Descripcion = ModifySelectedArticleDescriptionTextBox.Text,
-                                    Categoria = ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString(),
-                                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                                    Foto = selectedImage,
-                                    Estado = ArticleStatus.Activo.ToString(),
-                                    EmpleadoId = 12
+                                    Name = ModifySelectedArticleNameTextBox.Text,
+                                    Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                                    PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
+                                    ProductTypeId = new ProductTypeDAO().GetProductTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
+                                    EmployeeId = 1,
+                                    IdentificationCode = ModifySelectedArticleCodeTextBox.Text,
+                                    Description = ModifySelectedArticleDescriptionTextBox.Text
                                 };
 
                                 new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
@@ -366,7 +361,7 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void InitializeComboBoxes()
+        private void InitializeSearchComboBoxes()
         {
             string[] showTypes = { ArticleTypes.Insumo.ToString(), ArticleTypes.Producto.ToString() };
 
@@ -388,14 +383,47 @@ namespace ItalianPizza.XAMLViews
             FindByComboBox.SelectedItem = FindByComboBox.Items[0];
         }
 
+        private void InitializeComboboxesForModifySomeSelectedArticleData()
+        {
+            List<SupplyTypeSet> supplyTypes = new SupplyTypeDAO().GetAllSupplyTypes();
+            List<ProductTypeSet> productTypes = new ProductTypeDAO().GetAllProductTypes();
+            List<SupplyUnitSet> supplyUnits = new SupplyUnitDAO().GetAllSupplyUnits();
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            {
+                foreach (var supplyType in supplyTypes)
+                {
+                    ModifySelectedArticleCategoryComboBox.Items.Add(supplyType);
+                }
+
+                foreach (var supplyUnit in supplyUnits)
+                {
+                    ModifySelectedArticleUnitComboBox.Items.Add(supplyUnit);
+                }
+
+                ModifySelectedArticleCategoryComboBox.SelectedItem = new SupplyTypeDAO().GetSupplyTypeByName(SelectedArticleCategoryTextBlock.Text.ToString()).Type;
+                ModifySelectedArticleUnitComboBox.SelectedItem = new SupplyUnitDAO().GetSupplyUnitByName(SelectedArticleUnitTextBlock.Text.ToString()).Unit;
+            }
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            {
+                foreach (var productType in productTypes)
+                {
+                    ModifySelectedArticleCategoryComboBox.Items.Add(productType);
+                }
+
+                ModifySelectedArticleCategoryComboBox.SelectedItem = new ProductTypeDAO().GetProductTypeByName(SelectedArticleCategoryTextBlock.Text.ToString()).Type;
+            }
+        }
+
         private void ShowArticles(string textForFindingArticle, string showType, string findByType)
         {
-            List<Insumo> ingredients = new List<Insumo>();
-            List<Producto> products = new List<Producto>();
+            List<SupplySet> supplies = new List<SupplySet>();
+            List<ProductSaleSet> products = new List<ProductSaleSet>();
 
             if (showType == ArticleTypes.Insumo.ToString())
             {
-                ingredients = new IngredientDAO().GetSpecifiedIngredientsByNameOrCode(textForFindingArticle, findByType);
+                supplies = new SupplyDAO().GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
             }
 
             if (showType == ArticleTypes.Producto.ToString())
@@ -428,7 +456,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new ProductDAO().GetImageByProductName(product.Nombre)
+                    Source = new ProductDAO().GetImageByProductName(product.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -440,7 +468,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = product.Nombre
+                    Text = product.Name
                 };
 
                 TextBlock articleTypeTextBlock = new TextBlock
@@ -464,7 +492,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = product.Estado
+                    Text = new ProductStatusDAO().GetProductStatusById(product.ProductStatusId).Status
                 };
 
                 
@@ -478,7 +506,7 @@ namespace ItalianPizza.XAMLViews
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
 
-            foreach (var ingredient in ingredients)
+            foreach (var supply in supplies)
             {
                 Border articleBorder = new Border
                 {
@@ -501,7 +529,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre)
+                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -513,7 +541,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = ingredient.Nombre
+                    Text = supply.Name
                 };
 
                 TextBlock articleTypeTextBlock = new TextBlock
@@ -537,7 +565,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = ingredient.Estado
+                    Text = new ProductStatusDAO().GetProductStatusById(supply.ProductStatusId).Status
                 };
 
 
@@ -554,12 +582,12 @@ namespace ItalianPizza.XAMLViews
 
         private void UpdateSelectedArticleDetailsStackPanel(string articleName, string articleType)
         {
-            Insumo ingredient = null;
-            Producto product = null;
+            SupplySet supply = null;
+            ProductSaleSet product = null;
 
             if (articleType == ArticleTypes.Insumo.ToString())
             {
-                ingredient = new IngredientDAO().GetIngredientByName(articleName);
+                supply = new SupplyDAO().GetSupplyByName(articleName);
             }
 
             if (articleType == ArticleTypes.Producto.ToString())
@@ -567,41 +595,40 @@ namespace ItalianPizza.XAMLViews
                 product = new ProductDAO().GetProductByName(articleName);
             }
 
-            if (ingredient != null)
+            if (supply != null)
             {
-                SelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
-                SelectedArticleNameTextBlock.Text = ingredient.Nombre;
+                SelectedArticleImage.Source = new SupplyDAO().GetImageBySupplyName(supply.Name);
+                SelectedArticleNameTextBlock.Text = supply.Name;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
-                SelectedArticleCategoryTextBlock.Text = "Pendiente";
-                SelectedArticleQuantityTextBlock.Text = ingredient.Cantidad.ToString();
-                SelectedArticleStatusTextBlock.Text = ingredient.Estado;
-                SelectedArticleCodeTextBlock.Text = "Pendiente";
-                SelectedArticlePriceTextBlock.Text = "N/A";
-                SelectedArticleDescriptionTextBlock.Text = ingredient.Descripcion;
+                SelectedArticleCategoryTextBlock.Text = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
+                SelectedArticleQuantityTextBlock.Text = supply.Quantity.ToString();
+                SelectedArticleStatusTextBlock.Text = new ProductStatusDAO().GetProductStatusById(supply.ProductStatusId).Status;
+                SelectedArticleCodeTextBlock.Text = supply.IdentificationCode;
+                SelectedArticlePriceTextBlock.Text = supply.PricePerUnit.ToString();
             }
 
             if (product != null)
             {
-                SelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
-                SelectedArticleNameTextBlock.Text = product.Nombre;
+                SelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Name);
+                SelectedArticleNameTextBlock.Text = product.Name;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
-                SelectedArticleCategoryTextBlock.Text = product.Categoria;
-                SelectedArticleQuantityTextBlock.Text = "Pendiente";
-                SelectedArticleStatusTextBlock.Text = product.Estado;
-                SelectedArticleCodeTextBlock.Text = "Pendiente";
-                SelectedArticlePriceTextBlock.Text = product.Costo.ToString();
-                SelectedArticleDescriptionTextBlock.Text = product.Descripcion;
+                SelectedArticleCategoryTextBlock.Text = new ProductTypeDAO().GetProductTypeById(product.ProductTypeId).Type;
+                SelectedArticleQuantityTextBlock.Text = product.Quantity.ToString();
+                SelectedArticleStatusTextBlock.Text = new ProductStatusDAO().GetProductStatusById(product.ProductStatusId).Status; ;
+                SelectedArticleCodeTextBlock.Text = product.IdentificationCode;
+                SelectedArticlePriceTextBlock.Text = product.PricePerUnit.ToString();
+                SelectedArticleDescriptionTextBlock.Text = product.Description;
             }
         }
 
         private void UpdateModifySelectedArticleDetailsStackPanel()
         {
-            Insumo ingredient = null;
-            Producto product = null;
+            SupplySet supply = null;
+            ProductSaleSet product = null;
 
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
             {
-                ingredient = new IngredientDAO().GetIngredientByName(SelectedArticleNameTextBlock.Text);
+                supply = new SupplyDAO().GetSupplyByName(SelectedArticleNameTextBlock.Text);
             }
 
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
@@ -609,26 +636,25 @@ namespace ItalianPizza.XAMLViews
                 product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
             }
 
-            if (ingredient != null)
+            if (supply != null)
             {
-                ModifySelectedArticleImage.Source = new IngredientDAO().GetImageByIngredientName(ingredient.Nombre);
-                ModifySelectedArticleNameTextBox.Text = ingredient.Nombre;
-                ModifySelectedArticleCategoryComboBox.SelectedItem = "Pendiente";
-                ModifySelectedArticleQuantityIntegerUpDown.Text = ingredient.Cantidad.ToString();
-                ModifySelectedArticleCodeTextBox.Text = "Pendiente";
-                ModifySelectedArticlePriceDecimalUpDown.Text = "N/A";
-                ModifySelectedArticleDescriptionTextBox.Text = ingredient.Descripcion;
+                ModifySelectedArticleImage.Source = new SupplyDAO().GetImageBySupplyName(supply.Name);
+                ModifySelectedArticleNameTextBox.Text = supply.Name;
+                ModifySelectedArticleCategoryComboBox.SelectedItem = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
+                ModifySelectedArticleQuantityIntegerUpDown.Text = supply.Quantity.ToString();
+                ModifySelectedArticleCodeTextBox.Text = supply.IdentificationCode;
+                ModifySelectedArticlePriceDecimalUpDown.Text = supply.PricePerUnit.ToString();
             }
 
             if (product != null)
             {
-                ModifySelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Nombre);
-                ModifySelectedArticleNameTextBox.Text = product.Nombre;
-                ModifySelectedArticleCategoryComboBox.SelectedItem = product.Categoria;
-                ModifySelectedArticleQuantityIntegerUpDown.Text = "Pendiente";
-                ModifySelectedArticleCodeTextBox.Text = "Pendiente";
-                ModifySelectedArticlePriceDecimalUpDown.Text = product.Costo.ToString();
-                ModifySelectedArticleDescriptionTextBox.Text = product.Descripcion;
+                ModifySelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Name);
+                ModifySelectedArticleNameTextBox.Text = product.Name;
+                ModifySelectedArticleCategoryComboBox.SelectedItem = new ProductTypeDAO().GetProductTypeById(product.ProductTypeId).Type;
+                ModifySelectedArticleQuantityIntegerUpDown.Text = product.Quantity.ToString();
+                ModifySelectedArticleCodeTextBox.Text = product.IdentificationCode;
+                ModifySelectedArticlePriceDecimalUpDown.Text = product.PricePerUnit.ToString();
+                ModifySelectedArticleDescriptionTextBox.Text = product.Description;
             }
         }
 

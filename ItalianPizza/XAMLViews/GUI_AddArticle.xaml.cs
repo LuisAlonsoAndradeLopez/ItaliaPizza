@@ -87,17 +87,17 @@ namespace ItalianPizza.XAMLViews
             ComboBox articleTypesComboBox = (ComboBox)sender;
             string selectedOption = articleTypesComboBox.SelectedItem?.ToString();
 
-            IngredientOrProductTypesComboBox.Items.Clear();
+            SupplyOrProductTypesComboBox.Items.Clear();
 
-            string[] ingredients = { "Queso", "Carne", "Fruta", "Verdura", "Harina" };
+            string[] supplys = { "Queso", "Carne", "Fruta", "Verdura", "Harina" };
             string[] products = { "Bebida", "Dedos de Queso", "Hamburguesa", "Pizza" };
 
 
             if(selectedOption == ArticleTypes.Insumo.ToString())
             {
-                foreach (var ingredient in ingredients)
+                foreach (var supply in supplys)
                 {
-                    IngredientOrProductTypesComboBox.Items.Add(ingredient);
+                    SupplyOrProductTypesComboBox.Items.Add(supply);
                 }
             }
 
@@ -105,11 +105,11 @@ namespace ItalianPizza.XAMLViews
             {
                 foreach (var product in products)
                 {
-                    IngredientOrProductTypesComboBox.Items.Add(product);
+                    SupplyOrProductTypesComboBox.Items.Add(product);
                 }
             }
 
-            IngredientOrProductTypesComboBox.SelectedItem = IngredientOrProductTypesComboBox.Items[0];
+            SupplyOrProductTypesComboBox.SelectedItem = SupplyOrProductTypesComboBox.Items[0];
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
@@ -126,40 +126,38 @@ namespace ItalianPizza.XAMLViews
                 {
                     if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source) != null)
                     {
-                        if (!new IngredientDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text) &&
+                        if (!new SupplyDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text) &&
                             !new ProductDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text))
                         {
-                            string selectedImage = Convert.ToBase64String(new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source));
-
                             if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString()) 
                             {
-                                Insumo ingredient = new Insumo
+                                SupplySet supply = new SupplySet
                                 {
-                                    Nombre = ArticleNameTextBox.Text,
-                                    Costo = (double)PriceDecimalUpDown.Value,
-                                    Descripcion = DescriptionTextBox.Text,
-                                    Tipo = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                                    Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                                    Foto = selectedImage,
+                                    Name = ArticleNameTextBox.Text,
+                                    Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                    PricePerUnit = (double)PriceDecimalUpDown.Value,
+                                    Tipo = SupplyOrProductTypesComboBox.SelectedItem?.ToString(),
+                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                     Estado = ArticleStatus.Activo.ToString(),
-                                    EmpleadoId = 12
+                                    EmployeeId = 1,
+                                    IdentificationCode = 
                                 };
 
-                                new IngredientDAO().AddIngredient(ingredient);                    
+                                new SupplyDAO().AddSupply(supply);                    
                             }
 
                             if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
                             {
-                                Producto product = new Producto
+                                ProductSaleSet product = new ProductSaleSet
                                 {
-                                    Nombre = ArticleNameTextBox.Text,
+                                    Name = ArticleNameTextBox.Text,
                                     Costo = (double)PriceDecimalUpDown.Value,
                                     Descripcion = DescriptionTextBox.Text,
-                                    Categoria = IngredientOrProductTypesComboBox.SelectedItem?.ToString(),
-                                    //Cantidad = QuantityIntegerUpDown.Value ?? 0,
-                                    Foto = selectedImage,
+                                    Categoria = supplyOrProductTypesComboBox.SelectedItem?.ToString(),
+                                    Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                     Estado = ArticleStatus.Activo.ToString(),
-                                    EmpleadoId = 12
+                                    EmpleadoId = 1
                                 };
 
                                 new ProductDAO().AddProduct(product);

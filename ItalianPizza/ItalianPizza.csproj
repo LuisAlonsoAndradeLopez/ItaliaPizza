@@ -91,67 +91,112 @@
     <Compile Include="Auxiliary\ExceptionLogger.cs" />
     <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
-    <Compile Include="DatabaseModel\DataAccessObject\IngredientDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\UserDAO.cs" />
-    <Compile Include="DatabaseModel\DatabaseMapping\Cliente.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\AddressSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\CorteDiario.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderCustomerSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Cuenta.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDeliveryDriverSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\DataModel.Context.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDetailSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\DailyClosingSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\database_firewall_rules.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\DeliveryDriverSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\EmployeePositionSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\EmployeeSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\InventoryValidationSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
+      <DependentUpon>ItalianPizzaServerBD.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\DataModel.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\DataModel.Designer.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
+      <DependentUpon>ItalianPizzaServerBD.edmx</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Dirección.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\OrderStatusSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Empleado.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\OrderTypeSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Insumo.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductSaleSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\OrdenCliente.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductStatusSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\OrdenClienteDetalle.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductTypeSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedor.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\RecipeDetailsSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\PedidoProveedorDetalle.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\RecipeSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Producto.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplierOrderDetailsSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Proveedor.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplierOrderSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\Repartidor.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplierSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\ValidacionInventario.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplySet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyTypeSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyUnitSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\UserAccountSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\UserStatusSet.cs">
+      <DependentUpon>ItalianPizzaServerBD.tt</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
@@ -228,12 +273,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DatabaseModel\DatabaseMapping\DataModel.edmx">
+    <EntityDeploy Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>ItalianPizzaServerBD.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DatabaseModel\DatabaseMapping\DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
+    <None Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.edmx.diagram">
+      <DependentUpon>ItalianPizzaServerBD.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -260,16 +305,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DatabaseModel\DatabaseMapping\DataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
-    </Content>
     <Content Include="DatabaseModel\DatabaseMapping\DataModel.edmx.sql" />
-    <Content Include="DatabaseModel\DatabaseMapping\DataModel.tt">
+    <Content Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
+      <DependentUpon>ItalianPizzaServerBD.edmx</DependentUpon>
+      <LastGenOutput>ItalianPizzaServerBD.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DatabaseModel\DatabaseMapping\ItalianPizzaServerBD.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItalianPizzaServerBD.edmx</DependentUpon>
+      <LastGenOutput>ItalianPizzaServerBD.cs</LastGenOutput>
     </Content>
     <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Decision.png" />
     <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Error.png" />
