@@ -85,6 +85,12 @@
     <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrder.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderCustomer.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDeliveryDriver.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDetail.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -166,6 +172,7 @@
     <Compile Include="DatabaseModel\DatabaseMapping\UserStatus.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="SingletonClasses\UserToken.cs" />
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
       <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
     </Compile>
@@ -177,6 +184,9 @@
     </Compile>
     <Compile Include="XAMLViews\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -203,6 +213,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\GUI-Login.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\NavigationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -268,6 +282,8 @@
       <DependentUpon>DataModel.edmx</DependentUpon>
       <LastGenOutput>DataModel.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-HidePassword.png" />
+    <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
     <Resource Include="Resources\Pictures\FONDO-RegistroCliente.jpg" />
     <Resource Include="Resources\Pictures\ICON-Agregar.png" />
     <Resource Include="Resources\Pictures\ICON-Calle.png" />

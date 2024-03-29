@@ -69,8 +69,12 @@
         <AssociationConnector Association="ItalianPizzaServerBDModel.EmployeeFinancialTransaction" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.EmployeeDailyClosing" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.CustomerOrderCustomer" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" Width="1.5" PointX="22.125" PointY="0.5" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderCustomer" Width="2.25" PointX="25.25" PointY="0.5" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderCustomer" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.CustomerCustomerOrderCustomer" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderDeliveryDriver" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.DeliveryDriverCustomerOrderDeliveryDriver" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

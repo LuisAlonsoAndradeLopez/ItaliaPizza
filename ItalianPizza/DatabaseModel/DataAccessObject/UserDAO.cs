@@ -23,8 +23,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    customerList = context.CustomerSet.ToList();
+                    customerList = context.CustomerSet
+                        .Include(customer => customer.Address)
+                        .Include(customer => customer.Employee)
+                        .Include(customer => customer.UserStatus)
+                        .ToList();
                 }
+
+                customerList.RemoveAt(0);
+
             }
             catch (EntityException ex)
             {
@@ -36,6 +43,31 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return customerList;
+        }
+
+        public Customer GetCustomersByID(int customerID)
+        {
+            Customer customer;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    customer = context.CustomerSet
+                        .Where(customerAux => customerAux.Id == customerID)
+                        .First();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return customer;
         }
 
         public List<DeliveryDriver> GetAllDeliveryDriver()
@@ -69,13 +101,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    var customerOrder = context.CustomerOrderSet
-                        .Include(co => co.Customer)
-                        .FirstOrDefault(co => co.Id == customerOrderID);
+                    var customerOrderDetail = context.CustomerOrderCustomerSet
+                        .Include(customerOrderDetailAux => customerOrderDetailAux.Customer)
+                        .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    int count = customerOrder.Customer.Count;
-
-                    customer = customerOrder.Customer.First();
+                    customer = customerOrderDetail.Customer;
                 }
             }
             catch (EntityException ex)
@@ -98,11 +128,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    var customerOrder = context.CustomerOrderSet
-                        .Include(co => co.DeliveryDriver)
-                        .FirstOrDefault(co => co.Id == customerOrderID);
+                    var customerOrderDetail = context.CustomerOrderDeliveryDriverSet
+                        .Include(customerOrderDetailAux => customerOrderDetailAux.DeliveryDriver)
+                        .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    deliveryDriver = customerOrder.DeliveryDriver.First();
+                    deliveryDriver = customerOrderDetail.DeliveryDriver;
                 }
             }
             catch (EntityException ex)

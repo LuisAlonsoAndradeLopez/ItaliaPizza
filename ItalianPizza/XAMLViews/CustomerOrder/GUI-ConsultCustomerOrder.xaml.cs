@@ -39,6 +39,16 @@ namespace ItalianPizza.XAMLViews
             customerOrderProducts = new List<ProductSale>();
             lboStatusCustomerOrders.ItemsSource = customerOrdersDAO.GetOrderStatuses();
             lboStatusCustomerOrders.DisplayMemberPath = "Status";
+            //LoadNavigationBar();
+        }
+
+        public void LoadNavigationBar()
+        {
+            NavigationBar navigationBar = new NavigationBar();
+            navigationBar.Margin = new Thickness(-1475, 0, 0, 0);
+            navigationBar.Width = 244;
+            Grid.SetColumn(navigationBar, 0);
+            Background.Children.Add(navigationBar);
         }
 
         public void InitializeDAOConnections()
@@ -230,10 +240,10 @@ namespace ItalianPizza.XAMLViews
 
             try
             {
-                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Collapsed;
+                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Hidden;
                 lblOrderTypeCustomer.Content = customerOrder.OrderType.Type;
 
-                if (customerOrder.OrderType.Type == "Pedido a domicilio")
+                if (customerOrder.OrderType.Type == "Pedido Domicilio")
                 {
                     Customer customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
                     DeliveryDriver deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
@@ -248,6 +258,7 @@ namespace ItalianPizza.XAMLViews
                 }
 
                 productsOrderCustomer = productDAO.GetOrderProducts(customerOrder);
+                customerOrderProducts = productsOrderCustomer;
                 ShowOrderProducts(productsOrderCustomer);
                 lblTotalOrderCost.Content = "$ " + CalculateTotalCost(productsOrderCustomer).ToString() + ".00";
             }
@@ -334,7 +345,7 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderProducts));
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)

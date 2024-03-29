@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -13,6 +14,67 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     public class CustomerOrdersDAO
     {
         public CustomerOrdersDAO() { }
+
+        public int RegisterCustomerOrder(CustomerOrder customerOrder, List<ProductSale> productsOrderCustomer, Customer customer, DeliveryDriver deliveryDriver)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        context.CustomerOrderSet.Add(customerOrder);
+                        result = context.SaveChanges();
+                        
+                        if(customerOrder.OrderType.Type == "Pedido Domicilio")
+                        {
+                            CustomerOrderCustomer customerOrderCustomer = new CustomerOrderCustomer
+                            {
+                                CustomerId = customer.Id,
+                                CustomerOrderId = customerOrder.Id
+                            };
+                            CustomerOrderDeliveryDriver customerOrderDeliveryDriver = new CustomerOrderDeliveryDriver
+                            {
+                                CustomerOrderId = customerOrder.Id,
+                                DeliveryDriverId = deliveryDriver.Id
+                            };
+                            context.CustomerOrderCustomerSet.Add(customerOrderCustomer);
+                            context.SaveChanges();
+                            context.CustomerOrderDeliveryDriverSet.Add(customerOrderDeliveryDriver);
+                            context.SaveChanges();
+                        }
+
+                        foreach (var product in productsOrderCustomer)
+                        {
+                            CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail();
+                            customerOrderDetail.CustomerOrderId = customerOrder.Id;
+                            customerOrderDetail.ProductSaleId = product.Id;
+                            customerOrderDetail.ProductQuantity = product.Quantity;
+                            customerOrderDetail.PricePerUnit = product.PricePerUnit;
+                            context.CustomerOrderDetailSet.Add(customerOrderDetail);
+                            context.SaveChanges();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
 
         public List<CustomerOrder> GetAllCustomerOrders()
         {

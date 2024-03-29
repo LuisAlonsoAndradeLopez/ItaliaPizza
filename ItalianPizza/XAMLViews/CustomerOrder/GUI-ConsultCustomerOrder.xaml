@@ -31,35 +31,23 @@
 
     </Page.Resources>
 
-    <Grid Background="#FF131313">
+    <Grid x:Name="Background" Background="#FF131313">
 
-        <Grid>
-            <Rectangle HorizontalAlignment="Left" Height="906" Stroke="#FF1C1C1C" VerticalAlignment="Center" Width="244" Fill="#FF1C1C1C"/>
-            <Image HorizontalAlignment="Left" Height="177" Margin="27,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-            <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,251,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,262,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-            <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,340,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="29,351,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-            <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,432,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="32,443,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-            <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,529,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,540,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-            <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,623,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,634,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
-            <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,719,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="44" Margin="29,731,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
-        </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
         <Rectangle 
-        HorizontalAlignment="Left"
-        Height="881" 
-        Margin="256,13,0,0" 
-        Stroke="#FF0F0B02" 
-        VerticalAlignment="Top" 
-        Width="892" 
-        Fill="#FF18171C"
-        RadiusX="20" 
-        RadiusY="20"/>
+            HorizontalAlignment="Left"
+            Height="881" 
+            Margin="256,13,0,0" 
+            Stroke="#FF0F0B02" 
+            VerticalAlignment="Top" 
+            Width="892" 
+            Fill="#FF18171C"
+            RadiusX="20" 
+            RadiusY="20"/>
 
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Visibility="Visible">
 
@@ -425,7 +413,7 @@
                FontFamily="Calibri" 
                Foreground="White"/>
 
-            <GridSplitter Height="751" Margin="0,383,399,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
+            <GridSplitter Height="751" Margin="0,383,379,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
                 <GridSplitter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -440,15 +428,15 @@
 
         <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Hidden">
             <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="866" 
-            Margin="1171,0,0,0" 
-            Stroke="#FFE71717" 
-            RadiusX="30" 
-            RadiusY="30" 
-            VerticalAlignment="Center" 
-            Width="547" 
-            Fill="#FF131313"/>
+                HorizontalAlignment="Left" 
+                Height="866" 
+                Margin="1171,0,0,0" 
+                Stroke="#FFE71717" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Center" 
+                Width="547" 
+                Fill="#FF131313"/>
 
             <Label Content="Selecione un pedido" 
                HorizontalAlignment="Left" 
@@ -458,7 +446,11 @@
                FontWeight="Bold" 
                FontSize="38" 
                Foreground="White"/>
+            
         </Grid>
+
+        <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        
     </Grid>
 
 </Page>

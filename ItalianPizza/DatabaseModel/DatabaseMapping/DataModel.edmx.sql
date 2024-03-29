@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/26/2024 00:37:47
+-- Date Created: 03/27/2024 22:39:48
 -- Generated from EDMX file: D:\Proyectos C#\ItalianPizza\ItaliaPizza\ItalianPizza\DatabaseModel\DatabaseMapping\DataModel.edmx
 -- --------------------------------------------------
 
@@ -146,11 +146,17 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_EmployeeDailyClosing]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DailyClosingSet] DROP CONSTRAINT [FK_EmployeeDailyClosing];
 GO
-IF OBJECT_ID(N'[dbo].[FK_CustomerOrderDeliveryDriver]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[DeliveryDriverSet] DROP CONSTRAINT [FK_CustomerOrderDeliveryDriver];
+IF OBJECT_ID(N'[dbo].[FK_CustomerOrderCustomerOrderCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderCustomerSet] DROP CONSTRAINT [FK_CustomerOrderCustomerOrderCustomer];
 GO
-IF OBJECT_ID(N'[dbo].[FK_CustomerOrderCustomer]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[CustomerSet] DROP CONSTRAINT [FK_CustomerOrderCustomer];
+IF OBJECT_ID(N'[dbo].[FK_CustomerCustomerOrderCustomer]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderCustomerSet] DROP CONSTRAINT [FK_CustomerCustomerOrderCustomer];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerOrderCustomerOrderDeliveryDriver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderDeliveryDriverSet] DROP CONSTRAINT [FK_CustomerOrderCustomerOrderDeliveryDriver];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DeliveryDriverCustomerOrderDeliveryDriver]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[CustomerOrderDeliveryDriverSet] DROP CONSTRAINT [FK_DeliveryDriverCustomerOrderDeliveryDriver];
 GO
 
 -- --------------------------------------------------
@@ -231,6 +237,12 @@ IF OBJECT_ID(N'[dbo].[SupplierOrderSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SupplyTypeSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SupplyTypeSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerOrderDeliveryDriverSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerOrderDeliveryDriverSet];
+GO
+IF OBJECT_ID(N'[dbo].[CustomerOrderCustomerSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[CustomerOrderCustomerSet];
 GO
 IF OBJECT_ID(N'[dbo].[SupplierSupply]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SupplierSupply];
@@ -505,6 +517,22 @@ CREATE TABLE [dbo].[SupplyTypeSet] (
 );
 GO
 
+-- Creating table 'CustomerOrderDeliveryDriverSet'
+CREATE TABLE [dbo].[CustomerOrderDeliveryDriverSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CustomerOrderId] int  NOT NULL,
+    [DeliveryDriverId] int  NOT NULL
+);
+GO
+
+-- Creating table 'CustomerOrderCustomerSet'
+CREATE TABLE [dbo].[CustomerOrderCustomerSet] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [CustomerOrderId] int  NOT NULL,
+    [CustomerId] int  NOT NULL
+);
+GO
+
 -- Creating table 'SupplierSupply'
 CREATE TABLE [dbo].[SupplierSupply] (
     [Supplier_Id] int  NOT NULL,
@@ -530,20 +558,6 @@ GO
 CREATE TABLE [dbo].[DailyClosingFinancialTransaction] (
     [DailyClosing_Id] int  NOT NULL,
     [FinancialTransaction_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'CustomerOrderDeliveryDriver'
-CREATE TABLE [dbo].[CustomerOrderDeliveryDriver] (
-    [CustomerOrder_Id] int  NOT NULL,
-    [DeliveryDriver_Id] int  NOT NULL
-);
-GO
-
--- Creating table 'CustomerOrderCustomer'
-CREATE TABLE [dbo].[CustomerOrderCustomer] (
-    [CustomerOrder_Id] int  NOT NULL,
-    [Customer_Id] int  NOT NULL
 );
 GO
 
@@ -701,6 +715,18 @@ ADD CONSTRAINT [PK_SupplyTypeSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
+-- Creating primary key on [Id] in table 'CustomerOrderDeliveryDriverSet'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriverSet]
+ADD CONSTRAINT [PK_CustomerOrderDeliveryDriverSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'CustomerOrderCustomerSet'
+ALTER TABLE [dbo].[CustomerOrderCustomerSet]
+ADD CONSTRAINT [PK_CustomerOrderCustomerSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
 -- Creating primary key on [Supplier_Id], [Supply_Id] in table 'SupplierSupply'
 ALTER TABLE [dbo].[SupplierSupply]
 ADD CONSTRAINT [PK_SupplierSupply]
@@ -723,18 +749,6 @@ GO
 ALTER TABLE [dbo].[DailyClosingFinancialTransaction]
 ADD CONSTRAINT [PK_DailyClosingFinancialTransaction]
     PRIMARY KEY CLUSTERED ([DailyClosing_Id], [FinancialTransaction_Id] ASC);
-GO
-
--- Creating primary key on [CustomerOrder_Id], [DeliveryDriver_Id] in table 'CustomerOrderDeliveryDriver'
-ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
-ADD CONSTRAINT [PK_CustomerOrderDeliveryDriver]
-    PRIMARY KEY CLUSTERED ([CustomerOrder_Id], [DeliveryDriver_Id] ASC);
-GO
-
--- Creating primary key on [CustomerOrder_Id], [Customer_Id] in table 'CustomerOrderCustomer'
-ALTER TABLE [dbo].[CustomerOrderCustomer]
-ADD CONSTRAINT [PK_CustomerOrderCustomer]
-    PRIMARY KEY CLUSTERED ([CustomerOrder_Id], [Customer_Id] ASC);
 GO
 
 -- --------------------------------------------------
@@ -1362,52 +1376,64 @@ ON [dbo].[DailyClosingSet]
     ([EmployeeId]);
 GO
 
--- Creating foreign key on [CustomerOrder_Id] in table 'CustomerOrderDeliveryDriver'
-ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
-ADD CONSTRAINT [FK_CustomerOrderDeliveryDriver_CustomerOrder]
-    FOREIGN KEY ([CustomerOrder_Id])
+-- Creating foreign key on [CustomerOrderId] in table 'CustomerOrderCustomerSet'
+ALTER TABLE [dbo].[CustomerOrderCustomerSet]
+ADD CONSTRAINT [FK_CustomerOrderCustomerOrderCustomer]
+    FOREIGN KEY ([CustomerOrderId])
     REFERENCES [dbo].[CustomerOrderSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating foreign key on [DeliveryDriver_Id] in table 'CustomerOrderDeliveryDriver'
-ALTER TABLE [dbo].[CustomerOrderDeliveryDriver]
-ADD CONSTRAINT [FK_CustomerOrderDeliveryDriver_DeliveryDriver]
-    FOREIGN KEY ([DeliveryDriver_Id])
-    REFERENCES [dbo].[DeliveryDriverSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderCustomerOrderCustomer'
+CREATE INDEX [IX_FK_CustomerOrderCustomerOrderCustomer]
+ON [dbo].[CustomerOrderCustomerSet]
+    ([CustomerOrderId]);
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderDeliveryDriver_DeliveryDriver'
-CREATE INDEX [IX_FK_CustomerOrderDeliveryDriver_DeliveryDriver]
-ON [dbo].[CustomerOrderDeliveryDriver]
-    ([DeliveryDriver_Id]);
-GO
-
--- Creating foreign key on [CustomerOrder_Id] in table 'CustomerOrderCustomer'
-ALTER TABLE [dbo].[CustomerOrderCustomer]
-ADD CONSTRAINT [FK_CustomerOrderCustomer_CustomerOrder]
-    FOREIGN KEY ([CustomerOrder_Id])
-    REFERENCES [dbo].[CustomerOrderSet]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating foreign key on [Customer_Id] in table 'CustomerOrderCustomer'
-ALTER TABLE [dbo].[CustomerOrderCustomer]
-ADD CONSTRAINT [FK_CustomerOrderCustomer_Customer]
-    FOREIGN KEY ([Customer_Id])
+-- Creating foreign key on [CustomerId] in table 'CustomerOrderCustomerSet'
+ALTER TABLE [dbo].[CustomerOrderCustomerSet]
+ADD CONSTRAINT [FK_CustomerCustomerOrderCustomer]
+    FOREIGN KEY ([CustomerId])
     REFERENCES [dbo].[CustomerSet]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
--- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderCustomer_Customer'
-CREATE INDEX [IX_FK_CustomerOrderCustomer_Customer]
-ON [dbo].[CustomerOrderCustomer]
-    ([Customer_Id]);
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerCustomerOrderCustomer'
+CREATE INDEX [IX_FK_CustomerCustomerOrderCustomer]
+ON [dbo].[CustomerOrderCustomerSet]
+    ([CustomerId]);
+GO
+
+-- Creating foreign key on [CustomerOrderId] in table 'CustomerOrderDeliveryDriverSet'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriverSet]
+ADD CONSTRAINT [FK_CustomerOrderCustomerOrderDeliveryDriver]
+    FOREIGN KEY ([CustomerOrderId])
+    REFERENCES [dbo].[CustomerOrderSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_CustomerOrderCustomerOrderDeliveryDriver'
+CREATE INDEX [IX_FK_CustomerOrderCustomerOrderDeliveryDriver]
+ON [dbo].[CustomerOrderDeliveryDriverSet]
+    ([CustomerOrderId]);
+GO
+
+-- Creating foreign key on [DeliveryDriverId] in table 'CustomerOrderDeliveryDriverSet'
+ALTER TABLE [dbo].[CustomerOrderDeliveryDriverSet]
+ADD CONSTRAINT [FK_DeliveryDriverCustomerOrderDeliveryDriver]
+    FOREIGN KEY ([DeliveryDriverId])
+    REFERENCES [dbo].[DeliveryDriverSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DeliveryDriverCustomerOrderDeliveryDriver'
+CREATE INDEX [IX_FK_DeliveryDriverCustomerOrderDeliveryDriver]
+ON [dbo].[CustomerOrderDeliveryDriverSet]
+    ([DeliveryDriverId]);
 GO
 
 -- --------------------------------------------------

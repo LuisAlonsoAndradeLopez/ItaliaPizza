@@ -50,5 +50,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual DbSet<Address> AddressSet { get; set; }
         public virtual DbSet<SupplierOrder> SupplierOrderSet { get; set; }
         public virtual DbSet<SupplyType> SupplyTypeSet { get; set; }
+        public virtual DbSet<CustomerOrderDeliveryDriver> CustomerOrderDeliveryDriverSet { get; set; }
+        public virtual DbSet<CustomerOrderCustomer> CustomerOrderCustomerSet { get; set; }
     }
 }

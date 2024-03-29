@@ -16,7 +16,7 @@
             VerticalAlignment="Top" 
             Width="1180" 
             Source="\Resources\Pictures\FONDO-LOGIN.jpg"/>
-        
+
         <Rectangle 
             HorizontalAlignment="Left" 
             Height="524" 
@@ -26,7 +26,7 @@
             VerticalAlignment="Top" 
             Width="453" 
             Opacity="0.3">
-            
+
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black"/>
@@ -34,7 +34,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        
+
         <Rectangle 
             HorizontalAlignment="Left" 
             Height="523"
@@ -44,7 +44,7 @@
             VerticalAlignment="Top"
             Width="453" 
             Opacity="0.3">
-            
+
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0.948"/>
@@ -53,7 +53,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        
+
         <Label Content="Pizza" 
                HorizontalAlignment="Left" 
                Margin="303,131,0,0"
@@ -62,7 +62,7 @@
                FontFamily="Arial"
                FontWeight="Bold"
                FontSize="30"/>
-        
+
         <Label Content="Italian"
                HorizontalAlignment="Left"
                Margin="217,131,0,0"
@@ -72,7 +72,7 @@
                FontWeight="Bold"
                FontSize="30"
                RenderTransformOrigin="-0.025,-0.215"/>
-        
+
         <Label Content="Ingrese nombre de usuario "
                HorizontalAlignment="Left"
                Margin="117,211,0,0"
@@ -81,8 +81,9 @@
                FontFamily="Arial"
                FontSize="18"
                FontWeight="Bold"/>
-        
-        <TextBox HorizontalAlignment="Left" 
+
+        <TextBox x:Name="txtUserName"
+                 HorizontalAlignment="Left" 
                  Margin="120,249,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top" 
@@ -92,7 +93,7 @@
                  Foreground="White" 
                  Height="34" 
                  FontSize="18"/>
-        
+
         <Label Content="Ingrese su contraseña" 
                HorizontalAlignment="Left" 
                Margin="118,306,0,0" 
@@ -101,8 +102,8 @@
                FontFamily="Arial"
                FontSize="18"
                FontWeight="Bold"/>
-        
-        <TextBox 
+
+        <TextBox x:Name="txtPassword"
             HorizontalAlignment="Left" 
             Margin="121,344,0,0"
             TextWrapping="Wrap" 
@@ -113,7 +114,7 @@
             Foreground="White" 
             Height="34"
             FontSize="18"/>
-        
+
         <Button Content="Login" 
                 HorizontalAlignment="Left"
                 Margin="121,418,0,0"
@@ -126,7 +127,7 @@
                 FontFamily="Segoe UI Variable Small Semibold" 
                 FontSize="18" 
                 FontWeight="Bold" Click="Button_Click"/>
-        
+
         <GridSplitter 
             HorizontalAlignment="Left" 
             Height="146" 
@@ -143,8 +144,8 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
-        
-        
+
+
         <GridSplitter 
             HorizontalAlignment="Left" 
             Height="148" 
@@ -161,8 +162,8 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
-        
-        
+
+
         <Label Content="Ó" 
                HorizontalAlignment="Left" 
                Margin="296,476,0,0"
@@ -170,7 +171,7 @@
                FontFamily="Arial Black" 
                Foreground="#FFFAF1F1" 
                FontSize="18"/>
-        
+
         <Label Content="¿Aún no tienes una cuenta?"
                HorizontalAlignment="Left" 
                Margin="191,526,0,0"
@@ -178,7 +179,7 @@
                FontSize="18" 
                FontFamily="Segoe UI Semibold" 
                Foreground="#FFFFF9F9"/>
-        
+
         <Label Content="De clic aquí para registrarse"
                HorizontalAlignment="Left"
                Margin="191,563,0,0"
@@ -186,15 +187,33 @@
                FontSize="18"
                FontFamily="Segoe UI Semibold"
                Foreground="#FFE4AE1F"/>
-        
+
         <PasswordBox x:Name="pwPassword" 
                      HorizontalAlignment="Left" 
                      Margin="121,344,0,0" 
                      VerticalAlignment="Top" 
                      Width="375" 
                      Height="34" Background="{x:Null}" BorderBrush="White" Foreground="White" FontSize="18"/>
-        
-        
+
+        <Image x:Name="imgHidePasswordIcon"
+            HorizontalAlignment="Left" 
+            Height="21" 
+            Margin="470,351,0,0" 
+            VerticalAlignment="Top" 
+            Width="21" 
+            MouseLeftButtonDown = "HidePassword_MouseLeftButtonDown"
+            Source="\Resources\Pictures\ICON-HidePassword.png"/>
+
+        <Image x:Name="imgViewPasswordIcon"
+            HorizontalAlignment="Left" 
+            Height="21" 
+            Margin="470,351,0,0" 
+            VerticalAlignment="Top" 
+            Width="21" 
+            MouseLeftButtonDown ="ViewPassword_MouseLeftButtonDown"
+            Visibility="Collapsed"
+            Source="\Resources\Pictures\ICON-ViewPassword.png"/>
+
 
     </Grid>
 

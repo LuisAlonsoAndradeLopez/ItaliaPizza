@@ -37,6 +37,21 @@ namespace ItalianPizza.XAMLViews
             InitializeDAOConnections();
             ShowActiveProducts();
             InitializeListBoxes();
+            if(customerOrderProducts.Count > 0)
+            {
+                ShowOrderProducts(listProductsCustomerOrder);
+                btnModifyCustomerOrder.Visibility = Visibility.Visible;
+                btnRegisterCustomerOrder.Visibility = Visibility.Hidden;
+            }
+        }
+
+        public void LoadNavigationBar()
+        {
+            NavigationBar navigationBar = new NavigationBar();
+            navigationBar.Margin = new Thickness(-1500, 0, 0, 0);
+            navigationBar.Width = 244;
+            Grid.SetColumn(navigationBar, 0);
+            Background.Children.Add(navigationBar);
         }
 
         private void InitializeDAOConnections()
@@ -120,14 +135,25 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
         {
+            if (listProductsCustomerOrder.Count != 0)
+            {
+                CustomerOrder customerOrder = PrepareCustomerOrder();
+                Customer customer = (Customer)lboCustomers.SelectedItem;
+                DeliveryDriver deliveryman = (DeliveryDriver)lboDeliverymen.SelectedItem;
+                customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
+                //Alert.MostrarMensaje("Se ha registrado correctamente el pedido en la base de datos");
+                CleanFields();
+            }
+            else
+            {
 
+            }
+            
+        }
 
-            CustomerOrder customerOrder = PrepareCustomerOrder();
-            DeliveryDriver deliverymen =lboDeliverymen.SelectedItem as DeliveryDriver;
-            Customer customer = lboCustomers.SelectedItem as Customer;
-            //customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, deliverymen, customer);
+        private void CleanFields()
+        {
             listProductsCustomerOrder.Clear();
-            //Alert.MostrarMensaje("Se ha registrado correctamente el pedido en la base de datos");
             ShowOrderProducts(listProductsCustomerOrder);
             lblTotalOrderCost.Content = "$ 0.00";
             ShowActiveProducts();
@@ -136,16 +162,17 @@ namespace ItalianPizza.XAMLViews
         private CustomerOrder PrepareCustomerOrder()
         {
             CustomerOrder customerOrder = new CustomerOrder();
-            string orderTypeCustomer = lboOrderTypeCustomer.SelectedItem.ToString().Trim();
-            /*
-            customerOrder.Nombre = "Pedido " + orderTypeCustomer;
-            customerOrder.Fecha = DateTime.Now.ToString("dd/MM/yyyy");
-            customerOrder.Hora = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
+            OrderStatus orderStatus = (OrderStatus)lboOrderStatusCustomer.SelectedItem;
+            OrderType orderType = (OrderType)lboOrderTypeCustomer.SelectedItem;
+            customerOrder.OrderType = orderType;
+            customerOrder.OrderStatus = orderStatus;
+            customerOrder.OrderStatusId = orderStatus.Id;
+            customerOrder.OrderTypeId = orderType.Id;
+            customerOrder.OrderDate = DateTime.Now;
+            customerOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
                 "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
-            customerOrder.CostoTotal = CalculateTotalCost();
-            customerOrder.EmpleadoId = 1;
-            customerOrder.Estado = "En cola";
-            */
+            customerOrder.TotalAmount = CalculateTotalCost();
+            customerOrder.EmployeeId = 1;
 
             return customerOrder;
         }
@@ -314,32 +341,6 @@ namespace ItalianPizza.XAMLViews
                     Stretch = Stretch.Fill,
                     Margin = new Thickness(640, 50, 0, 0),
                 };
-                grdContainer.Children.Add(imgAddProductIcon);
-
-                Image imgReduceProductIcon = new Image
-                {
-                    Height = 40,
-                    Width = 40,
-                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Disminuir.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(540, 50, 0, 0),
-                };
-                grdContainer.Children.Add(imgReduceProductIcon);
-
-                imgReduceProductIcon.MouseLeftButtonUp += (sender, e) =>
-                {
-                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Id == product.Id);
-                    if (productoExistente != null && productoExistente.Quantity > 0)
-                    {
-                        product.Quantity--;
-                    }
-                    else if(productoExistente != null && productoExistente.Quantity == 0)
-                    {
-                        listProductsCustomerOrder.Remove(productoExistente);
-                    }
-                    ShowOrderProducts(listProductsCustomerOrder);
-                    lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
-                };
 
                 imgAddProductIcon.MouseLeftButtonUp += (sender, e) =>
                 {
@@ -364,6 +365,33 @@ namespace ItalianPizza.XAMLViews
                     lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
                 };
 
+                grdContainer.Children.Add(imgAddProductIcon);
+
+                Image imgReduceProductIcon = new Image
+                {
+                    Height = 40,
+                    Width = 40,
+                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Disminuir.png", UriKind.RelativeOrAbsolute)),
+                    Stretch = Stretch.Fill,
+                    Margin = new Thickness(540, 50, 0, 0),
+                };
+
+                imgReduceProductIcon.MouseLeftButtonUp += (sender, e) =>
+                {
+                    Console.WriteLine("Entro Alv");
+                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Name == product.Name);
+                    if (productoExistente != null && productoExistente.Quantity > 1)
+                    {
+                        productoExistente.Quantity--;
+                    }
+                    else if (productoExistente != null && productoExistente.Quantity == 1)
+                    {
+                        listProductsCustomerOrder.Remove(productoExistente);
+                    }
+                    ShowOrderProducts(listProductsCustomerOrder);
+                    lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
+                };
+                grdContainer.Children.Add(imgReduceProductIcon);
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
@@ -384,34 +412,6 @@ namespace ItalianPizza.XAMLViews
             }
 
             return bitmapImage;
-        }
-
-        private void IncreaseProductOrderQuantity(ProductSale product, int quantityProduct)
-        {
-            if (quantityProduct > 0)
-            {
-                ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Id == product.Id);
-
-                if (productoExistente == null)
-                {
-                    product.Quantity = quantityProduct;
-                    listProductsCustomerOrder.Add(product);
-                }
-                else
-                {
-                    if (productoExistente.Quantity + quantityProduct <= 20)
-                    {
-                        productoExistente.Quantity += quantityProduct;
-                    }
-                    else
-                    {
-                        //Alert.MostrarMensaje("Lo siento, solo se pueden registrar un máximo de 20 piezas por producto.");
-                    }
-                }
-
-                ShowOrderProducts(listProductsCustomerOrder);
-                lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
-            }
         }
 
         private void GoToConsultCustomerOrdersVirtualWindow(object sender, RoutedEventArgs e)

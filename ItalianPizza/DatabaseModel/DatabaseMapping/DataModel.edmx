@@ -31,12 +31,12 @@
     <EntitySet Name="AddressSet" EntityType="ItalianPizzaServerBDModel.Store.AddressSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierOrderSet" EntityType="ItalianPizzaServerBDModel.Store.SupplierOrderSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplyTypeSet" EntityType="ItalianPizzaServerBDModel.Store.SupplyTypeSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerOrderDeliveryDriverSet" EntityType="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriverSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CustomerOrderCustomerSet" EntityType="ItalianPizzaServerBDModel.Store.CustomerOrderCustomerSet" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="SupplierSupply" EntityType="ItalianPizzaServerBDModel.Store.SupplierSupply" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="FinancialTransactionCustomerOrder" EntityType="ItalianPizzaServerBDModel.Store.FinancialTransactionCustomerOrder" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="FinancialTransactionSupplierOrder" EntityType="ItalianPizzaServerBDModel.Store.FinancialTransactionSupplierOrder" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="DailyClosingFinancialTransaction" EntityType="ItalianPizzaServerBDModel.Store.DailyClosingFinancialTransaction" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CustomerOrderDeliveryDriver" EntityType="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriver" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="CustomerOrderCustomer" EntityType="ItalianPizzaServerBDModel.Store.CustomerOrderCustomer" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="CustomerAddress" Association="ItalianPizzaServerBDModel.Store.CustomerAddress">
       <End Role="Customer" EntitySet="CustomerSet" />
       <End Role="Address" EntitySet="AddressSet" />
@@ -209,21 +209,21 @@
       <End Role="Employee" EntitySet="EmployeeSet" />
       <End Role="DailyClosing" EntitySet="DailyClosingSet" />
     </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrderDeliveryDriver_CustomerOrder" Association="ItalianPizzaServerBDModel.Store.FK_CustomerOrderDeliveryDriver_CustomerOrder">
+    <AssociationSet Name="CustomerOrderCustomerOrderCustomer" Association="ItalianPizzaServerBDModel.Store.CustomerOrderCustomerOrderCustomer">
       <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
-      <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriver" />
+      <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomerSet" />
     </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrderDeliveryDriver_DeliveryDriver" Association="ItalianPizzaServerBDModel.Store.FK_CustomerOrderDeliveryDriver_DeliveryDriver">
-      <End Role="DeliveryDriver" EntitySet="DeliveryDriverSet" />
-      <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriver" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrderCustomer_CustomerOrder" Association="ItalianPizzaServerBDModel.Store.FK_CustomerOrderCustomer_CustomerOrder">
-      <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
-      <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_CustomerOrderCustomer_Customer" Association="ItalianPizzaServerBDModel.Store.FK_CustomerOrderCustomer_Customer">
+    <AssociationSet Name="CustomerCustomerOrderCustomer" Association="ItalianPizzaServerBDModel.Store.CustomerCustomerOrderCustomer">
       <End Role="Customer" EntitySet="CustomerSet" />
-      <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomer" />
+      <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomerSet" />
+    </AssociationSet>
+    <AssociationSet Name="CustomerOrderCustomerOrderDeliveryDriver" Association="ItalianPizzaServerBDModel.Store.CustomerOrderCustomerOrderDeliveryDriver">
+      <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
+      <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriverSet" />
+    </AssociationSet>
+    <AssociationSet Name="DeliveryDriverCustomerOrderDeliveryDriver" Association="ItalianPizzaServerBDModel.Store.DeliveryDriverCustomerOrderDeliveryDriver">
+      <End Role="DeliveryDriver" EntitySet="DeliveryDriverSet" />
+      <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriverSet" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="ProductSaleSet">
@@ -482,6 +482,22 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
   </EntityType>
+  <EntityType Name="CustomerOrderDeliveryDriverSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerOrderId" Type="int" Nullable="false" />
+    <Property Name="DeliveryDriverId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerOrderCustomerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerOrderId" Type="int" Nullable="false" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="SupplierSupply">
     <Key>
       <PropertyRef Name="Supplier_Id" />
@@ -513,22 +529,6 @@
     </Key>
     <Property Name="DailyClosing_Id" Type="int" Nullable="false" />
     <Property Name="FinancialTransaction_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CustomerOrderDeliveryDriver">
-    <Key>
-      <PropertyRef Name="CustomerOrder_Id" />
-      <PropertyRef Name="DeliveryDriver_Id" />
-    </Key>
-    <Property Name="CustomerOrder_Id" Type="int" Nullable="false" />
-    <Property Name="DeliveryDriver_Id" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="CustomerOrderCustomer">
-    <Key>
-      <PropertyRef Name="CustomerOrder_Id" />
-      <PropertyRef Name="Customer_Id" />
-    </Key>
-    <Property Name="CustomerOrder_Id" Type="int" Nullable="false" />
-    <Property Name="Customer_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="CustomerAddress">
     <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="*" />
@@ -950,6 +950,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="CustomerOrderCustomerOrderCustomer">
+    <End Role="CustomerOrder" Type="ItalianPizzaServerBDModel.Store.CustomerOrderSet" Multiplicity="1" />
+    <End Role="CustomerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.CustomerOrderCustomerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerOrderCustomer">
+        <PropertyRef Name="CustomerOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerCustomerOrderCustomer">
+    <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="1" />
+    <End Role="CustomerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.CustomerOrderCustomerSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerOrderCustomer">
+        <PropertyRef Name="CustomerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CustomerOrderCustomerOrderDeliveryDriver">
+    <End Role="CustomerOrder" Type="ItalianPizzaServerBDModel.Store.CustomerOrderSet" Multiplicity="1" />
+    <End Role="CustomerOrderDeliveryDriver" Type="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerOrder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerOrderDeliveryDriver">
+        <PropertyRef Name="CustomerOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DeliveryDriverCustomerOrderDeliveryDriver">
+    <End Role="DeliveryDriver" Type="ItalianPizzaServerBDModel.Store.DeliveryDriverSet" Multiplicity="1" />
+    <End Role="CustomerOrderDeliveryDriver" Type="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeliveryDriver">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomerOrderDeliveryDriver">
+        <PropertyRef Name="DeliveryDriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_SupplierSupply_Supplier">
     <End Role="Supplier" Type="ItalianPizzaServerBDModel.Store.SupplierSet" Multiplicity="1" />
     <End Role="SupplierSupply" Type="ItalianPizzaServerBDModel.Store.SupplierSupply" Multiplicity="*" />
@@ -1043,54 +1091,6 @@
       </Principal>
       <Dependent Role="DailyClosingFinancialTransaction">
         <PropertyRef Name="FinancialTransaction_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerOrderDeliveryDriver_CustomerOrder">
-    <End Role="CustomerOrder" Type="ItalianPizzaServerBDModel.Store.CustomerOrderSet" Multiplicity="1" />
-    <End Role="CustomerOrderDeliveryDriver" Type="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriver" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CustomerOrder">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CustomerOrderDeliveryDriver">
-        <PropertyRef Name="CustomerOrder_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerOrderDeliveryDriver_DeliveryDriver">
-    <End Role="CustomerOrderDeliveryDriver" Type="ItalianPizzaServerBDModel.Store.CustomerOrderDeliveryDriver" Multiplicity="*" />
-    <End Role="DeliveryDriver" Type="ItalianPizzaServerBDModel.Store.DeliveryDriverSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="DeliveryDriver">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CustomerOrderDeliveryDriver">
-        <PropertyRef Name="DeliveryDriver_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerOrderCustomer_CustomerOrder">
-    <End Role="CustomerOrder" Type="ItalianPizzaServerBDModel.Store.CustomerOrderSet" Multiplicity="1" />
-    <End Role="CustomerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.CustomerOrderCustomer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="CustomerOrder">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CustomerOrderCustomer">
-        <PropertyRef Name="CustomerOrder_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_CustomerOrderCustomer_Customer">
-    <End Role="CustomerOrderCustomer" Type="ItalianPizzaServerBDModel.Store.CustomerOrderCustomer" Multiplicity="*" />
-    <End Role="Customer" Type="ItalianPizzaServerBDModel.Store.CustomerSet" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Customer">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="CustomerOrderCustomer">
-        <PropertyRef Name="Customer_Id" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1280,13 +1280,23 @@
             <End Role="Employee" EntitySet="EmployeeSet" />
             <End Role="DailyClosing" EntitySet="DailyClosingSet" />
           </AssociationSet>
-          <AssociationSet Name="CustomerOrderDeliveryDriver" Association="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver">
+          <EntitySet Name="CustomerOrderDeliveryDriverSet" EntityType="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" />
+          <EntitySet Name="CustomerOrderCustomerSet" EntityType="ItalianPizzaServerBDModel.CustomerOrderCustomer" />
+          <AssociationSet Name="CustomerOrderCustomerOrderCustomer" Association="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderCustomer">
             <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
-            <End Role="DeliveryDriver" EntitySet="DeliveryDriverSet" />
+            <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomerSet" />
           </AssociationSet>
-          <AssociationSet Name="CustomerOrderCustomer" Association="ItalianPizzaServerBDModel.CustomerOrderCustomer">
-            <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
+          <AssociationSet Name="CustomerCustomerOrderCustomer" Association="ItalianPizzaServerBDModel.CustomerCustomerOrderCustomer">
             <End Role="Customer" EntitySet="CustomerSet" />
+            <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomerSet" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerOrderCustomerOrderDeliveryDriver" Association="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderDeliveryDriver">
+            <End Role="CustomerOrder" EntitySet="CustomerOrderSet" />
+            <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriverSet" />
+          </AssociationSet>
+          <AssociationSet Name="DeliveryDriverCustomerOrderDeliveryDriver" Association="ItalianPizzaServerBDModel.DeliveryDriverCustomerOrderDeliveryDriver">
+            <End Role="DeliveryDriver" EntitySet="DeliveryDriverSet" />
+            <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriverSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ProductSale">
@@ -1362,8 +1372,8 @@
           <NavigationProperty Name="Employee" Relationship="ItalianPizzaServerBDModel.EmployeeCustomerOrder" FromRole="CustomerOrder" ToRole="Employee" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FinancialTransaction" Relationship="ItalianPizzaServerBDModel.FinancialTransactionCustomerOrder" FromRole="CustomerOrder" ToRole="FinancialTransaction" />
-          <NavigationProperty Name="DeliveryDriver" Relationship="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" FromRole="CustomerOrder" ToRole="DeliveryDriver" />
-          <NavigationProperty Name="Customer" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomer" FromRole="CustomerOrder" ToRole="Customer" />
+          <NavigationProperty Name="CustomerOrderCustomer" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderCustomer" FromRole="CustomerOrder" ToRole="CustomerOrderCustomer" />
+          <NavigationProperty Name="CustomerOrderDeliveryDriver" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderDeliveryDriver" FromRole="CustomerOrder" ToRole="CustomerOrderDeliveryDriver" />
           </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -1529,7 +1539,7 @@
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserStatus" Relationship="ItalianPizzaServerBDModel.UserStatusCustomer" FromRole="Customer" ToRole="UserStatus" />
           <Property Name="UserStatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CustomerOrder" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomer" FromRole="Customer" ToRole="CustomerOrder" />
+          <NavigationProperty Name="CustomerOrderCustomer" Relationship="ItalianPizzaServerBDModel.CustomerCustomerOrderCustomer" FromRole="Customer" ToRole="CustomerOrderCustomer" />
         </EntityType>
         <EntityType Name="DeliveryDriver">
           <Key>
@@ -1545,7 +1555,7 @@
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="UserStatus" Relationship="ItalianPizzaServerBDModel.UserStatusDeliveryDriver" FromRole="DeliveryDriver" ToRole="UserStatus" />
           <Property Name="UserStatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CustomerOrder" Relationship="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" FromRole="DeliveryDriver" ToRole="CustomerOrder" />
+          <NavigationProperty Name="CustomerOrderDeliveryDriver" Relationship="ItalianPizzaServerBDModel.DeliveryDriverCustomerOrderDeliveryDriver" FromRole="DeliveryDriver" ToRole="CustomerOrderDeliveryDriver" />
         </EntityType>
         <EntityType Name="EmployeePosition">
           <Key>
@@ -2018,13 +2028,73 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CustomerOrderDeliveryDriver">
-          <End Type="ItalianPizzaServerBDModel.CustomerOrder" Role="CustomerOrder" Multiplicity="*" />
-          <End Type="ItalianPizzaServerBDModel.DeliveryDriver" Role="DeliveryDriver" Multiplicity="*" />
+        <EntityType Name="CustomerOrderDeliveryDriver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CustomerOrder" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderDeliveryDriver" FromRole="CustomerOrderDeliveryDriver" ToRole="CustomerOrder" />
+          <Property Name="CustomerOrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DeliveryDriver" Relationship="ItalianPizzaServerBDModel.DeliveryDriverCustomerOrderDeliveryDriver" FromRole="CustomerOrderDeliveryDriver" ToRole="DeliveryDriver" />
+          <Property Name="DeliveryDriverId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerOrderCustomer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="CustomerOrder" Relationship="ItalianPizzaServerBDModel.CustomerOrderCustomerOrderCustomer" FromRole="CustomerOrderCustomer" ToRole="CustomerOrder" />
+          <Property Name="CustomerOrderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="ItalianPizzaServerBDModel.CustomerCustomerOrderCustomer" FromRole="CustomerOrderCustomer" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CustomerOrderCustomerOrderCustomer">
+          <End Type="ItalianPizzaServerBDModel.CustomerOrder" Role="CustomerOrder" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.CustomerOrderCustomer" Role="CustomerOrderCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderCustomer">
+              <PropertyRef Name="CustomerOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <Association Name="CustomerOrderCustomer">
-          <End Type="ItalianPizzaServerBDModel.CustomerOrder" Role="CustomerOrder" Multiplicity="*" />
-          <End Type="ItalianPizzaServerBDModel.Customer" Role="Customer" Multiplicity="*" />
+        <Association Name="CustomerCustomerOrderCustomer">
+          <End Type="ItalianPizzaServerBDModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.CustomerOrderCustomer" Role="CustomerOrderCustomer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderCustomer">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomerOrderCustomerOrderDeliveryDriver">
+          <End Type="ItalianPizzaServerBDModel.CustomerOrder" Role="CustomerOrder" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" Role="CustomerOrderDeliveryDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriver">
+              <PropertyRef Name="CustomerOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DeliveryDriverCustomerOrderDeliveryDriver">
+          <End Type="ItalianPizzaServerBDModel.DeliveryDriver" Role="DeliveryDriver" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" Role="CustomerOrderDeliveryDriver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryDriver">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriver">
+              <PropertyRef Name="DeliveryDriverId" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -2308,6 +2378,24 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderDeliveryDriverSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver)">
+        <MappingFragment StoreEntitySet="CustomerOrderDeliveryDriverSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+          <ScalarProperty Name="DeliveryDriverId" ColumnName="DeliveryDriverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderCustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderCustomer)">
+        <MappingFragment StoreEntitySet="CustomerOrderCustomerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <AssociationSetMapping Name="CustomerAddress" TypeName="ItalianPizzaServerBDModel.CustomerAddress" StoreEntitySet="CustomerSet">
       <EndProperty Name="Address">
         <ScalarProperty Name="Id" ColumnName="Address_Id" />
@@ -2378,22 +2466,6 @@
       </EndProperty>
       <EndProperty Name="FinancialTransaction">
         <ScalarProperty Name="Id" ColumnName="FinancialTransaction_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="CustomerOrderDeliveryDriver" TypeName="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" StoreEntitySet="CustomerOrderDeliveryDriver">
-      <EndProperty Name="CustomerOrder">
-        <ScalarProperty Name="Id" ColumnName="CustomerOrder_Id" />
-      </EndProperty>
-      <EndProperty Name="DeliveryDriver">
-        <ScalarProperty Name="Id" ColumnName="DeliveryDriver_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="CustomerOrderCustomer" TypeName="ItalianPizzaServerBDModel.CustomerOrderCustomer" StoreEntitySet="CustomerOrderCustomer">
-      <EndProperty Name="CustomerOrder">
-        <ScalarProperty Name="Id" ColumnName="CustomerOrder_Id" />
-      </EndProperty>
-      <EndProperty Name="Customer">
-        <ScalarProperty Name="Id" ColumnName="Customer_Id" />
       </EndProperty>
     </AssociationSetMapping>
   </EntityContainerMapping>
