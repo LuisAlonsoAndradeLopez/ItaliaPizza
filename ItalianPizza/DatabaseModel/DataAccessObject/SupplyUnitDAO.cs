@@ -17,5 +17,29 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return supplyUnits;
         }
+
+        public SupplyUnitSet GetSupplyUnitById(int supplyUnitId)
+        {
+            SupplyUnitSet supplyUnit = new SupplyUnitSet();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                supplyUnit = context.SupplyUnitSet.Where(su => su.Id == supplyUnitId).FirstOrDefault();
+            }
+
+            return supplyUnit;
+        }
+
+        public SupplyUnitSet GetSupplyUnitByName(string supplyUnitName)
+        {
+            SupplyUnitSet supplyUnit = new SupplyUnitSet();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                supplyUnit = context.SupplyUnitSet.Where(su => su.Unit == supplyUnitName).FirstOrDefault();
+            }
+
+            return supplyUnit;
+        }
     }
 }

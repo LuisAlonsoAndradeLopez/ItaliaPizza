@@ -15,6 +15,7 @@ using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Validation;
 using System.IO;
+using System.Globalization;
 
 
 namespace ItalianPizza.XAMLViews
@@ -27,10 +28,9 @@ namespace ItalianPizza.XAMLViews
         public GUI_Inventory()
         {/*
           TODO:
-            *Categorias de SupplySet y ProductSaleSet en comboboxes para agregar y modificar artículo
             *Objeto "Precio" con sus enteros y centavos (como dice ocharán)
-            *Bloquear DecimalCombobox para que solamente acepte dos decimales
-            *Arreglar el despapayo de la base
+            *Placeholders para los campos de texto
+            *Cuadro sobre si el codigo ya está usado
           */
 
 
@@ -175,6 +175,7 @@ namespace ItalianPizza.XAMLViews
             try
             {
                 UpdateModifySelectedArticleDetailsStackPanel();
+                InitializeComboboxesForModifySomeSelectedArticleData();
 
                 if (SelectedArticleStatusTextBlock.Text == ArticleStatus.Activo.ToString())
                 {
@@ -198,6 +199,19 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+        }
+
+        private void ModifySelectedArticlePriceDecimalUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (ModifySelectedArticlePriceDecimalUpDown.Value.HasValue)
+            {
+                decimal value = ModifySelectedArticlePriceDecimalUpDown.Value.Value;
+                string formattedValue = value.ToString("C", CultureInfo.CurrentCulture);
+                if (!formattedValue.Equals(ModifySelectedArticlePriceDecimalUpDown.Text))
+                {
+                    ModifySelectedArticlePriceDecimalUpDown.Value = (decimal?)e.OldValue;
+                }
             }
         }
 
@@ -276,7 +290,7 @@ namespace ItalianPizza.XAMLViews
                                     Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
                                     PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
                                     Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
-                                    SupplyUnitId = new SupplyTypeDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
+                                    SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
                                     ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
                                     SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
                                     EmployeeId = 1,
@@ -310,6 +324,7 @@ namespace ItalianPizza.XAMLViews
 
                             UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
                             UpdateModifySelectedArticleDetailsStackPanel();
+                            InitializeComboboxesForModifySomeSelectedArticleData();
                             ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
 
                             ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
@@ -588,11 +603,17 @@ namespace ItalianPizza.XAMLViews
             if (articleType == ArticleTypes.Insumo.ToString())
             {
                 supply = new SupplyDAO().GetSupplyByName(articleName);
+                SelectedArticleNameStackPanel.Margin = new Thickness(0, 66, 0, 0);
+                SelectedArticleUnitStackPanel.Visibility = Visibility.Visible;
+                SelectedArticleDescriptionStackPanel.Visibility = Visibility.Collapsed;
             }
 
             if (articleType == ArticleTypes.Producto.ToString())
             {
                 product = new ProductDAO().GetProductByName(articleName);
+                SelectedArticleNameStackPanel.Margin = new Thickness(0, 0, 0, 0);
+                SelectedArticleUnitStackPanel.Visibility = Visibility.Collapsed;
+                SelectedArticleDescriptionStackPanel.Visibility = Visibility.Visible;
             }
 
             if (supply != null)
@@ -601,6 +622,7 @@ namespace ItalianPizza.XAMLViews
                 SelectedArticleNameTextBlock.Text = supply.Name;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
                 SelectedArticleCategoryTextBlock.Text = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
+                SelectedArticleUnitTextBlock.Text = new SupplyUnitDAO().GetSupplyUnitById(supply.SupplyUnitId).Unit;
                 SelectedArticleQuantityTextBlock.Text = supply.Quantity.ToString();
                 SelectedArticleStatusTextBlock.Text = new ProductStatusDAO().GetProductStatusById(supply.ProductStatusId).Status;
                 SelectedArticleCodeTextBlock.Text = supply.IdentificationCode;
@@ -629,11 +651,17 @@ namespace ItalianPizza.XAMLViews
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
             {
                 supply = new SupplyDAO().GetSupplyByName(SelectedArticleNameTextBlock.Text);
+                ModifySelectedArticleNameStackPanel.Margin = new Thickness(0, 90, 0, 0);
+                ModifySelectedArticleUnitStackPanel.Visibility = Visibility.Visible;
+                ModifySelectedArticleDescriptionStackPanel.Visibility = Visibility.Collapsed;
             }
 
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
             {
                 product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+                SelectedArticleNameStackPanel.Margin = new Thickness(0, 0, 0, 0);
+                SelectedArticleUnitStackPanel.Visibility = Visibility.Collapsed;
+                SelectedArticleDescriptionStackPanel.Visibility = Visibility.Visible;
             }
 
             if (supply != null)

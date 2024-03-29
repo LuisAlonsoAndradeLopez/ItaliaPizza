@@ -10,15 +10,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     {
         public CustomerOrdersDAO() { }
 
-        public List<OrdenCliente> GetAllCustomerOrders()
+        public List<CustomerOrderSet> GetAllCustomerOrders()
         {
-            List<OrdenCliente> orders = new List<OrdenCliente>();
+            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.ToList();
+                    //orders = context.CustomerOrderSetSet.ToList();
                 }
             }
             catch (EntityException ex)
@@ -33,15 +33,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orders;
         }
 
-        public List<OrdenCliente> GetCustomerOrdersByDate(String date)
+        public List<CustomerOrderSet> GetCustomerOrdersByDate(String date)
         {
-            List<OrdenCliente> orders = new List<OrdenCliente>();
+            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.Where(o => o.Fecha == date).ToList();
+                    //orders = context.CustomerOrderSetSet.Where(o => o.Fecha == date).ToList();
                 }
             }
             catch (EntityException ex)
@@ -56,15 +56,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orders;
         }
 
-        public List<OrdenCliente> GetCustomerOrdersByStatus(String status)
+        public List<CustomerOrderSet> GetCustomerOrdersByStatus(String status)
         {
-            List<OrdenCliente> orders = new List<OrdenCliente>();
+            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.OrdenClienteSet.Where(o => o.Estado == status).ToList();
+                    //orders = context.CustomerOrderSet.Where(o => o.OrderStatusSet == status).ToList();
                 }
             }
             catch (EntityException ex)
@@ -79,9 +79,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orders;
         }
 
-        public List<Producto> GetOrderProducts(int orderCustomerID)
+        public List<ProductSaleSet> GetOrderProducts(int orderCustomerID)
         {
-            List<Producto> productsOrder = new List<Producto>();
+            List<ProductSaleSet> productsOrder = new List<ProductSaleSet>();
 
             try
             {

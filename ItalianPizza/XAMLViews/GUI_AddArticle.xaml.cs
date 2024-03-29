@@ -2,8 +2,10 @@
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Validation;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -89,27 +91,57 @@ namespace ItalianPizza.XAMLViews
 
             SupplyOrProductTypesComboBox.Items.Clear();
 
-            string[] supplys = { "Queso", "Carne", "Fruta", "Verdura", "Harina" };
-            string[] products = { "Bebida", "Dedos de Queso", "Hamburguesa", "Pizza" };
+            List<SupplyTypeSet> supplyCategories = new SupplyTypeDAO().GetAllSupplyTypes();
+            List<ProductTypeSet> productCategories = new ProductTypeDAO().GetAllProductTypes();
 
 
             if(selectedOption == ArticleTypes.Insumo.ToString())
             {
-                foreach (var supply in supplys)
+                foreach (var supply in supplyCategories)
                 {
-                    SupplyOrProductTypesComboBox.Items.Add(supply);
+                    SupplyOrProductTypesComboBox.Items.Add(supply.Type);
                 }
+
+                NameAndArticleTypeStackPanel.Margin = new Thickness(0, 74, 0, 0);
+                SupplyUnitsStackPanel.Visibility = Visibility.Visible;
+                DescriptionStackPanel.Visibility = Visibility.Collapsed;
             }
 
             if (selectedOption == ArticleTypes.Producto.ToString())
             {
-                foreach (var product in products)
+                foreach (var product in productCategories)
                 {
-                    SupplyOrProductTypesComboBox.Items.Add(product);
+                    SupplyOrProductTypesComboBox.Items.Add(product.Type);
                 }
+
+                NameAndArticleTypeStackPanel.Margin = new Thickness(0, 10, 0, 0);
+                SupplyUnitsStackPanel.Visibility = Visibility.Collapsed;
+                DescriptionStackPanel.Visibility = Visibility.Visible;
             }
 
             SupplyOrProductTypesComboBox.SelectedItem = SupplyOrProductTypesComboBox.Items[0];
+
+            List<SupplyUnitSet> supplyUnits = new SupplyUnitDAO().GetAllSupplyUnits();
+
+            foreach (var supplyUnit in supplyUnits)
+            {
+                SupplyUnitsComboBox.Items.Add(supplyUnit.Unit);
+            }
+
+            SupplyUnitsComboBox.SelectedItem = SupplyUnitsComboBox.Items[0];
+        }
+
+        private void PriceDecimalUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (PriceDecimalUpDown.Value.HasValue)
+            {
+                decimal value = PriceDecimalUpDown.Value.Value;
+                string formattedValue = value.ToString("C", CultureInfo.CurrentCulture);
+                if (!formattedValue.Equals(PriceDecimalUpDown.Text))
+                {
+                    PriceDecimalUpDown.Value = (decimal?)e.OldValue;
+                }
+            }
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
@@ -136,11 +168,12 @@ namespace ItalianPizza.XAMLViews
                                     Name = ArticleNameTextBox.Text,
                                     Quantity = QuantityIntegerUpDown.Value ?? 0,
                                     PricePerUnit = (double)PriceDecimalUpDown.Value,
-                                    Tipo = SupplyOrProductTypesComboBox.SelectedItem?.ToString(),
                                     Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
-                                    Estado = ArticleStatus.Activo.ToString(),
+                                    SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
+                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                    SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
                                     EmployeeId = 1,
-                                    IdentificationCode = 
+                                    IdentificationCode = CodeTextBox.Text
                                 };
 
                                 new SupplyDAO().AddSupply(supply);                    
@@ -151,13 +184,14 @@ namespace ItalianPizza.XAMLViews
                                 ProductSaleSet product = new ProductSaleSet
                                 {
                                     Name = ArticleNameTextBox.Text,
-                                    Costo = (double)PriceDecimalUpDown.Value,
-                                    Descripcion = DescriptionTextBox.Text,
-                                    Categoria = supplyOrProductTypesComboBox.SelectedItem?.ToString(),
-                                    Cantidad = QuantityIntegerUpDown.Value ?? 0,
+                                    Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                    PricePerUnit = (double)PriceDecimalUpDown.Value,
                                     Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
-                                    Estado = ArticleStatus.Activo.ToString(),
-                                    EmpleadoId = 1
+                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                    ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
+                                    EmployeeId = 1,
+                                    IdentificationCode = CodeTextBox.Text,
+                                    Description = DescriptionTextBox.Text
                                 };
 
                                 new ProductDAO().AddProduct(product);
