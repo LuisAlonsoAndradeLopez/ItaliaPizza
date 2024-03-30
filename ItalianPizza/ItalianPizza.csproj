@@ -71,6 +71,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auxiliary\AlertPopupTypes.cs" />
+    <Compile Include="Auxiliary\EntitiesEnums.cs" />
+    <Compile Include="Auxiliary\ExceptionLogger.cs" />
+    <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
@@ -173,6 +177,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SingletonClasses\UserToken.cs" />
+    <Compile Include="XAMLViews\AlertPopup.xaml.cs">
+      <DependentUpon>AlertPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
       <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
     </Compile>
@@ -184,6 +191,9 @@
     </Compile>
     <Compile Include="XAMLViews\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI-ReviewUsers.xaml.cs">
+      <DependentUpon>GUI-ReviewUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
@@ -200,6 +210,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="XAMLViews\AlertPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,6 +229,26 @@
     <Page Include="XAMLViews\GUI-Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUI-ReviewUsers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\NavigationBar.xaml">
       <SubType>Designer</SubType>

@@ -1,4 +1,4 @@
-﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_CustomerOrderManagementForm"
+﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_CreateCustomerOrder"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

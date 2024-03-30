@@ -32,10 +32,10 @@
             <Label Content="Historial de pedidos" HorizontalAlignment="Left" Margin="290,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFDB4B2C" FontSize="28"/>
             <Label Content="Selecione Fecha: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
             <Label Content="Selecione Estatus: " HorizontalAlignment="Left" Margin="297,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-            <DatePicker x:Name="dpOrderDateFilter" HorizontalAlignment="Left" Margin="473,103,0,0" VerticalAlignment="Top" Height="35" Width="242" FontSize="20" Background="#FF070711" BorderBrush="#FF070711" SelectedDateChanged="DatePicker_OrderDateSelection" />
-            <ComboBox x:Name="cboStatusCustomerOrders" HorizontalAlignment="Left" Margin="476,155,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_OrderStatusSelection"/>
+            <DatePicker x:Name="dpOrderDateFilter" HorizontalAlignment="Left" Margin="473,103,0,0" VerticalAlignment="Top" Height="35" Width="242" FontSize="20" Background="#FF070711" BorderBrush="#FF070711"/>
+            <ComboBox x:Name="cboStatusCustomerOrders" HorizontalAlignment="Left" Margin="476,155,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" />
             <Button Content="Realizar corte de hoy" HorizontalAlignment="Left" Margin="826,130,0,0" VerticalAlignment="Top" Height="47" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderThickness="3" FontWeight="Thin" BorderBrush="#FFDB4B2C"/>
-            <Button Content="Agregar Nuevo Pedido Hoy" HorizontalAlignment="Left" Margin="826,62,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="GoToCreateOrderVirtualWindow"/>
+            <Button Content="Agregar Nuevo Pedido Hoy" HorizontalAlignment="Left" Margin="826,62,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3"/>
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF1C0D02"/>
 
             <Label Content="Nombre del pedido " HorizontalAlignment="Left" Margin="373,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>

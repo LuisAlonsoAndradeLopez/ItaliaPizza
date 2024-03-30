@@ -24,7 +24,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     try
                     {
-                        
                         context.CustomerOrderSet.Add(customerOrder);
                         result = context.SaveChanges();
                         

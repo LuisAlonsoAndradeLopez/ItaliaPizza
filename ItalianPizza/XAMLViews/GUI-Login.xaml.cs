@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,7 +29,23 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_ConsultCustomerOrder());
+
+            UserDAO userDAO = new UserDAO();
+            char[] contraseñaCharArray = pwPassword.Password.ToCharArray();
+            string contraseña = new string(contraseñaCharArray);
+            UserAccount userAccount = new UserAccount();
+            userAccount.UserName = txtUserName.Text;
+            userAccount.Password = contraseña;
+            Employee employee = userDAO.CheckEmployeeExistencebyLogin(userAccount);
+
+            if(employee != null)
+            {
+                NavigationService.Navigate(new GUI_ConsultCustomerOrder());
+            }
+            else
+            {
+                new AlertPopup("Usuario No Existente", "Lo siento, pero el usuario y contraseña proporcionados, no son correctos, verifiquelos y envielos nuevamente", Auxiliary.AlertPopupTypes.Warning);
+            }
         }
 
         private void ViewPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

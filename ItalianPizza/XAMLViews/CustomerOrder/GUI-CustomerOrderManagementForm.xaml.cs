@@ -2,6 +2,7 @@
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity.Core;
 using System.Globalization;
 using System.IO;
@@ -22,36 +23,33 @@ using System.Windows.Shapes;
 namespace ItalianPizza.XAMLViews
 {
     /// <summary>
-    /// Lógica de interacción para GUI_CustomerOrderManagementForm.xaml
+    /// Lógica de interacción para GUI_CreateCustomerOrder.xaml
     /// </summary>
-    public partial class GUI_CustomerOrderManagementForm : Page
+    public partial class GUI_CreateCustomerOrder : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
         private List<ProductSale> listProductsCustomerOrder;
+        private List<ProductSale> listProductsCustomerOrderCopy;
         private ProductDAO productDAO;
         private UserDAO userDAO;
-        public GUI_CustomerOrderManagementForm(List<ProductSale> customerOrderProducts)
+        public GUI_CreateCustomerOrder(List<ProductSale> customerOrderProducts)
         {
             InitializeComponent();
             listProductsCustomerOrder = customerOrderProducts;
             InitializeDAOConnections();
             ShowActiveProducts();
             InitializeListBoxes();
-            if(customerOrderProducts.Count > 0)
+            if (customerOrderProducts.Count > 0)
             {
+                listProductsCustomerOrderCopy = customerOrderProducts;
                 ShowOrderProducts(listProductsCustomerOrder);
                 btnModifyCustomerOrder.Visibility = Visibility.Visible;
                 btnRegisterCustomerOrder.Visibility = Visibility.Hidden;
             }
-        }
-
-        public void LoadNavigationBar()
-        {
-            NavigationBar navigationBar = new NavigationBar();
-            navigationBar.Margin = new Thickness(-1500, 0, 0, 0);
-            navigationBar.Width = 244;
-            Grid.SetColumn(navigationBar, 0);
-            Background.Children.Add(navigationBar);
+            else
+            {
+                listProductsCustomerOrderCopy = new List<ProductSale>();
+            }
         }
 
         private void InitializeDAOConnections()
@@ -142,13 +140,13 @@ namespace ItalianPizza.XAMLViews
                 DeliveryDriver deliveryman = (DeliveryDriver)lboDeliverymen.SelectedItem;
                 customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
                 //Alert.MostrarMensaje("Se ha registrado correctamente el pedido en la base de datos");
+                listProductsCustomerOrder.Clear();
                 CleanFields();
             }
             else
             {
 
             }
-            
         }
 
         private void CleanFields()
@@ -243,12 +241,12 @@ namespace ItalianPizza.XAMLViews
 
         private void ShowActiveProducts()
         {
-            List<ProductSale> products = new List<ProductSale>();
+            List<ProductSale> productsSale;
 
             try
             {
-                products = productDAO.GetAllActiveProducts();
-                AddVisualProductsToWindow(products);
+                productsSale = productDAO.GetAllActiveProducts();
+                AddVisualProductsToWindow(productsSale);
             }
             catch (EntityException)
             {
@@ -301,7 +299,6 @@ namespace ItalianPizza.XAMLViews
                 rectBackground.Effect = dropShadowEffect;
                 grdContainer.Children.Add(rectBackground);
 
-                /*
                 Image imgPhotoProduct = new Image
                 {
                     Height = 120,
@@ -311,7 +308,6 @@ namespace ItalianPizza.XAMLViews
                     Margin = new Thickness(-665, 0, 0, 0),
                 };
                 grdContainer.Children.Add(imgPhotoProduct);
-                */
 
                 Label lblNameCustomerOrder = new Label
                 {
@@ -342,28 +338,7 @@ namespace ItalianPizza.XAMLViews
                     Margin = new Thickness(640, 50, 0, 0),
                 };
 
-                imgAddProductIcon.MouseLeftButtonUp += (sender, e) =>
-                {
-                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Id == product.Id);
-                    if (productoExistente == null)
-                    {
-                        product.Quantity++;
-                        listProductsCustomerOrder.Add(product);
-                    }
-                    else
-                    {
-                        if (productoExistente.Quantity <= 20)
-                        {
-                            productoExistente.Quantity++;
-                        }
-                        else
-                        {
-                            //Alert.MostrarMensaje("Lo siento, solo se pueden registrar un máximo de 20 piezas por producto.");
-                        }
-                    }
-                    ShowOrderProducts(listProductsCustomerOrder);
-                    lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
-                };
+                imgAddProductIcon.MouseLeftButtonUp += (sender, e) => AddProductSaleToOrder(product);
 
                 grdContainer.Children.Add(imgAddProductIcon);
 
@@ -376,27 +351,75 @@ namespace ItalianPizza.XAMLViews
                     Margin = new Thickness(540, 50, 0, 0),
                 };
 
-                imgReduceProductIcon.MouseLeftButtonUp += (sender, e) =>
-                {
-                    Console.WriteLine("Entro Alv");
-                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Name == product.Name);
-                    if (productoExistente != null && productoExistente.Quantity > 1)
-                    {
-                        productoExistente.Quantity--;
-                    }
-                    else if (productoExistente != null && productoExistente.Quantity == 1)
-                    {
-                        listProductsCustomerOrder.Remove(productoExistente);
-                    }
-                    ShowOrderProducts(listProductsCustomerOrder);
-                    lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
-                };
+                imgReduceProductIcon.MouseLeftButtonUp += (sender, e) => RemoveProductSaleToOrder(product);
+
                 grdContainer.Children.Add(imgReduceProductIcon);
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
             scrollViewer.Content = stackPanelContainer;
             wpProducts.Children.Add(scrollViewer);
+        }
+
+        private void AddProductSaleToOrder(ProductSale productSale)
+        {
+            productSale.Quantity = 1;
+            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(productSale);
+
+            if (productDAO.DecreaseSuppliesOnSale(ingredients) != -1)
+            {
+                ProductSale productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Id == productSale.Id);
+
+                if (productExisting == null)
+                {
+                    listProductsCustomerOrder.Add(productSale);
+                }
+                else
+                {
+                    productExisting.Quantity++;
+                }
+
+                ShowOrderProducts(listProductsCustomerOrder);
+                lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
+            }
+            else
+            {
+                new AlertPopup("Sin Rercusos", "Lo siento, pero no nos alcansa, bye", Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+
+        private void RemoveProductSaleToOrder(ProductSale productSale)
+        {
+            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(productSale);
+
+            ProductSale productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Name == productSale.Name);
+            if (productExisting != null && productExisting.Quantity > 1)
+            {
+                productExisting.Quantity--;
+                productDAO.RestoreSuppliesOnSale(ingredients);
+            }
+            else if (productExisting != null && productExisting.Quantity == 1)
+            {
+                productSale.Quantity = 0;
+                listProductsCustomerOrder.Remove(productExisting);
+                productDAO.RestoreSuppliesOnSale(ingredients);
+            }
+            ShowOrderProducts(listProductsCustomerOrder);
+            lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
+        }
+
+        private List<RecipeDetails> GetRecipeIngredientsByProduct(ProductSale productSale)
+        {
+            List<RecipeDetails> recipeDetails = new List<RecipeDetails>();
+
+            foreach (var recipeDetail in productSale.Recipe.RecipeDetails)
+            {
+                RecipeDetails details = recipeDetail as RecipeDetails;
+                details.Quantity *= productSale.Quantity;
+                recipeDetails.Add(details);
+            }
+
+            return recipeDetails;
         }
 
         private BitmapImage GetBitmapImage(byte[] data)
@@ -416,6 +439,7 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToConsultCustomerOrdersVirtualWindow(object sender, RoutedEventArgs e)
         {
+            VerifyUnconfirmedProducts();
             NavigationService.Navigate(new GUI_ConsultCustomerOrder());
         }
 
@@ -425,5 +449,64 @@ namespace ItalianPizza.XAMLViews
             grdVitualWindowAddressForm.Visibility = Visibility.Collapsed;
         }
 
+        private void VerifyUnconfirmedProducts()
+        {
+            if (listProductsCustomerOrder.Count > 0 && listProductsCustomerOrderCopy.Count == 0)
+            {
+                foreach (var product in listProductsCustomerOrder)
+                {
+                    List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(product);
+                    productDAO.RestoreSuppliesOnSale(ingredients);
+                }
+            }
+            else if (listProductsCustomerOrder.Count != 0 && listProductsCustomerOrderCopy.Count != 0)
+            {
+                CompareProductListsAndRestoreSupplies();
+            }
+        }
+
+        private void CompareProductListsAndRestoreSupplies()
+        {
+            // Comparar productos nuevos y productos con cantidades diferentes
+            foreach (ProductSale product in listProductsCustomerOrder)
+            {
+                ProductSale correspondingProductInCopy = listProductsCustomerOrderCopy.FirstOrDefault(p => p.Id == product.Id);
+                if (correspondingProductInCopy == null)
+                {
+                    // Producto nuevo en listProductsCustomerOrder
+                    List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(product);
+                    productDAO.RestoreSuppliesOnSale(ingredients);
+                }
+                else
+                {
+                    int differenceInAmount = product.Quantity - correspondingProductInCopy.Quantity;
+                    if (differenceInAmount != 0)
+                    {
+                        // Ajustar cantidades en base a la diferencia
+                        ProductSale adjustedProduct = new ProductSale
+                        {
+                            Id = product.Id,
+                            Name = product.Name,
+                            Description = product.Description,
+                            Quantity = differenceInAmount
+                        };
+
+                        if (differenceInAmount > 0)
+                        {
+                            // Ajustar suministros si la cantidad aumentó
+                            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
+                            productDAO.RestoreSuppliesOnSale(ingredients);
+                        }
+                        else
+                        {
+                            // Reducir suministros si la cantidad disminuyó
+                            adjustedProduct.Quantity *= -1; // Hacer la cantidad negativa para DecreaseSuppliesOnSale
+                            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
+                            productDAO.DecreaseSuppliesOnSale(ingredients);
+                        }
+                    }
+                }
+            }
+        }
     }
 }
