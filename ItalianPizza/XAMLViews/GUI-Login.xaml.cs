@@ -33,10 +33,10 @@ namespace ItalianPizza.XAMLViews
             UserDAO userDAO = new UserDAO();
             char[] contraseñaCharArray = pwPassword.Password.ToCharArray();
             string contraseña = new string(contraseñaCharArray);
-            UserAccount userAccount = new UserAccount();
+            UserAccountSet userAccount = new UserAccountSet();
             userAccount.UserName = txtUserName.Text;
             userAccount.Password = contraseña;
-            Employee employee = userDAO.CheckEmployeeExistencebyLogin(userAccount);
+            EmployeeSet employee = userDAO.CheckEmployeeExistencebyLogin(userAccount);
 
             if(employee != null)
             {

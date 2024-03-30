@@ -28,11 +28,11 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_CreateCustomerOrder : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
-        private List<ProductSale> listProductsCustomerOrder;
-        private List<ProductSale> listProductsCustomerOrderCopy;
+        private List<ProductSaleSet> listProductsCustomerOrder;
+        private List<ProductSaleSet> listProductsCustomerOrderCopy;
         private ProductDAO productDAO;
         private UserDAO userDAO;
-        public GUI_CreateCustomerOrder(List<ProductSale> customerOrderProducts)
+        public GUI_CreateCustomerOrder(List<ProductSaleSet> customerOrderProducts)
         {
             InitializeComponent();
             listProductsCustomerOrder = customerOrderProducts;
@@ -48,7 +48,7 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                listProductsCustomerOrderCopy = new List<ProductSale>();
+                listProductsCustomerOrderCopy = new List<ProductSaleSet>();
             }
         }
 
@@ -65,8 +65,10 @@ namespace ItalianPizza.XAMLViews
             lboDeliverymen.ItemsSource = userDAO.GetAllDeliveryDriver();
             lboOrderStatusCustomer.ItemsSource = customerOrdersDAO.GetOrderStatuses();
             lboOrderTypeCustomer.ItemsSource = customerOrdersDAO.GetOrderTypes();
-            lboProductStatus.ItemsSource = productDAO.GetAllProductStatuses();
-            lboProductType.ItemsSource = productDAO.GetAllProductTypes();
+            ProductStatusDAO productStatusDAO = new ProductStatusDAO();
+            ProductTypeDAO productTypeDAO = new ProductTypeDAO();
+            lboProductStatus.ItemsSource = productStatusDAO.GetAllProductStatuses();
+            lboProductType.ItemsSource = productTypeDAO.GetAllProductTypes();
             UpdateListBoxItems(lboCustomers);
             UpdateListBoxItems(lboDeliverymen);
             lboOrderStatusCustomer.DisplayMemberPath = "Status";
@@ -99,7 +101,7 @@ namespace ItalianPizza.XAMLViews
 
         private void ListBox_CustomerOrderTypeSelection(object sender, SelectionChangedEventArgs e)
         {
-            OrderType orderType = (OrderType)lboOrderTypeCustomer.SelectedItem;
+            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
             if (orderType.Type == "Pedido Domicilio")
             {
                 lboCustomers.Visibility = Visibility.Visible;
@@ -135,9 +137,9 @@ namespace ItalianPizza.XAMLViews
         {
             if (listProductsCustomerOrder.Count != 0)
             {
-                CustomerOrder customerOrder = PrepareCustomerOrder();
-                Customer customer = (Customer)lboCustomers.SelectedItem;
-                DeliveryDriver deliveryman = (DeliveryDriver)lboDeliverymen.SelectedItem;
+                CustomerOrderSet customerOrder = PrepareCustomerOrder();
+                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
+                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
                 customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
                 //Alert.MostrarMensaje("Se ha registrado correctamente el pedido en la base de datos");
                 listProductsCustomerOrder.Clear();
@@ -157,13 +159,13 @@ namespace ItalianPizza.XAMLViews
             ShowActiveProducts();
         }
 
-        private CustomerOrder PrepareCustomerOrder()
+        private CustomerOrderSet PrepareCustomerOrder()
         {
-            CustomerOrder customerOrder = new CustomerOrder();
-            OrderStatus orderStatus = (OrderStatus)lboOrderStatusCustomer.SelectedItem;
-            OrderType orderType = (OrderType)lboOrderTypeCustomer.SelectedItem;
-            customerOrder.OrderType = orderType;
-            customerOrder.OrderStatus = orderStatus;
+            CustomerOrderSet customerOrder = new CustomerOrderSet();
+            OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
+            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
+            customerOrder.OrderTypeSet = orderType;
+            customerOrder.OrderStatusSet = orderStatus;
             customerOrder.OrderStatusId = orderStatus.Id;
             customerOrder.OrderTypeId = orderType.Id;
             customerOrder.OrderDate = DateTime.Now;
@@ -175,7 +177,7 @@ namespace ItalianPizza.XAMLViews
             return customerOrder;
         }
 
-        public void ShowOrderProducts(List<ProductSale> orderProducts)
+        public void ShowOrderProducts(List<ProductSaleSet> orderProducts)
         {
             wpCustomerOrderProducts.Children.Clear();
 
@@ -241,7 +243,7 @@ namespace ItalianPizza.XAMLViews
 
         private void ShowActiveProducts()
         {
-            List<ProductSale> productsSale;
+            List<ProductSaleSet> productsSale;
 
             try
             {
@@ -259,7 +261,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        private void AddVisualProductsToWindow(List<ProductSale> products)
+        private void AddVisualProductsToWindow(List<ProductSaleSet> products)
         {
             wpProducts.Children.Clear();
 
@@ -361,14 +363,14 @@ namespace ItalianPizza.XAMLViews
             wpProducts.Children.Add(scrollViewer);
         }
 
-        private void AddProductSaleToOrder(ProductSale productSale)
+        private void AddProductSaleToOrder(ProductSaleSet productSale)
         {
             productSale.Quantity = 1;
-            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(productSale);
+            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(productSale);
 
             if (productDAO.DecreaseSuppliesOnSale(ingredients) != -1)
             {
-                ProductSale productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Id == productSale.Id);
+                ProductSaleSet productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Id == productSale.Id);
 
                 if (productExisting == null)
                 {
@@ -388,11 +390,11 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void RemoveProductSaleToOrder(ProductSale productSale)
+        private void RemoveProductSaleToOrder(ProductSaleSet productSale)
         {
-            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(productSale);
+            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(productSale);
 
-            ProductSale productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Name == productSale.Name);
+            ProductSaleSet productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Name == productSale.Name);
             if (productExisting != null && productExisting.Quantity > 1)
             {
                 productExisting.Quantity--;
@@ -408,13 +410,13 @@ namespace ItalianPizza.XAMLViews
             lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
         }
 
-        private List<RecipeDetails> GetRecipeIngredientsByProduct(ProductSale productSale)
+        private List<RecipeDetailsSet> GetRecipeIngredientsByProduct(ProductSaleSet productSale)
         {
-            List<RecipeDetails> recipeDetails = new List<RecipeDetails>();
+            List<RecipeDetailsSet> recipeDetails = new List<RecipeDetailsSet>();
 
-            foreach (var recipeDetail in productSale.Recipe.RecipeDetails)
+            foreach (var recipeDetail in productSale.RecipeSet.RecipeDetailsSet)
             {
-                RecipeDetails details = recipeDetail as RecipeDetails;
+                RecipeDetailsSet details = recipeDetail as RecipeDetailsSet;
                 details.Quantity *= productSale.Quantity;
                 recipeDetails.Add(details);
             }
@@ -455,7 +457,7 @@ namespace ItalianPizza.XAMLViews
             {
                 foreach (var product in listProductsCustomerOrder)
                 {
-                    List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(product);
+                    List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
                     productDAO.RestoreSuppliesOnSale(ingredients);
                 }
             }
@@ -468,13 +470,13 @@ namespace ItalianPizza.XAMLViews
         private void CompareProductListsAndRestoreSupplies()
         {
             // Comparar productos nuevos y productos con cantidades diferentes
-            foreach (ProductSale product in listProductsCustomerOrder)
+            foreach (ProductSaleSet product in listProductsCustomerOrder)
             {
-                ProductSale correspondingProductInCopy = listProductsCustomerOrderCopy.FirstOrDefault(p => p.Id == product.Id);
+                ProductSaleSet correspondingProductInCopy = listProductsCustomerOrderCopy.FirstOrDefault(p => p.Id == product.Id);
                 if (correspondingProductInCopy == null)
                 {
                     // Producto nuevo en listProductsCustomerOrder
-                    List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(product);
+                    List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
                     productDAO.RestoreSuppliesOnSale(ingredients);
                 }
                 else
@@ -483,7 +485,7 @@ namespace ItalianPizza.XAMLViews
                     if (differenceInAmount != 0)
                     {
                         // Ajustar cantidades en base a la diferencia
-                        ProductSale adjustedProduct = new ProductSale
+                        ProductSaleSet adjustedProduct = new ProductSaleSet
                         {
                             Id = product.Id,
                             Name = product.Name,
@@ -494,14 +496,14 @@ namespace ItalianPizza.XAMLViews
                         if (differenceInAmount > 0)
                         {
                             // Ajustar suministros si la cantidad aumentó
-                            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
+                            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
                             productDAO.RestoreSuppliesOnSale(ingredients);
                         }
                         else
                         {
                             // Reducir suministros si la cantidad disminuyó
                             adjustedProduct.Quantity *= -1; // Hacer la cantidad negativa para DecreaseSuppliesOnSale
-                            List<RecipeDetails> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
+                            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
                             productDAO.DecreaseSuppliesOnSale(ingredients);
                         }
                     }

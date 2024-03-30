@@ -18,8 +18,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int Quantity { get; set; }
         public int SupplyId { get; set; }
         public int RecipeId { get; set; }
+        public int RecipeSetId { get; set; }
     
-        public virtual RecipeSet RecipeSet { get; set; }
         public virtual SupplySet SupplySet { get; set; }
+        public virtual RecipeSet RecipeSet { get; set; }
     }
 }

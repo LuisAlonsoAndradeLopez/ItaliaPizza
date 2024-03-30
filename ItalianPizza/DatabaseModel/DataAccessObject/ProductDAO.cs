@@ -16,19 +16,19 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     {
         public ProductDAO() { }
 
-        public List<ProductSale> GetAllActiveProducts()
+        public List<ProductSaleSet> GetAllActiveProducts()
         {
-            List<ProductSale> activeProducts = new List<ProductSale>();
+            List<ProductSaleSet> activeProducts = new List<ProductSaleSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     activeProducts = context.ProductSaleSet
-                        .Include(product => product.ProductStatus)
-                        .Include(product => product.Recipe)
-                        .Include(product => product.Recipe.RecipeDetails)
-                        .ToList();
+                        .Include(product => product.ProductStatusSet)
+                        .Include(product => product.ProductTypeSet)
+                        .Include(product => product.RecipeSet.RecipeDetailsSet)
+                        .ToList();   
                 }
             }
             catch (EntityException ex)
@@ -43,7 +43,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return activeProducts;
         }
 
-        public int DecreaseSuppliesOnSale(List<RecipeDetails> recipeIngredients)
+        public int DecreaseSuppliesOnSale(List<RecipeDetailsSet> recipeIngredients)
         {
             int result = 0;
             using (var context = new ItalianPizzaServerBDEntities())
@@ -54,7 +54,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     {
                         foreach (var product in recipeIngredients)
                         {
-                            Supply supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
+                            SupplySet supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
                             supply.Quantity -= product.Quantity;
                             if (supply.Quantity >= 0)
                             {
@@ -92,7 +92,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-        public int RestoreSuppliesOnSale(List<RecipeDetails> recipeIngredients)
+        public int RestoreSuppliesOnSale(List<RecipeDetailsSet> recipeIngredients)
         {
             int result = 0;
             using (var context = new ItalianPizzaServerBDEntities())
@@ -103,7 +103,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     {
                         foreach (var product in recipeIngredients)
                         {
-                            Supply supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
+                            SupplySet supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
                             supply.Quantity += product.Quantity;
                             result = context.SaveChanges();
                         }
@@ -125,9 +125,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-        public List<ProductSale> GetOrderProducts(CustomerOrder customerOrder)
+        public List<ProductSaleSet> GetOrderProducts(CustomerOrderSet customerOrder)
         {
-            List<ProductSale> customerOrderProducts;
+            List<ProductSaleSet> customerOrderProducts;
 
             try
             {
@@ -135,14 +135,14 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     var customerOrderDetails = context.CustomerOrderDetailSet
                                             .Where(d => d.CustomerOrderId == customerOrder.Id)
-                                            .Include(d => d.ProductSale)
+                                            .Include(d => d.ProductSaleSet)
                                             .ToList();
 
                     customerOrderProducts = customerOrderDetails.Select(detalle =>
-                        new ProductSale
+                        new ProductSaleSet
                         {
-                            Id = detalle.ProductSale.Id,
-                            Name = detalle.ProductSale.Name,
+                            Id = detalle.ProductSaleSet.Id,
+                            Name = detalle.ProductSaleSet.Name,
                             Quantity = detalle.ProductQuantity,
                             PricePerUnit = detalle.PricePerUnit
                         }).ToList();
@@ -159,52 +159,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return customerOrderProducts;
 
-        }
-
-        public List<ProductType> GetAllProductTypes()
-        {
-            List<ProductType> productTypesList;
-
-            try
-            {
-                using (var context = new ItalianPizzaServerBDEntities())
-                {
-                    productTypesList = context.ProductTypeSet.ToList();
-                }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-
-            return productTypesList;
-        }
-
-        public List<ProductStatus> GetAllProductStatuses()
-        {
-            List<ProductStatus> productStatusesList;
-
-            try
-            {
-                using (var context = new ItalianPizzaServerBDEntities())
-                {
-                    productStatusesList = context.ProductStatusSet.ToList();
-                }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-
-            return productStatusesList;
         }
     }
 }

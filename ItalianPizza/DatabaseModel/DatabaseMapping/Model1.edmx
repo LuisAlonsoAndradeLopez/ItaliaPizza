@@ -1307,9 +1307,9 @@
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="CustomerOrderDetailSet" Relationship="Self.FK_ProductSaleCustomerOrderDetail" FromRole="ProductSaleSet" ToRole="CustomerOrderDetailSet" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeProductSale" FromRole="ProductSaleSet" ToRole="EmployeeSet" />
-          <NavigationProperty Name="RecipeSet" Relationship="Self.FK_ProductSaleRecipe" FromRole="ProductSaleSet" ToRole="RecipeSet" />
           <NavigationProperty Name="ProductStatusSet" Relationship="Self.FK_ProductStatusProductSale" FromRole="ProductSaleSet" ToRole="ProductStatusSet" />
           <NavigationProperty Name="ProductTypeSet" Relationship="Self.FK_ProductTypeProductSale" FromRole="ProductSaleSet" ToRole="ProductTypeSet" />
+          <NavigationProperty Name="RecipeSet" Relationship="ItalianPizzaServerBDModel.ProductSaleSetRecipeSet" FromRole="ProductSaleSet" ToRole="RecipeSet" />
         </EntityType>
         <EntityType Name="ProductStatusSet">
           <Key>
@@ -1336,8 +1336,9 @@
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="SupplyId" Type="Int32" Nullable="false" />
           <Property Name="RecipeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="RecipeSet" Relationship="Self.FK_RecipeRecipeDetails" FromRole="RecipeDetailsSet" ToRole="RecipeSet" />
           <NavigationProperty Name="SupplySet" Relationship="Self.FK_SupplyRecipeDetails" FromRole="RecipeDetailsSet" ToRole="SupplySet" />
+          <NavigationProperty Name="RecipeSet" Relationship="ItalianPizzaServerBDModel.RecipeSetRecipeDetailsSet" FromRole="RecipeDetailsSet" ToRole="RecipeSet" />
+          <Property Name="RecipeSetId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="RecipeSet">
           <Key>
@@ -1350,8 +1351,8 @@
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="ProductSale_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeRecipe" FromRole="RecipeSet" ToRole="EmployeeSet" />
-          <NavigationProperty Name="ProductSaleSet" Relationship="Self.FK_ProductSaleRecipe" FromRole="RecipeSet" ToRole="ProductSaleSet" />
-          <NavigationProperty Name="RecipeDetailsSet" Relationship="Self.FK_RecipeRecipeDetails" FromRole="RecipeSet" ToRole="RecipeDetailsSet" />
+          <NavigationProperty Name="RecipeDetailsSet" Relationship="ItalianPizzaServerBDModel.RecipeSetRecipeDetailsSet" FromRole="RecipeSet" ToRole="RecipeDetailsSet" />
+          <NavigationProperty Name="ProductSaleSet" Relationship="ItalianPizzaServerBDModel.ProductSaleSetRecipeSet" FromRole="RecipeSet" ToRole="ProductSaleSet" />
         </EntityType>
         <EntityType Name="SupplierOrderDetailsSet">
           <Key>
@@ -1781,18 +1782,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductSaleRecipe">
-          <End Role="ProductSaleSet" Type="Self.ProductSaleSet" Multiplicity="1" />
-          <End Role="RecipeSet" Type="Self.RecipeSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductSaleSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecipeSet">
-              <PropertyRef Name="ProductSale_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ProductStatusProductSale">
           <End Role="ProductStatusSet" Type="Self.ProductStatusSet" Multiplicity="1" />
           <End Role="ProductSaleSet" Type="Self.ProductSaleSet" Multiplicity="*" />
@@ -1826,18 +1815,6 @@
             </Principal>
             <Dependent Role="SupplySet">
               <PropertyRef Name="ProductStatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RecipeRecipeDetails">
-          <End Role="RecipeSet" Type="Self.RecipeSet" Multiplicity="1" />
-          <End Role="RecipeDetailsSet" Type="Self.RecipeDetailsSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RecipeSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="RecipeDetailsSet">
-              <PropertyRef Name="RecipeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2077,10 +2054,6 @@
             <End Role="OrderStatusSet" EntitySet="OrderStatusSet" />
             <End Role="SupplierOrderSet" EntitySet="SupplierOrderSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductSaleRecipe" Association="Self.FK_ProductSaleRecipe">
-            <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
-            <End Role="RecipeSet" EntitySet="RecipeSet" />
-          </AssociationSet>
           <AssociationSet Name="FK_ProductStatusProductSale" Association="Self.FK_ProductStatusProductSale">
             <End Role="ProductStatusSet" EntitySet="ProductStatusSet" />
             <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
@@ -2092,10 +2065,6 @@
           <AssociationSet Name="FK_ProductStatusSupply" Association="Self.FK_ProductStatusSupply">
             <End Role="ProductStatusSet" EntitySet="ProductStatusSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RecipeRecipeDetails" Association="Self.FK_RecipeRecipeDetails">
-            <End Role="RecipeSet" EntitySet="RecipeSet" />
-            <End Role="RecipeDetailsSet" EntitySet="RecipeDetailsSet" />
           </AssociationSet>
           <AssociationSet Name="FK_SupplyRecipeDetails" Association="Self.FK_SupplyRecipeDetails">
             <End Role="SupplySet" EntitySet="SupplySet" />
@@ -2141,7 +2110,31 @@
             <End Role="SupplierSet" EntitySet="SupplierSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
           </AssociationSet>
+          <AssociationSet Name="RecipeSetRecipeDetailsSet" Association="ItalianPizzaServerBDModel.RecipeSetRecipeDetailsSet">
+            <End Role="RecipeSet" EntitySet="RecipeSet" />
+            <End Role="RecipeDetailsSet" EntitySet="RecipeDetailsSet" />
+          </AssociationSet>
+          <AssociationSet Name="ProductSaleSetRecipeSet" Association="ItalianPizzaServerBDModel.ProductSaleSetRecipeSet">
+            <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
+            <End Role="RecipeSet" EntitySet="RecipeSet" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="RecipeSetRecipeDetailsSet">
+          <End Type="ItalianPizzaServerBDModel.RecipeSet" Role="RecipeSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.RecipeDetailsSet" Role="RecipeDetailsSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RecipeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RecipeDetailsSet">
+              <PropertyRef Name="RecipeSetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProductSaleSetRecipeSet">
+          <End Type="ItalianPizzaServerBDModel.ProductSaleSet" Role="ProductSaleSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.RecipeSet" Role="RecipeSet" Multiplicity="0..1" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

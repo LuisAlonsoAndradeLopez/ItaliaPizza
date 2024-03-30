@@ -28,8 +28,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int ProductSale_Id { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
-        public virtual ProductSaleSet ProductSaleSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RecipeDetailsSet> RecipeDetailsSet { get; set; }
+        public virtual ProductSaleSet ProductSaleSet { get; set; }
     }
 }

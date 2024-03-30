@@ -18,7 +18,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public ProductSaleSet()
         {
             this.CustomerOrderDetailSet = new HashSet<CustomerOrderDetailSet>();
-            this.RecipeSet = new HashSet<RecipeSet>();
         }
     
         public int Id { get; set; }
@@ -35,9 +34,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerOrderDetailSet> CustomerOrderDetailSet { get; set; }
         public virtual EmployeeSet EmployeeSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RecipeSet> RecipeSet { get; set; }
         public virtual ProductStatusSet ProductStatusSet { get; set; }
         public virtual ProductTypeSet ProductTypeSet { get; set; }
+        public virtual RecipeSet RecipeSet { get; set; }
     }
 }
