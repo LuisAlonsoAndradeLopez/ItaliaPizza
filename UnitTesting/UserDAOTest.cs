@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using System.Transactions;
 
 namespace UnitTesting
 {
@@ -14,12 +9,12 @@ namespace UnitTesting
     public class UserDAOTest
     {
         private static UserDAO userDAO;
-        private static Empleado employeeToRegist;
-        private static Empleado employeeAlreadyRegistered;
-        private static Empleado employeeToGet;
-        private static Cuenta accountToRegist;
-        private static Cuenta accountAlreadyRegistered;
-        private static Cuenta accountToGet;
+        private static EmployeeSet employeeToRegist;
+        private static EmployeeSet employeeAlreadyRegistered;
+        private static EmployeeSet employeeToGet;
+        private static UserAccountSet accountToRegist;
+        private static UserAccountSet accountAlreadyRegistered;
+        private static UserAccountSet accountToGet;
         private static int validValue = 1;
         private static int invalidValue = -1;
 
@@ -27,22 +22,22 @@ namespace UnitTesting
         public static void ClassInitialize(TestContext context)
         {
             userDAO = new UserDAO();
-            employeeToRegist = new Empleado()
+            employeeToRegist = new EmployeeSet()
             {
             };
-            employeeAlreadyRegistered = new Empleado()
+            employeeAlreadyRegistered = new EmployeeSet()
             {
             };
-            employeeToGet = new Empleado()
+            employeeToGet = new EmployeeSet()
             {
             };
-            accountToRegist = new Cuenta()
+            accountToRegist = new UserAccountSet()
             {
             };
-            accountAlreadyRegistered = new Cuenta()
+            accountAlreadyRegistered = new UserAccountSet()
             {
             };
-            accountToGet = new Cuenta()
+            accountToGet = new UserAccountSet()
             {
             };
         }
