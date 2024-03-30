@@ -1,0 +1,1 @@
+Property: IdentificationCode Error: El campo IdentificationCode debe ser un tipo de cadena o matriz con una longitud máxima de '20'.
