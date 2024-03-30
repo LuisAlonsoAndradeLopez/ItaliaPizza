@@ -140,25 +140,6 @@ namespace ItalianPizza.XAMLViews
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void PriceDecimalUpDownPreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("^-?\\$?(?:\\d{1,3}(?:,\\d{3})*(?:\\.\\d{2})?|\\d+(?:\\.\\d{2})?)$");
-            e.Handled = regex.IsMatch(e.Text);
-        }
-
-        private void PriceDecimalUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (PriceDecimalUpDown.Value.HasValue)
-            {
-                decimal value = PriceDecimalUpDown.Value.Value;
-                string formattedValue = value.ToString("C", CultureInfo.CurrentCulture);
-                if (!formattedValue.Equals(PriceDecimalUpDown.Text))
-                {
-                    PriceDecimalUpDown.Value = (decimal?)e.OldValue;
-                }
-            }
-        }
-
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);
@@ -179,13 +160,25 @@ namespace ItalianPizza.XAMLViews
                             if (!new SupplyDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text) &&
                                 !new ProductDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text))
                             {
+
+                                double price;
+
+                                if (PriceDecimalUpDown.Value != null)
+                                {
+                                    price = (double)PriceDecimalUpDown.Value;
+                                }
+                                else
+                                {
+                                    price = 0;
+                                }
+
                                 if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString())
                                 {
                                     SupplySet supply = new SupplySet
                                     {
                                         Name = ArticleNameTextBox.Text,
                                         Quantity = QuantityIntegerUpDown.Value ?? 0,
-                                        PricePerUnit = (double)PriceDecimalUpDown.Value,
+                                        PricePerUnit = price,
                                         Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                         SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
@@ -203,7 +196,7 @@ namespace ItalianPizza.XAMLViews
                                     {
                                         Name = ArticleNameTextBox.Text,
                                         Quantity = QuantityIntegerUpDown.Value ?? 0,
-                                        PricePerUnit = (double)PriceDecimalUpDown.Value,
+                                        PricePerUnit = price,
                                         Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                         ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
@@ -283,14 +276,20 @@ namespace ItalianPizza.XAMLViews
             string finalText = "";
 
             string articleNamePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string quantityPattern = "^\\d+";
+            string pricePerUnitPattern = "^\\d+(\\.\\d{2})?$";
             string codePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
             string descriptionPattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
 
             Regex articleNameRegex = new Regex(articleNamePattern);
+            Regex quantityRegex = new Regex(quantityPattern);
+            Regex pricePerUnitRegex = new Regex(pricePerUnitPattern);
             Regex codeRegex = new Regex(codePattern);
             Regex descriptionRegex = new Regex(descriptionPattern);         
 
             Match articleNameMatch = articleNameRegex.Match(ArticleNameTextBox.Text);
+            Match quantityMatch = quantityRegex.Match(QuantityIntegerUpDown.Value.ToString());
+            Match pricePerUnitMatch = pricePerUnitRegex.Match(PriceDecimalUpDown.Value.ToString());
             Match codeMatch = codeRegex.Match(CodeTextBox.Text);
 
             Match descriptionMatch = null;
@@ -306,7 +305,7 @@ namespace ItalianPizza.XAMLViews
             }
 
 
-            if (!articleNameMatch.Success || !codeMatch.Success || !descriptionMatch.Success)
+            if (!articleNameMatch.Success || !quantityMatch.Success || !pricePerUnitMatch.Success || !codeMatch.Success || !descriptionMatch.Success)
             {
                 finalText += "Los campos con valores inválidos son: ";
             }
@@ -314,6 +313,36 @@ namespace ItalianPizza.XAMLViews
             if (!articleNameMatch.Success)
             {
                 finalText = finalText + "Nombre del Artículo" + ".";
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!quantityMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Cantidad" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Cantidad" + ".";
+                }
+
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!pricePerUnitMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Precio" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Precio" + ".";
+                }
+
                 textFieldsWithIncorrectValues++;
             }
 
@@ -346,11 +375,6 @@ namespace ItalianPizza.XAMLViews
             }
 
             return finalText;
-        }
-
-        private void PriceDecimalUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-
         }
     }
 }
