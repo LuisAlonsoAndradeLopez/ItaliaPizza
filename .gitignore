@@ -1,4 +1,7 @@
 .vs/
 ItalianPizza/.vs/
 ItalianPizza/obj/
+/ItalianPizza/.vs/
+/ItalianPizza/obj/
 ItalianPizza/DatabaseModel/DatabaseMapping
+/ItalianPizza/DatabaseModel/DatabaseMapping
