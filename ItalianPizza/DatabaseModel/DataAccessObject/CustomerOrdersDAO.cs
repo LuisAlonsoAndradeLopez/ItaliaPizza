@@ -1,12 +1,14 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -14,7 +16,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     {
         public CustomerOrdersDAO() { }
 
-        public int RegisterCustomerOrder(CustomerOrder customerOrder, List<ProductSale> productsOrderCustomer, Customer customer, DeliveryDriver deliveryDriver)
+        public int RegisterCustomerOrder(CustomerOrderSet customerOrder, List<ProductSaleSet> productsOrderCustomer, CustomerSet customer, DeliveryDriverSet deliveryDriver)
         {
             int result = 0;
             using (var context = new ItalianPizzaServerBDEntities())
@@ -23,18 +25,18 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     try
                     {
-                        
+
                         context.CustomerOrderSet.Add(customerOrder);
                         result = context.SaveChanges();
-                        
-                        if(customerOrder.OrderType.Type == "Pedido Domicilio")
+
+                        if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
                         {
-                            CustomerOrderCustomer customerOrderCustomer = new CustomerOrderCustomer
+                            CustomerOrderCustomerSet customerOrderCustomer = new CustomerOrderCustomerSet
                             {
                                 CustomerId = customer.Id,
                                 CustomerOrderId = customerOrder.Id
                             };
-                            CustomerOrderDeliveryDriver customerOrderDeliveryDriver = new CustomerOrderDeliveryDriver
+                            CustomerOrderDeliveryDriverSet customerOrderDeliveryDriver = new CustomerOrderDeliveryDriverSet
                             {
                                 CustomerOrderId = customerOrder.Id,
                                 DeliveryDriverId = deliveryDriver.Id
@@ -47,7 +49,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                         foreach (var product in productsOrderCustomer)
                         {
-                            CustomerOrderDetail customerOrderDetail = new CustomerOrderDetail();
+                            CustomerOrderDetailSet customerOrderDetail = new CustomerOrderDetailSet();
                             customerOrderDetail.CustomerOrderId = customerOrder.Id;
                             customerOrderDetail.ProductSaleId = product.Id;
                             customerOrderDetail.ProductQuantity = product.Quantity;
@@ -75,9 +77,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
 
-        public List<CustomerOrder> GetAllCustomerOrders()
+        public List<CustomerOrderSet> GetAllCustomerOrders()
         {
-            List<CustomerOrder> orders = new List<CustomerOrder>();
+            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
 
             try
             {
@@ -94,13 +96,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
-           
+
             return orders;
         }
 
-        public List<CustomerOrder> GetCustomerOrdersByDate(DateTime date)
+        public List<CustomerOrderSet> GetCustomerOrdersByDate(DateTime date)
         {
-            List<CustomerOrder> customerOrders = new List<CustomerOrder>();
+            List<CustomerOrderSet> customerOrders = new List<CustomerOrderSet>();
 
             try
             {
@@ -110,34 +112,10 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     DateTime endDate = startDate.AddDays(1).AddTicks(-1);
 
                     customerOrders = context.CustomerOrderSet
-                        .Include(customerOrder => customerOrder.OrderType)
-                        .Include(customerOrder => customerOrder.OrderStatus)
+                        .Include(customerOrder => customerOrder.OrderTypeSet)
+                        .Include(customerOrder => customerOrder.OrderStatusSet)
                         .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
                         .ToList();
-                    //orders = context.CustomerOrderSetSet.Where(o => o.Fecha == date).ToList();
-                }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            
-            return orders;
-        }
-
-        public List<CustomerOrderSet> GetCustomerOrdersByStatus(String status)
-        {
-            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
-
-            try
-            {
-                using (var context = new ItalianPizzaServerBDEntities())
-                {
-                    //orders = context.CustomerOrderSet.Where(o => o.OrderStatusSet == status).ToList();
                 }
             }
             catch (EntityException ex)
@@ -152,18 +130,18 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return customerOrders;
         }
 
-        public List<CustomerOrder> GetCustomerOrdersByStatus(OrderStatus status)
+        public List<CustomerOrderSet> GetCustomerOrdersByStatus(OrderStatusSet status)
         {
-            List<CustomerOrder> customerOrders = new List<CustomerOrder>();
+            List<CustomerOrderSet> customerOrders = new List<CustomerOrderSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     customerOrders = context.CustomerOrderSet
-                                            .Include(customerOrder => customerOrder.OrderStatus)
-                                            .Include(customerOrder => customerOrder.OrderType)
-                                            .Where(customerOrder => customerOrder.OrderStatus.Status == status.Status)
+                                            .Include(customerOrder => customerOrder.OrderStatusSet)
+                                            .Include(customerOrder => customerOrder.OrderTypeSet)
+                                            .Where(customerOrder => customerOrder.OrderStatusSet.Status == status.Status)
                                             .ToList();
                 }
             }
@@ -176,9 +154,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
 
-        public List<OrderStatus> GetOrderStatuses()
+        public List<OrderStatusSet> GetOrderStatuses()
         {
-            List<OrderStatus> orderStatuses;
+            List<OrderStatusSet> orderStatuses;
 
             try
             {
@@ -195,14 +173,12 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
-
-            return orderStatuses;   
-
+            return orderStatuses;
         }
 
-        public List<OrderType> GetOrderTypes()
+        public List<OrderTypeSet> GetOrderTypes()
         {
-            List<OrderType> orderTypes;
+            List<OrderTypeSet> orderTypes;
 
             try
             {

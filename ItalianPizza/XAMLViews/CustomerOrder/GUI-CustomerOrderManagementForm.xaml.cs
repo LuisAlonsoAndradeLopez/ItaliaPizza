@@ -27,10 +27,10 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_CustomerOrderManagementForm : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
-        private List<ProductSale> listProductsCustomerOrder;
+        private List<ProductSaleSet> listProductsCustomerOrder;
         private ProductDAO productDAO;
         private UserDAO userDAO;
-        public GUI_CustomerOrderManagementForm(List<ProductSale> customerOrderProducts)
+        public GUI_CustomerOrderManagementForm(List<ProductSaleSet> customerOrderProducts)
         {
             InitializeComponent();
             listProductsCustomerOrder = customerOrderProducts;
@@ -101,7 +101,7 @@ namespace ItalianPizza.XAMLViews
 
         private void ListBox_CustomerOrderTypeSelection(object sender, SelectionChangedEventArgs e)
         {
-            OrderType orderType = (OrderType)lboOrderTypeCustomer.SelectedItem;
+            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
             if (orderType.Type == "Pedido Domicilio")
             {
                 lboCustomers.Visibility = Visibility.Visible;
@@ -137,9 +137,9 @@ namespace ItalianPizza.XAMLViews
         {
             if (listProductsCustomerOrder.Count != 0)
             {
-                CustomerOrder customerOrder = PrepareCustomerOrder();
-                Customer customer = (Customer)lboCustomers.SelectedItem;
-                DeliveryDriver deliveryman = (DeliveryDriver)lboDeliverymen.SelectedItem;
+                CustomerOrderSet customerOrder = PrepareCustomerOrder();
+                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
+                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
                 customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
                 //Alert.MostrarMensaje("Se ha registrado correctamente el pedido en la base de datos");
                 CleanFields();
@@ -159,13 +159,13 @@ namespace ItalianPizza.XAMLViews
             ShowActiveProducts();
         }
 
-        private CustomerOrder PrepareCustomerOrder()
+        private CustomerOrderSet PrepareCustomerOrder()
         {
-            CustomerOrder customerOrder = new CustomerOrder();
-            OrderStatus orderStatus = (OrderStatus)lboOrderStatusCustomer.SelectedItem;
-            OrderType orderType = (OrderType)lboOrderTypeCustomer.SelectedItem;
-            customerOrder.OrderType = orderType;
-            customerOrder.OrderStatus = orderStatus;
+            CustomerOrderSet customerOrder = new CustomerOrderSet();
+            OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
+            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
+            customerOrder.OrderTypeSet = orderType;
+            customerOrder.OrderStatusSet = orderStatus;
             customerOrder.OrderStatusId = orderStatus.Id;
             customerOrder.OrderTypeId = orderType.Id;
             customerOrder.OrderDate = DateTime.Now;
@@ -177,7 +177,7 @@ namespace ItalianPizza.XAMLViews
             return customerOrder;
         }
 
-        public void ShowOrderProducts(List<ProductSale> orderProducts)
+        public void ShowOrderProducts(List<ProductSaleSet> orderProducts)
         {
             wpCustomerOrderProducts.Children.Clear();
 
@@ -243,7 +243,7 @@ namespace ItalianPizza.XAMLViews
 
         private void ShowActiveProducts()
         {
-            List<ProductSale> products = new List<ProductSale>();
+            List<ProductSaleSet> products = new List<ProductSaleSet>();
 
             try
             {
@@ -261,7 +261,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        private void AddVisualProductsToWindow(List<ProductSale> products)
+        private void AddVisualProductsToWindow(List<ProductSaleSet> products)
         {
             wpProducts.Children.Clear();
 
@@ -344,7 +344,7 @@ namespace ItalianPizza.XAMLViews
 
                 imgAddProductIcon.MouseLeftButtonUp += (sender, e) =>
                 {
-                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Id == product.Id);
+                    ProductSaleSet productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Id == product.Id);
                     if (productoExistente == null)
                     {
                         product.Quantity++;
@@ -379,7 +379,7 @@ namespace ItalianPizza.XAMLViews
                 imgReduceProductIcon.MouseLeftButtonUp += (sender, e) =>
                 {
                     Console.WriteLine("Entro Alv");
-                    ProductSale productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Name == product.Name);
+                    ProductSaleSet productoExistente = listProductsCustomerOrder.FirstOrDefault(p => p.Name == product.Name);
                     if (productoExistente != null && productoExistente.Quantity > 1)
                     {
                         productoExistente.Quantity--;

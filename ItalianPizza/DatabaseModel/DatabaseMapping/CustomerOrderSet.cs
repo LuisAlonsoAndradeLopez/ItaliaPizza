@@ -17,15 +17,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CustomerOrderSet()
         {
-<<<<<<< HEAD
-            this.CustomerOrderDetailSet = new HashSet<CustomerOrderDetailSet>();
-            this.CustomerSet = new HashSet<CustomerSet>();
-            this.DeliveryDriverSet = new HashSet<DeliveryDriverSet>();
-=======
             this.CustomerOrderCustomerSet = new HashSet<CustomerOrderCustomerSet>();
             this.CustomerOrderDeliveryDriverSet = new HashSet<CustomerOrderDeliveryDriverSet>();
             this.CustomerOrderDetailSet = new HashSet<CustomerOrderDetailSet>();
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
             this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
         }
     
@@ -38,25 +32,15 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int EmployeeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-<<<<<<< HEAD
-=======
         public virtual ICollection<CustomerOrderCustomerSet> CustomerOrderCustomerSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerOrderDeliveryDriverSet> CustomerOrderDeliveryDriverSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
         public virtual ICollection<CustomerOrderDetailSet> CustomerOrderDetailSet { get; set; }
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual OrderStatusSet OrderStatusSet { get; set; }
         public virtual OrderTypeSet OrderTypeSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-<<<<<<< HEAD
-        public virtual ICollection<CustomerSet> CustomerSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DeliveryDriverSet> DeliveryDriverSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-=======
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
         public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
     }
 }

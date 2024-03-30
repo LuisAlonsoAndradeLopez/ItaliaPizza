@@ -18,21 +18,21 @@
           <Property Name="ZipCode" Type="int" Nullable="false" />
           <Property Name="Township" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="CustomerOrderCustomer">
+        <EntityType Name="CustomerOrderCustomerSet">
           <Key>
-            <PropertyRef Name="CustomerOrder_Id" />
-            <PropertyRef Name="Customer_Id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CustomerOrder_Id" Type="int" Nullable="false" />
-          <Property Name="Customer_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerOrderId" Type="int" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="CustomerOrderDeliveryDriver">
+        <EntityType Name="CustomerOrderDeliveryDriverSet">
           <Key>
-            <PropertyRef Name="CustomerOrder_Id" />
-            <PropertyRef Name="DeliveryDriver_Id" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="CustomerOrder_Id" Type="int" Nullable="false" />
-          <Property Name="DeliveryDriver_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerOrderId" Type="int" Nullable="false" />
+          <Property Name="DeliveryDriverId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="CustomerOrderDetailSet">
           <Key>
@@ -321,27 +321,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerOrderCustomer_Customer">
+        <Association Name="FK_CustomerCustomerOrderCustomer">
           <End Role="CustomerSet" Type="Self.CustomerSet" Multiplicity="1" />
-          <End Role="CustomerOrderCustomer" Type="Self.CustomerOrderCustomer" Multiplicity="*" />
+          <End Role="CustomerOrderCustomerSet" Type="Self.CustomerOrderCustomerSet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerSet">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerOrderCustomer">
-              <PropertyRef Name="Customer_Id" />
+            <Dependent Role="CustomerOrderCustomerSet">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CustomerOrderCustomer_CustomerOrder">
+        <Association Name="FK_CustomerOrderCustomerOrderCustomer">
           <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
-          <End Role="CustomerOrderCustomer" Type="Self.CustomerOrderCustomer" Multiplicity="*" />
+          <End Role="CustomerOrderCustomerSet" Type="Self.CustomerOrderCustomerSet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CustomerOrderSet">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CustomerOrderCustomer">
-              <PropertyRef Name="CustomerOrder_Id" />
+            <Dependent Role="CustomerOrderCustomerSet">
+              <PropertyRef Name="CustomerOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerOrderCustomerOrderDeliveryDriver">
+          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
+          <End Role="CustomerOrderDeliveryDriverSet" Type="Self.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOrderSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriverSet">
+              <PropertyRef Name="CustomerOrderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -354,30 +366,6 @@
             </Principal>
             <Dependent Role="CustomerOrderDetailSet">
               <PropertyRef Name="CustomerOrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerOrderDeliveryDriver_CustomerOrder">
-          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
-          <End Role="CustomerOrderDeliveryDriver" Type="Self.CustomerOrderDeliveryDriver" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerOrderSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerOrderDeliveryDriver">
-              <PropertyRef Name="CustomerOrder_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CustomerOrderDeliveryDriver_DeliveryDriver">
-          <End Role="DeliveryDriverSet" Type="Self.DeliveryDriverSet" Multiplicity="1" />
-          <End Role="CustomerOrderDeliveryDriver" Type="Self.CustomerOrderDeliveryDriver" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliveryDriverSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CustomerOrderDeliveryDriver">
-              <PropertyRef Name="DeliveryDriver_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -402,6 +390,18 @@
             </Principal>
             <Dependent Role="DailyClosingFinancialTransaction">
               <PropertyRef Name="FinancialTransaction_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryDriverCustomerOrderDeliveryDriver">
+          <End Role="DeliveryDriverSet" Type="Self.DeliveryDriverSet" Multiplicity="1" />
+          <End Role="CustomerOrderDeliveryDriverSet" Type="Self.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryDriverSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriverSet">
+              <PropertyRef Name="DeliveryDriverId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -875,8 +875,8 @@
         </Association>
         <EntityContainer Name="ItalianPizzaServerBDModelStoreContainer">
           <EntitySet Name="AddressSet" EntityType="Self.AddressSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerOrderCustomer" EntityType="Self.CustomerOrderCustomer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CustomerOrderDeliveryDriver" EntityType="Self.CustomerOrderDeliveryDriver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerOrderCustomerSet" EntityType="Self.CustomerOrderCustomerSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerOrderDeliveryDriverSet" EntityType="Self.CustomerOrderDeliveryDriverSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerOrderDetailSet" EntityType="Self.CustomerOrderDetailSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerOrderSet" EntityType="Self.CustomerOrderSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerSet" EntityType="Self.CustomerSet" Schema="dbo" store:Type="Tables" />
@@ -909,25 +909,21 @@
             <End Role="AddressSet" EntitySet="AddressSet" />
             <End Role="CustomerSet" EntitySet="CustomerSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerOrderCustomer_Customer" Association="Self.FK_CustomerOrderCustomer_Customer">
+          <AssociationSet Name="FK_CustomerCustomerOrderCustomer" Association="Self.FK_CustomerCustomerOrderCustomer">
             <End Role="CustomerSet" EntitySet="CustomerSet" />
-            <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomer" />
+            <End Role="CustomerOrderCustomerSet" EntitySet="CustomerOrderCustomerSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_CustomerOrderCustomer_CustomerOrder" Association="Self.FK_CustomerOrderCustomer_CustomerOrder">
+          <AssociationSet Name="FK_CustomerOrderCustomerOrderCustomer" Association="Self.FK_CustomerOrderCustomerOrderCustomer">
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-            <End Role="CustomerOrderCustomer" EntitySet="CustomerOrderCustomer" />
+            <End Role="CustomerOrderCustomerSet" EntitySet="CustomerOrderCustomerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerOrderCustomerOrderDeliveryDriver" Association="Self.FK_CustomerOrderCustomerOrderDeliveryDriver">
+            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
+            <End Role="CustomerOrderDeliveryDriverSet" EntitySet="CustomerOrderDeliveryDriverSet" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomerOrderCustomerOrderDetail" Association="Self.FK_CustomerOrderCustomerOrderDetail">
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
             <End Role="CustomerOrderDetailSet" EntitySet="CustomerOrderDetailSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerOrderDeliveryDriver_CustomerOrder" Association="Self.FK_CustomerOrderDeliveryDriver_CustomerOrder">
-            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-            <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriver" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CustomerOrderDeliveryDriver_DeliveryDriver" Association="Self.FK_CustomerOrderDeliveryDriver_DeliveryDriver">
-            <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
-            <End Role="CustomerOrderDeliveryDriver" EntitySet="CustomerOrderDeliveryDriver" />
           </AssociationSet>
           <AssociationSet Name="FK_DailyClosingFinancialTransaction_DailyClosing" Association="Self.FK_DailyClosingFinancialTransaction_DailyClosing">
             <End Role="DailyClosingSet" EntitySet="DailyClosingSet" />
@@ -936,6 +932,10 @@
           <AssociationSet Name="FK_DailyClosingFinancialTransaction_FinancialTransaction" Association="Self.FK_DailyClosingFinancialTransaction_FinancialTransaction">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
             <End Role="DailyClosingFinancialTransaction" EntitySet="DailyClosingFinancialTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryDriverCustomerOrderDeliveryDriver" Association="Self.FK_DeliveryDriverCustomerOrderDeliveryDriver">
+            <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
+            <End Role="CustomerOrderDeliveryDriverSet" EntitySet="CustomerOrderDeliveryDriverSet" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeAddress" Association="Self.FK_EmployeeAddress">
             <End Role="AddressSet" EntitySet="AddressSet" />
@@ -1114,6 +1114,26 @@
           <NavigationProperty Name="CustomerSet" Relationship="Self.FK_CustomerAddress" FromRole="AddressSet" ToRole="CustomerSet" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeAddress" FromRole="AddressSet" ToRole="EmployeeSet" />
         </EntityType>
+        <EntityType Name="CustomerOrderCustomerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerOrderId" Type="Int32" Nullable="false" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerSet" Relationship="Self.FK_CustomerCustomerOrderCustomer" FromRole="CustomerOrderCustomerSet" ToRole="CustomerSet" />
+          <NavigationProperty Name="CustomerOrderSet" Relationship="Self.FK_CustomerOrderCustomerOrderCustomer" FromRole="CustomerOrderCustomerSet" ToRole="CustomerOrderSet" />
+        </EntityType>
+        <EntityType Name="CustomerOrderDeliveryDriverSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerOrderId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryDriverId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerOrderSet" Relationship="Self.FK_CustomerOrderCustomerOrderDeliveryDriver" FromRole="CustomerOrderDeliveryDriverSet" ToRole="CustomerOrderSet" />
+          <NavigationProperty Name="DeliveryDriverSet" Relationship="Self.FK_DeliveryDriverCustomerOrderDeliveryDriver" FromRole="CustomerOrderDeliveryDriverSet" ToRole="DeliveryDriverSet" />
+        </EntityType>
         <EntityType Name="CustomerOrderDetailSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -1137,12 +1157,12 @@
           <Property Name="OrderStatusId" Type="Int32" Nullable="false" />
           <Property Name="OrderTypeId" Type="Int32" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerOrderCustomerSet" Relationship="Self.FK_CustomerOrderCustomerOrderCustomer" FromRole="CustomerOrderSet" ToRole="CustomerOrderCustomerSet" />
+          <NavigationProperty Name="CustomerOrderDeliveryDriverSet" Relationship="Self.FK_CustomerOrderCustomerOrderDeliveryDriver" FromRole="CustomerOrderSet" ToRole="CustomerOrderDeliveryDriverSet" />
           <NavigationProperty Name="CustomerOrderDetailSet" Relationship="Self.FK_CustomerOrderCustomerOrderDetail" FromRole="CustomerOrderSet" ToRole="CustomerOrderDetailSet" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeCustomerOrder" FromRole="CustomerOrderSet" ToRole="EmployeeSet" />
           <NavigationProperty Name="OrderStatusSet" Relationship="Self.FK_OrderStatusCustomerOrder" FromRole="CustomerOrderSet" ToRole="OrderStatusSet" />
           <NavigationProperty Name="OrderTypeSet" Relationship="Self.FK_OrderTypeCustomerOrder" FromRole="CustomerOrderSet" ToRole="OrderTypeSet" />
-          <NavigationProperty Name="CustomerSet" Relationship="Self.CustomerOrderCustomer" FromRole="CustomerOrderSet" ToRole="CustomerSet" />
-          <NavigationProperty Name="DeliveryDriverSet" Relationship="Self.CustomerOrderDeliveryDriver" FromRole="CustomerOrderSet" ToRole="DeliveryDriverSet" />
           <NavigationProperty Name="FinancialTransactionSet" Relationship="Self.FinancialTransactionCustomerOrder" FromRole="CustomerOrderSet" ToRole="FinancialTransactionSet" />
         </EntityType>
         <EntityType Name="CustomerSet">
@@ -1159,9 +1179,9 @@
           <Property Name="UserStatusId" Type="Int32" Nullable="false" />
           <Property Name="Address_Id" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AddressSet" Relationship="Self.FK_CustomerAddress" FromRole="CustomerSet" ToRole="AddressSet" />
+          <NavigationProperty Name="CustomerOrderCustomerSet" Relationship="Self.FK_CustomerCustomerOrderCustomer" FromRole="CustomerSet" ToRole="CustomerOrderCustomerSet" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeCustomer" FromRole="CustomerSet" ToRole="EmployeeSet" />
           <NavigationProperty Name="UserStatusSet" Relationship="Self.FK_UserStatusCustomer" FromRole="CustomerSet" ToRole="UserStatusSet" />
-          <NavigationProperty Name="CustomerOrderSet" Relationship="Self.CustomerOrderCustomer" FromRole="CustomerSet" ToRole="CustomerOrderSet" />
         </EntityType>
         <EntityType Name="DailyClosingSet">
           <Key>
@@ -1187,9 +1207,9 @@
           <Property Name="Phone" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="UserStatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerOrderDeliveryDriverSet" Relationship="Self.FK_DeliveryDriverCustomerOrderDeliveryDriver" FromRole="DeliveryDriverSet" ToRole="CustomerOrderDeliveryDriverSet" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeDeliveryDriver" FromRole="DeliveryDriverSet" ToRole="EmployeeSet" />
           <NavigationProperty Name="UserStatusSet" Relationship="Self.FK_UserStatusDeliveryDriver" FromRole="DeliveryDriverSet" ToRole="UserStatusSet" />
-          <NavigationProperty Name="CustomerOrderSet" Relationship="Self.CustomerOrderDeliveryDriver" FromRole="DeliveryDriverSet" ToRole="CustomerOrderSet" />
         </EntityType>
         <EntityType Name="EmployeePositionSet">
           <Key>
@@ -1458,6 +1478,54 @@
             </Principal>
             <Dependent Role="EmployeeSet">
               <PropertyRef Name="Address_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerCustomerOrderCustomer">
+          <End Role="CustomerSet" Type="Self.CustomerSet" Multiplicity="1" />
+          <End Role="CustomerOrderCustomerSet" Type="Self.CustomerOrderCustomerSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderCustomerSet">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerOrderCustomerOrderCustomer">
+          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
+          <End Role="CustomerOrderCustomerSet" Type="Self.CustomerOrderCustomerSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOrderSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderCustomerSet">
+              <PropertyRef Name="CustomerOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerOrderCustomerOrderDeliveryDriver">
+          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
+          <End Role="CustomerOrderDeliveryDriverSet" Type="Self.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerOrderSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriverSet">
+              <PropertyRef Name="CustomerOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DeliveryDriverCustomerOrderDeliveryDriver">
+          <End Role="DeliveryDriverSet" Type="Self.DeliveryDriverSet" Multiplicity="1" />
+          <End Role="CustomerOrderDeliveryDriverSet" Type="Self.CustomerOrderDeliveryDriverSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliveryDriverSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerOrderDeliveryDriverSet">
+              <PropertyRef Name="DeliveryDriverId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1857,14 +1925,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="CustomerOrderCustomer">
-          <End Role="CustomerSet" Type="Self.CustomerSet" Multiplicity="*" />
-          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="*" />
-        </Association>
-        <Association Name="CustomerOrderDeliveryDriver">
-          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="*" />
-          <End Role="DeliveryDriverSet" Type="Self.DeliveryDriverSet" Multiplicity="*" />
-        </Association>
         <Association Name="DailyClosingFinancialTransaction">
           <End Role="DailyClosingSet" Type="Self.DailyClosingSet" Multiplicity="*" />
           <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
@@ -1883,6 +1943,8 @@
         </Association>
         <EntityContainer Name="ItalianPizzaServerBDEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="AddressSet" EntityType="Self.AddressSet" />
+          <EntitySet Name="CustomerOrderCustomerSet" EntityType="Self.CustomerOrderCustomerSet" />
+          <EntitySet Name="CustomerOrderDeliveryDriverSet" EntityType="Self.CustomerOrderDeliveryDriverSet" />
           <EntitySet Name="CustomerOrderDetailSet" EntityType="Self.CustomerOrderDetailSet" />
           <EntitySet Name="CustomerOrderSet" EntityType="Self.CustomerOrderSet" />
           <EntitySet Name="CustomerSet" EntityType="Self.CustomerSet" />
@@ -1914,6 +1976,22 @@
           <AssociationSet Name="FK_EmployeeAddress" Association="Self.FK_EmployeeAddress">
             <End Role="AddressSet" EntitySet="AddressSet" />
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerCustomerOrderCustomer" Association="Self.FK_CustomerCustomerOrderCustomer">
+            <End Role="CustomerSet" EntitySet="CustomerSet" />
+            <End Role="CustomerOrderCustomerSet" EntitySet="CustomerOrderCustomerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerOrderCustomerOrderCustomer" Association="Self.FK_CustomerOrderCustomerOrderCustomer">
+            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
+            <End Role="CustomerOrderCustomerSet" EntitySet="CustomerOrderCustomerSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerOrderCustomerOrderDeliveryDriver" Association="Self.FK_CustomerOrderCustomerOrderDeliveryDriver">
+            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
+            <End Role="CustomerOrderDeliveryDriverSet" EntitySet="CustomerOrderDeliveryDriverSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliveryDriverCustomerOrderDeliveryDriver" Association="Self.FK_DeliveryDriverCustomerOrderDeliveryDriver">
+            <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
+            <End Role="CustomerOrderDeliveryDriverSet" EntitySet="CustomerOrderDeliveryDriverSet" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomerOrderCustomerOrderDetail" Association="Self.FK_CustomerOrderCustomerOrderDetail">
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
@@ -2047,14 +2125,6 @@
             <End Role="SupplyUnitSet" EntitySet="SupplyUnitSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
           </AssociationSet>
-          <AssociationSet Name="CustomerOrderCustomer" Association="Self.CustomerOrderCustomer">
-            <End Role="CustomerSet" EntitySet="CustomerSet" />
-            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-          </AssociationSet>
-          <AssociationSet Name="CustomerOrderDeliveryDriver" Association="Self.CustomerOrderDeliveryDriver">
-            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-            <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
-          </AssociationSet>
           <AssociationSet Name="DailyClosingFinancialTransaction" Association="Self.DailyClosingFinancialTransaction">
             <End Role="DailyClosingSet" EntitySet="DailyClosingSet" />
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
@@ -2089,6 +2159,24 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
                 <ScalarProperty Name="Township" ColumnName="Township" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerOrderCustomerSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderCustomerSet">
+              <MappingFragment StoreEntitySet="CustomerOrderCustomerSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerOrderDeliveryDriverSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriverSet">
+              <MappingFragment StoreEntitySet="CustomerOrderDeliveryDriverSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+                <ScalarProperty Name="DeliveryDriverId" ColumnName="DeliveryDriverId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2359,22 +2447,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="CustomerOrderCustomer" TypeName="ItalianPizzaServerBDModel.CustomerOrderCustomer" StoreEntitySet="CustomerOrderCustomer">
-            <EndProperty Name="CustomerSet">
-              <ScalarProperty Name="Id" ColumnName="Customer_Id" />
-            </EndProperty>
-            <EndProperty Name="CustomerOrderSet">
-              <ScalarProperty Name="Id" ColumnName="CustomerOrder_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="CustomerOrderDeliveryDriver" TypeName="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriver" StoreEntitySet="CustomerOrderDeliveryDriver">
-            <EndProperty Name="CustomerOrderSet">
-              <ScalarProperty Name="Id" ColumnName="CustomerOrder_Id" />
-            </EndProperty>
-            <EndProperty Name="DeliveryDriverSet">
-              <ScalarProperty Name="Id" ColumnName="DeliveryDriver_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
           <AssociationSetMapping Name="DailyClosingFinancialTransaction" TypeName="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" StoreEntitySet="DailyClosingFinancialTransaction">
             <EndProperty Name="DailyClosingSet">
               <ScalarProperty Name="Id" ColumnName="DailyClosing_Id" />

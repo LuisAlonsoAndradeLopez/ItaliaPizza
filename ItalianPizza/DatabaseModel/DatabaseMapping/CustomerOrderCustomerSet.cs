@@ -12,22 +12,13 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/CustomerOrderCustomer.cs
-    public partial class CustomerOrderCustomer
-========
     public partial class CustomerOrderCustomerSet
->>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/CustomerOrderCustomerSet.cs
     {
         public int Id { get; set; }
         public int CustomerOrderId { get; set; }
         public int CustomerId { get; set; }
     
-<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/CustomerOrderCustomer.cs
-        public virtual CustomerOrder CustomerOrder { get; set; }
-        public virtual Customer Customer { get; set; }
-========
         public virtual CustomerSet CustomerSet { get; set; }
         public virtual CustomerOrderSet CustomerOrderSet { get; set; }
->>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/CustomerOrderCustomerSet.cs
     }
 }

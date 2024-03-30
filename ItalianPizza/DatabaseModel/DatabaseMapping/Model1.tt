@@ -2,11 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@ 
  output extension=".cs"#><#
 
-<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/Model1.tt
 const string inputFile = @"Model1.edmx";
-========
-const string inputFile = @"ItalianPizzaServerBD.edmx";
->>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/ItalianPizzaServerBD.tt
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);

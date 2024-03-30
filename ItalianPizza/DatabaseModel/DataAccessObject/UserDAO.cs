@@ -1,12 +1,13 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -14,15 +15,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     {
         public UserDAO() { }
 
-        public List<Empleado> GetAllEmployees()
+        public List<EmployeeSet> GetAllEmployees()
         {
-            List<Empleado> employees = new List<Empleado>();
+            List<EmployeeSet> employees = new List<EmployeeSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    employees = context.Empleado.ToList();
+                    employees = context.EmployeeSet.ToList();
                 }
 
             }
@@ -38,15 +39,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return employees;
         }
 
-        public int RegisterUser(Cuenta account, Empleado employee)
+        public int RegisterUser(UserAccountSet account, EmployeeSet employee)
         {
             int result = 0;
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    context.Cuenta.Add(account);
-                    context.Empleado.Add(employee);
+                    context.UserAccountSet.Add(account);
+                    context.EmployeeSet.Add(employee);
                     result = context.SaveChanges();
                 }
 
@@ -58,21 +59,136 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-    }
-
-        public class RandomNumberGenerator
+        public List<CustomerSet> GetAllCustomers()
         {
-            private static readonly RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
-
-            public static int GenerateRandomNumber(int min, int max)
+            List<CustomerSet> customerList;
+            try
             {
-                byte[] randomNumber = new byte[4];
-                rng.GetBytes(randomNumber);
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    customerList = context.CustomerSet
+                        .Include(customer => customer.AddressSet)
+                        .Include(customer => customer.EmployeeSet)
+                        .Include(customer => customer.UserStatusSet)
+                        .ToList();
+                }
 
-                int generatedNumber = BitConverter.ToInt32(randomNumber, 0);
+                customerList.RemoveAt(0);
 
-                return new Random(generatedNumber).Next(min, max);
             }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return customerList;
         }
+
+        public CustomerSet GetCustomersByID(int customerID)
+        {
+            CustomerSet customer;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    customer = context.CustomerSet
+                        .Where(customerAux => customerAux.Id == customerID)
+                        .First();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return customer;
+        }
+
+        public List<DeliveryDriverSet> GetAllDeliveryDriver()
+        {
+            List<DeliveryDriverSet> deliveryDriverList;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    deliveryDriverList = context.DeliveryDriverSet.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return deliveryDriverList;
+        }
+
+        public CustomerSet GetCustomerByCustomerOrder(int customerOrderID)
+        {
+            CustomerSet customer = new CustomerSet();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var customerOrderDetail = context.CustomerOrderCustomerSet
+                        .Include(customerOrderDetailAux => customerOrderDetailAux.CustomerSet)
+                        .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
+
+                    customer = customerOrderDetail.CustomerSet;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return customer;
+        }
+
+        public DeliveryDriverSet GetDeliveryDriverByCustomerOrder(int customerOrderID)
+        {
+            DeliveryDriverSet deliveryDriver = new DeliveryDriverSet();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var customerOrderDetail = context.CustomerOrderDeliveryDriverSet
+                        .Include(customerOrderDetailAux => customerOrderDetailAux.DeliveryDriverSet)
+                        .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
+
+                    deliveryDriver = customerOrderDetail.DeliveryDriverSet;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return deliveryDriver;
+        }
+    }
     
 }

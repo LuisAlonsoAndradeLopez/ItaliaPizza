@@ -9,13 +9,13 @@ namespace ItalianPizza.SingletonClasses
 {
     public class UserToken
     {
-        private static Employee instance;
+        private static EmployeeSet instance;
 
         private static readonly object lockObject = new object();
 
         private UserToken() { }
 
-        public static Employee GetInstance()
+        public static EmployeeSet GetInstance()
         {
             if (instance == null)
             {
@@ -23,7 +23,7 @@ namespace ItalianPizza.SingletonClasses
                 {
                     if (instance == null)
                     {
-                        instance = new Employee();
+                        instance = new EmployeeSet();
                     }
                 }
             }

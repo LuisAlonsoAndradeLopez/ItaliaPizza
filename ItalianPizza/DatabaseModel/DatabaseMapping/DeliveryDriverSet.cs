@@ -17,11 +17,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DeliveryDriverSet()
         {
-<<<<<<< HEAD
-            this.CustomerOrderSet = new HashSet<CustomerOrderSet>();
-=======
             this.CustomerOrderDeliveryDriverSet = new HashSet<CustomerOrderDeliveryDriverSet>();
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
         }
     
         public int Id { get; set; }
@@ -33,16 +29,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int EmployeeId { get; set; }
         public int UserStatusId { get; set; }
     
-<<<<<<< HEAD
-        public virtual EmployeeSet EmployeeSet { get; set; }
-        public virtual UserStatusSet UserStatusSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerOrderSet> CustomerOrderSet { get; set; }
-=======
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerOrderDeliveryDriverSet> CustomerOrderDeliveryDriverSet { get; set; }
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual UserStatusSet UserStatusSet { get; set; }
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
     }
 }

@@ -12,7 +12,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/DailyClosingSet.cs
     public partial class DailyClosingSet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,20 +29,5 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual EmployeeSet EmployeeSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
-========
-    public partial class OrderTypeSet
-    {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderTypeSet()
-        {
-            this.CustomerOrderSet = new HashSet<CustomerOrderSet>();
-        }
-    
-        public int Id { get; set; }
-        public string Type { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerOrderSet> CustomerOrderSet { get; set; }
->>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/OrderTypeSet.cs
     }
 }

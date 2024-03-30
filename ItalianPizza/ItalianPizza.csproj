@@ -65,18 +65,52 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.6.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Auxiliary\AlertPopupTypes.cs" />
+    <Compile Include="Auxiliary\EntitiesEnums.cs" />
+    <Compile Include="Auxiliary\ExceptionLogger.cs" />
+    <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\UserDAO.cs" />
     <Compile Include="DatabaseModel\DatabaseMapping\AddressSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderCustomerSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDeliveryDriverSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\CustomerOrderDetailSet.cs">
@@ -166,11 +200,33 @@
     <Compile Include="DatabaseModel\DatabaseMapping\UserStatusSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SingletonClasses\UserToken.cs" />
+    <Compile Include="XAMLViews\AlertPopup.xaml.cs">
+      <DependentUpon>AlertPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
+      <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
+      <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI-Login.xaml.cs">
+      <DependentUpon>GUI-Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI_AddArticle.xaml.cs">
+      <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI_Inventory.xaml.cs">
+      <DependentUpon>GUI_Inventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Login\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\NavigationBar.xaml.cs">
+      <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XAMLViews\Orders\GUI-CustomerOrders.xaml.cs">
-      <DependentUpon>GUI-CustomerOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Users\GUI-ModifyUser.xaml.cs">
       <DependentUpon>GUI-ModifyUser.xaml</DependentUpon>
@@ -190,11 +246,55 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="XAMLViews\Users\GUI-AddUser.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="XAMLViews\AlertPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\Orders\GUI-CustomerOrders.xaml">
+    <Page Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUI-Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUI_AddArticle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUI_Inventory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Login\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\NavigationBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Users\GUI-AddUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -38,7 +38,7 @@ namespace ItalianPizza.XAMLViews
             List<string> types = new List<string>
             {
                 "Administrador",
-                "Empleado",
+                "EmployeeSet",
                 "Cocinero",
                 "Repartidor",
                 "Recepcionista",
@@ -99,19 +99,19 @@ namespace ItalianPizza.XAMLViews
                 else
                 {
                        userDAO = new UserDAO();
-                        Cuenta account = new Cuenta()
+                        UserAccountSet account = new UserAccountSet()
                         {
-                            Usuario = txtEmail.Text,
-                            Contraseña = txtPassword.Text
+                            UserName = txtEmail.Text,
+                            Password = txtPassword.Text
                         };
-                        Empleado employee = new Empleado()
+                        EmployeeSet employee = new EmployeeSet()
                         {
-                            Id = RandomNumberGenerator.GenerateRandomNumber(1000, 9999),
-                            Nombres = txtName.Text,
-                            ApellidoPaterno = txtLastName.Text,
-                            ApellidoMaterno = txtSecondLastName.Text,
-                            Telefono = txtPhoneNumber.Text,
-                            DatosImagen = ConvertImageToBytes()
+                            //Id = RandomNumberGenerator.GenerateRandomNumber(1000, 9999),
+                            Names = txtName.Text,
+                            LastName = txtLastName.Text,
+                            SecondLastName = txtSecondLastName.Text,
+                            Phone = txtPhoneNumber.Text,
+                           ProfilePhoto = ConvertImageToBytes()
                         };
                         int result = userDAO.RegisterUser(account, employee);
                         if (result == 1)

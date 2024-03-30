@@ -28,7 +28,7 @@ namespace ItalianPizza.XAMLViews
     {
         private CustomerOrdersDAO customerOrdersDAO;
         private ProductDAO productDAO;
-        private List<ProductSale> customerOrderProducts;
+        private List<ProductSaleSet> customerOrderProducts;
         private UserDAO userDAO;
 
         public GUI_ConsultCustomerOrder()
@@ -36,7 +36,7 @@ namespace ItalianPizza.XAMLViews
             InitializeComponent();
             InitializeDAOConnections();
             ShowAllOrdersToday();
-            customerOrderProducts = new List<ProductSale>();
+            customerOrderProducts = new List<ProductSaleSet>();
             lboStatusCustomerOrders.ItemsSource = customerOrdersDAO.GetOrderStatuses();
             lboStatusCustomerOrders.DisplayMemberPath = "Status";
             //LoadNavigationBar();
@@ -62,7 +62,7 @@ namespace ItalianPizza.XAMLViews
         {
             DateTime dateToday = DateTime.Now;
             UpdateDatePickerField(dateToday);
-            List<CustomerOrder> orders;
+            List<CustomerOrderSet> orders;
 
             try
             {
@@ -90,7 +90,7 @@ namespace ItalianPizza.XAMLViews
         {
             DateTime selectedDate = dpOrderDateFilter.SelectedDate.Value;
             UpdateDatePickerField(selectedDate);
-            List<CustomerOrder> orders;
+            List<CustomerOrderSet> orders;
 
             try
             {
@@ -107,7 +107,7 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        public void ShowOrders(List<CustomerOrder> customerOrders)
+        public void ShowOrders(List<CustomerOrderSet> customerOrders)
         {
             wpCustomerOrders.Children.Clear();
 
@@ -170,7 +170,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblNameCustomerOrder = new Label
                 {
-                    Content = customerOrder.OrderType.Type + " #" + customerOrder.Id,
+                    Content = customerOrder.OrderTypeSet.Type + " #" + customerOrder.Id,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -200,7 +200,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblCustomerOrderStatus = new Label
                 {
-                    Content = customerOrder.OrderStatus.Status,
+                    Content = customerOrder.OrderStatusSet.Status,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -234,19 +234,19 @@ namespace ItalianPizza.XAMLViews
             rectBackground.Fill = new SolidColorBrush(Color.FromRgb(232, 189, 111));
         }
 
-        public void ViewDetailsOrderCustomer(CustomerOrder customerOrder)
+        public void ViewDetailsOrderCustomer(CustomerOrderSet customerOrder)
         {
-            List<ProductSale> productsOrderCustomer;
+            List<ProductSaleSet> productsOrderCustomer;
 
             try
             {
                 grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Hidden;
-                lblOrderTypeCustomer.Content = customerOrder.OrderType.Type;
+                lblOrderTypeCustomer.Content = customerOrder.OrderTypeSet.Type;
 
-                if (customerOrder.OrderType.Type == "Pedido Domicilio")
+                if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
                 {
-                    Customer customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
-                    DeliveryDriver deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
+                    CustomerSet customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
+                    DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
                     
@@ -272,7 +272,7 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        public void ShowOrderProducts(List<ProductSale> productsOrderCustomer)
+        public void ShowOrderProducts(List<ProductSaleSet> productsOrderCustomer)
         {
             wpCustomerOrderProducts.Children.Clear();
 
@@ -326,7 +326,7 @@ namespace ItalianPizza.XAMLViews
             wpCustomerOrderProducts.Children.Add(scrollViewer);
         }
 
-        private double CalculateTotalCost(List<ProductSale> productsOrderCustomer)
+        private double CalculateTotalCost(List<ProductSaleSet> productsOrderCustomer)
         {
             double totalOrderCost = 0;
 
@@ -340,7 +340,7 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToCreateOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(new List<ProductSale>()));
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>()));
         }
 
         private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
@@ -350,11 +350,11 @@ namespace ItalianPizza.XAMLViews
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
         {
-            List<CustomerOrder> customerOrders;
+            List<CustomerOrderSet> customerOrders;
 
             try
             {
-                customerOrders = customerOrdersDAO.GetCustomerOrdersByStatus((OrderStatus)lboStatusCustomerOrders.SelectedItem);
+                customerOrders = customerOrdersDAO.GetCustomerOrdersByStatus((OrderStatusSet)lboStatusCustomerOrders.SelectedItem);
                 ShowOrders(customerOrders);
             }
             catch (EntityException)

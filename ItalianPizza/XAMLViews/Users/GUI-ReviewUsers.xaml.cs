@@ -44,7 +44,7 @@ namespace ItalianPizza.XAMLViews
 
         private void GetAllUsers()
         {
-            List<Empleado> employees = new List<Empleado>();
+            List<EmployeeSet> employees = new List<EmployeeSet>();
             try
             {
                 employees = userDAO.GetAllEmployees();
@@ -57,7 +57,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        private void ShowAllUsers(List<Empleado> employees)
+        private void ShowAllUsers(List<EmployeeSet> employees)
         {
             wpUsersRegistered.Children.Clear();
             ScrollViewer scroll = new ScrollViewer
@@ -97,7 +97,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblFullName = new Label
                 {
-                    Content = employee.Nombres + " " + employee.ApellidoPaterno + " " + employee.ApellidoMaterno,
+                    Content = employee.Names + " " + employee.LastName + " " + employee.SecondLastName,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
                     Margin = new Thickness(110, 0, 0, 0),
@@ -107,7 +107,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblUserType = new Label
                 {
-                    Content = employee.Tipo,
+                    Content = employee.UserStatusId,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
                     Margin = new Thickness(326, 0, 0, 0),
@@ -116,7 +116,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblUserStatus = new Label
                 {
-                    Content = employee.Estado,
+                    Content = employee.UserStatusId,
                     Foreground = new SolidColorBrush(Colors.White),
                     FontSize = 20,
                     Margin = new Thickness(542, 0, 0, 0),
@@ -138,7 +138,7 @@ namespace ItalianPizza.XAMLViews
             List<string> type = new List<string>
             {
                 "Administrador",
-                "Empleado",
+                "EmployeeSet",
             };
             cboUserType.ItemsSource = type;
         }

@@ -17,11 +17,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CustomerSet()
         {
-<<<<<<< HEAD
-            this.CustomerOrderSet = new HashSet<CustomerOrderSet>();
-=======
             this.CustomerOrderCustomerSet = new HashSet<CustomerOrderCustomerSet>();
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
         }
     
         public int Id { get; set; }
@@ -35,16 +31,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int Address_Id { get; set; }
     
         public virtual AddressSet AddressSet { get; set; }
-<<<<<<< HEAD
-        public virtual EmployeeSet EmployeeSet { get; set; }
-        public virtual UserStatusSet UserStatusSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CustomerOrderSet> CustomerOrderSet { get; set; }
-=======
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerOrderCustomerSet> CustomerOrderCustomerSet { get; set; }
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual UserStatusSet UserStatusSet { get; set; }
->>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d
     }
 }
