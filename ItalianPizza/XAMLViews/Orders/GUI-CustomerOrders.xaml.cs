@@ -28,17 +28,16 @@ namespace ItalianPizza.XAMLViews
             InitializeComboBoxes();
             ShowAllOrdersToday();
         }
-
         public void ShowAllOrdersToday()
         {
             DateTime dateToday = DateTime.Today;
             string formattedDate = dateToday.ToString("dd/MM/yyyy");
-            List<OrdenCliente> orders;
+            List<CustomerOrder> orders;
 
             try
             {
-                orders = customerOrdersDAO.GetCustomerOrdersByDate(formattedDate);
-                ShowOrders(orders);
+                //orders = customerOrdersDAO.GetCustomerOrdersByDate(formattedDate);
+                //ShowOrders(orders);
             }
             catch (EntityException ex)
             {
@@ -51,7 +50,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        public void ShowOrders(List<OrdenCliente> orders)
+        public void ShowOrders(List<CustomerOrder> orders)
         {
             wpCustomerOrders.Children.Clear();
 
@@ -92,7 +91,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblNameCustomerOrder = new Label
                 {
-                    Content = Order.Nombre,
+                    Content = Order.OrderType.Type,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -102,7 +101,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblCustomerOrderDate = new Label
                 {
-                    Content = Order.Fecha.ToString(),
+                    Content = Order.OrderDate.ToString(),
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -112,7 +111,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblCustomerOrderTime = new Label
                 {
-                    Content = Order.Hora.ToString(),
+                    Content = Order.RegistrationTime.ToString(),
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -122,7 +121,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblCustomerOrderStatus = new Label
                 {
-                    Content = Order.Estado,
+                    Content = Order.OrderStatus.Status,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
@@ -146,13 +145,13 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        public void ViewDetailsOrderCustomer(object sender, MouseButtonEventArgs e, OrdenCliente ordenCliente)
+        public void ViewDetailsOrderCustomer(object sender, MouseButtonEventArgs e, CustomerOrder ordenCliente)
         {
-            List<Producto> products;
+            List<ProductSale> products;
 
             try
             {
-                products = customerOrdersDAO.GetOrderProducts(ordenCliente.Id);
+                products = new List<ProductSale>(); //customerOrdersDAO.GetOrderProducts(ordenCliente.Id);
                 ShowOrderProducts(products);
             }
             catch (EntityException ex)
@@ -166,7 +165,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        public void ShowOrderProducts(List<Producto> orderProducts)
+        public void ShowOrderProducts(List<ProductSale> orderProducts)
         {
             wpCustomerOrderProducts.Children.Clear();
 
@@ -184,7 +183,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblNameProduct = new Label
                 {
-                    Content = product.Nombre,
+                    Content = product.Name,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
@@ -194,7 +193,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblCostProduct = new Label
                 {
-                    Content = "$ " + product.Costo.ToString() + ".00",
+                    Content = "$ " + product.PricePerUnit.ToString() + ".00",
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 14,
@@ -222,11 +221,11 @@ namespace ItalianPizza.XAMLViews
         private void ComboBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
         {
             string status = cboStatusCustomerOrders.SelectedItem.ToString().Trim();
-            List<OrdenCliente> orders;
+            List<CustomerOrder> orders = new List<CustomerOrder>();
             
             try
             {
-                orders = customerOrdersDAO.GetCustomerOrdersByStatus(status);
+                //orders = customerOrdersDAO.GetCustomerOrdersByStatus(status);
                 ShowOrders(orders);
             }
             catch (EntityException ex)
@@ -243,13 +242,13 @@ namespace ItalianPizza.XAMLViews
         {
             DateTime selectedDate = dpOrderDateFilter.SelectedDate.Value;
             string formattedDate = selectedDate.ToString("dd/MM/yyyy");
-            List<OrdenCliente> orders = customerOrdersDAO.GetCustomerOrdersByDate(formattedDate);
-            ShowOrders(orders);
+            //List<CustomerOrder> orders = customerOrdersDAO.GetCustomerOrdersByDate(formattedDate);
+            //ShowOrders(orders);
         }
 
         private void ShowActiveProducts()
         {
-            List<Producto> products;
+            List<ProductSale> products;
 
             try
             {
@@ -267,7 +266,7 @@ namespace ItalianPizza.XAMLViews
 
         }
 
-        private void AddVisualProductsToWindow(List<Producto> products)
+        private void AddVisualProductsToWindow(List<ProductSale> products)
         {
             wpProducts.Children.Clear();
 
@@ -297,19 +296,11 @@ namespace ItalianPizza.XAMLViews
                 };
                 grdContainer.Children.Add(rectBackground);
 
-                Image image = new Image
-                {
-                    Height = 120,
-                    Width = 120,
-                    Source = new BitmapImage(new Uri(product.Foto, UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(-665, 0, 0, 0),
-                };
-                grdContainer.Children.Add(image);
+                
 
                 Label lblNameCustomerOrder = new Label
                 {
-                    Content = product.Nombre,
+                    Content = product.Name,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
                     FontWeight = FontWeights.SemiBold,
                     FontSize = 20,
@@ -319,7 +310,7 @@ namespace ItalianPizza.XAMLViews
 
                 Label lblOrderCostCustomer = new Label
                 {
-                    Content = "$ " + product.Costo + ".00",
+                    Content = "$ " + product.PricePerUnit + ".00",
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
                     FontWeight = FontWeights.SemiBold,
                     FontSize = 19,
