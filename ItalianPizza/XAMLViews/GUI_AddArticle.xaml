@@ -72,7 +72,7 @@
                     </StackPanel>
                     <StackPanel Width="335">
                         <Label Content="Cantidad: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <xctk:IntegerUpDown Name="QuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
+                        <xctk:IntegerUpDown Name="QuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24" PreviewTextInput="QuantityIntegerUpDownPreviewTextInput"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -88,7 +88,7 @@
                     </StackPanel>
                     <StackPanel Width="332">
                         <Label Content="Precio: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <xctk:DecimalUpDown Name="PriceDecimalUpDown" ValueChanged="PriceDecimalUpDownValueChanged" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
+                        <xctk:DecimalUpDown Name="PriceDecimalUpDown" ValueChanged="PriceDecimalUpDownValueChanged" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24" PreviewTextInput="PriceDecimalUpDownPreviewTextInput"/>
                     </StackPanel>
                 </StackPanel>
 

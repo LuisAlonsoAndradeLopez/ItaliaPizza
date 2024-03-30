@@ -104,8 +104,8 @@
                     </StackPanel>
 
                     <StackPanel Name="SelectedArticleUnitStackPanel" Width="569" Orientation="Horizontal" Height="52" Visibility="Collapsed">
-                        <TextBlock Text="Unidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="86" Height="26"/>
-                        <TextBlock Name="SelectedArticleUnitTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="452" Height="26"/>
+                        <TextBlock Text="Unidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="66" Height="26"/>
+                        <TextBlock Name="SelectedArticleUnitTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="471" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="52">
@@ -124,8 +124,8 @@
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="52">
-                        <TextBlock Text="Precio: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="58" Height="26"/>
-                        <TextBlock Name="SelectedArticlePriceTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="481" Height="26"/>
+                        <TextBlock Text="Precio: $" Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="68" Height="26"/>
+                        <TextBlock Name="SelectedArticlePriceTextBlock" Foreground="White" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="472" Height="26"/>
                     </StackPanel>
 
                     <StackPanel Name="SelectedArticleDescriptionStackPanel" Width="569" Orientation="Vertical" Height="183" Visibility="Visible">
