@@ -14,7 +14,65 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
     public class ProductDAO
     {
-        public ProductDAO() { }
+        public int AddProduct(ProductSaleSet product)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.ProductSaleSet.Add(product);
+                    context.SaveChanges();
+                }
+
+                result = 1;
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int DisableProduct(string productName)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    ProductSaleSet productToDisable = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
+                    if (productToDisable != null)
+                    {
+                        productToDisable.ProductStatusId = 2;
+                        context.SaveChanges();
+                    }
+                }
+
+                result = 1;
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public List<ProductSaleSet> GetAllActiveProducts()
+        {
+            List<ProductSaleSet> activeProducts = new List<ProductSaleSet>();
 
         public List<ProductSale> GetAllActiveProducts()
         {
@@ -39,51 +97,35 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return activeProducts;
         }
 
-        public List<ProductSale> GetOrderProducts(CustomerOrder customerOrder)
+        public BitmapImage GetImageByProductName(string productName)
         {
-            List<ProductSale> customerOrderProducts;
-
-            try
+            using (var context = new ItalianPizzaServerBDEntities())
             {
-                using (var context = new ItalianPizzaServerBDEntities())
+                byte[] imageBytes = context.ProductSaleSet.Where(ps => ps.Name == productName).First().Picture;
+
+                BitmapImage bitmapImage = new BitmapImage();
+
+                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
                 {
-                    var customerOrderDetails = context.CustomerOrderDetailSet
-                                            .Where(d => d.CustomerOrderId == customerOrder.Id)
-                                            .Include(d => d.ProductSale)
-                                            .ToList();
-
-                    customerOrderProducts = customerOrderDetails.Select(detalle =>
-                        new ProductSale
-                        {
-                            Id = detalle.ProductSale.Id,
-                            Name = detalle.ProductSale.Name,
-                            Quantity = detalle.ProductQuantity,
-                            PricePerUnit = detalle.PricePerUnit
-                        }).ToList();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Freeze the image for performance benefits
                 }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
 
-            return customerOrderProducts;
-
+                return bitmapImage;
+            }
         }
 
-        public List<ProductType> GetAllProductTypes()
+        public ProductSaleSet GetProductByName(string productName)
         {
-            List<ProductType> productTypesList;
-
+            ProductSaleSet product = new ProductSaleSet();
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    productTypesList = context.ProductTypeSet.ToList();
+                    product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
                 }
             }
             catch (EntityException ex)
@@ -95,18 +137,51 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
 
-            return productTypesList;
+            return product;
         }
 
-        public List<ProductStatus> GetAllProductStatuses()
+        public List<ProductSaleSet> GetSpecifiedProductsByNameOrCode(string textForFindingArticle, string findByType)
         {
-            List<ProductStatus> productStatusesList;
+            List<ProductSaleSet> specifiedProducts = new List<ProductSaleSet>();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                if (findByType == "Name")
+                {
+                    specifiedProducts = context.ProductSaleSet.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                }
+
+                if (findByType == "Código")
+                {
+                    specifiedProducts = context.ProductSaleSet.Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                }
+            }
+
+            return specifiedProducts;
+        }
+
+        public int ModifyProduct(ProductSaleSet originalProduct, ProductSaleSet modifiedProduct)
+        {
+            int generatedID = 0;
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    productStatusesList = context.ProductStatusSet.ToList();
+                    ProductSaleSet productFound = context.ProductSaleSet.Where(p => p.Name == originalProduct.Name).FirstOrDefault();
+                    if (productFound != null)
+                    {
+                        productFound.Name = modifiedProduct.Name;
+                        productFound.Quantity = modifiedProduct.Quantity;
+                        productFound.PricePerUnit = modifiedProduct.PricePerUnit;
+                        productFound.Picture = modifiedProduct.Picture;
+                        productFound.ProductTypeId = modifiedProduct.ProductTypeId;
+                        productFound.EmployeeId = modifiedProduct.EmployeeId;
+                        productFound.IdentificationCode = modifiedProduct.IdentificationCode;
+                        productFound.Description = modifiedProduct.Description;
+                        context.SaveChanges();
+                        generatedID = (int)productFound.Id;
+                    }
                 }
             }
             catch (EntityException ex)
@@ -118,7 +193,32 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
 
-            return productStatusesList;
+            return generatedID;
+        }
+
+        public bool TheNameIsAlreadyRegistred(string productName)
+        {
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    ProductSaleSet product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
+                    if (product != null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
         }
     }
 }

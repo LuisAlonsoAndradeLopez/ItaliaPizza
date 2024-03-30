@@ -12,12 +12,21 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/DailyClosing.cs
     public partial class DailyClosing
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DailyClosing()
         {
             this.FinancialTransaction = new HashSet<FinancialTransaction>();
+========
+    public partial class DailyClosingSet
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DailyClosingSet()
+        {
+            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/DailyClosingSet.cs
         }
     
         public int Id { get; set; }
@@ -26,8 +35,13 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public double TotalAmount { get; set; }
         public int EmployeeId { get; set; }
     
+        public virtual EmployeeSet EmployeeSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/DailyClosing.cs
         public virtual ICollection<FinancialTransaction> FinancialTransaction { get; set; }
         public virtual Employee Employee { get; set; }
+========
+        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/DailyClosingSet.cs
     }
 }

@@ -12,6 +12,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/InventoryValidation.cs
     public partial class InventoryValidation
     {
         public int Id { get; set; }
@@ -20,5 +21,16 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int EmployeeId { get; set; }
     
         public virtual Employee Employee { get; set; }
+========
+    public partial class RecipeDetailsSet
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+        public int SupplyId { get; set; }
+        public int RecipeId { get; set; }
+    
+        public virtual RecipeSet RecipeSet { get; set; }
+        public virtual SupplySet SupplySet { get; set; }
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/RecipeDetailsSet.cs
     }
 }

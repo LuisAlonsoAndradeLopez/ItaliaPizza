@@ -12,6 +12,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/OrderStatus.cs
     public partial class OrderStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +20,29 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         {
             this.CustomerOrder = new HashSet<CustomerOrder>();
             this.SupplierOrder = new HashSet<SupplierOrder>();
+========
+    public partial class OrderStatusSet
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public OrderStatusSet()
+        {
+            this.CustomerOrderSet = new HashSet<CustomerOrderSet>();
+            this.SupplierOrderSet = new HashSet<SupplierOrderSet>();
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/OrderStatusSet.cs
         }
     
         public int Id { get; set; }
         public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/OrderStatus.cs
         public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierOrder> SupplierOrder { get; set; }
+========
+        public virtual ICollection<CustomerOrderSet> CustomerOrderSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupplierOrderSet> SupplierOrderSet { get; set; }
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/OrderStatusSet.cs
     }
 }

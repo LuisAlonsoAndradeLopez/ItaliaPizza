@@ -12,6 +12,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/SupplierOrder.cs
     public partial class SupplierOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,6 +20,15 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         {
             this.SupplierOrderDetails = new HashSet<SupplierOrderDetails>();
             this.FinancialTransaction = new HashSet<FinancialTransaction>();
+========
+    public partial class SupplierOrderSet
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SupplierOrderSet()
+        {
+            this.SupplierOrderDetailsSet = new HashSet<SupplierOrderDetailsSet>();
+            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/SupplierOrderSet.cs
         }
     
         public int Id { get; set; }
@@ -27,6 +37,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public System.TimeSpan RegistrationTime { get; set; }
         public int OrderStatusId { get; set; }
         public int EmployeeId { get; set; }
+<<<<<<<< HEAD:ItalianPizza/DatabaseModel/DatabaseMapping/SupplierOrder.cs
     
         public virtual Supplier Supplier { get; set; }
         public virtual OrderStatus OrderStatus { get; set; }
@@ -35,5 +46,16 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual Employee Employee { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FinancialTransaction> FinancialTransaction { get; set; }
+========
+        public int Supplier_Id { get; set; }
+    
+        public virtual EmployeeSet EmployeeSet { get; set; }
+        public virtual OrderStatusSet OrderStatusSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SupplierOrderDetailsSet> SupplierOrderDetailsSet { get; set; }
+        public virtual SupplierSet SupplierSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
+>>>>>>>> d1b5b603a1726b12cc340c733b91b809aceecd0d:ItalianPizza/DatabaseModel/DatabaseMapping/SupplierOrderSet.cs
     }
 }

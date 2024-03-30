@@ -1,7 +1,6 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -115,6 +114,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customerOrder => customerOrder.OrderStatus)
                         .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
                         .ToList();
+                    //orders = context.CustomerOrderSetSet.Where(o => o.Fecha == date).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            
+            return orders;
+        }
+
+        public List<CustomerOrderSet> GetCustomerOrdersByStatus(String status)
+        {
+            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    //orders = context.CustomerOrderSet.Where(o => o.OrderStatusSet == status).ToList();
                 }
             }
             catch (EntityException ex)
