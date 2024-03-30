@@ -1,0 +1,328 @@
+Timestamp: 22/03/2024 12:07:39 a. m.
+Exception Details:
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlClient.SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_EmpleadoInsumo". The conflict occurred in database "ItalianPizzaServerBD", table "dbo.EmpleadoSet", column 'Id'.
+The statement has been terminated.
+   en System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   en System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   en System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   en System.Data.SqlClient.SqlDataReader.get_MetaData()
+   en System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<>c.<Reader>b__6_0(DbCommand t, DbCommandInterceptionContext`1 c)
+   en System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   en System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<>c.<Update>b__21_0(UpdateTranslator ut)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   en System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__153_0()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass148_0.<SaveChangesInternal>b__0()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 137
+--------------------------------------------------
+
+Timestamp: 23/03/2024 03:51:42 p. m.
+Exception Details:
+System.Windows.Markup.XamlParseException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '13'; posición de línea: '14'). ---> System.Exception: No se puede encontrar el recurso con el nombre 'RedButton'. Los nombres de recursos distinguen mayúsculas de minúsculas.
+   en System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   en System.Windows.StaticResourceExtension.ProvideValue(IServiceProvider serviceProvider)
+   en MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   en System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   en System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   en System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   en ItalianPizza.XAMLViews.AlertPopup.InitializeComponent() en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml:línea 1
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 12
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 03:51:51 p. m.
+Exception Details:
+System.Windows.Markup.XamlParseException: 'Se produjo una excepción al proporcionar un valor en 'System.Windows.StaticResourceExtension'.' (número de línea: '13'; posición de línea: '14'). ---> System.Exception: No se puede encontrar el recurso con el nombre 'RedButton'. Los nombres de recursos distinguen mayúsculas de minúsculas.
+   en System.Windows.StaticResourceExtension.ProvideValueInternal(IServiceProvider serviceProvider, Boolean allowDeferredReference)
+   en System.Windows.StaticResourceExtension.ProvideValue(IServiceProvider serviceProvider)
+   en MS.Internal.Xaml.Runtime.ClrObjectRuntime.CallProvideValue(MarkupExtension me, IServiceProvider serviceProvider)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Windows.Markup.WpfXamlLoader.Load(XamlReader xamlReader, IXamlObjectWriterFactory writerFactory, Boolean skipJournaledProperties, Object rootObject, XamlObjectWriterSettings settings, Uri baseUri)
+   en System.Windows.Markup.WpfXamlLoader.LoadBaml(XamlReader xamlReader, Boolean skipJournaledProperties, Object rootObject, XamlAccessLevel accessLevel, Uri baseUri)
+   en System.Windows.Markup.XamlReader.LoadBaml(Stream stream, ParserContext parserContext, Object parent, Boolean closeStream)
+   en System.Windows.Application.LoadComponent(Object component, Uri resourceLocator)
+   en ItalianPizza.XAMLViews.AlertPopup.InitializeComponent() en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml:línea 1
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 12
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:04:38 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, String alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 32
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:07:17 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, String alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 33
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:13:15 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 34
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:17:18 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 126
+--------------------------------------------------
+
+Timestamp: 23/03/2024 05:18:33 p. m.
+Exception Details:
+System.IO.DirectoryNotFoundException: No se puede encontrar una parte de la ruta de acceso 'C:\Resources\Pictures\AlertPopupImages\ICON-Error.png'.
+   en System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   en System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   en System.IO.File.InternalReadAllBytes(String path, Boolean checkHost)
+   en System.IO.File.ReadAllBytes(String path)
+   en ItalianPizza.Auxiliary.ImageManager.GetImageByItaliaPizzaStoragedImagePath(String filePath) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 36
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 34
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 07:26:39 p. m.
+Exception Details:
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en ItalianPizza.XAMLViews.AlertPopup..ctor(String header, String message, AlertPopupTypes alertPopupType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\AlertPopup.xaml.cs:línea 22
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 160
+--------------------------------------------------
+
+Timestamp: 23/03/2024 11:59:03 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 126
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:30:13 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 141
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:41:16 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 142
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:42:12 p. m.
+Exception Details:
+System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlClient.SqlException: The INSERT statement conflicted with the FOREIGN KEY constraint "FK_EmpleadoInsumo". The conflict occurred in database "ItalianPizzaServerBD", table "dbo.EmpleadoSet", column 'Id'.
+The statement has been terminated.
+   en System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   en System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   en System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   en System.Data.SqlClient.SqlDataReader.get_MetaData()
+   en System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<>c.<Reader>b__6_0(DbCommand t, DbCommandInterceptionContext`1 c)
+   en System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   en System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.<>c.<Update>b__21_0(UpdateTranslator ut)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update[T](T noChangesResult, Func`2 updateFunction)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityAdapter.Update()
+   en System.Data.Entity.Core.Objects.ObjectContext.<SaveChangesToStore>b__153_0()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.<>c__DisplayClass148_0.<SaveChangesInternal>b__0()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)
+   en System.Data.Entity.Core.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 139
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:45:51 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 139
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:47:49 p. m.
+Exception Details:
+System.ArgumentNullException: El valor no puede ser nulo.
+Nombre del parámetro: source
+   en System.Windows.Media.Imaging.BitmapFrame.Create(BitmapSource source)
+   en ItalianPizza.Auxiliary.ImageManager.GetBitmapImageBytes(BitmapImage imageSource) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\Auxiliary\ImageManager.cs:línea 15
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 127
+--------------------------------------------------
+
+Timestamp: 24/03/2024 03:56:16 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 144
+--------------------------------------------------
+
+Timestamp: 24/03/2024 04:00:46 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.IngredientDAO.AddIngredient(Insumo ingredient) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\IngredientDAO.cs:línea 20
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 157
+--------------------------------------------------
+
+Timestamp: 24/03/2024 04:05:56 p. m.
+Exception Details:
+System.NullReferenceException: Referencia a objeto no establecida como instancia de un objeto.
+   en ItalianPizza.XAMLViews.GUI_AddArticle.AddArticleButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_AddArticle.xaml.cs:línea 128
+--------------------------------------------------
+
+Timestamp: 26/03/2024 10:47:26 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.ProductDAO.ModifyProduct(Producto originalProduct, Producto modifiedProduct) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\ProductDAO.cs:línea 165
+   en ItalianPizza.XAMLViews.GUI_Inventory.ModifyArticleButtonOnClick2(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 304
+--------------------------------------------------
+
+Timestamp: 26/03/2024 10:50:37 p. m.
+Exception Details:
+System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   en System.Data.Entity.Internal.InternalContext.SaveChanges()
+   en System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   en System.Data.Entity.DbContext.SaveChanges()
+   en ItalianPizza.DatabaseModel.DataAccessObject.ProductDAO.ModifyProduct(Producto originalProduct, Producto modifiedProduct) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\ProductDAO.cs:línea 165
+   en ItalianPizza.XAMLViews.GUI_Inventory.ModifyArticleButtonOnClick2(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 304
+--------------------------------------------------
+
+Timestamp: 29/03/2024 09:08:54 p. m.
+Exception Details:
+System.Data.Entity.Core.EntityCommandExecutionException: An error occurred while executing the command definition. See the inner exception for details. ---> System.Data.SqlClient.SqlException: Error en el nivel del transporte al recibir los resultados del servidor. (provider: Session Provider, error: 19 - No se puede utilizar la conexión física)
+   en System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   en System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   en System.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   en System.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   en System.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   en System.Data.SqlClient.TdsParserStateObject.TryPrepareBuffer()
+   en System.Data.SqlClient.TdsParserStateObject.TryReadByte(Byte& value)
+   en System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   en System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   en System.Data.SqlClient.SqlDataReader.get_MetaData()
+   en System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   en System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   en System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.<>c.<Reader>b__6_0(DbCommand t, DbCommandInterceptionContext`1 c)
+   en System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)
+   en System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.Reader(DbCommand command, DbCommandInterceptionContext interceptionContext)
+   en System.Data.Entity.Internal.InterceptableDbCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   en System.Data.Common.DbCommand.ExecuteReader(CommandBehavior behavior)
+   en System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   en System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass41_0.<GetResults>b__1()
+   en System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass41_0.<GetResults>b__0()
+   en System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   en System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__31_0()
+   en System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   en System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   en System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   en ItalianPizza.DatabaseModel.DataAccessObject.ProductDAO.GetSpecifiedProductsByNameOrCode(String textForFindingArticle, String findByType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\DatabaseModel\DataAccessObject\ProductDAO.cs:línea 140
+   en ItalianPizza.XAMLViews.GUI_Inventory.ShowArticles(String textForFindingArticle, String showType, String findByType) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 457
+   en ItalianPizza.XAMLViews.GUI_Inventory.FindByComboBoxSelectionChanged(Object sender, SelectionChangedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\GUI_Inventory.xaml.cs:línea 112
+--------------------------------------------------
+
