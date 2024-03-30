@@ -34,13 +34,14 @@
         <Rectangle HorizontalAlignment="Left" Height="880" Margin="256,13,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="892" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2"/>
 
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
-            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="297,35,0,0" TextWrapping="Wrap" Text="Ingrese nombre del artículo" VerticalAlignment="Top" Height="40" Width="526" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
-            <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
-            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="382,96,0,0" VerticalAlignment="Top" Height="40" Width="441" SelectionChanged="ShowComboBoxSelectionChanged"/>
-            <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="297,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="412,157,0,0" VerticalAlignment="Top" FontSize="20" Width="411" Height="40" SelectionChanged="FindByComboBoxSelectionChanged"/>
-            <Button Content="Agregar Artículo" HorizontalAlignment="Left" Margin="864,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
-            <Button Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="864,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
+            <Label Name="ArticleNameOrCodeLabel" Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="277,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" Width="173"/>
+            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="450,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="420" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
+            <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="277,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial"/>
+            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged"/>
+            <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="277,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
+            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="492" Height="40" SelectionChanged="FindByComboBoxSelectionChanged"/>
+            <Button Content="Agregar Artículo" HorizontalAlignment="Left" Margin="894,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
+            <Button Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="894,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
 
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#000000"/>
             <Label Content="Imágen" HorizontalAlignment="Left" Margin="341,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
@@ -80,7 +81,7 @@
                 </StackPanel>
             </StackPanel>
         </Border>
-        
+
 
         <Border Height="548" Margin="408,232,14,0" Background="#FF1C1C1C" VerticalAlignment="Top" Width="567" CornerRadius="20" Grid.Column="1">
             <StackPanel>
@@ -156,7 +157,7 @@
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Código: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="68" Height="26"/>
-                        <TextBox Name="ModifySelectedArticleCodeTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="468" Height="26" MaxLength="12"/>
+                        <TextBox Name="ModifySelectedArticleCodeTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="468" Height="26" MaxLength="20"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
@@ -166,7 +167,7 @@
 
                     <StackPanel Name="ModifySelectedArticleDescriptionStackPanel" Width="569" Orientation="Vertical" Height="243" Visibility="Visible">
                         <TextBlock Text="Descripción: " Foreground="White" FontSize="18" Margin="16,10,0,0" TextAlignment="Left" HorizontalAlignment="Left" TextWrapping="Wrap" Width="101" Height="26"/>
-                        <TextBox Name="ModifySelectedArticleDescriptionTextBox" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="539" Height="185" MaxLength="75"/>
+                        <TextBox Name="ModifySelectedArticleDescriptionTextBox" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="539" Height="185" MaxLength="300"/>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

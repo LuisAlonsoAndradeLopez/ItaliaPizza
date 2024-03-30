@@ -2,9 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Drawing.Imaging;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
+using System.Text;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -80,25 +83,23 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public BitmapImage GetImageByProductName(string productName)
         {
-            string imageDataInString;
-
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                imageDataInString = context.ProductSaleSet.Where(p => p.Name == productName).First().Picture.ToString();
+                byte[] imageBytes = context.ProductSaleSet.Where(ps => ps.Name == productName).First().Picture;
+
+                BitmapImage bitmapImage = new BitmapImage();
+
+                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                {
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Freeze the image for performance benefits
+                }
+
+                return bitmapImage;
             }
-
-            byte[] imageData = Convert.FromBase64String(imageDataInString);
-
-            BitmapImage imageSource = new BitmapImage();
-
-            if (imageData != null)
-            {
-                imageSource.BeginInit();
-                imageSource.StreamSource = new MemoryStream(imageData);
-                imageSource.EndInit();
-            }
-
-            return imageSource;
         }
 
         public ProductSaleSet GetProductByName(string productName)

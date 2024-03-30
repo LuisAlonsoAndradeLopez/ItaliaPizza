@@ -57,7 +57,7 @@
                 <StackPanel Name="NameAndArticleTypeStackPanel" Orientation="Horizontal" Height="142" Width="716" Margin="0,10,0,0">
                     <StackPanel Width="388">
                         <Label Content="Nombre del Artículo: " HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <TextBox Name="ArticleNameTextBox" HorizontalAlignment="Center" Margin="0,2,0,0" Text="Ingrese nombre del artículo" VerticalAlignment="Top" Height="64" Width="363" FontSize="24" MaxLength="40"/>
+                        <TextBox Name="ArticleNameTextBox" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Height="64" Width="363" FontSize="24" MaxLength="40"/>
                     </StackPanel>
                     <StackPanel Width="328">
                         <Label Content="Tipo de Artículo: " HorizontalAlignment="Center" Margin="0,12,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
@@ -84,7 +84,7 @@
                 <StackPanel Orientation="Horizontal" Height="136" Margin="0,20,0,0">
                     <StackPanel Width="387">
                         <Label Content="Código: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <TextBox Name="CodeTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" Text="Ingrese el código del artículo" VerticalAlignment="Center" Height="64" Width="359" FontSize="24" MaxLength="12"/>
+                        <TextBox Name="CodeTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="359" FontSize="24" MaxLength="20"/>
                     </StackPanel>
                     <StackPanel Width="332">
                         <Label Content="Precio: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
@@ -94,7 +94,7 @@
 
                 <StackPanel Name="DescriptionStackPanel" Visibility="Visible">
                     <Label Content="Descripción: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                    <TextBox Name="DescriptionTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Text="Ingrese la descripción del artículo" Height="194" Width="681" FontSize="24" MaxLength="75"/>
+                    <TextBox Name="DescriptionTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="194" Width="681" FontSize="24" MaxLength="300"/>
                 </StackPanel>
             </StackPanel>
             <Button Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>

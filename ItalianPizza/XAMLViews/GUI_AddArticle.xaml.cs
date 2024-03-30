@@ -90,6 +90,7 @@ namespace ItalianPizza.XAMLViews
             string selectedOption = articleTypesComboBox.SelectedItem?.ToString();
 
             SupplyOrProductTypesComboBox.Items.Clear();
+            SupplyUnitsComboBox.Items.Clear();
 
             List<SupplyTypeSet> supplyCategories = new SupplyTypeDAO().GetAllSupplyTypes();
             List<ProductTypeSet> productCategories = new ProductTypeDAO().GetAllProductTypes();

@@ -7,24 +7,19 @@ namespace ItalianPizza.Auxiliary
     public class ImageManager
     {
         public byte[] GetBitmapImageBytes(BitmapImage imageSource)
-        {        
-            if (imageSource != null)
+        {
+            byte[] bytes;
+
+            using (MemoryStream stream = new MemoryStream())
             {
-                BitmapSource bitmapSource = imageSource as BitmapSource;
-
-                // Convert BitmapSource to Bitmap
                 BitmapEncoder encoder = new PngBitmapEncoder();
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
-                    encoder.Save(memoryStream);
+                encoder.Frames.Add(BitmapFrame.Create(imageSource));
+                encoder.Save(stream);
 
-                    // Convert the bitmap to a byte array
-                    return memoryStream.ToArray();
-                }
+                bytes = stream.ToArray();
             }
 
-            return null;
+            return bytes;
         }
 
         public BitmapImage GetImageByItaliaPizzaStoragedImagePath(string filePath)

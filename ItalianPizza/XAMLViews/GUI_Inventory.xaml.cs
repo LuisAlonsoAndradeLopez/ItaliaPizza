@@ -37,7 +37,8 @@ namespace ItalianPizza.XAMLViews
             InitializeComponent();
             InitializeSearchComboBoxes();
 
-            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
 
         private void UsersButtonOnClick(object sender, RoutedEventArgs e)
@@ -98,6 +99,17 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
+                if (FindByComboBox.SelectedItem?.ToString() == "Nombre")
+                {
+                    ArticleNameOrCodeLabel.Content = "Nombre del artículo: ";
+                }
+                
+                if (FindByComboBox.SelectedItem?.ToString() == "Código")
+                {
+                    ArticleNameOrCodeLabel.Content = "Código del artículo: ";
+                }
+
+
                 ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
@@ -408,12 +420,12 @@ namespace ItalianPizza.XAMLViews
             {
                 foreach (var supplyType in supplyTypes)
                 {
-                    ModifySelectedArticleCategoryComboBox.Items.Add(supplyType);
+                    ModifySelectedArticleCategoryComboBox.Items.Add(supplyType.Type);
                 }
 
                 foreach (var supplyUnit in supplyUnits)
                 {
-                    ModifySelectedArticleUnitComboBox.Items.Add(supplyUnit);
+                    ModifySelectedArticleUnitComboBox.Items.Add(supplyUnit.Unit);
                 }
 
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new SupplyTypeDAO().GetSupplyTypeByName(SelectedArticleCategoryTextBlock.Text.ToString()).Type;
@@ -424,7 +436,7 @@ namespace ItalianPizza.XAMLViews
             {
                 foreach (var productType in productTypes)
                 {
-                    ModifySelectedArticleCategoryComboBox.Items.Add(productType);
+                    ModifySelectedArticleCategoryComboBox.Items.Add(productType.Type);
                 }
 
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new ProductTypeDAO().GetProductTypeByName(SelectedArticleCategoryTextBlock.Text.ToString()).Type;

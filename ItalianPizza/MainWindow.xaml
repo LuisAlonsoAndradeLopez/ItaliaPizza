@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ItalianPizza"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="MainWindow" 
         Height="790" Width="1179">
-    <Frame x:Name="MainFrame">
-
-    </Frame>
+    
+    
+    <Frame x:Name="MainFrame"/>
+    
 
     <!--
     <Grid Background="#070711" Margin="0,0,0,-6" >

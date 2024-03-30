@@ -1,9 +1,14 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.XAMLViews;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
@@ -67,26 +72,24 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
         public BitmapImage GetImageBySupplyName(string supplyName)
-        {
-            string imageDataInString;
-
+        {         
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                imageDataInString = context.SupplySet.Where(s => s.Name == supplyName).First().Picture.ToString();
+                byte[] imageBytes = context.SupplySet.Where(s => s.Name == supplyName).First().Picture;             
+
+                BitmapImage bitmapImage = new BitmapImage();
+
+                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                {
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Freeze the image for performance benefits
+                }
+
+                return bitmapImage;
             }
-
-            byte[] imageData = Convert.FromBase64String(imageDataInString);
-
-            BitmapImage imageSource = new BitmapImage();
-
-            if (imageData != null)
-            {
-                imageSource.BeginInit();
-                imageSource.StreamSource = new MemoryStream(imageData);
-                imageSource.EndInit();
-            }
-
-            return imageSource;
         }
 
         public SupplySet GetSupplyByName(string supplyName)
