@@ -210,6 +210,9 @@
     <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
       <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Finances\GUI_Finances.xaml.cs">
+      <DependentUpon>GUI_Finances.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,9 @@
     </Compile>
     <Compile Include="XAMLViews\GUI_Inventory.xaml.cs">
       <DependentUpon>GUI_Inventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\GUI_InventoryReport.xaml.cs">
+      <DependentUpon>GUI_InventoryReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Login\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -258,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="XAMLViews\Finances\GUI_Finances.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAMLViews\GUI-Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -285,6 +295,10 @@
     <Page Include="XAMLViews\GUI_Inventory.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\GUI_InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Login\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -370,7 +384,6 @@
     <Resource Include="Resources\Pictures\IMG_8823.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="XAMLViews\Finances\" />
     <Folder Include="XAMLViews\Stock\" />
     <Folder Include="XAMLViews\Suppliers\" />
   </ItemGroup>

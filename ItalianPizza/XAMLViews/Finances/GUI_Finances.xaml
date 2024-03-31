@@ -1,0 +1,130 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.Finances.GUI_Finances"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="922.16"
+      d:DesignWidth="1742.8"
+      Title="GUI_Finances">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#000000">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="754*"/>
+            <ColumnDefinition Width="989*"/>
+        </Grid.ColumnDefinitions>
+
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+
+        <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
+            <Rectangle HorizontalAlignment="Left" Height="128" Margin="270,26,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="1450" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
+            <Label Content="Tipo de Transacción: " HorizontalAlignment="Left" Margin="277,45,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontFamily="Arial" Width="211"/>
+            <ComboBox Name="TransactionTypeComboBox" HorizontalAlignment="Left" Margin="493,38,0,0" VerticalAlignment="Top" FontSize="24" Height="46" Width="744" SelectionChanged="TransactionTypeComboBoxSelectionChanged"/>
+            <Label Content="Fecha de Realización: " HorizontalAlignment="Left" Margin="277,102,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontFamily="Arial" Width="229"/>
+            <DatePicker Name="RealizationDatePicker" HorizontalAlignment="Left" Margin="511,97,0,0" VerticalAlignment="Top" FontSize="24" Height="46" Width="534"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Borrar Fecha" HorizontalAlignment="Left" Margin="1050,97,0,0" VerticalAlignment="Top" Height="46" Width="184" FontSize="14" Click="EraseSelectedDateButtonOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Transacción Financiera" HorizontalAlignment="Left" Margin="1258,55,0,0" VerticalAlignment="Top" Height="68" Width="210" FontSize="14" Click="AddFinancialTransactionButtonOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Realizar Balance Diario" HorizontalAlignment="Left" Margin="1489,55,0,0" VerticalAlignment="Top" Height="68" Width="210" FontSize="14" Click="MakeDailyBalanceOnClick"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="670" Margin="272,228,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="1448" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="48" Margin="276,174,0,0" Stroke="Black" VerticalAlignment="Top" Width="1404" Fill="#000000"/>
+            <TextBlock Text="ID" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="360,186,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <TextBlock Text="Tipo de Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="449,177,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="109"/>
+            <TextBlock Text="Fecha de Realización" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="583,180,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="110"/>
+            <TextBlock Text="Cantidad" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="744,190,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <TextBlock Text="Descripción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1218,189,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+
+            <ScrollViewer x:Name="ArticlesScrollViewer" Margin="290,250,41,43">
+                <StackPanel Name="ArticlesStackPanel" Height="627">
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+
+
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

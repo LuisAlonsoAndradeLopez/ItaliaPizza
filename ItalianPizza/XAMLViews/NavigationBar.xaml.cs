@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ItalianPizza.XAMLViews.Finances;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -104,6 +105,7 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
+            ChangePage(new GUI_Finances());
             btnFinanceModule.Background = new SolidColorBrush(Colors.AliceBlue);
         }
 

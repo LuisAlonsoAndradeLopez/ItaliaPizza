@@ -1,0 +1,88 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_InventoryReport"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="922.16"
+      d:DesignWidth="1742.8"
+      Title="GUI_InventoryReport">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#000000">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="754*"/>
+            <ColumnDefinition Width="989*"/>
+        </Grid.ColumnDefinitions>
+
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+
+        <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
+            <Label Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="277,47,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontFamily="Arial" Width="211"/>
+            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="488,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" Height="46" Width="744" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="608" Margin="270,160,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="958" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,106,0,0" Stroke="Black" VerticalAlignment="Top" Width="958" Fill="#000000"/>
+            <Label Content="Imágen" HorizontalAlignment="Left" Margin="330,118,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Nombre del Artículo" HorizontalAlignment="Left" Margin="504,118,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Tipo" HorizontalAlignment="Left" Margin="793,118,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Estado" HorizontalAlignment="Left" Margin="931,118,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Cantidad" HorizontalAlignment="Left" Margin="1072,118,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+
+            <ScrollViewer x:Name="ArticlesScrollViewer" Margin="288,182,527,174">
+                <StackPanel Name="ArticlesStackPanel" Height="566">
+                    <Border Height="136" Margin="5,4,5,0" CornerRadius="10" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="100" Height="100" Margin="26, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
+                            <TextBlock Foreground="White" Margin="30, 0, 0, 0" Width="290" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Articulo 1"/>
+                            <TextBlock Foreground="White" Margin="6, 0, 0, 0" Width="142" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Insumo"/>
+                            <TextBlock Foreground="White" Margin="6, 0, 0, 0" Width="144" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Activo"/>
+                            <TextBlock Foreground="White" Margin="6, 0, 0, 0" Width="144" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Margin="268,790,517,31" Background="#171721" CornerRadius="20" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource BlackButtonStyle}" Content="Atrás" Margin="170,0,0,0" VerticalAlignment="Center" Height="60" Width="210" FontSize="22" Click="BackButtonOnClick"/>
+                <Button Style="{StaticResource RedButtonStyle}" Content="Exportar a PDF" Margin="200,0,0,0" VerticalAlignment="Center" Height="60" Width="210" FontSize="22" Click="ExportToPDFButtonOnClick"/>
+            </StackPanel>
+        </Border>
+
+        <Border Margin="494,24,26,29" Grid.Column="1" Background="#171721" CornerRadius="20"/>
+
+        <Border HorizontalAlignment="Left" Height="180" Margin="509,38,0,0" Background="#000000" VerticalAlignment="Top" Width="436" CornerRadius="20" Grid.Column="1">
+            <StackPanel>
+                <TextBlock Text="La cantidad de algún producto en la sucursal no coincide con la cantidad generada por el reporte? escriba una justificación abajo y guardela." Foreground="White" FontSize="26" Margin="10,20,10,0" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
+            </StackPanel>
+        </Border>
+
+        <Border Height="548" Margin="509,232,44,0" Background="#000000" VerticalAlignment="Top" CornerRadius="20" Grid.Column="1">
+            <StackPanel>
+                <TextBox Name="ModifySelectedArticleDescriptionTextBox" BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="418" Height="526" MaxLength="300"/>
+            </StackPanel>
+        </Border>
+
+        <Border HorizontalAlignment="Left" Height="85" Margin="509,792,0,0" Background="#000000" VerticalAlignment="Top" Width="436" Grid.Column="1" CornerRadius="20">
+            <StackPanel>
+                <Button Style="{StaticResource RedButtonStyle}" Margin="0,12,0,0" Width="269" Height="60" Click="SaveJustificationButtonOnClick">
+                    <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Guardar Justificación"/>
+                </Button>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>

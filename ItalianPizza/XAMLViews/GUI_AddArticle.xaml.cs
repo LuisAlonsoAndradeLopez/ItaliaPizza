@@ -32,37 +32,6 @@ namespace ItalianPizza.XAMLViews
             PriceDecimalUpDown.Text = "$0.00";
         }
 
-        private void UsersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void InventoryButtonOnClick(object sender, RoutedEventArgs e)
-        {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_Inventory());
-        }
-
-        private void OrdersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void FinanceButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ProvidersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CloseSessionButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SelectImageButtonOnClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog

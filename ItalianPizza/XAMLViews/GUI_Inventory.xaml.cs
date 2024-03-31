@@ -10,13 +10,11 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
-using Orientation = System.Windows.Controls.Orientation; 
+using Orientation = System.Windows.Controls.Orientation;
 using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Validation;
 using System.IO;
-using System.Globalization;
-
 
 namespace ItalianPizza.XAMLViews
 {
@@ -31,31 +29,6 @@ namespace ItalianPizza.XAMLViews
             InitializeSearchComboBoxes();
 
             ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
-        }
-
-        private void UsersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OrdersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void FinanceButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void ProvidersButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CloseSessionButtonOnClick(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -119,8 +92,8 @@ namespace ItalianPizza.XAMLViews
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)
         {
-            //NavigationService navigationService = NavigationService.GetNavigationService(this);
-            //navigationService.Navigate(new GUI_InventoryReport());
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService.Navigate(new GUI_InventoryReport());
         }
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
