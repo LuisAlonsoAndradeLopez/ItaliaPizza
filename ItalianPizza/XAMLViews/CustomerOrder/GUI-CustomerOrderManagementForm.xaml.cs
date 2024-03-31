@@ -23,16 +23,16 @@ using System.Windows.Shapes;
 namespace ItalianPizza.XAMLViews
 {
     /// <summary>
-    /// Lógica de interacción para GUI_CreateCustomerOrder.xaml
+    /// Lógica de interacción para GUI_CustomerOrderManagementForm.xaml
     /// </summary>
-    public partial class GUI_CreateCustomerOrder : Page
+    public partial class GUI_CustomerOrderManagementForm : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
         private List<ProductSaleSet> listProductsCustomerOrder;
         private List<ProductSaleSet> listProductsCustomerOrderCopy;
         private ProductDAO productDAO;
         private UserDAO userDAO;
-        public GUI_CreateCustomerOrder(List<ProductSaleSet> customerOrderProducts)
+        public GUI_CustomerOrderManagementForm(List<ProductSaleSet> customerOrderProducts)
         {
             InitializeComponent();
             listProductsCustomerOrder = customerOrderProducts;

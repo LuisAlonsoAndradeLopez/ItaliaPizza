@@ -340,12 +340,12 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToCreateOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CreateCustomerOrder(new List<ProductSaleSet>()));
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>()));
         }
 
         private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CreateCustomerOrder(customerOrderProducts));
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderProducts));
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
