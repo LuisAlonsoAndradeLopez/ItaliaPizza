@@ -1,0 +1,687 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_CustomerOrderManagementForm"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      mc:Ignorable="d" 
+      d:DesignHeight="922.16" 
+      d:DesignWidth="1742.8"
+      Title="GUI_CustomerOrderManagementForm">
+
+    <Grid x:Name="Background" Background="#FF131313">
+
+        
+
+        <Rectangle 
+            HorizontalAlignment="Left"
+            Height="888" 
+            Margin="256,10,0,0" 
+            Stroke="#FF0F0B02" 
+            VerticalAlignment="Top" 
+            Width="823" 
+            Fill="#FF18171C"
+            RadiusX="20" 
+            RadiusY="20"/>
+
+        <Grid x:Name="grdVirtualWindowCreateOrder">
+            <Rectangle 
+                HorizontalAlignment="Left"
+                Height="63" 
+                Margin="285,89,0,0" 
+                Stroke="#FF262222" 
+                VerticalAlignment="Top" 
+                Width="759" 
+                Fill="#FF262222" 
+                RadiusX="30" 
+                RadiusY="30"/>
+
+            <Image
+                HorizontalAlignment="Left"
+                Height="42" 
+                Margin="313,100,0,0" 
+                VerticalAlignment="Top"
+                Width="43" 
+                Source="\Resources\Pictures\ICON-Buscar.png"/>
+
+            <TextBox 
+                HorizontalAlignment="Left" 
+                Margin="380,96,0,0"
+                TextWrapping="Wrap"
+                VerticalAlignment="Top" 
+                FontSize="30" 
+                Width="646" 
+                Height="48" 
+                Background="#FF262222"
+                Foreground="#FFECD9D9" 
+                BorderBrush="#FF262222"/>
+
+            <Label Content="Crear Pedido" 
+                   HorizontalAlignment="Left" 
+                   Margin="285,35,0,0" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Arial Black" 
+                   Foreground="#FFFFFDFD"
+                   FontSize="28"/>
+
+            <Label Content="Seleciona tus productos" 
+                   HorizontalAlignment="Left" 
+                   Margin="313,238,0,0" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Tahoma"
+                   Foreground="#FFC39533"
+                   FontSize="19"
+                   FontWeight="Bold"/>
+
+            <Label Content="Filtrar por tipo:"
+                   HorizontalAlignment="Left"
+                   Margin="313,168,0,0" 
+                   VerticalAlignment="Top"
+                   FontFamily="Tahoma" 
+                   Foreground="#FFFFFDFD" 
+                   FontSize="18
+                   "
+                   FontWeight="Bold"/>
+
+            <Label Content="Filtrar por estado:" 
+                   HorizontalAlignment="Left"
+                   Margin="664,168,0,0"
+                   VerticalAlignment="Top"
+                   FontFamily="Tahoma"
+                   Foreground="#FFFFFDFD"
+                   FontSize="18"
+                   FontWeight="Bold"/>
+
+            <ListBox x:Name="lboProductType" 
+                      HorizontalAlignment="Left"
+                      Margin="466,177,0,0"
+                      VerticalAlignment="Top"
+                      Width="185" 
+                      Height="30" 
+                      FontSize="18" 
+                      Background="#FF262222" 
+                      BorderBrush="#FF262222" 
+                      Foreground="#FFF0F0F0"/>
+
+            <ListBox x:Name="lboProductStatus"
+                      HorizontalAlignment="Left"
+                      Margin="842,177,0,0" 
+                      VerticalAlignment="Top"
+                      Width="185" 
+                      Height="30"
+                      FontSize="18" 
+                      Background="#FF262222" 
+                      BorderBrush="#FF262222" 
+                      Foreground="#FFF3F3F3"/>
+
+            <WrapPanel x:Name="wpProducts" 
+                       Margin="275,284,690,25"/>
+        </Grid>
+
+        <Grid x:Name="grdVirtualWindowOrderDataForm">
+            <Label Content="Detalles Producto" 
+                   HorizontalAlignment="Left" 
+                   Margin="1300,34,0,0" 
+                   VerticalAlignment="Top" 
+                   Foreground="#FFBC8B21" 
+                   FontFamily="Tahoma" 
+                   FontSize="20" 
+                   FontWeight="Bold"/>
+
+            <Label Content="Tipo de pedido" 
+                   HorizontalAlignment="Left" 
+                   Margin="1182,74,0,0" 
+                   VerticalAlignment="Top" 
+                   FontSize="18" 
+                   FontFamily="Arial" 
+                   Foreground="White" 
+                   FontWeight="Bold"/>
+
+            <ListBox x:Name="lboOrderTypeCustomer" 
+                      HorizontalAlignment="Left" 
+                      Margin="1135,113,0,0" 
+                      VerticalAlignment="Top" 
+                      Width="234" 
+                      Height="35" 
+                      FontSize="20" 
+                      SelectionChanged="ListBox_CustomerOrderTypeSelection" 
+                      Background="#FF131313" 
+                      Foreground="White"/>
+
+            <Label x:Name="lblOrderStatusCustomer" 
+                   Content="Estado del pedido" 
+                   HorizontalAlignment="Left" 
+                   Margin="1465,74,0,0" 
+                   VerticalAlignment="Top" 
+                   FontSize="18"
+                   FontFamily="Tahoma" 
+                   Foreground="White"
+                   FontWeight="Bold"
+                   RenderTransformOrigin="0.43,0.621" />
+
+            <ListBox x:Name="lboOrderStatusCustomer" 
+                      HorizontalAlignment="Left" 
+                      Margin="1434,113,0,0"
+                      VerticalAlignment="Top"
+                      Width="234" 
+                      Height="35" 
+                      FontSize="20" 
+                      Visibility="Visible" 
+                      Background="#FF131313" 
+                      Foreground="White"/>
+
+            <Label x:Name="lblCustomers"
+                   Content="Cliente:" 
+                   HorizontalAlignment="Left"
+                   Margin="1137,167,0,0" 
+                   VerticalAlignment="Top"
+                   FontSize="18"
+                   FontFamily="Tahoma"
+                   Foreground="White"
+                   FontWeight="Bold"/>
+
+            <ListBox x:Name="lboCustomers" 
+                      HorizontalAlignment="Left"
+                      Margin="1220,169,0,0"
+                      VerticalAlignment="Top"
+                      Width="318" 
+                      Height="38"
+                      FontSize="20" 
+                      Background="#FF131313" 
+                      Foreground="White"/>
+
+            <Label x:Name="lblDeliverymen"
+                   Content="Repartidor: " 
+                   HorizontalAlignment="Left"
+                   Margin="1137,227,0,0"
+                   VerticalAlignment="Top" 
+                   FontSize="18"
+                   FontFamily="Tahoma" 
+                   Foreground="White"
+                   FontWeight="Bold"/>
+
+            <ListBox x:Name="lboDeliverymen"
+                      HorizontalAlignment="Left"
+                      Margin="1254,233,0,0"
+                      VerticalAlignment="Top"
+                      Width="284"
+                      Height="35"
+                      FontSize="20" 
+                      Background="#FF131313" 
+                      Foreground="White"/>
+
+            <Grid x:Name="grdButtonAddCustomer" MouseLeftButtonUp="MouseLeftButtonUp_AddCustomer">
+                <Rectangle 
+                    HorizontalAlignment="Left" 
+                    Height="37" 
+                    Margin="1552,168,0,0"
+                    VerticalAlignment="Top" 
+                    Width="110"
+                    Fill="#FFDDCC4E"
+                    RadiusX="18" 
+                    RadiusY="30" />
+
+                <Image 
+                    HorizontalAlignment="Left"
+                    Height="38" 
+                    Margin="1564,169,0,0" 
+                    VerticalAlignment="Top"
+                    Width="34"
+                    Source="/Resources/Pictures/ICON-Cliente.png" IsEnabled="False"/>
+
+                <Label Content="Agregar" 
+                       HorizontalAlignment="Left" 
+                       Margin="1597,173,0,0"
+                       VerticalAlignment="Top" 
+                       Foreground="White" FontWeight="Bold"/>
+            </Grid>
+
+            <Grid x:Name="grdButtonAddDeliveryMan" MouseLeftButtonUp="MouseLeftButtonUp_AddDeliveryMan">
+                <Rectangle 
+                    HorizontalAlignment="Left" 
+                    Height="37"
+                    Margin="1552,230,0,0"
+                    VerticalAlignment="Top"
+                    Width="110" 
+                    Fill="#FFDDCC4E"
+                    RadiusX="18" 
+                    RadiusY="30" />
+
+                <Image 
+                    HorizontalAlignment="Left"
+                    Height="35" 
+                    Margin="1561,232,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="33" 
+                    Source="/Resources/Pictures/ICON-Repartidor.png"/>
+
+                <Label 
+                    Content="Agregar"
+                    HorizontalAlignment="Left"
+                    Margin="1595,236,0,0" 
+                    VerticalAlignment="Top"
+                    Foreground="White" FontWeight="Bold"/>
+            </Grid>
+
+            <Grid Name="grdVirtualWindowDeliveryCustomerRegistrationForm" Visibility="Hidden">
+                <Rectangle 
+                    HorizontalAlignment="Left" 
+                    Height="863"
+                    Margin="1165,13,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="522" 
+                    RadiusX="30" 
+                    RadiusY="30"
+                    Fill="#FF18171C">
+                    <Rectangle.Stroke>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFE2A218"/>
+                            <GradientStop Color="#FFC50E0E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Rectangle.Stroke>
+                </Rectangle>
+
+                <Label Content="Registrar Nuevo Empleado" 
+                       HorizontalAlignment="Left" 
+                       Margin="1276,35,0,0" 
+                       VerticalAlignment="Top"
+                       Foreground="#FFE03434" 
+                       FontFamily="Arial Black" 
+                       FontSize="20" FontWeight="Bold"/>
+
+                <Label Content="Nombre(s)" 
+                       HorizontalAlignment="Left" 
+                       Margin="1288,90,0,0" 
+                       VerticalAlignment="Top" 
+                       FontFamily="Arial" 
+                       FontSize="18" 
+                       Foreground="#FFF8F8F8"/>
+
+                <TextBox 
+                    HorizontalAlignment="Left" 
+                    Margin="1304,128,0,0" 
+                    TextWrapping="Wrap" 
+                    Text="" 
+                    VerticalAlignment="Top"
+                    Width="319"
+                    FontFamily="Arial" 
+                    FontSize="23"
+                    Height="32"/>
+
+                <Label Content="Apellido Paterno" 
+                       HorizontalAlignment="Left" 
+                       Margin="1288,177,0,0"
+                       VerticalAlignment="Top"
+                       FontFamily="Arial"
+                       FontSize="18"
+                       Foreground="#FFF8F8F8"/>
+
+                <TextBox HorizontalAlignment="Left" 
+                         Margin="1306,215,0,0"
+                         TextWrapping="Wrap" 
+                         Text="" VerticalAlignment="Top" 
+                         Width="317" 
+                         FontFamily="Arial"
+                         FontSize="23"
+                         Height="32"/>
+
+
+                <Label Content="Apellido Materno"
+                       HorizontalAlignment="Left"
+                       Margin="1288,265,0,0" 
+                       VerticalAlignment="Top" 
+                       FontFamily="Arial" 
+                       FontSize="18" 
+                       Foreground="White"/>
+
+
+                <TextBox HorizontalAlignment="Left" 
+                         Margin="1304,303,0,0" 
+                         TextWrapping="Wrap" 
+                         Text="" 
+                         VerticalAlignment="Top"
+                         Width="319" 
+                         FontFamily="Arial"
+                         FontSize="23"
+                         Height="32"/>
+
+                <Label Content="Numero Telefonico"
+                       HorizontalAlignment="Left" 
+                       Margin="1288,352,0,0"
+                       VerticalAlignment="Top"
+                       FontFamily="Arial"
+                       FontSize="18"
+                       Foreground="#FFF8F8F8"/>
+
+                <TextBox HorizontalAlignment="Left"
+                         Margin="1306,390,0,0"
+                         TextWrapping="Wrap"
+                         Text="" 
+                         VerticalAlignment="Top" 
+                         Width="317" 
+                         FontFamily="Arial" 
+                         FontSize="23" 
+                         Height="32"/>
+
+                <Image HorizontalAlignment="Left" 
+                       Height="44" 
+                       Margin="1223,81,0,0"
+                       VerticalAlignment="Top"
+                       Width="49" 
+                       Source="\Resources\Pictures\ICON-ID.png" Stretch="UniformToFill"/>
+
+                <Image HorizontalAlignment="Left" 
+                       Height="44" 
+                       Margin="1223,168,0,0" 
+                       VerticalAlignment="Top"
+                       Width="49" 
+                       Source="\Resources\Pictures\ICON-ID.png" 
+                       Stretch="UniformToFill"/>
+
+                <Image HorizontalAlignment="Left" 
+                       Height="44" 
+                       Margin="1223,256,0,0" 
+                       VerticalAlignment="Top" 
+                       Width="49" 
+                       Source="\Resources\Pictures\ICON-ID.png" 
+                       Stretch="UniformToFill"/>
+
+                <Image HorizontalAlignment="Left" 
+                       Height="41" 
+                       Margin="1231,347,0,0" 
+                       VerticalAlignment="Top" 
+                       Width="40" 
+                       Source="\Resources\Pictures\ICON-Numero.png" 
+                       Stretch="UniformToFill"/>
+
+
+                <Grid x:Name="grdVitualWindowAddressForm" Visibility="Visible">
+
+                    <Label Content="Calle" 
+                           HorizontalAlignment="Left" 
+                           Margin="1289,442,0,0" 
+                           VerticalAlignment="Top"
+                           FontFamily="Arial" 
+                           FontSize="18"
+                           Foreground="#FFF8F8F8"/>
+
+                    <TextBox HorizontalAlignment="Left" 
+                             Margin="1307,478,0,0"
+                             TextWrapping="Wrap" 
+                             Text="" 
+                             VerticalAlignment="Top"
+                             Width="317"
+                             FontFamily="Arial"
+                             FontSize="23"
+                             Height="32"/>
+
+                    <Label Content="Ciudad" 
+                           HorizontalAlignment="Left" 
+                           Margin="1289,528,0,0"
+                           VerticalAlignment="Top"
+                           FontFamily="Arial"
+                           FontSize="18"
+                           Foreground="White"/>
+
+                    <TextBox HorizontalAlignment="Left" 
+                             Margin="1305,566,0,0" 
+                             TextWrapping="Wrap" 
+                             Text="" 
+                             VerticalAlignment="Top"
+                             Width="319"
+                             FontFamily="Arial" 
+                             FontSize="23"
+                             Height="32"/>
+
+                    <Label Content="Numero de calle" 
+                           HorizontalAlignment="Left"
+                           Margin="1289,615,0,0"
+                           VerticalAlignment="Top"
+                           FontFamily="Arial" 
+                           FontSize="18" 
+                           Foreground="#FFF8F8F8"/>
+
+                    <TextBox HorizontalAlignment="Left" 
+                             Margin="1307,653,0,0"
+                             TextWrapping="Wrap"
+                             Text="" 
+                             VerticalAlignment="Top"
+                             Width="317"
+                             FontFamily="Arial"
+                             FontSize="23"
+                             Height="32"/>
+
+                    <Label Content="Codigo Postal" 
+                           HorizontalAlignment="Left"
+                           Margin="1289,707,0,0"
+                           VerticalAlignment="Top"
+                           FontFamily="Arial"
+                           FontSize="18"
+                           Foreground="#FFF8F8F8"/>
+
+                    <TextBox HorizontalAlignment="Left"
+                             Margin="1307,745,0,0"
+                             TextWrapping="Wrap"
+                             Text=""
+                             VerticalAlignment="Top"
+                             Width="317"
+                             FontFamily="Arial"
+                             FontSize="23"
+                             Height="32"/>
+
+                    <Image HorizontalAlignment="Left" 
+                           Height="30"
+                           Margin="1234,442,0,0"
+                           VerticalAlignment="Top"
+                           Width="37"
+                           Source="\Resources\Pictures\ICON-Calle.png"
+                           Stretch="UniformToFill"/>
+
+                    <Image HorizontalAlignment="Left" 
+                           Height="30" 
+                           Margin="1235,528,0,0" 
+                           VerticalAlignment="Top" 
+                           Width="37" 
+                           Source="\Resources\Pictures\ICON-Ciudad.png" 
+                           Stretch="UniformToFill"/>
+
+                    <Image HorizontalAlignment="Left"
+                           Height="31" 
+                           Margin="1238,615,0,0" 
+                           VerticalAlignment="Top"
+                           Width="31" 
+                           Source="\Resources\Pictures\ICON-NumeroCalle.png" 
+                           Stretch="UniformToFill"/>
+
+                    <Image HorizontalAlignment="Left" 
+                           Height="30" 
+                           Margin="1235,707,0,0"
+                           VerticalAlignment="Top" 
+                           Width="37"
+                           Source="\Resources\Pictures\ICON-CodigoPostal.png"
+                           Stretch="UniformToFill"/>
+
+                    <Button Content="Registrar Cliente" 
+                            HorizontalAlignment="Left" 
+                            Margin="1319,799,0,0" 
+                            VerticalAlignment="Top" 
+                            Height="49" 
+                            Width="214"
+                            FontFamily="Arial"
+                            FontSize="20" 
+                            Click="Button_AddCustomer"/>
+
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Button Content="Cancelar"
+                HorizontalAlignment="Left" 
+                Margin="1170,813,0,0" 
+                VerticalAlignment="Top"
+                Height="44" 
+                Width="206"
+                Background="#FFDB4B2C"
+                Foreground="#FFF8F8F8" 
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderThickness="0" 
+                FontWeight="Thin"
+                Click="GoToConsultCustomerOrdersVirtualWindow" />
+
+        <Button x:Name="btnRegisterCustomerOrder" 
+                Content="Registrar Nuevo Pedido" 
+                HorizontalAlignment="Left" 
+                Margin="1400,813,0,0" 
+                VerticalAlignment="Top" 
+                Height="44" 
+                Width="240" 
+                Background="#FFDB4B2C" 
+                Foreground="#FFF8F8F8" 
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderBrush="#FFBC8B21"
+                BorderThickness="0"
+                FontWeight="Thin" 
+                Click="Button_RegisterOrderClient"/>
+
+        <Button x:Name="btnModifyCustomerOrder" 
+            Content="Modificar Pedido" 
+            HorizontalAlignment="Left" 
+            Margin="1400,813,0,0" 
+            VerticalAlignment="Top" 
+            Height="44" 
+            Width="240" 
+            Background="#FFDB4B2C" 
+            Foreground="#FFF8F8F8" 
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderBrush="#FFBC8B21"
+            BorderThickness="0"
+            Visibility="Hidden"
+            FontWeight="Thin"/>
+
+        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0">
+            <Label Content="Contenido del pedido" 
+           HorizontalAlignment="Left" 
+           Margin="1295,284,0,0" 
+           VerticalAlignment="Top" 
+           Background="{x:Null}" 
+           Foreground="#FFDB4B2C" 
+           FontFamily="Tahoma" 
+           FontSize="20" 
+           FontWeight="Bold"/>
+
+            <GridSplitter HorizontalAlignment="Left" 
+                  Height="539" 
+                  Margin="1410,56,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="1" 
+                  RenderTransformOrigin="0.5,0.5">
+
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+
+            <Label Content="Nombre Producto" 
+           HorizontalAlignment="Left" 
+           Margin="1190,323,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Tahoma" 
+           Foreground="White"/>
+
+            <Label Content="Cantidad" 
+           HorizontalAlignment="Left" 
+           Margin="1404,323,0,0"
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Tahoma" 
+           Foreground="White"/>
+
+            <Label Content="Costo por pieza" 
+           HorizontalAlignment="Left" 
+           Margin="1516,323,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Tahoma" 
+           Foreground="White"/>
+
+            <GridSplitter HorizontalAlignment="Left" 
+                  Height="26" 
+                  Margin="1389,326,0,0"
+                  VerticalAlignment="Top" 
+                  Width="1"/>
+
+            <GridSplitter HorizontalAlignment="Left" 
+                  Height="26" 
+                  Margin="1495,326,0,0" 
+                  VerticalAlignment="Top"
+                  Width="1"/>
+
+            <GridSplitter HorizontalAlignment="Left" 
+                  Height="538" 
+                  Margin="1410,84,0,0" 
+                  VerticalAlignment="Top" 
+                  Width="1" 
+                  RenderTransformOrigin="0.5,0.5">
+
+
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90.009"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+
+            <Label Content="Costo Final: " 
+           HorizontalAlignment="Left" 
+           Margin="1469,761,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="16" 
+           FontFamily="Calibri" 
+           Foreground="White"/>
+
+            <Label x:Name="lblTotalOrderCost"
+           Content="$ 0.00" 
+           HorizontalAlignment="Left"
+           Margin="1558,761,0,0"
+           VerticalAlignment="Top" 
+           FontSize="16" 
+           FontFamily="Calibri" 
+           Foreground="White"/>
+
+            <GridSplitter Height="751"
+                  Margin="1294,383,448,0" 
+                  VerticalAlignment="Top"
+                  RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Stretch">
+
+                <GridSplitter.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </GridSplitter.RenderTransform>
+            </GridSplitter>
+
+            <WrapPanel x:Name="wpCustomerOrderProducts" 
+               Margin="1147,360,40,166"/>
+
+        </Grid>
+
+        <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        
+    </Grid>
+</Page>
+

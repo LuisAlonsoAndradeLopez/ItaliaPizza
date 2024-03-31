@@ -10,38 +10,36 @@
       d:DesignWidth="1742.8"
       Title="GUI_Inventory">
 
-    <Grid Background="#000000" >
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#000000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="754*"/>
             <ColumnDefinition Width="989*"/>
         </Grid.ColumnDefinitions>
 
-        <Rectangle HorizontalAlignment="Left" Height="906" Stroke="#FF1C1C1C" VerticalAlignment="Center" Width="244" Fill="#FF1C1C1C"/>
-        <Image HorizontalAlignment="Left" Height="177" Margin="27,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-        <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,251,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="UsersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,262,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-        <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,340,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="29,351,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-        <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,432,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="OrdersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="32,443,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-        <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,529,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="FinanceButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,540,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-        <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,623,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="ProvidersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,634,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
-        <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,719,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="CloseSessionButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="44" Margin="29,731,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
 
         <Rectangle HorizontalAlignment="Left" Height="880" Margin="256,13,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="892" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2"/>
 
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
             <Label Name="ArticleNameOrCodeLabel" Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="277,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" Width="173"/>
-            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="450,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="40" Width="420" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
+            <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="450,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="40" Width="420" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
             <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="277,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial"/>
-            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged"/>
+            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged"/>
             <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="277,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
             <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="492" Height="40" SelectionChanged="FindByComboBoxSelectionChanged"/>
-            <Button Content="Agregar Artículo" HorizontalAlignment="Left" Margin="894,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
-            <Button Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="894,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Artículo" HorizontalAlignment="Left" Margin="894,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="894,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
 
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#000000"/>
             <Label Content="Imágen" HorizontalAlignment="Left" Margin="341,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
@@ -75,7 +73,7 @@
                 <StackPanel Name="ModifySelectedArticleImageStackPanel" Height="207" Orientation="Horizontal" Visibility="Collapsed">
                     <TextBlock Text="Imágen del Artículo: " Foreground="White" FontSize="30" Margin="30,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Width="151" Height="83"/>
                     <Image Name="ModifySelectedArticleImage" Width="150" Height="150" Margin="40, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
-                    <Button Margin="30,0,0,0" Width="138" Height="49" Click="SelectImageButtonOnClick">
+                    <Button Style="{StaticResource DarkRedButtonStyle}" Margin="30,0,0,0" Width="138" Height="49" Click="SelectImageButtonOnClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Seleccionar Imágen" Width="132"/>
                     </Button>
                 </StackPanel>
@@ -178,22 +176,22 @@
                 <TextBlock Name="SelectAnArticleTextBlock3" Text="Selecciona un Artículo" Foreground="White" FontSize="50" Margin="0,16,0,0" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
 
                 <StackPanel Name="SelectedArticleButtonsStackPanel" Height="100" Orientation="Horizontal" Visibility="Collapsed">
-                    <Button Margin="60,0,0,0" Width="180" Height="60" Click="ConsultArticleRecipeButtonOnClick">
+                    <Button Style="{StaticResource DarkRedButtonStyle}" Margin="60,0,0,0" Width="180" Height="60" Click="ConsultArticleRecipeButtonOnClick">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Consultar Receta del Artículo"/>
                     </Button>
-                    <Button Margin="90,0,0,0" Width="180" Height="60" Click="ModifyArticleButtonOnClick1">
+                    <Button Style="{StaticResource RedButtonStyle}" Margin="90,0,0,0" Width="180" Height="60" Click="ModifyArticleButtonOnClick1">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Modificar Artículo"/>
                     </Button>
                 </StackPanel>
 
                 <StackPanel Name="ModifySelectedArticleButtonsStackPanel" Height="100" Orientation="Horizontal" Visibility="Collapsed">
-                    <Button Margin="20,0,0,0" Width="164" Height="60" Click="BackButtonOnClick">
+                    <Button Style="{StaticResource BlackButtonStyle}" Margin="20,0,0,0" Width="164" Height="60" Click="BackButtonOnClick">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Atrás"/>
                     </Button>
-                    <Button Name="DisableArticleButton" Margin="20,0,0,0" Width="164" Height="60" Click="DisableArticleButtonOnClick">
+                    <Button Style="{StaticResource DarkRedButtonStyle}" Name="DisableArticleButton" Margin="20,0,0,0" Width="164" Height="60" Click="DisableArticleButtonOnClick">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Desactivar Artículo"/>
                     </Button>
-                    <Button Margin="20,0,0,0" Width="164" Height="60" Click="ModifyArticleButtonOnClick2">
+                    <Button Style="{StaticResource RedButtonStyle}" Margin="20,0,0,0" Width="164" Height="60" Click="ModifyArticleButtonOnClick2">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Modificar Artículo"/>
                     </Button>
                 </StackPanel>

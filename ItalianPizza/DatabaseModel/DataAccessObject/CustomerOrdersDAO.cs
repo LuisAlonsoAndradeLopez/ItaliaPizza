@@ -1,14 +1,81 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
     public class CustomerOrdersDAO
     {
         public CustomerOrdersDAO() { }
+
+        public int RegisterCustomerOrder(CustomerOrderSet customerOrder, List<ProductSaleSet> productsOrderCustomer, CustomerSet customer, DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        context.CustomerOrderSet.Add(customerOrder);
+                        result = context.SaveChanges();
+
+                        if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
+                        {
+                            CustomerOrderCustomerSet customerOrderCustomer = new CustomerOrderCustomerSet
+                            {
+                                CustomerId = customer.Id,
+                                CustomerOrderId = customerOrder.Id
+                            };
+                            CustomerOrderDeliveryDriverSet customerOrderDeliveryDriver = new CustomerOrderDeliveryDriverSet
+                            {
+                                CustomerOrderId = customerOrder.Id,
+                                DeliveryDriverId = deliveryDriver.Id
+                            };
+                            context.CustomerOrderCustomerSet.Add(customerOrderCustomer);
+                            context.SaveChanges();
+                            context.CustomerOrderDeliveryDriverSet.Add(customerOrderDeliveryDriver);
+                            context.SaveChanges();
+                        }
+
+                        foreach (var product in productsOrderCustomer)
+                        {
+                            CustomerOrderDetailSet customerOrderDetail = new CustomerOrderDetailSet();
+                            customerOrderDetail.CustomerOrderId = customerOrder.Id;
+                            customerOrderDetail.ProductSaleId = product.Id;
+                            customerOrderDetail.ProductQuantity = product.Quantity;
+                            customerOrderDetail.PricePerUnit = product.PricePerUnit;
+                            context.CustomerOrderDetailSet.Add(customerOrderDetail);
+                            context.SaveChanges();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
 
         public List<CustomerOrderSet> GetAllCustomerOrders()
         {
@@ -18,53 +85,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    //orders = context.CustomerOrderSetSet.ToList();
-                }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-           
-            return orders;
-        }
-
-        public List<CustomerOrderSet> GetCustomerOrdersByDate(String date)
-        {
-            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
-
-            try
-            {
-                using (var context = new ItalianPizzaServerBDEntities())
-                {
-                    //orders = context.CustomerOrderSetSet.Where(o => o.Fecha == date).ToList();
-                }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            catch (InvalidOperationException ex)
-            {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-            
-            return orders;
-        }
-
-        public List<CustomerOrderSet> GetCustomerOrdersByStatus(String status)
-        {
-            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
-
-            try
-            {
-                using (var context = new ItalianPizzaServerBDEntities())
-                {
-                    //orders = context.CustomerOrderSet.Where(o => o.OrderStatusSet == status).ToList();
+                    orders = context.CustomerOrderSet.ToList();
                 }
             }
             catch (EntityException ex)
@@ -79,15 +100,22 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orders;
         }
 
-        public List<ProductSaleSet> GetOrderProducts(int orderCustomerID)
+        public List<CustomerOrderSet> GetCustomerOrdersByDate(DateTime date)
         {
-            List<ProductSaleSet> productsOrder = new List<ProductSaleSet>();
+            List<CustomerOrderSet> customerOrders = new List<CustomerOrderSet>();
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    
+                    DateTime startDate = date.Date;
+                    DateTime endDate = startDate.AddDays(1).AddTicks(-1);
+
+                    customerOrders = context.CustomerOrderSet
+                        .Include(customerOrder => customerOrder.OrderTypeSet)
+                        .Include(customerOrder => customerOrder.OrderStatusSet)
+                        .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
+                        .ToList();
                 }
             }
             catch (EntityException ex)
@@ -99,8 +127,77 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
 
-            return productsOrder;
+            return customerOrders;
         }
 
+        public List<CustomerOrderSet> GetCustomerOrdersByStatus(OrderStatusSet status)
+        {
+            List<CustomerOrderSet> customerOrders = new List<CustomerOrderSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    customerOrders = context.CustomerOrderSet
+                                            .Include(customerOrder => customerOrder.OrderStatusSet)
+                                            .Include(customerOrder => customerOrder.OrderTypeSet)
+                                            .Where(customerOrder => customerOrder.OrderStatusSet.Status == status.Status)
+                                            .ToList();
+                }
+            }
+            catch (Exception ex) when (ex is EntityException || ex is InvalidOperationException)
+            {
+                throw new Exception("Error al acceder a la base de datos.", ex);
+            }
+
+            return customerOrders;
+        }
+
+
+        public List<OrderStatusSet> GetOrderStatuses()
+        {
+            List<OrderStatusSet> orderStatuses;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    orderStatuses = context.OrderStatusSet.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return orderStatuses;
+        }
+
+        public List<OrderTypeSet> GetOrderTypes()
+        {
+            List<OrderTypeSet> orderTypes;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    orderTypes = context.OrderTypeSet.ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return orderTypes;
+
+        }
     }
 }

@@ -1,0 +1,67 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_AddUser"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      Title="GUI_AddUser"
+      mc:Ignorable="d"
+      Width="Auto" Height="Auto">
+
+    <Viewbox Stretch="UniformToFill">
+        <Grid Background="#FF131313" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="595*"/>
+                <RowDefinition Height="291*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+
+            <Rectangle HorizontalAlignment="Left" Height="692" Margin="349,61,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="763" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+            <Label Content="Imagen del usuario" HorizontalAlignment="Left" Margin="530,130,0,0" VerticalAlignment="Top" Foreground="White" FontSize="42"/>
+            <Button Content="Seleccionar imagen" HorizontalAlignment="Left" Margin="594,22,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="SelectImage_Clic" Grid.Row="1"/>
+            <Image x:Name="userImage" HorizontalAlignment="Left"  Margin="591,234,0,0" VerticalAlignment="Top" Width="256" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\IMG_8823.jpg" Height="322"/>
+            <Button Content="Regresar" HorizontalAlignment="Left" Margin="594,191,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#FFDB4B2C" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C"  FontWeight="Thin" BorderThickness="3" Click="GoBack_Clic" Grid.Row="1" />
+            <Button Content="Registrar" HorizontalAlignment="Left" Margin="361,193,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#5AB53B" Foreground="White" FontFamily="Arial" FontSize="20"   FontWeight="Thin" BorderThickness="3" Click="RegisterButton_Clic" Grid.Column="1" Grid.Row="1" />
+
+            <StackPanel x:Name="pnlForm" Visibility="Visible" Margin="251,88,0,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1" Grid.RowSpan="2">
+
+                <Label Content="Nombre: *" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtName" Width="364" Text="Ingresa el nombre" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Apellido Paterno: *" Width="307" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtLastName" Width="364" Text="Ingresa el apellido paterno" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Apellido Materno: *" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtSecondLastName" Width="364" Text="Ingresa el apellido materno" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Teléfono: *" Width="180" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtPhoneNumber" Width="364" Text="Ingresa el teléfono" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Rol: *" Width="100" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <ComboBox x:Name="cboStatusCustomerOrders" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711"/>
+            </StackPanel>
+
+            <StackPanel x:Name="pnlUser" Visibility="Collapsed" Margin="251,393,0,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1">
+
+                <Label Content="Correo:" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtEmail" Width="364" Text="Ingresa el correo" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Usuario:" Width="300" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtUser" Width="364" Text="Ingresa el usuario" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+                <Label Content="Contraseña:" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+                <TextBox x:Name="txtPassword" Width="364" Text="Ingresa la contraseña" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+                <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+
+            </StackPanel>
+
+
+        </Grid>
+    </Viewbox>
+
+</Page>
