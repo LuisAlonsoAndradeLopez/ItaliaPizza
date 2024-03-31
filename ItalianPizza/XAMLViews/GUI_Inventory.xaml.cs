@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Forms;
 using Cursors = System.Windows.Input.Cursors;
-using Orientation = System.Windows.Controls.Orientation;
+using Orientation = System.Windows.Controls.Orientation; 
 using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Validation;
@@ -26,18 +26,10 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_Inventory : Page
     {
         public GUI_Inventory()
-        {/*
-          TODO:
-            *Objeto "Precio" con sus enteros y centavos (como dice ocharán)
-            *Placeholders para los campos de texto
-            *Cuadro sobre si el codigo ya está usado
-          */
-
-
+        {
             InitializeComponent();
             InitializeSearchComboBoxes();
 
-            ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
             ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
 
@@ -214,19 +206,6 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void ModifySelectedArticlePriceDecimalUpDownValueChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            if (ModifySelectedArticlePriceDecimalUpDown.Value.HasValue)
-            {
-                decimal value = ModifySelectedArticlePriceDecimalUpDown.Value.Value;
-                string formattedValue = value.ToString("C", CultureInfo.CurrentCulture);
-                if (!formattedValue.Equals(ModifySelectedArticlePriceDecimalUpDown.Text))
-                {
-                    ModifySelectedArticlePriceDecimalUpDown.Value = (decimal?)e.OldValue;
-                }
-            }
-        }
-
         private void ConsultArticleRecipeButtonOnClick(object sender, RoutedEventArgs e)
         {
             //Este método lo hace el Álvaro
@@ -288,64 +267,73 @@ namespace ItalianPizza.XAMLViews
                 {
                     if (new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source) != null)
                     {
-                        if ( (!new SupplyDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
+                        if ((!new SupplyDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
                             !new ProductDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text)) ||
                             SelectedArticleNameTextBlock.Text == ModifySelectedArticleNameTextBox.Text)
                         {
-                            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                            if ((!new SupplyDAO().TheCodeIsAlreadyRegistred(ModifySelectedArticleCodeTextBox.Text) &&
+                                !new ProductDAO().TheCodeIsAlreadyRegistred(ModifySelectedArticleCodeTextBox.Text)) ||
+                                SelectedArticleCodeTextBlock.Text == ModifySelectedArticleCodeTextBox.Text)
                             {
-                                SupplySet originalSupply = new SupplyDAO().GetSupplyByName(SelectedArticleNameTextBlock.Text);
-
-                                SupplySet modifiedSupply = new SupplySet
+                                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                                 {
-                                    Name = ModifySelectedArticleNameTextBox.Text,
-                                    Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
-                                    PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
-                                    SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
-                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
-                                    SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
-                                    EmployeeId = 1,
-                                    IdentificationCode = ModifySelectedArticleCodeTextBox.Text
-                                };
+                                    SupplySet originalSupply = new SupplyDAO().GetSupplyByName(SelectedArticleNameTextBlock.Text);
 
-                                new SupplyDAO().ModifySupply(originalSupply, modifiedSupply);
+                                    SupplySet modifiedSupply = new SupplySet
+                                    {
+                                        Name = ModifySelectedArticleNameTextBox.Text,
+                                        Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                                        PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                        SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
+                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
+                                        SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
+                                        EmployeeId = 1,
+                                        IdentificationCode = ModifySelectedArticleCodeTextBox.Text
+                                    };
+
+                                    new SupplyDAO().ModifySupply(originalSupply, modifiedSupply);
+                                }
+
+                                if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                                {
+                                    ProductSaleSet originalProduct = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+
+                                    ProductSaleSet modifiedProduct = new ProductSaleSet
+                                    {
+                                        Name = ModifySelectedArticleNameTextBox.Text,
+                                        Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
+                                        PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
+                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
+                                        ProductTypeId = new ProductTypeDAO().GetProductTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
+                                        EmployeeId = 1,
+                                        IdentificationCode = ModifySelectedArticleCodeTextBox.Text,
+                                        Description = ModifySelectedArticleDescriptionTextBox.Text
+                                    };
+
+                                    new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
+                                }
+
+                                new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
+
+                                UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
+                                UpdateModifySelectedArticleDetailsStackPanel();
+                                InitializeComboboxesForModifySomeSelectedArticleData();
+                                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+
+                                ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
+                                ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
+                                ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
+
+                                SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
+                                SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
+                                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
                             }
-
-                            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                            else
                             {
-                                ProductSaleSet originalProduct = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
-
-                                ProductSaleSet modifiedProduct = new ProductSaleSet
-                                {
-                                    Name = ModifySelectedArticleNameTextBox.Text,
-                                    Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
-                                    PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                    Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
-                                    ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
-                                    ProductTypeId = new ProductTypeDAO().GetProductTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
-                                    EmployeeId = 1,
-                                    IdentificationCode = ModifySelectedArticleCodeTextBox.Text,
-                                    Description = ModifySelectedArticleDescriptionTextBox.Text
-                                };
-
-                                new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
+                                new AlertPopup("¡Código ya usado!", "El código ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
                             }
-
-                            new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
-
-                            UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
-                            UpdateModifySelectedArticleDetailsStackPanel();
-                            InitializeComboboxesForModifySomeSelectedArticleData();
-                            ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
-
-                            ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
-                            ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
-                            ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
-
-                            SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
-                            SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
-                            SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
                         }
                         else
                         {
@@ -657,6 +645,8 @@ namespace ItalianPizza.XAMLViews
 
         private void UpdateModifySelectedArticleDetailsStackPanel()
         {
+            ModifySelectedArticlePriceDecimalUpDown.Text = "";
+
             SupplySet supply = null;
             ProductSaleSet product = null;
 
@@ -683,7 +673,14 @@ namespace ItalianPizza.XAMLViews
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
                 ModifySelectedArticleQuantityIntegerUpDown.Text = supply.Quantity.ToString();
                 ModifySelectedArticleCodeTextBox.Text = supply.IdentificationCode;
-                ModifySelectedArticlePriceDecimalUpDown.Text = supply.PricePerUnit.ToString();
+
+                string supplyPrice = "$" + supply.PricePerUnit.ToString();
+                if (!supplyPrice.Contains("."))
+                {
+                    supplyPrice += ".00";
+                }
+
+                ModifySelectedArticlePriceDecimalUpDown.Text = supplyPrice;
             }
 
             if (product != null)
@@ -693,7 +690,14 @@ namespace ItalianPizza.XAMLViews
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new ProductTypeDAO().GetProductTypeById(product.ProductTypeId).Type;
                 ModifySelectedArticleQuantityIntegerUpDown.Text = product.Quantity.ToString();
                 ModifySelectedArticleCodeTextBox.Text = product.IdentificationCode;
-                ModifySelectedArticlePriceDecimalUpDown.Text = product.PricePerUnit.ToString();
+
+                string productPrice = "$" + product.PricePerUnit.ToString();
+                if (!productPrice.Contains("."))
+                {
+                    productPrice += ".00";
+                }
+
+                ModifySelectedArticlePriceDecimalUpDown.Text = productPrice;
                 ModifySelectedArticleDescriptionTextBox.Text = product.Description;
             }
         }
@@ -705,18 +709,36 @@ namespace ItalianPizza.XAMLViews
             string finalText = "";
 
             string articleNamePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
+            string quantityPattern = "^\\d+";
+            string pricePerUnitPattern = "^\\d+(\\.\\d{2})?$";
             string codePattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
             string descriptionPattern = "^[A-Za-z0-9áéíóúÁÉÍÓÚ\\s]+$";
 
             Regex articleNameRegex = new Regex(articleNamePattern);
+            Regex quantityRegex = new Regex(quantityPattern);
+            Regex pricePerUnitRegex = new Regex(pricePerUnitPattern);
             Regex codeRegex = new Regex(codePattern);
             Regex descriptionRegex = new Regex(descriptionPattern);
 
             Match articleNameMatch = articleNameRegex.Match(ModifySelectedArticleNameTextBox.Text);
+            Match quantityMatch = quantityRegex.Match(ModifySelectedArticleQuantityIntegerUpDown.Value.ToString());
+            Match pricePerUnitMatch = pricePerUnitRegex.Match(ModifySelectedArticlePriceDecimalUpDown.Value.ToString());
             Match codeMatch = codeRegex.Match(ModifySelectedArticleCodeTextBox.Text);
-            Match descriptionMatch = descriptionRegex.Match(ModifySelectedArticleDescriptionTextBox.Text);
 
-            if (!articleNameMatch.Success || !codeMatch.Success || !descriptionMatch.Success)
+            Match descriptionMatch = null;
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+            {
+                descriptionMatch = descriptionRegex.Match("A");
+            }
+
+            if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+            {
+                descriptionMatch = descriptionRegex.Match(ModifySelectedArticleDescriptionTextBox.Text);
+            }
+
+
+            if (!articleNameMatch.Success || !quantityMatch.Success || !pricePerUnitMatch.Success || !codeMatch.Success || !descriptionMatch.Success)
             {
                 finalText += "Los campos con valores inválidos son: ";
             }
@@ -724,6 +746,36 @@ namespace ItalianPizza.XAMLViews
             if (!articleNameMatch.Success)
             {
                 finalText = finalText + "Nombre del Artículo" + ".";
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!quantityMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Cantidad" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Cantidad" + ".";
+                }
+
+                textFieldsWithIncorrectValues++;
+            }
+
+            if (!pricePerUnitMatch.Success)
+            {
+                if (textFieldsWithIncorrectValues >= 1)
+                {
+                    finalText = finalText.Substring(0, finalText.Length - 1);
+                    finalText = finalText + ", " + "Precio" + ".";
+                }
+                else
+                {
+                    finalText = finalText + "Precio" + ".";
+                }
+
                 textFieldsWithIncorrectValues++;
             }
 

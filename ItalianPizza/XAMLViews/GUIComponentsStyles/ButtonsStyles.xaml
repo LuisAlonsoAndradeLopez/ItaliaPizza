@@ -40,7 +40,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#B53B3B"/>
+                <Setter Property="Background" Value="#541B1B"/>
             </Trigger>
         </Style.Triggers>
     </Style>
@@ -106,7 +106,7 @@
 
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#B53B3B"/>
+                <Setter Property="Background" Value="#541B1B"/>
             </Trigger>
         </Style.Triggers>
     </Style>

@@ -1,22 +1,9 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Button = System.Windows.Controls.Button;
+using Page = System.Windows.Controls.Page;
 using Window = System.Windows.Window;
 
 namespace ItalianPizza.XAMLViews
@@ -99,39 +86,43 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnUsersModule_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-            Frame framePrincipal = mainWindow.FindName("frameContainer") as Frame;
-            GUI_CustomerOrderManagementForm pagina = new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>());
-            framePrincipal.Navigate(pagina);
+            ChangePage(new GUI_ReviewUsers());
+            btnUsersModule.Background = new SolidColorBrush(Colors.Yellow);
         }
 
         public void BtnInventoryModule_Click(object sender, RoutedEventArgs e)
         {
-            btnInventoryModule.Background = new SolidColorBrush(Colors.Yellow);
+            ChangePage(new GUI_Inventory());
+            btnInventoryModule.Background = new SolidColorBrush(Colors.Turquoise);
         }
 
         public void BtnCustomerOrderModule_Click(object sender, RoutedEventArgs e)
         {
-            btnCustomerOrderModule.Background = new SolidColorBrush(Colors.Turquoise);
+            ChangePage(new GUI_ConsultCustomerOrder());
+            btnCustomerOrderModule.Background = new SolidColorBrush(Colors.Aqua);
         }
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            btnFinanceModule.Background = new SolidColorBrush(Colors.Aqua);
+            btnFinanceModule.Background = new SolidColorBrush(Colors.AliceBlue);
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
-            Frame framePrincipal = mainWindow.FindName("frameContainer") as Frame;
-            GUI_CustomerOrderManagementForm pagina = new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>());
-            framePrincipal.Navigate(pagina);
+            btnSupplierModule.Background = new SolidColorBrush(Colors.Aquamarine);
         }
 
 
         public void BtnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            btnLogOut.Background = new SolidColorBrush(Colors.AliceBlue);
+            ChangePage(new GUI_Login());
+        }
+
+        private void ChangePage(Page page)
+        {
+            MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
+            Frame framePrincipal = mainWindow.FindName("frameContainer") as Frame;
+            framePrincipal.Navigate(page);
         }
     }
 }

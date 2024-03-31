@@ -5,12 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -151,7 +146,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                if (findByType == "Name")
+                if (findByType == "Nombre")
                 {
                     specifiedProducts = context.ProductSaleSet.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
                 }
@@ -199,6 +194,31 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return generatedID;
+        }
+
+        public bool TheCodeIsAlreadyRegistred(string productCode)
+        {
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    ProductSaleSet product = context.ProductSaleSet.Where(p => p.IdentificationCode == productCode).FirstOrDefault();
+                    if (product != null)
+                    {
+                        return true;
+                    }
+
+                    return false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
         }
 
         public bool TheNameIsAlreadyRegistred(string productName)

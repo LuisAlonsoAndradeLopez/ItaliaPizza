@@ -19,21 +19,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Rectangle HorizontalAlignment="Left" Height="886" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="244" Fill="#FF1C1C1C" Grid.RowSpan="2"/>
-            <Image HorizontalAlignment="Left" Height="177" Margin="27,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-            <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,251,0,0" VerticalAlignment="Top" Height="68" Width="224" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,262,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-            <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,340,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="29,351,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-            <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,432,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="32,443,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-            <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,529,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Grid.RowSpan="2"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,540,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-            <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,28,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF1C1C1C" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Grid.Row="1"/>
-            <Image HorizontalAlignment="Left" Height="45" Margin="28,39,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png" Grid.Row="1"/>
-            <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,124,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Grid.Row="1"/>
-            <Image HorizontalAlignment="Left" Height="44" Margin="29,136,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png" Grid.Row="1"/>
-
+            <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
 
             <Rectangle HorizontalAlignment="Left" Height="692" Margin="349,61,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="763" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <Label Content="Imagen del usuario" HorizontalAlignment="Left" Margin="530,130,0,0" VerticalAlignment="Top" Foreground="White" FontSize="42"/>

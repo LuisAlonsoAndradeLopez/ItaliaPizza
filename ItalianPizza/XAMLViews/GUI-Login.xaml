@@ -5,17 +5,17 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
       mc:Ignorable="d" 
-      Height="790" 
-      Width="1179"
+      Height="922.16" 
+      Width="1742.8"
       Title="GUI_Login">
 
     <Grid Background="#070711" Margin="0,0,0,-6" >
         <Image 
             HorizontalAlignment="Center" 
-            Height="787" 
+            Height="1201" 
             VerticalAlignment="Top" 
-            Width="1180" 
-            Source="\Resources\Pictures\FONDO-LOGIN.jpg"/>
+            Width="1796" 
+            Source="\Resources\Pictures\FONDO-LOGIN.jpg" Margin="0,-189,0,0"/>
 
         <Rectangle 
             HorizontalAlignment="Left" 
@@ -121,6 +121,7 @@
                 VerticalAlignment="Top" 
                 BorderBrush="#FFDEAB04"
                 Background="#FFDEAB04" 
+                Cursor="Hand"
                 Height="34"
                 Width="374"
                 Foreground="White"

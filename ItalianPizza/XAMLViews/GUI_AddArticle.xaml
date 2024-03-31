@@ -10,9 +10,7 @@
         d:DesignWidth="1742.8"
         Title="GUI_AddArticle">
 
-    <!--
-    
-    <Window.Resources>
+    <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
@@ -21,8 +19,7 @@
                 <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
-    -->
+    </Page.Resources>
 
     <Grid Background="#000000" >
         <Grid.ColumnDefinitions>
@@ -30,20 +27,7 @@
             <ColumnDefinition Width="347*"/>
         </Grid.ColumnDefinitions>
 
-        <Rectangle HorizontalAlignment="Left" Height="906" Stroke="#FF1C1C1C" VerticalAlignment="Center" Width="244" Fill="#FF1C1C1C"/>
-        <Image HorizontalAlignment="Left" Height="177" Margin="27,28,0,0" VerticalAlignment="Top" Width="195" Source="\Resources\Pictures\ItalianPiza_Logo.png" Stretch="Fill"/>
-        <Button Content="        Usuarios" HorizontalAlignment="Left" Margin="-20,251,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="UsersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,262,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-User.png"/>
-        <Button Content="           Inventario" HorizontalAlignment="Left" Margin="-20,340,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF070711" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="InventoryButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="29,351,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Inventario.png"/>
-        <Button Content="         Pedidos" HorizontalAlignment="Left" Margin="-20,432,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="OrdersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="32,443,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="/Resources/Pictures/ICON-Pedido.png"/>
-        <Button Content="        Finanzas" HorizontalAlignment="Left" Margin="-20,529,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="FinanceButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,540,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-Finanzas.png"/>
-        <Button Content="              Proveedores" HorizontalAlignment="Left" Margin="-20,623,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="ProvidersButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="45" Margin="28,634,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-Proveedor.png"/>
-        <Button Content="                Cerrar Sesion" HorizontalAlignment="Left" Margin="-20,719,0,0" VerticalAlignment="Top" Height="68" Width="252" Background="#FF171721" Foreground="#FFF8F8F8" FontFamily="Arial" FontSize="18" BorderBrush="#FF171721" FontWeight="Thin" Click="CloseSessionButtonOnClick"/>
-        <Image HorizontalAlignment="Left" Height="44" Margin="29,731,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="61.087,11.297" Source="/Resources/Pictures/ICON-CerrarSesion.png"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
 
         <Rectangle HorizontalAlignment="Left" Height="880" Margin="256,0,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Center" Width="1474" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2"/>
 
@@ -51,7 +35,7 @@
             <Rectangle HorizontalAlignment="Left" Height="707" Stretch="Uniform" Margin="277,39,0,0" VerticalAlignment="Top" Width="736" Fill="#000000" RadiusX="20" RadiusY="20"/>
             <TextBlock Name="SelectAnArticleTextBlock1" Text="Imágen del Artículo" Foreground="White" FontSize="50" Margin="427,62,876,772" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
             <Image Name="ArticleImage" Stretch="Uniform" Margin="277,136,758,291" />
-            <Button Content="Seleccionar Imágen" HorizontalAlignment="Left" Margin="473,620,0,0" VerticalAlignment="Top" Height="66" Width="344" FontSize="25" Click="SelectImageButtonOnClick"/>
+            <Button Style="{StaticResource DarkRedButtonStyle}" Content="Seleccionar Imágen" HorizontalAlignment="Left" Margin="473,620,0,0" VerticalAlignment="Top" Height="66" Width="344" FontSize="25" Click="SelectImageButtonOnClick"/>
 
             <StackPanel Margin="1013,39,10,176">
                 <StackPanel Name="NameAndArticleTypeStackPanel" Orientation="Horizontal" Height="142" Width="716" Margin="0,10,0,0">
@@ -72,7 +56,7 @@
                     </StackPanel>
                     <StackPanel Width="335">
                         <Label Content="Cantidad: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <xctk:IntegerUpDown Name="QuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
+                        <xctk:IntegerUpDown Name="QuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" Minimum="0" MaxLength="6" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24" PreviewTextInput="QuantityIntegerUpDownPreviewTextInput"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -88,7 +72,7 @@
                     </StackPanel>
                     <StackPanel Width="332">
                         <Label Content="Precio: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                        <xctk:DecimalUpDown Name="PriceDecimalUpDown" ValueChanged="PriceDecimalUpDownValueChanged" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
+                        <xctk:DecimalUpDown Name="PriceDecimalUpDown" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" MaxLength="10" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
                     </StackPanel>
                 </StackPanel>
 
@@ -97,8 +81,8 @@
                     <TextBox Name="DescriptionTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="194" Width="681" FontSize="24" MaxLength="300"/>
                 </StackPanel>
             </StackPanel>
-            <Button Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>
-            <Button Content="Agregar Artículo" HorizontalAlignment="Left" Margin="1206,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="AddArticleButtonOnClick"/>
+            <Button Style="{StaticResource BlackButtonStyle}" Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Artículo" HorizontalAlignment="Left" Margin="1206,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="AddArticleButtonOnClick"/>
         </Grid>
     </Grid>
 </Page>
