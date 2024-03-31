@@ -101,7 +101,7 @@ namespace ItalianPizza.XAMLViews
         {
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             Frame framePrincipal = mainWindow.FindName("frameContainer") as Frame;
-            GUI_CreateCustomerOrder pagina = new GUI_CreateCustomerOrder(new List<ProductSale>());
+            GUI_CustomerOrderManagementForm pagina = new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>());
             framePrincipal.Navigate(pagina);
         }
 
@@ -124,7 +124,7 @@ namespace ItalianPizza.XAMLViews
         {
             MainWindow mainWindow = Window.GetWindow(this) as MainWindow;
             Frame framePrincipal = mainWindow.FindName("frameContainer") as Frame;
-            GUI_CreateCustomerOrder pagina = new GUI_CreateCustomerOrder(new List<ProductSale>());
+            GUI_CustomerOrderManagementForm pagina = new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>());
             framePrincipal.Navigate(pagina);
         }
 
