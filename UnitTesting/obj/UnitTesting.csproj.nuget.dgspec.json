@@ -1,35 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {}
+    "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj": {
-      "restore": {
-        "projectUniqueName": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
-        "projectName": "ItalianPizza",
-        "projectPath": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
-        "frameworks": {
-          "net48": {
-            "projectReferences": {}
-          }
-        }
-      },
-      "frameworks": {
-        "net48": {}
-      }
-    },
-    "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {
+    "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj",
+        "projectUniqueName": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj",
         "projectName": "UnitTesting",
-        "projectPath": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj",
-        "packagesPath": "C:\\Users\\marte\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\UnitTesting\\obj\\",
+        "projectPath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj",
+        "packagesPath": "C:\\Users\\Luis Alonso\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\marte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Luis Alonso\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,8 +28,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj": {
-                "projectPath": "C:\\Users\\marte\\source\\repos\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj"
+              "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj": {
+                "projectPath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj"
               }
             }
           }
@@ -53,17 +38,16 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "EntityFramework": {
+              "target": "Package",
+              "version": "[6.4.4, )"
+            },
             "MSTest.TestAdapter": {
               "target": "Package",
               "version": "[3.1.1, )"
@@ -97,7 +81,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
