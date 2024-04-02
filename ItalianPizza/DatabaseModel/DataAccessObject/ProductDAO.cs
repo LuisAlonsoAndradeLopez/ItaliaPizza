@@ -90,6 +90,89 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return activeProducts;
         }
 
+        public int DecreaseSuppliesOnSale(List<RecipeDetailsSet> recipeIngredients)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var product in recipeIngredients)
+                        {
+                            SupplySet supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
+                            supply.Quantity -= product.Quantity;
+                            if (supply.Quantity >= 0)
+                            {
+                                result = context.SaveChanges();
+                            }
+                            else
+                            {
+                                result = -1;
+                                break;
+                            }
+                        }
+
+                        if (result != -1)
+                        {
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                        }
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public int RestoreSuppliesOnSale(List<RecipeDetailsSet> recipeIngredients)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var product in recipeIngredients)
+                        {
+                            SupplySet supply = context.SupplySet.FirstOrDefault(supplyAux => supplyAux.Id == product.SupplyId);
+                            supply.Quantity += product.Quantity;
+                            result = context.SaveChanges();
+                        }
+                        transaction.Commit();
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
         public BitmapImage GetImageByProductName(string productName)
         {
             using (var context = new ItalianPizzaServerBDEntities())
