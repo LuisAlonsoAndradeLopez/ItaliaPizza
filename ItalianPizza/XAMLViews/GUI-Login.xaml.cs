@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using ItalianPizza.Auxiliary;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
@@ -20,6 +21,15 @@ namespace ItalianPizza.XAMLViews
             NavigationService.Navigate(new GUI_ConsultCustomerOrder());
         }
 
+        private void HidePassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            pwPassword.Password = txtPassword.Text;
+            pwPassword.Visibility = Visibility.Visible;
+            txtPassword.Visibility = Visibility.Collapsed;
+            imgHidePasswordIcon.Visibility = Visibility.Collapsed;
+            imgViewPasswordIcon.Visibility = Visibility.Visible;
+        }
+
         private void ViewPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             txtPassword.Text = pwPassword.Password;
@@ -29,13 +39,9 @@ namespace ItalianPizza.XAMLViews
             imgViewPasswordIcon.Visibility = Visibility.Collapsed;
         }
 
-        private void HidePassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void ClickHereForRegister_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            pwPassword.Password = txtPassword.Text;
-            pwPassword.Visibility = Visibility.Visible;
-            txtPassword.Visibility = Visibility.Collapsed;
-            imgHidePasswordIcon.Visibility = Visibility.Collapsed;
-            imgViewPasswordIcon.Visibility = Visibility.Visible;
+            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
         }
     }
 }

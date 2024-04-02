@@ -92,8 +92,10 @@ namespace ItalianPizza.XAMLViews
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_InventoryReport());
+            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+
+            //NavigationService navigationService = NavigationService.GetNavigationService(this);
+            //navigationService.Navigate(new GUI_InventoryReport());
         }
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
@@ -115,6 +117,18 @@ namespace ItalianPizza.XAMLViews
                     SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
                     SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
                     SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+
+                    if (selectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                    {
+                        ConsultProductRecipeButton.Visibility = Visibility.Collapsed;
+                        ModifyArticleButton1.Margin = new Thickness(200, 0 ,0 ,0);
+                    }
+
+                    if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                    {
+                        ConsultProductRecipeButton.Visibility = Visibility.Visible;
+                        ModifyArticleButton1.Margin = new Thickness(90, 0, 0, 0);
+                    }
                 }
             }
             catch (EntityException ex)
@@ -179,8 +193,10 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void ConsultArticleRecipeButtonOnClick(object sender, RoutedEventArgs e)
+        private void ConsultProductRecipeButtonOnClick(object sender, RoutedEventArgs e)
         {
+            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+
             //Este método lo hace el Álvaro
         }
 

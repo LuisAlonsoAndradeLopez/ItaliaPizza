@@ -1,4 +1,5 @@
-﻿using ItalianPizza.XAMLViews.Finances;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.XAMLViews.Finances;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -105,13 +106,15 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_Finances());
-            btnFinanceModule.Background = new SolidColorBrush(Colors.AliceBlue);
+            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+
+            //ChangePage(new GUI_Finances());
+            //btnFinanceModule.Background = new SolidColorBrush(Colors.AliceBlue);
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)
         {
-            btnSupplierModule.Background = new SolidColorBrush(Colors.Aquamarine);
+            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
         }
 
 

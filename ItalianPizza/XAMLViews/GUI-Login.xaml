@@ -187,7 +187,8 @@
                VerticalAlignment="Top"
                FontSize="18"
                FontFamily="Segoe UI Semibold"
-               Foreground="#FFE4AE1F"/>
+               Foreground="#FFE4AE1F"
+               MouseLeftButtonDown="ClickHereForRegister_MouseLeftButtonDown"/>
 
         <PasswordBox x:Name="pwPassword" 
                      HorizontalAlignment="Left" 

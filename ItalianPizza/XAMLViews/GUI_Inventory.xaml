@@ -176,10 +176,10 @@
                 <TextBlock Name="SelectAnArticleTextBlock3" Text="Selecciona un Artículo" Foreground="White" FontSize="50" Margin="0,16,0,0" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
 
                 <StackPanel Name="SelectedArticleButtonsStackPanel" Height="100" Orientation="Horizontal" Visibility="Collapsed">
-                    <Button Style="{StaticResource DarkRedButtonStyle}" Margin="60,0,0,0" Width="180" Height="60" Click="ConsultArticleRecipeButtonOnClick">
-                        <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Consultar Receta del Artículo"/>
+                    <Button Name="ConsultProductRecipeButton" Style="{StaticResource DarkRedButtonStyle}" Margin="60,0,0,0" Width="180" Height="60" Click="ConsultProductRecipeButtonOnClick">
+                        <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Consultar Receta del Producto"/>
                     </Button>
-                    <Button Style="{StaticResource RedButtonStyle}" Margin="90,0,0,0" Width="180" Height="60" Click="ModifyArticleButtonOnClick1">
+                    <Button Name="ModifyArticleButton1" Style="{StaticResource RedButtonStyle}" Margin="90,0,0,0" Width="180" Height="60" Click="ModifyArticleButtonOnClick1">
                         <TextBlock FontSize="20" TextWrapping="Wrap" TextAlignment="Center" Text="Modificar Artículo"/>
                     </Button>
                 </StackPanel>
