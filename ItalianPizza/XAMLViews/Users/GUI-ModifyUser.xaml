@@ -9,32 +9,69 @@
       d:DesignWidth="1742.8"
       Title="GUI_ModifyUser">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid Background="#FF131313" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="234*"/>
+            <ColumnDefinition Width="347*"/>
+        </Grid.ColumnDefinitions>
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
 
-        <Rectangle HorizontalAlignment="Left" Height="692" Margin="349,61,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="763" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
-        <Label Content="Imagen del usuario" HorizontalAlignment="Left" Margin="530,130,0,0" VerticalAlignment="Top" Foreground="White" FontSize="42"/>
-        <Button Content="Seleccionar imagen" HorizontalAlignment="Left" Margin="594,617,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="GoToAddUserWindows"/>
 
-        <Image HorizontalAlignment="Left"  Margin="591,234,0,0" VerticalAlignment="Top" Width="256" RenderTransformOrigin="0.511,0.545" Source="\Resources\Pictures\ICON-UserRegistrarion.png" Height="322"/>
-        <Button Content="Regresar" HorizontalAlignment="Left" Margin="598,798,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#FFDB4B2C" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C"  FontWeight="Thin" BorderThickness="3" Click="GoToAddUserWindows"/>
-        <Button Content="Modificar" HorizontalAlignment="Left" Margin="1274,795,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#5AB53B" Foreground="White" FontFamily="Arial" FontSize="20"   FontWeight="Thin" BorderThickness="3" Click="GoToAddUserWindows"/>
+        <Rectangle HorizontalAlignment="Left" Height="692" Margin="349,61,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="763" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+        <Label Content="Imagen del usuario" HorizontalAlignment="Left" Margin="533,124,0,0" VerticalAlignment="Top" Foreground="White" FontSize="42" Grid.ColumnSpan="2"/>
+        <Button Content="Seleccionar imagen" HorizontalAlignment="Left" Margin="602,633,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="SelectImage_Clic" Grid.ColumnSpan="2"/>
+        <Image x:Name="userImage" HorizontalAlignment="Left"  Margin="609,243,0,0" VerticalAlignment="Top" Width="256" RenderTransformOrigin="0.511,0.545" Grid.ColumnSpan="2"/>
+        <Button Content="Regresar" HorizontalAlignment="Left" Margin="617,812,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#FFDB4B2C" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C"  FontWeight="Thin" BorderThickness="3" Click="GoBack_Clic" Grid.ColumnSpan="2" />
+        <Button x:Name="btnRegister" Content="Siguiente" HorizontalAlignment="Left" Margin="557,817,0,0" VerticalAlignment="Top" Height="48" Width="230" Background="#5AB53B" Foreground="White" FontFamily="Arial" FontSize="20"   FontWeight="Thin" BorderThickness="3" Click="RegisterButton_Clic" Grid.Column="1" />
 
-        <StackPanel Margin="1185,88,45,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513">
+        <StackPanel x:Name="pnlForm" Visibility="Visible" Margin="482,103,46,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1">
 
-            <Label Content="Nombre:" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <TextBox Width="364" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left"/>
-            <Label Content="Apellido Paterno:" Width="300" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <TextBox Width="364" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left"/>
-            <Label Content="Apellido Materno:" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <TextBox Width="364" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left"/>
-            <Label Content="Teléfono:" Width="154" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <TextBox Width="364" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left"/>
-            <Label Content="Rol:" Width="100" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="cboUserRol" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711" />
-            <Label Content="Estado:" Width="122" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="cboUserStatus" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711" />
+            <Label Content="Nombre: *" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtName" Width="364" Text="Ingresa el nombre" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Apellido Paterno: *" Width="307" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtLastName" Width="364" Text="Ingresa el apellido paterno" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Apellido Materno: *" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtSecondLastName" Width="364" Text="Ingresa el apellido materno" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Teléfono: *" Width="180" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtPhoneNumber" Width="364" Text="Ingresa el teléfono" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Rol: *" Width="100" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="cboUserRol" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711"/>
+        </StackPanel>
+
+        <StackPanel x:Name="pnlUser" Visibility="Collapsed" Margin="476,113,52,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1" Height="611">
+
+            <Label Content="Correo: *" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtEmail" Width="364" Text="Ingresa el correo" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Usuario: *" Width="300" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtUser" Width="364" Text="Ingresa el usuario" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Contraseña: *" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtPassword" Width="364" Text="Ingresa la contraseña" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Confirmar contraseña: *" Width="397" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <TextBox x:Name="txtPasswordConfirmation" Width="364" Text="Ingresa la contraseña" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus"/>
+            <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
+            <Label Content="Estado: *" Width="397" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <ComboBox x:Name="cboUserStatus" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711"/>
+
+
         </StackPanel>
 
 

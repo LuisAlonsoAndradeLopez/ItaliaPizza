@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -24,6 +27,10 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_ReviewUsers : Page
     {
         UserDAO userDAO = new UserDAO();
+        private List<EmployeeSet> employees;
+        private EmployeeSet employeeSelected;
+        UserAccountSet userAccountSelected;
+
         public GUI_ReviewUsers()
         {
             InitializeComponent();
@@ -42,6 +49,38 @@ namespace ItalianPizza.XAMLViews
 
         }
 
+        private void UserButtonOnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (sender is Border border)
+                {
+                    EmployeeSet employee = (EmployeeSet)border.Tag;
+                    employeeSelected = employee;
+                    userAccountSelected = userDAO.GetUserAccountByEmployeeID(employee.Id);
+                    grdVirtualWindowSelectUserAlert.Visibility = Visibility.Hidden;
+                    grdDetailsUser.Visibility = Visibility.Visible;
+                    ShowUserDetails(employee);
+                }
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
+        }
+
+        private void ShowUserDetails(EmployeeSet employee)
+        {
+            txtFullName.Text = employee.Names + " " + employee.LastName + " " + employee.SecondLastName;
+            txtEmail.Text = employee.Email;
+            txtPhoneNumber.Text = employee.Phone;
+            txtRol.Text = employee.EmployeePositionSet.Position;
+            txtState.Text = employee.UserStatusSet.Status;
+            txtAddress.Text = userDAO.GetUserAddressByEmployeeID(employee.Id);
+            imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
+        }
+
         private void GetAllUsers()
         {
             List<EmployeeSet> employees = new List<EmployeeSet>();
@@ -52,7 +91,7 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException ex)
             {
-                MessageBox.Show(ex.Message);
+                new AlertPopup("Error de conexión","Error al acceder a la base de datos.", AlertPopupTypes.Error);
             }
 
         }
@@ -60,68 +99,83 @@ namespace ItalianPizza.XAMLViews
         private void ShowAllUsers(List<EmployeeSet> employees)
         {
             wpUsersRegistered.Children.Clear();
-            ScrollViewer scroll = new ScrollViewer
-            {
-                VerticalScrollBarVisibility = ScrollBarVisibility.Hidden,
-                HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled,
-            };
-
-            StackPanel stack = new StackPanel();
+            
 
             foreach(var employee in employees)
             {
-                Grid grdContainer = new Grid
+                Border userBorder = new Border
                 {
-                    Margin = new Thickness(0, 0, 0, 10),
+                    Cursor = Cursors.Hand,
+                    Height = 142,
+                    Margin = new Thickness(5, 4, 5, 0),
+                    CornerRadius = new CornerRadius(10),
+                    Background = new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x33)),
+                    Tag = employee,
                 };
 
-                Rectangle rectBackground = new Rectangle
-                {
-                    Height = 55,
-                    Width = 857,
-                    RadiusX = 30,
-                    RadiusY = 30,
-                    Fill = new SolidColorBrush(Color.FromRgb(23, 23, 33)),
-                };
-                grdContainer.Children.Add(rectBackground);
+                userBorder.MouseLeftButtonDown += UserButtonOnClick;
 
-                Image image = new Image
+                StackPanel usersStackPanel = new StackPanel
                 {
-                    Height = 45,
-                    Width = 45,
-                    Source = new BitmapImage(new Uri("..\\Resources\\Pictures\\ICON-Domicilio.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(-750, 0, 0, 0),
+                    Orientation = Orientation.Horizontal
                 };
-                grdContainer.Children.Add(image);
 
-                Label lblFullName = new Label
+                /*
+                Image userImage = new Image
                 {
-                    Content = employee.Names + " " + employee.LastName + " " + employee.SecondLastName,
+                    Width = 74,
+                    Height = 100,
+                    Margin = new Thickness(40, 0, 0, 0),
+                    Source = new UserDAO().GetUserImageByEmployeeID(employee.ProfilePhoto),
+                };*/
+
+                TextBlock lblFullName = new TextBlock
+                {
                     Foreground = new SolidColorBrush(Colors.White),
-                    FontSize = 20,
-                    Margin = new Thickness(110, 0, 0, 0),
+                    Margin = new Thickness(20, 0, 0, 0),
+                    Width = 337,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = employee.Names + " " + employee.LastName + " " + employee.SecondLastName,
                 };
 
-                grdContainer.Children.Add(lblFullName);
-
-                Label lblUserType = new Label
+                TextBlock lblUserType = new TextBlock
                 {
-                    Content = employee.UserStatusId,
                     Foreground = new SolidColorBrush(Colors.White),
-                    FontSize = 20,
-                    Margin = new Thickness(326, 0, 0, 0),
+                    Margin = new Thickness(0, 0, 0, 0),
+                    Width = 184,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = employee.EmployeePositionSet.Position,
                 };
-                grdContainer.Children.Add(lblUserType);
 
-                Label lblUserStatus = new Label
+                TextBlock lblUserStatus = new TextBlock
                 {
-                    Content = employee.UserStatusId,
                     Foreground = new SolidColorBrush(Colors.White),
-                    FontSize = 20,
-                    Margin = new Thickness(542, 0, 0, 0),
+                    Margin = new Thickness(30, 0, 0, 0),
+                    Width = 113,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Text = employee.UserStatusSet.Status,
                 };
-                grdContainer.Children.Add(lblUserStatus);
+
+
+                //usersStackPanel.Children.Add(userImage);
+                usersStackPanel.Children.Add(lblFullName);
+                usersStackPanel.Children.Add(lblUserType);
+                usersStackPanel.Children.Add(lblUserStatus);
+
+                userBorder.Child = usersStackPanel;
+
+                wpUsersRegistered.Children.Add(userBorder);
+
+
 
             }
         }
@@ -146,6 +200,12 @@ namespace ItalianPizza.XAMLViews
         private void ComboBox_StatusSelection(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void GoToModifyUserWindows(object sender, RoutedEventArgs e)
+        {
+            GUI_ModifyUser VENTANA = new GUI_ModifyUser(employeeSelected, userAccountSelected);
+            this.NavigationService.Navigate(VENTANA);
         }
     }
 }

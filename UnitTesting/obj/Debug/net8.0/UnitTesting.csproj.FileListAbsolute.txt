@@ -1,6 +1,0 @@
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.csproj.AssemblyReference.cache
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.AssemblyInfoInputs.cache
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.AssemblyInfo.cs
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.csproj.CoreCompileInputs.cache
-C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\net8.0\UnitTesting.sourcelink.json
