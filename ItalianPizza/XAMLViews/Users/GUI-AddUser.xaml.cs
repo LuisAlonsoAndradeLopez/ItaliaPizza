@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Microsoft.Win32;
 using System;
@@ -11,11 +12,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -37,64 +40,58 @@ namespace ItalianPizza.XAMLViews
         {
             List<string> types = new List<string>
             {
-                "Administrador",
-                "EmployeeSet",
-                "Cocinero",
-                "Repartidor",
+                "Gerente",
                 "Recepcionista",
+                "Mesero",
+                "Personal Cocina"
             };
-            cboStatusCustomerOrders.ItemsSource = types; ;
+            cboUserRol.ItemsSource = types; ;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
-            TextBox textBox = (TextBox)sender;
+            System.Windows.Controls.TextBox textBox = (System.Windows.Controls.TextBox)sender;
             textBox.Text = string.Empty;
         }
 
         private void SelectImage_Clic(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ventanaSeleccionDeImagen = new OpenFileDialog
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files (*.png)|*.png",
+                Title = "Selecciona una imágen"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
                 {
-                    Title = "Seleccione una imagen de jugador",
-                    Filter = "Todos los formatos permitidos|*.jpg;*.jpeg;*.png|" +
-              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
-              "Portable Network Graphic (*.png)|*.png"
-                };
-                if (ventanaSeleccionDeImagen.ShowDialog() == true)
-                {
-                    userImage.Source = new BitmapImage(new Uri(ventanaSeleccionDeImagen.FileName));
-                    route = ventanaSeleccionDeImagen.FileName;
+                    userImage.Source = imageSource;
                 }
+                else
+                {
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
+                }
+            }
         }
 
-        private byte[] ConvertImageToBytes()
-        {
-            MemoryStream ms = new MemoryStream();
-            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
-            BitmapImage imagenFinal = new BitmapImage();
-            imagenFinal.BeginInit();
-            imagenFinal.UriSource = new Uri(route);
-            imagenFinal.DecodePixelHeight = 150;
-            imagenFinal.DecodePixelWidth = 150;
-            imagenFinal.EndInit();
-            encoder.Frames.Add(BitmapFrame.Create(imagenFinal));
-            encoder.Save(ms);
-            return ms.ToArray();
-        }
 
         private void RegisterButton_Clic(object sender, RoutedEventArgs e)
         {
             if(pnlForm.Visibility == Visibility.Visible)
             {
+                btnRegister.Content = "Registrar";
                 pnlForm.Visibility = Visibility.Hidden;
                 pnlUser.Visibility = Visibility.Visible;
             }
             else
             {
+                btnRegister.Content = "Siguiente";
                 if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtLastName.Text) || string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Text))
                 {
-                    MessageBox.Show("Por favor, llene todos los campos.");
+                                new AlertPopup("¡Error!", "Llene todos los campos", AlertPopupTypes.Error);
                 }
                 else
                 {
@@ -104,33 +101,39 @@ namespace ItalianPizza.XAMLViews
                             UserName = txtEmail.Text,
                             Password = txtPassword.Text
                         };
-                        EmployeeSet employee = new EmployeeSet()
-                        {
-                            //Id = RandomNumberGenerator.GenerateRandomNumber(1000, 9999),
-                            Names = txtName.Text,
-                            LastName = txtLastName.Text,
-                            SecondLastName = txtSecondLastName.Text,
-                            Phone = txtPhoneNumber.Text,
-                           ProfilePhoto = ConvertImageToBytes()
+                    EmployeeSet employee = new EmployeeSet()
+                    {
+                        Names = txtName.Text,
+                        LastName = txtLastName.Text,
+                        SecondLastName = txtSecondLastName.Text,
+                        Email = txtEmail.Text,
+                        Phone = txtPhoneNumber.Text,
+                        ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
+                        UserStatusId = 1,
+                        EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
+                        Address_Id = 1
                         };
                         int result = userDAO.RegisterUser(account, employee);
-                        if (result == 1)
+                        if (result == 2)
                         {
-                            MessageBox.Show("Usuario registrado con éxito.");
+                            new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
                             NavigationService.GoBack();
                         }
                         else
                         {
-                            MessageBox.Show("No se pudo registrar el usuario.");
+                                new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
                         }
                 }
             }
-        }
+
+        
+    }
 
         private void GoBack_Clic(object sender, RoutedEventArgs e)
         {
             if (pnlForm.Visibility == Visibility.Hidden)
             {
+                btnRegister.Content = "Siguiente";
                 pnlUser.Visibility = Visibility.Hidden;
                 pnlForm.Visibility = Visibility.Visible;
             }
