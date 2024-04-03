@@ -559,6 +559,7 @@
             BorderBrush="#FFBC8B21"
             BorderThickness="0"
             Visibility="Hidden"
+            Click="Button_ModifyCustomerOrder"
             FontWeight="Thin"/>
 
         <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0">

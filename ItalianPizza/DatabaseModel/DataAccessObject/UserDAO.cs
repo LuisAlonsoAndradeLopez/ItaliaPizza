@@ -18,6 +18,33 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
     {
         public UserDAO() { }
 
+        public EmployeeSet CheckEmployeeExistencebyLogin(UserAccountSet employeeAccount)
+        {
+            EmployeeSet employee = null;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    employee = context.EmployeeSet
+                        .Include(employeeAux => employeeAux.AddressSet)
+                        .Include(employeeAux => employeeAux.UserAccountSet)
+                        .Include(employeeAux => employeeAux.EmployeePositionSet)
+                        .Include(employeeAux => employeeAux.UserStatusSet)
+                        .FirstOrDefault(employeeAux => employeeAux.UserAccountSet.UserName == employeeAccount.UserName && employeeAux.UserAccountSet.Password == employeeAccount.Password);
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return employee;
+        }
+
         public List<EmployeeSet> GetAllEmployees()
         {
             List<EmployeeSet> employees = new List<EmployeeSet>();

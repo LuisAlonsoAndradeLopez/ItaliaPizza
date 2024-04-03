@@ -100,6 +100,7 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\RecipeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
@@ -385,6 +386,23 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
+    <Resource Include="Resources\Pictures\ICON-Repartidor.png" />
+    <Resource Include="Resources\Pictures\ICON-NumeroCalle.png" />
+    <Resource Include="Resources\Pictures\ICON-Numero.png" />
+    <Resource Include="Resources\Pictures\ICON-ID.png" />
+    <Resource Include="Resources\Pictures\ICON-HidePassword.png" />
+    <Resource Include="Resources\Pictures\ICON-Ciudad.png" />
+    <Resource Include="Resources\Pictures\ICON-Cliente.png" />
+    <Resource Include="Resources\Pictures\ICON-CodigoPostal.png" />
+    <Resource Include="Resources\Pictures\ICON-Disminuir.png" />
+    <Resource Include="Resources\Pictures\ICON-Calle.png" />
+    <Resource Include="Resources\Pictures\ICON-Agregar.png" />
+    <Resource Include="Resources\Pictures\FONDO-RegistroCliente.jpg" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Decision.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Error.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Success.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

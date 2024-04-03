@@ -2,14 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
@@ -28,27 +22,32 @@ namespace ItalianPizza.XAMLViews
     {
         private CustomerOrdersDAO customerOrdersDAO;
         private ProductDAO productDAO;
-        private List<ProductSaleSet> customerOrderProducts;
         private UserDAO userDAO;
+        private CustomerOrderSet customerOrderSet;
 
         public GUI_ConsultCustomerOrder()
         {
             InitializeComponent();
             InitializeDAOConnections();
             ShowAllOrdersToday();
-            customerOrderProducts = new List<ProductSaleSet>();
-            lboStatusCustomerOrders.ItemsSource = customerOrdersDAO.GetOrderStatuses();
-            lboStatusCustomerOrders.DisplayMemberPath = "Status";
-            //LoadNavigationBar();
+            FillListBoxStatus();
         }
 
-        public void LoadNavigationBar()
+        private void FillListBoxStatus()
         {
-            NavigationBar navigationBar = new NavigationBar();
-            navigationBar.Margin = new Thickness(-1475, 0, 0, 0);
-            navigationBar.Width = 244;
-            Grid.SetColumn(navigationBar, 0);
-            Background.Children.Add(navigationBar);
+            try
+            {
+                lboStatusCustomerOrders.ItemsSource = customerOrdersDAO.GetOrderStatuses();
+                lboStatusCustomerOrders.DisplayMemberPath = "Status";
+            }
+            catch (EntityException)
+            {
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (InvalidOperationException)
+            {
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+            }
         }
 
         public void InitializeDAOConnections()
@@ -71,11 +70,11 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                //Alert.ShowDatabaseConnectionErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                //Alert.ShowInvalidDataErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
 
         }
@@ -99,11 +98,11 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                //Alert.ShowDatabaseConnectionErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                //Alert.ShowInvalidDataErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -237,7 +236,7 @@ namespace ItalianPizza.XAMLViews
         public void ViewDetailsOrderCustomer(CustomerOrderSet customerOrder)
         {
             List<ProductSaleSet> productsOrderCustomer;
-
+            customerOrderSet = customerOrder;
             try
             {
                 grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Hidden;
@@ -249,7 +248,7 @@ namespace ItalianPizza.XAMLViews
                     DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
-                    
+
                 }
                 else
                 {
@@ -258,17 +257,16 @@ namespace ItalianPizza.XAMLViews
                 }
 
                 productsOrderCustomer = productDAO.GetOrderProducts(customerOrder);
-                customerOrderProducts = productsOrderCustomer;
                 ShowOrderProducts(productsOrderCustomer);
                 lblTotalOrderCost.Content = "$ " + CalculateTotalCost(productsOrderCustomer).ToString() + ".00";
             }
             catch (EntityException)
             {
-                //Alert.ShowDatabaseConnectionErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                //Alert.ShowInvalidDataErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -340,12 +338,12 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToCreateOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(new List<ProductSaleSet>()));
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(null));
         }
 
         private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderProducts));
+            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
@@ -359,11 +357,11 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                //Alert.ShowDatabaseConnectionErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                //Alert.ShowInvalidDataErrorMessage();
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
     }
