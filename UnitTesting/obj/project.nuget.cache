@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "WDW9pnOZzccNePopnuEQh93zsa83xC/rKd4YNMgSd1EBYNVrwSYSiyxN21pa+/M3tLpYoBWj8mV/C4Uh/jcVSw==",
-  "success": false,
+  "dgSpecHash": "6U/O1QllZMfk4hDmU0v9/+DLRiKj22VQyAfs60wTVnE98Q/iWI5x72NgHyZQbbTcavMgf1vw1MD4mWpJjADgkw==",
+  "success": true,
   "projectFilePath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Luis Alonso\\.nuget\\packages\\coverlet.collector\\6.0.0\\coverlet.collector.6.0.0.nupkg.sha512",
@@ -34,15 +34,5 @@
     "C:\\Users\\Luis Alonso\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512",
     "C:\\Users\\Luis Alonso\\.nuget\\packages\\system.windows.extensions\\4.7.0\\system.windows.extensions.4.7.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1105",
-      "level": "Error",
-      "message": "No se encuentra información del proyecto para \"C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj\". Si está usando Visual Studio, puede deberse a que el proyecto no se haya cargado o no forme parte de la solución actual, por lo que debe ejecutar una restauración desde la línea de comandos. De lo contrario, puede que el archivo del proyecto no sea válido o que falten destinos necesarios para la restauración.",
-      "libraryId": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  "logs": []
 }

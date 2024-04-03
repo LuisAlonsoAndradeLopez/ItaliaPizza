@@ -121,6 +121,7 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\RecipeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
@@ -244,13 +245,13 @@
     <Compile Include="XAMLViews\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI_AddArticle.xaml.cs">
+    <Compile Include="XAMLViews\Articles\GUI_AddArticle.xaml.cs">
       <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI_Inventory.xaml.cs">
+    <Compile Include="XAMLViews\Articles\GUI_Inventory.xaml.cs">
       <DependentUpon>GUI_Inventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI_InventoryReport.xaml.cs">
+    <Compile Include="XAMLViews\Articles\GUI_InventoryReport.xaml.cs">
       <DependentUpon>GUI_InventoryReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Login\Login.xaml.cs">
@@ -316,15 +317,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI_AddArticle.xaml">
+    <Page Include="XAMLViews\Articles\GUI_AddArticle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI_Inventory.xaml">
+    <Page Include="XAMLViews\Articles\GUI_Inventory.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI_InventoryReport.xaml">
+    <Page Include="XAMLViews\Articles\GUI_InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -444,6 +445,23 @@
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
+    <Resource Include="Resources\Pictures\ICON-Repartidor.png" />
+    <Resource Include="Resources\Pictures\ICON-NumeroCalle.png" />
+    <Resource Include="Resources\Pictures\ICON-Numero.png" />
+    <Resource Include="Resources\Pictures\ICON-ID.png" />
+    <Resource Include="Resources\Pictures\ICON-HidePassword.png" />
+    <Resource Include="Resources\Pictures\ICON-Ciudad.png" />
+    <Resource Include="Resources\Pictures\ICON-Cliente.png" />
+    <Resource Include="Resources\Pictures\ICON-CodigoPostal.png" />
+    <Resource Include="Resources\Pictures\ICON-Disminuir.png" />
+    <Resource Include="Resources\Pictures\ICON-Calle.png" />
+    <Resource Include="Resources\Pictures\ICON-Agregar.png" />
+    <Resource Include="Resources\Pictures\FONDO-RegistroCliente.jpg" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Decision.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Error.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Success.png" />
+    <Resource Include="Resources\Pictures\AlertPopupImages\ICON-Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

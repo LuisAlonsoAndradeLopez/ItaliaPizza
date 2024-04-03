@@ -721,6 +721,15 @@
             "rid": "win"
           }
         }
+      },
+      "ItalianPizza/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ItalianPizza.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ItalianPizza.dll": {}
+        }
       }
     }
   },
@@ -2053,12 +2062,17 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "ItalianPizza/1.0.0": {
+      "type": "project",
+      "path": "../ItalianPizza/ItalianPizza.csproj",
+      "msbuildProject": "../ItalianPizza/ItalianPizza.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
       "EntityFramework >= 6.4.4",
+      "ItalianPizza >= 1.0.0",
       "MSTest.TestAdapter >= 3.1.1",
       "MSTest.TestFramework >= 3.1.1",
       "Microsoft.NET.Test.Sdk >= 17.8.0",
@@ -2148,16 +2162,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1105",
-      "level": "Error",
-      "message": "No se encuentra información del proyecto para \"C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj\". Si está usando Visual Studio, puede deberse a que el proyecto no se haya cargado o no forme parte de la solución actual, por lo que debe ejecutar una restauración desde la línea de comandos. De lo contrario, puede que el archivo del proyecto no sea válido o que falten destinos necesarios para la restauración.",
-      "libraryId": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }

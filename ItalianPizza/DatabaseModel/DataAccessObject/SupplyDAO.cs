@@ -36,6 +36,32 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public int DeleteSupply(SupplySet supply)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.SupplySet.Remove(supply);
+                    context.SaveChanges();
+                }
+
+                result = 1;
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
         public int DisableSupply(string supplyName)
         {
             int result = 0;

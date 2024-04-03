@@ -29,7 +29,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         context.CustomerOrderSet.Add(customerOrder);
                         result = context.SaveChanges();
 
-                        if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
+                        if (customerOrder.OrderTypeId == 1)
                         {
                             CustomerOrderCustomerSet customerOrderCustomer = new CustomerOrderCustomerSet
                             {
@@ -76,6 +76,110 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public int ModifyCustomerOrder(CustomerOrderSet customerOrder, List<ProductSaleSet> productsOrderCustomer, CustomerSet customer, DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        CustomerOrderSet OriginalCustomerOrder = context.CustomerOrderSet
+                                        .FirstOrDefault(CustomerOrder => CustomerOrder.Id == customerOrder.Id);
+
+                        OriginalCustomerOrder.TotalAmount = customerOrder.TotalAmount;
+                        OriginalCustomerOrder.OrderStatusId = customerOrder.OrderStatusId;
+                        OriginalCustomerOrder.OrderTypeId = customerOrder.OrderTypeId;
+
+                        if (OriginalCustomerOrder.OrderTypeId == 2)
+                        {
+                            CustomerOrderCustomerSet customerOrderCustomerSet = context.CustomerOrderCustomerSet.FirstOrDefault(c => c.CustomerOrderId == customerOrder.Id);
+                            CustomerOrderDeliveryDriverSet customerOrderDeliveryDriverSet = context.CustomerOrderDeliveryDriverSet.FirstOrDefault(c => c.CustomerOrderId == customerOrder.Id);
+
+                            if (customerOrderCustomerSet != null && customerOrderDeliveryDriverSet != null)
+                            {
+                                context.CustomerOrderCustomerSet.Remove(customerOrderCustomerSet);
+                                context.CustomerOrderDeliveryDriverSet.Remove(customerOrderDeliveryDriverSet);
+                            }
+                        }
+                        else
+                        {
+
+                            var customerOrderCustomerSet = OriginalCustomerOrder.CustomerOrderCustomerSet.FirstOrDefault();
+                            var customerOrderDeliveryDriverSet = OriginalCustomerOrder.CustomerOrderDeliveryDriverSet.FirstOrDefault();
+                            if (customerOrderCustomerSet == null && customerOrderDeliveryDriverSet == null)
+                            {
+                                customerOrderCustomerSet = new CustomerOrderCustomerSet
+                                {
+                                    CustomerOrderId = OriginalCustomerOrder.Id,
+                                    CustomerId = customer.Id
+                                };
+                                
+                                customerOrderDeliveryDriverSet = new CustomerOrderDeliveryDriverSet
+                                {
+                                    CustomerOrderId = OriginalCustomerOrder.Id,
+                                    DeliveryDriverId = deliveryDriver.Id
+                                };
+
+                                OriginalCustomerOrder.CustomerOrderCustomerSet.Add(customerOrderCustomerSet);
+                                OriginalCustomerOrder.CustomerOrderDeliveryDriverSet.Add(customerOrderDeliveryDriverSet);
+                            }
+                            else
+                            {
+                                customerOrderCustomerSet.CustomerId = customer.Id;
+                                customerOrderDeliveryDriverSet.DeliveryDriverId = deliveryDriver.Id;
+                            }
+
+                        }
+
+                        var productIdsInCustomerOrder = productsOrderCustomer.Select(p => p.Id).ToList();
+                        var productsToRemove = OriginalCustomerOrder.CustomerOrderDetailSet
+                            .Where(detail => !productIdsInCustomerOrder.Contains(detail.ProductSaleId))
+                            .ToList();
+
+                        foreach (var productToRemove in productsToRemove)
+                        {
+                            OriginalCustomerOrder.CustomerOrderDetailSet.Remove(productToRemove);
+                        }
+
+                        foreach (var product in productsOrderCustomer)
+                        {
+                            var existingDetail = OriginalCustomerOrder.CustomerOrderDetailSet.FirstOrDefault(detail => detail.ProductSaleId == product.Id);
+                            if (existingDetail != null)
+                            {
+                                existingDetail.ProductQuantity = product.Quantity;
+                            }
+                            else
+                            {
+                                var newDetail = new CustomerOrderDetailSet
+                                {
+                                    CustomerOrderId = OriginalCustomerOrder.Id,
+                                    ProductSaleId = product.Id,
+                                    ProductQuantity = product.Quantity
+                                };
+                                OriginalCustomerOrder.CustomerOrderDetailSet.Add(newDetail);
+                            }
+                        }
+
+                        context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
 
         public List<CustomerOrderSet> GetAllCustomerOrders()
         {

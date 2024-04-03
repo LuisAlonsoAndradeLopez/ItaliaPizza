@@ -1,13 +1,22 @@
-﻿namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
+﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+
+namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
     [TestClass]
     public class ProductStatusDAOTest
     {
+        private static ProductStatusDAO productStatusDAO;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            productStatusDAO = new ProductStatusDAO();
+        }
+
         [TestMethod]
         public void GetAllProductStatusesTest()
         {
-            var dao = new ProductStatusDAO();
-            var productStatuses = dao.GetAllProductStatuses();
+            List<ProductStatusSet> productStatuses = productStatusDAO.GetAllProductStatuses();
 
             Assert.IsNotNull(productStatuses);
             Assert.IsTrue(productStatuses.Count > 0);
@@ -16,17 +25,14 @@
         [TestMethod]
         public void GetAllProductStatusesTestTestFail()
         {
-            var dao = new ProductStatusDAO();
-
-            Assert.ThrowsException<Exception>(() => dao.GetAllProductStatuses());
+            Assert.ThrowsException<Exception>(() => productStatusDAO.GetAllProductStatuses());
         }
 
         [TestMethod]
         public void GetProductStatusByIdTest()
         {
-            var dao = new ProductStatusDAO();
             int validId = 1;
-            var productStatus = dao.GetProductStatusById(validId);
+            ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(validId);
 
             Assert.IsNotNull(productStatus);
             Assert.AreEqual(validId, productStatus.Id);
@@ -34,19 +40,17 @@
 
         [TestMethod]
         public void GetProductStatusByIdTestFail()
-        {
-            var dao = new ProductStatusDAO();
+        {            
             int invalidId = -1;
 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetProductStatusById(invalidId));
+            Assert.ThrowsException<ArgumentNullException>(() => productStatusDAO.GetProductStatusById(invalidId));
         }
 
         [TestMethod]
         public void GetProductStatusByNameTest()
-        {
-            var dao = new ProductStatusDAO();
+        {            
             string validName = "Activo";
-            var productStatus = dao.GetProductStatusByName(validName);
+            ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(validName);
 
             Assert.IsNotNull(productStatus);
             Assert.AreEqual(validName, productStatus.Status);
@@ -54,10 +58,9 @@
 
         [TestMethod]
         public void GetProductStatusByNameTestFail()
-        {
-            var dao = new ProductStatusDAO();
+        {            
             string invalidName = "Proactivo";
-            var productStatus = dao.GetProductStatusByName(invalidName);
+            ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(invalidName);
 
             Assert.IsNull(productStatus);
         }

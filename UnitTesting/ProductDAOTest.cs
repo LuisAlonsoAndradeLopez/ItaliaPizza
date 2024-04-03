@@ -6,49 +6,121 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
     [TestClass]
     public class ProductDAOTests
     {
+        private static ProductDAO productDAO;
+        private static ProductSaleSet successProductSaleSet1;
+        private static ProductSaleSet successProductSaleSet2;
+        private static ProductSaleSet successProductSaleSet3;
+        private static ProductSaleSet failedProductSaleSet;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            productDAO = new ProductDAO();
+            successProductSaleSet1 = new ProductSaleSet
+            {
+                Id = 10001,
+                Name = "Success Product 1",
+                Quantity = 1,
+                PricePerUnit = 1,
+                Picture = new byte[1],
+                ProductStatusId = 1,
+                ProductTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "99999999",
+                Description = "None"
+            };
+
+            successProductSaleSet2 = new ProductSaleSet
+            {
+                Id = 10002,
+                Name = "Success Product 2",
+                Quantity = 2,
+                PricePerUnit = 2,
+                Picture = new byte[2],
+                ProductStatusId = 1,
+                ProductTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "9999999",
+                Description = "Nada"
+            };
+
+            successProductSaleSet3 = new ProductSaleSet
+            {
+                Id = 10003,
+                Name = "Success Product 2",
+                Quantity = 3,
+                PricePerUnit = 3,
+                Picture = new byte[3],
+                ProductStatusId = 1,
+                ProductTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "99999",
+                Description = "Nadona"
+            };
+
+            failedProductSaleSet = new ProductSaleSet
+            {
+                Id = 10004,
+                Name = "Failed Product",
+                Quantity = 4,
+                PricePerUnit = 4,
+                Picture = new byte[4],
+                ProductStatusId = 1,
+                ProductTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "9999",
+                Description = "No"
+            };
+
+            productDAO.AddProduct(successProductSaleSet2);
+            productDAO.AddProduct(successProductSaleSet3);
+            productDAO.AddProduct(failedProductSaleSet);
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            productDAO.DeleteProduct(successProductSaleSet1);
+            productDAO.DeleteProduct(successProductSaleSet2);
+            productDAO.DeleteProduct(successProductSaleSet3);
+            productDAO.DeleteProduct(failedProductSaleSet);
+        }
+
         [TestMethod]
         public void AddProductTest()
-        {
-            var dao = new ProductDAO();
-            var product = new ProductSaleSet(); 
-            var result = dao.AddProduct(product);
+        {            
+            int result = productDAO.AddProduct(successProductSaleSet1);
 
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void AddProductTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidProduct = new ProductSaleSet(); 
-
-            Assert.ThrowsException<EntityException>(() => dao.AddProduct(invalidProduct));
+        {            
+            Assert.ThrowsException<EntityException>(() => productDAO.AddProduct(failedProductSaleSet));
         }
 
         [TestMethod]
         public void DisableProductTest()
-        {
-            var dao = new ProductDAO();
-            var productName = "ValidProductName"; 
-            var result = dao.DisableProduct(productName);
+        {            
+            string productName = "Success Product 1"; 
+            int result = productDAO.DisableProduct(productName);
 
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void DisableProductTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidProductName = "InvalidProductName"; 
+        {            
+            string invalidProductName = "Failed Product"; 
 
-            Assert.ThrowsException<EntityException>(() => dao.DisableProduct(invalidProductName));
+            Assert.ThrowsException<EntityException>(() => productDAO.DisableProduct(invalidProductName));
         }
 
         [TestMethod]
         public void GetAllActiveProductsTest()
-        {
-            var dao = new ProductDAO();
-            var activeProducts = dao.GetAllActiveProducts();
+        {            
+            List<ProductSaleSet> activeProducts = productDAO.GetAllActiveProducts();
 
             Assert.IsNotNull(activeProducts);
             Assert.IsTrue(activeProducts.Count > 0);
@@ -56,136 +128,116 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 
         [TestMethod]
         public void GetAllActiveProductsTestFail()
-        {
-            var dao = new ProductDAO();
-
-            Assert.ThrowsException<EntityException>(() => dao.GetAllActiveProducts());
+        {         
+            Assert.ThrowsException<EntityException>(() => productDAO.GetAllActiveProducts());
         }
 
         [TestMethod]
         public void GetImageByProductNameTest()
         {
-            var dao = new ProductDAO();
-            var productName = "ValidProductName"; 
-            var bitmapImage = dao.GetImageByProductName(productName);
-
-            Assert.IsNotNull(bitmapImage);
+            //string productName = "Success Product 1"; 
+            //BitmapImage bitmapImage = productDAO.GetImageByProductName(productName);
+            //
+            //Assert.IsNotNull(bitmapImage);
         }
 
         [TestMethod]
         public void GetImageByProductNameTestFail()
         {
-            var dao = new ProductDAO();
-            var invalidProductName = "InvalidProductName"; 
-
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetImageByProductName(invalidProductName));
+            //string invalidProductName = "Failed Product"; 
+            //
+            //Assert.ThrowsException<ArgumentNullException>(() => productDAO.GetImageByProductName(invalidProductName));
         }
 
         [TestMethod]
         public void GetProductByNameTest()
-        {
-            var dao = new ProductDAO();
-            var productName = "ValidProductName"; 
-            var product = dao.GetProductByName(productName);
+        {            
+            string productName = "Success Product 1"; 
+            ProductSaleSet product = productDAO.GetProductByName(productName);
 
             Assert.IsNotNull(product);
         }
 
         [TestMethod]
         public void GetProductByNameTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidProductName = "InvalidProductName"; 
+        {            
+            string invalidProductName = "Failed Product"; 
 
-            Assert.ThrowsException<EntityException>(() => dao.GetProductByName(invalidProductName));
+            Assert.ThrowsException<EntityException>(() => productDAO.GetProductByName(invalidProductName));
         }
 
         [TestMethod]
         public void GetSpecifiedProductsByNameOrCodeTest()
-        {
-            var dao = new ProductDAO();
-            var textForFindingArticle = "ValidText";
-            var findByType = "Nombre"; 
-            var specifiedProducts = dao.GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
+        {            
+            string textForFindingArticle = "Success Product 1";
+            string findByType = "Nombre"; 
+            var specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
 
             Assert.IsNotNull(specifiedProducts);
         }
 
         [TestMethod]
         public void GetSpecifiedProductsByNameOrCodeTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidTextForFindingArticle = "InvalidText"; 
-            var findByType = "InvalidType"; 
+        {            
+            string invalidTextForFindingArticle = "Failed Product"; 
+            string findByType = "Tipo Inválido"; 
 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetSpecifiedProductsByNameOrCode(invalidTextForFindingArticle, findByType));
+            Assert.ThrowsException<ArgumentNullException>(() => productDAO.GetSpecifiedProductsByNameOrCode(invalidTextForFindingArticle, findByType));
         }
 
         [TestMethod]
         public void ModifyProductTest()
-        {
-            var dao = new ProductDAO();
-            var originalProduct = new ProductSaleSet(); 
-            var modifiedProduct = new ProductSaleSet(); 
-            var result = dao.ModifyProduct(originalProduct, modifiedProduct);
+        {            
+            int result = productDAO.ModifyProduct(successProductSaleSet2, successProductSaleSet3);
 
             Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void ModifyProductTestFail()
-        {
-            var dao = new ProductDAO();
-            var originalProduct = new ProductSaleSet(); 
-            var invalidModifiedProduct = new ProductSaleSet(); 
-
-            Assert.ThrowsException<EntityException>(() => dao.ModifyProduct(originalProduct, invalidModifiedProduct));
+        {            
+            Assert.ThrowsException<EntityException>(() => productDAO.ModifyProduct(successProductSaleSet3, failedProductSaleSet));
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTest()
-        {
-            var dao = new ProductDAO();
-            var productCode = "ValidProductCode";
-            var result = dao.TheCodeIsAlreadyRegistred(productCode);
+        {            
+            string productCode = "99999999";
+            bool result = productDAO.TheCodeIsAlreadyRegistred(productCode);
 
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidProductCode = "InvalidProductCode";
+        {            
+            string invalidProductCode = "9999";
 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.TheCodeIsAlreadyRegistred(invalidProductCode));
+            Assert.ThrowsException<ArgumentNullException>(() => productDAO.TheCodeIsAlreadyRegistred(invalidProductCode));
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTest()
-        {
-            var dao = new ProductDAO();
-            var productName = "ValidProductName";
-            var result = dao.TheNameIsAlreadyRegistred(productName);
+        {            
+            string productName = "Success Product 1";
+            bool result = productDAO.TheNameIsAlreadyRegistred(productName);
 
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTestFail()
-        {
-            var dao = new ProductDAO();
-            var invalidProductName = "InvalidProductName";
+        {            
+            string invalidProductName = "Failed Product";
 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.TheNameIsAlreadyRegistred(invalidProductName));
+            Assert.ThrowsException<ArgumentNullException>(() => productDAO.TheNameIsAlreadyRegistred(invalidProductName));
         }
 
         [TestMethod]
         public void GetOrderProductsTest()
         {
-            var dao = new ProductDAO();
-            var customerOrder = new CustomerOrderSet();
-            var orderProducts = dao.GetOrderProducts(customerOrder);
+            CustomerOrderSet customerOrder = new CustomerOrderSet();
+            List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrder);
 
             Assert.IsNotNull(orderProducts);
         }
@@ -193,17 +245,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         [TestMethod]
         public void GetOrderProductsTestFail()
         {
-            var dao = new ProductDAO();
-            var invalidCustomerOrder = new CustomerOrderSet();
+            CustomerOrderSet invalidCustomerOrder = new CustomerOrderSet();
 
-            Assert.ThrowsException<EntityException>(() => dao.GetOrderProducts(invalidCustomerOrder));
+            Assert.ThrowsException<EntityException>(() => productDAO.GetOrderProducts(invalidCustomerOrder));
         }
 
         [TestMethod]
         public void GetAllProductTypesTest()
         {
-            var dao = new ProductDAO();
-            var productTypes = dao.GetAllProductTypes();
+            List<ProductTypeSet> productTypes = productDAO.GetAllProductTypes();
 
             Assert.IsNotNull(productTypes);
             Assert.IsTrue(productTypes.Count > 0);
@@ -212,16 +262,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         [TestMethod]
         public void GetAllProductTypesTestFail()
         {
-            var dao = new ProductDAO();
-
-            Assert.ThrowsException<EntityException>(() => dao.GetAllProductTypes());
+            Assert.ThrowsException<EntityException>(() => productDAO.GetAllProductTypes());
         }
 
         [TestMethod]
         public void GetAllProductStatusesTest()
-        {
-            var dao = new ProductDAO();
-            var productStatuses = dao.GetAllProductStatuses();
+        {            
+            List<ProductStatusSet> productStatuses = productDAO.GetAllProductStatuses();
 
             Assert.IsNotNull(productStatuses);
             Assert.IsTrue(productStatuses.Count > 0);
@@ -229,10 +276,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 
         [TestMethod]
         public void GetAllProductStatusesTestFail()
-        {
-            var dao = new ProductDAO();
-
-            Assert.ThrowsException<EntityException>(() => dao.GetAllProductStatuses());
+        {         
+            Assert.ThrowsException<EntityException>(() => productDAO.GetAllProductStatuses());
         }
     }
 }

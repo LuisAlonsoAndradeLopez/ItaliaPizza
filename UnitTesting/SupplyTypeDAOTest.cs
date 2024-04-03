@@ -1,13 +1,22 @@
-﻿namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
+﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+
+namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
     [TestClass]
     public class SupplyTypeDAOTest
     {
+        private static SupplyTypeDAO supplyTypeDAO;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            supplyTypeDAO = new SupplyTypeDAO();
+        }
+
         [TestMethod]
         public void GetAllSupplyTypesTest()
         {
-            var dao = new SupplyTypeDAO();
-            var supplyTypes = dao.GetAllSupplyTypes();
+            List<SupplyTypeSet> supplyTypes = supplyTypeDAO.GetAllSupplyTypes();
 
             Assert.IsNotNull(supplyTypes);
             Assert.IsTrue(supplyTypes.Count > 0);
@@ -16,17 +25,14 @@
         [TestMethod]
         public void GetAllSupplyTypesTestFail()
         {
-            var dao = new SupplyTypeDAO();
-
-            Assert.ThrowsException<Exception>(() => dao.GetAllSupplyTypes());
+            Assert.ThrowsException<Exception>(() => supplyTypeDAO.GetAllSupplyTypes());
         }
 
         [TestMethod]
         public void GetSupplyTypeByIdTest()
-        {
-            var dao = new SupplyTypeDAO();
+        {   
             int validId = 1;
-            var supplyType = dao.GetSupplyTypeById(validId);
+            SupplyTypeSet supplyType = supplyTypeDAO.GetSupplyTypeById(validId);
 
             Assert.IsNotNull(supplyType);
             Assert.AreEqual(validId, supplyType.Id);
@@ -34,19 +40,17 @@
 
         [TestMethod]
         public void GetSupplyTypeByIdTestFail()
-        {
-            var dao = new SupplyTypeDAO();
+        {   
             int invalidId = -1;
 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetSupplyTypeById(invalidId));
+            Assert.ThrowsException<ArgumentNullException>(() => supplyTypeDAO.GetSupplyTypeById(invalidId));
         }
 
         [TestMethod]
         public void GetSupplyTypeByNameTest()
-        {
-            var dao = new SupplyTypeDAO();
+        {   
             string validName = "Harina";
-            var supplyType = dao.GetSupplyTypeByName(validName);
+            SupplyTypeSet supplyType = supplyTypeDAO.GetSupplyTypeByName(validName);
 
             Assert.IsNotNull(supplyType);
             Assert.AreEqual(validName, supplyType.Type);
@@ -55,9 +59,8 @@
         [TestMethod]
         public void GetSupplyTypeByNameTestFail()
         {
-            var dao = new SupplyTypeDAO();
             string invalidName = "Boja";
-            var supplyType = dao.GetSupplyTypeByName(invalidName);
+            SupplyTypeSet supplyType = supplyTypeDAO.GetSupplyTypeByName(invalidName);
 
             Assert.IsNull(supplyType);
         }

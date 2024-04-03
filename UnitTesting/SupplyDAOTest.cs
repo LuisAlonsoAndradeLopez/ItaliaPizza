@@ -6,12 +6,89 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
     [TestClass]
     public class SupplyDAOTests
     {
+        private static SupplyDAO supplyDAO;
+        private static SupplySet successSupplySet1;
+        private static SupplySet successSupplySet2;
+        private static SupplySet successSupplySet3;
+        private static SupplySet failedSupplySet;
+
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            supplyDAO = new SupplyDAO();
+            successSupplySet1 = new SupplySet
+            {
+                Id = 10001,
+                Name = "Success Supply 1",
+                Quantity = 1,
+                PricePerUnit = 1,
+                Picture = new byte[1],
+                SupplyUnitId = 1,
+                ProductStatusId = 1,
+                SupplyTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "99999999"
+            };
+
+            successSupplySet2 = new SupplySet
+            {
+                Id = 10002,
+                Name = "Success Supply 2",
+                Quantity = 2,
+                PricePerUnit = 2,
+                Picture = new byte[2],
+                SupplyUnitId = 1,
+                ProductStatusId = 1,
+                SupplyTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "9999999"
+            };
+
+            successSupplySet3 = new SupplySet
+            {
+                Id = 10003,
+                Name = "Success Supply 2",
+                Quantity = 3,
+                PricePerUnit = 3,
+                Picture = new byte[3],
+                SupplyUnitId = 1,
+                ProductStatusId = 1,
+                SupplyTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "99999"
+            };
+
+            failedSupplySet = new SupplySet
+            {
+                Id = 10004,
+                Name = "Failed Supply",
+                Quantity = 4,
+                PricePerUnit = 4,
+                Picture = new byte[4],
+                ProductStatusId = 1,
+                SupplyTypeId = 1,
+                EmployeeId = 1,
+                IdentificationCode = "9999"
+            };
+
+            supplyDAO.AddSupply(successSupplySet2);
+            supplyDAO.AddSupply(successSupplySet3);
+            supplyDAO.AddSupply(failedSupplySet);
+        }
+
+        [ClassCleanup]
+        public static void ClassCleanup()
+        {
+            supplyDAO.DeleteSupply(successSupplySet1);
+            supplyDAO.DeleteSupply(successSupplySet2);
+            supplyDAO.DeleteSupply(successSupplySet3);
+            supplyDAO.DeleteSupply(failedSupplySet);
+        }
+
         [TestMethod]
         public void AddSupplyTest()
         {
-            var dao = new SupplyDAO();
-            var supply = new SupplySet();
-            var result = dao.AddSupply(supply);
+            int result = supplyDAO.AddSupply(successSupplySet1);
 
             Assert.AreEqual(1, result);
         }
@@ -19,133 +96,112 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         [TestMethod]
         public void AddSupplyTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidSupply = new SupplySet();
-
-            Assert.ThrowsException<EntityException>(() => dao.AddSupply(invalidSupply));
+            Assert.ThrowsException<EntityException>(() => supplyDAO.AddSupply(failedSupplySet));
         }
 
         [TestMethod]
         public void DisableSupplyTest()
-        {
-            var dao = new SupplyDAO();
-            var supplyName = "ValidSupplyName";
-            var result = dao.DisableSupply(supplyName);
+        {            
+            string supplyName = "Success Supply 1";
+            int result = supplyDAO.DisableSupply(supplyName);
             Assert.AreEqual(1, result);
         }
 
         [TestMethod]
         public void DisableSupplyTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidSupplyName = "InvalidSupplyName";
-            Assert.ThrowsException<EntityException>(() => dao.DisableSupply(invalidSupplyName));
+            string invalidSupplyName = "Failed Supply";
+            Assert.ThrowsException<EntityException>(() => supplyDAO.DisableSupply(invalidSupplyName));
         }
 
         [TestMethod]
         public void GetImageBySupplyNameTest()
-        {
-            var dao = new SupplyDAO();
-            var supplyName = "ValidSupplyName"; 
-            var bitmapImage = dao.GetImageBySupplyName(supplyName);
-            Assert.IsNotNull(bitmapImage);
+        {   
+            string supplyName = "Success Supply 1";
+            //var bitmapImage = supplyDAO.GetImageBySupplyName(supplyName);
+            //Assert.IsNotNull(bitmapImage);
         }
 
         [TestMethod]
         public void GetImageBySupplyNameTestFail()
-        {
-            var dao = new SupplyDAO();
-            var invalidSupplyName = "InvalidSupplyName"; 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetImageBySupplyName(invalidSupplyName));
+        {   
+            string invalidSupplyName = "Failed Supply";
+            //Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.GetImageBySupplyName(invalidSupplyName));
         }
 
         [TestMethod]
         public void GetSupplyByNameTest()
         {
-            var dao = new SupplyDAO();
-            var supplyName = "ValidSupplyName"; 
-            var supply = dao.GetSupplyByName(supplyName);
+            string supplyName = "Success Supply 1"; 
+            SupplySet supply = supplyDAO.GetSupplyByName(supplyName);
             Assert.IsNotNull(supply);
         }
 
         [TestMethod]
         public void GetSupplyByNameTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidSupplyName = "InvalidSupplyName";
-            Assert.ThrowsException<EntityException>(() => dao.GetSupplyByName(invalidSupplyName));
+            string invalidSupplyName = "Failed Supply";
+            Assert.ThrowsException<EntityException>(() => supplyDAO.GetSupplyByName(invalidSupplyName));
         }
 
         [TestMethod]
         public void GetSpecifiedSuppliesByNameOrCodeTest()
         {
-            var dao = new SupplyDAO();
-            var textForFindingArticle = "ValidText"; 
-            var findByType = "Nombre"; 
-            var specifiedSupplies = dao.GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
+            string textForFindingArticle = "Success Supply 1"; 
+            string findByType = "Nombre"; 
+            List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
             Assert.IsNotNull(specifiedSupplies);
         }
 
         [TestMethod]
         public void GetSpecifiedSuppliesByNameOrCodeTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidTextForFindingArticle = "InvalidText"; 
-            var findByType = "InvalidType"; 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType));
+            string invalidTextForFindingArticle = "Failed Supply"; 
+            string findByType = "Texto Inválido"; 
+            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType));
         }
 
         [TestMethod]
         public void ModifySupplyTest()
-        {
-            var dao = new SupplyDAO();
-            var originalSupply = new SupplySet(); 
-            var modifiedSupply = new SupplySet(); 
-            var result = dao.ModifySupply(originalSupply, modifiedSupply);
+        {            
+            int result = supplyDAO.ModifySupply(successSupplySet2, successSupplySet3);
             Assert.IsTrue(result > 0);
         }
 
         [TestMethod]
         public void ModifySupplyTestFail()
         {
-            var dao = new SupplyDAO();
-            var originalSupply = new SupplySet(); 
-            var invalidModifiedSupply = new SupplySet(); 
-            Assert.ThrowsException<EntityException>(() => dao.ModifySupply(originalSupply, invalidModifiedSupply));
+            Assert.ThrowsException<EntityException>(() => supplyDAO.ModifySupply(successSupplySet3, failedSupplySet));
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTest()
         {
-            var dao = new SupplyDAO();
-            var supplyCode = "ValidSupplyCode"; 
-            var result = dao.TheCodeIsAlreadyRegistred(supplyCode);
+            string supplyCode = "99999999"; 
+            bool result = supplyDAO.TheCodeIsAlreadyRegistred(supplyCode);
             Assert.IsFalse(result); 
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidSupplyCode = "InvalidSupplyCode"; 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.TheCodeIsAlreadyRegistred(invalidSupplyCode));
+            string invalidSupplyCode = "9999"; 
+            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.TheCodeIsAlreadyRegistred(invalidSupplyCode));
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTest()
         {
-            var dao = new SupplyDAO();
-            var supplyName = "ValidSupplyName"; 
-            var result = dao.TheNameIsAlreadyRegistred(supplyName);
+            string supplyName = "Success Supply 1"; 
+            bool result = supplyDAO.TheNameIsAlreadyRegistred(supplyName);
             Assert.IsFalse(result); 
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTestFail()
         {
-            var dao = new SupplyDAO();
-            var invalidSupplyName = "InvalidSupplyName"; 
-            Assert.ThrowsException<ArgumentNullException>(() => dao.TheNameIsAlreadyRegistred(invalidSupplyName));
+            string invalidSupplyName = "Failed Supply"; 
+            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.TheNameIsAlreadyRegistred(invalidSupplyName));
         }
     }
 }

@@ -4,6 +4,32 @@
     "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {}
   },
   "projects": {
+    "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj": {
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
+        "projectName": "ItalianPizza",
+        "projectPath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\ItalianPizza.csproj",
+        "packagesPath": "C:\\Users\\Luis Alonso\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
+        "configFilePaths": [
+          "C:\\Users\\Luis Alonso\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        },
+        "packagesConfigPath": "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\ItalianPizza\\packages.config"
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
     "C:\\Users\\Luis Alonso\\Documents\\ItaliaPizza\\UnitTesting\\UnitTesting.csproj": {
       "version": "1.0.0",
       "restore": {
