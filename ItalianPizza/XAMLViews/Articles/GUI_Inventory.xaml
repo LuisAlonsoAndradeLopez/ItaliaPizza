@@ -35,9 +35,16 @@
             <Label Name="ArticleNameOrCodeLabel" Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="277,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" Width="173"/>
             <TextBox Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="450,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="40" Width="420" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
             <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="277,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial"/>
-            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged"/>
+            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged" Background="#FF171717"/>
             <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="277,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="492" Height="40" SelectionChanged="FindByComboBoxSelectionChanged"/>
+            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="492" Height="40" SelectionChanged="FindByComboBoxSelectionChanged">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="Black" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
             <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Artículo" HorizontalAlignment="Left" Margin="894,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
             <Button Style="{StaticResource RedButtonStyle}" Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="894,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
 
