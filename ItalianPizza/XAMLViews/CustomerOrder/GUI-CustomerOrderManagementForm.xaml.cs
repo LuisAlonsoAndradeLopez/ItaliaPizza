@@ -303,7 +303,7 @@ namespace ItalianPizza.XAMLViews
         {
             CustomerOrderSet customerOrder = new CustomerOrderSet();
             OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
-            customerOrder.OrderStatusId = 1;
+            customerOrder.OrderStatusId = 2;
             customerOrder.OrderTypeId = orderType.Id;
             customerOrder.OrderDate = DateTime.Now;
             customerOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
