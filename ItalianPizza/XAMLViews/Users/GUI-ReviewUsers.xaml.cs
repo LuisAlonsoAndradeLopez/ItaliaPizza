@@ -44,11 +44,6 @@ namespace ItalianPizza.XAMLViews
             this.NavigationService.Navigate(VENTANA);
         }
 
-        private void ComboBox_TipeSelection(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void UserButtonOnClick(object sender, RoutedEventArgs e)
         {
             try
@@ -78,6 +73,7 @@ namespace ItalianPizza.XAMLViews
             txtRol.Text = employee.EmployeePositionSet.Position;
             txtState.Text = employee.UserStatusSet.Status;
             txtAddress.Text = userDAO.GetUserAddressByEmployeeID(employee.Id);
+            if (employee.ProfilePhoto != null)
             imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
         }
 
@@ -107,6 +103,7 @@ namespace ItalianPizza.XAMLViews
                 {
                     Cursor = Cursors.Hand,
                     Height = 142,
+                    Width = 835,
                     Margin = new Thickness(5, 4, 5, 0),
                     CornerRadius = new CornerRadius(10),
                     Background = new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x33)),
@@ -120,14 +117,14 @@ namespace ItalianPizza.XAMLViews
                     Orientation = Orientation.Horizontal
                 };
 
-                /*
+
                 Image userImage = new Image
                 {
                     Width = 74,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new UserDAO().GetUserImageByEmployeeID(employee.ProfilePhoto),
-                };*/
+                    Source = new UserDAO().GetUserImage(employee.ProfilePhoto),
+                };
 
                 TextBlock lblFullName = new TextBlock
                 {
@@ -166,7 +163,7 @@ namespace ItalianPizza.XAMLViews
                 };
 
 
-                //usersStackPanel.Children.Add(userImage);
+                usersStackPanel.Children.Add(userImage);
                 usersStackPanel.Children.Add(lblFullName);
                 usersStackPanel.Children.Add(lblUserType);
                 usersStackPanel.Children.Add(lblUserStatus);
@@ -191,15 +188,40 @@ namespace ItalianPizza.XAMLViews
 
             List<string> type = new List<string>
             {
-                "Administrador",
-                "EmployeeSet",
+                "Gerente",
+                "Recepcionista",
+                "Mesero",
+                "Personal Cocina"
             };
             cboUserType.ItemsSource = type;
         }
 
         private void ComboBox_StatusSelection(object sender, SelectionChangedEventArgs e)
         {
+            string status = cboUserStatus.SelectedItem.ToString();
+            employees = userDAO.GetAllEmployeesByStatus(status);
+            if(employees.Count == 0)
+            {
+                new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+            }
+            else
+            {
+                ShowAllUsers(employees);
+            }
+        }
 
+        private void ComboBox_TipeSelection(object sender, SelectionChangedEventArgs e)
+        {
+            string position = cboUserType.SelectedItem.ToString();
+            employees = userDAO.GetAllEmployeesByPosition(position);
+            if (employees.Count == 0)
+            {
+                new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+            }
+            else
+            {
+                ShowAllUsers(employees);
+            }
         }
 
         private void GoToModifyUserWindows(object sender, RoutedEventArgs e)

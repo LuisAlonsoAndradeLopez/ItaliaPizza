@@ -215,6 +215,64 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return address;
         }
 
+        public List<EmployeeSet> GetAllEmployeesByStatus(string status)
+        {
+            List<EmployeeSet> employees = new List<EmployeeSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    employees = context.EmployeeSet.Where(employee => employee.UserStatusSet.Status == status)
+                        .Include(employee => employee.AddressSet)
+                        .Include(employee => employee.EmployeePositionSet)
+                        .Include(employee => employee.UserStatusSet)
+                        .Include(employee => employee.UserAccountSet)
+                        .ToList();
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return employees;
+        }
+
+        public List<EmployeeSet> GetAllEmployeesByPosition(string position)
+        {
+            List<EmployeeSet> employees = new List<EmployeeSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    employees = context.EmployeeSet.Where(employee => employee.EmployeePositionSet.Position == position)
+                        .Include(employee => employee.AddressSet)
+                        .Include(employee => employee.EmployeePositionSet)
+                        .Include(employee => employee.UserStatusSet)
+                        .Include(employee => employee.UserAccountSet)
+                        .ToList();
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return employees;
+        }
+
         public List<CustomerSet> GetAllCustomers()
         {
             List<CustomerSet> customerList;
@@ -268,6 +326,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return customer;
         }
+
+
 
         public List<DeliveryDriverSet> GetAllDeliveryDriver()
         {

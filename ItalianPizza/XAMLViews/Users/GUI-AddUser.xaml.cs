@@ -46,6 +46,7 @@ namespace ItalianPizza.XAMLViews
                 "Personal Cocina"
             };
             cboUserRol.ItemsSource = types; ;
+            cboUserRol.SelectedIndex = 0;
         }
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -89,9 +90,14 @@ namespace ItalianPizza.XAMLViews
             else
             {
                 btnRegister.Content = "Siguiente";
-                if (string.IsNullOrEmpty(txtName.Text) || string.IsNullOrEmpty(txtLastName.Text) || string.IsNullOrEmpty(txtEmail.Text) || string.IsNullOrEmpty(txtPassword.Text))
+
+                if (!ValidateInputs())
                 {
-                                new AlertPopup("¡Error!", "Llene todos los campos", AlertPopupTypes.Error);
+                    return;
+                }
+                else if (userImage.Source == null)
+                {
+                    new AlertPopup("¡Error!", "Necesita seleccionar una imagen para poder continuar", AlertPopupTypes.Error);
                 }
                 else
                 {
@@ -125,9 +131,67 @@ namespace ItalianPizza.XAMLViews
                         }
                 }
             }
+        }
 
-        
-    }
+        private bool ValidateInputs()
+        {
+
+            if (txtPassword.Text != txtPasswordConfirmation.Text)
+            {
+                new AlertPopup("¡Error!", "Las contraseñas no coinciden", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckEmail(txtEmail.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un correo electrónico válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckPassword(txtPassword.Text))
+            {
+                new AlertPopup("¡Error!", "La contraseña no cumple con los requisitos. Debe contener al menos una letra minúscula, una letra mayúscula, un dígito y tener una longitud de entre 8 y 15 caracteres.", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckPassword(txtPasswordConfirmation.Text))
+            {
+                new AlertPopup("¡Error!", "La confirmación de la contraseña no cumple con los requisitos. Debe contener al menos una letra minúscula, una letra mayúscula, un dígito y tener una longitud de entre 8 y 15 caracteres.", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckName(txtName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un nombre válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckLastName(txtLastName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un apellido válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckSecondLastName(txtSecondLastName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un segundo apellido válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckPhoneNumber(txtPhoneNumber.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un número de teléfono válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckUserName(txtUser.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un usuario váido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            return true;
+        }
 
         private void GoBack_Clic(object sender, RoutedEventArgs e)
         {
