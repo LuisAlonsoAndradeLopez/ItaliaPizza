@@ -290,7 +290,8 @@
                FontWeight="Bold" 
                Width="344"/>
 
-            <Button Content="Pagar Pedido" 
+            <Button x:Name="btnPayCustomerOrder"
+                Content="Pagar Pedido" 
                 HorizontalAlignment="Left" 
                 Margin="1208,823,0,0" 
                 VerticalAlignment="Top" 
@@ -303,7 +304,7 @@
                 BorderThickness="0" 
                 FontWeight="Thin"/>
 
-            <Button Content="Modificar Pedido" 
+            <Button x:Name="btnModifyCustomerOrder" Content="Modificar Pedido" 
                 HorizontalAlignment="Left" 
                 Margin="1438,823,0,0" 
                 VerticalAlignment="Top"
@@ -426,7 +427,7 @@
             <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,360,23,154"/>
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Hidden">
+        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible">
             <Rectangle 
                 HorizontalAlignment="Left" 
                 Height="866" 

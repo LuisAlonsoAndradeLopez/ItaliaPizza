@@ -104,6 +104,7 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
 
         public void ShowOrders(List<CustomerOrderSet> customerOrders)
@@ -211,6 +212,16 @@ namespace ItalianPizza.XAMLViews
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
+                    if(customerOrder.OrderStatusId == 2)
+                    {
+                        btnModifyCustomerOrder.IsEnabled = true;
+                        btnModifyCustomerOrder.IsEnabled = true;
+                    }
+                    else
+                    {
+                        btnModifyCustomerOrder.IsEnabled = false;
+                        btnModifyCustomerOrder.IsEnabled = false;
+                    }
                 };
 
                 stackPanelContainer.Children.Add(grdContainer);
@@ -248,7 +259,6 @@ namespace ItalianPizza.XAMLViews
                     DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
-
                 }
                 else
                 {
@@ -363,6 +373,7 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
     }
 }
