@@ -211,6 +211,16 @@ namespace ItalianPizza.XAMLViews
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
+                    if(customerOrder.OrderStatusId == 2)
+                    {
+                        btnModifyCustomerOrder.IsEnabled = true;
+                        btnModifyCustomerOrder.IsEnabled = true;
+                    }
+                    else
+                    {
+                        btnModifyCustomerOrder.IsEnabled = false;
+                        btnModifyCustomerOrder.IsEnabled = false;
+                    }
                 };
 
                 stackPanelContainer.Children.Add(grdContainer);
@@ -248,7 +258,6 @@ namespace ItalianPizza.XAMLViews
                     DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
-
                 }
                 else
                 {

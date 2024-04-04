@@ -331,8 +331,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     var customerOrderDetails = context.CustomerOrderDetailSet
-                                            .Where(d => d.CustomerOrderId == customerOrder.Id)
                                             .Include(d => d.ProductSaleSet)
+                                            .Where(d => d.CustomerOrderId == customerOrder.Id)                                            
                                             .ToList();
 
                     customerOrderProducts = customerOrderDetails.Select(detalle =>

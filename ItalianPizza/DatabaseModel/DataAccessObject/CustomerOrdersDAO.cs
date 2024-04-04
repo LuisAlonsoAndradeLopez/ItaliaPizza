@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
@@ -55,7 +57,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             customerOrderDetail.ProductQuantity = product.Quantity;
                             customerOrderDetail.PricePerUnit = product.PricePerUnit;
                             context.CustomerOrderDetailSet.Add(customerOrderDetail);
-                            context.SaveChanges();
+                            result = context.SaveChanges();
                         }
 
                         transaction.Commit();
@@ -69,6 +71,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     {
                         transaction.Rollback();
                         throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (DbUpdateException ex)
+                    {
+                        transaction.Rollback();
+                        throw new DbUpdateException("Operación no válida al acceder a la base de datos.", ex);
                     }
                 }
             }
@@ -140,7 +147,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                         foreach (var productToRemove in productsToRemove)
                         {
-                            OriginalCustomerOrder.CustomerOrderDetailSet.Remove(productToRemove);
+                            context.CustomerOrderDetailSet.Remove(productToRemove);
                         }
 
                         foreach (var product in productsOrderCustomer)
@@ -162,7 +169,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             }
                         }
 
-                        context.SaveChanges();
+                        result = context.SaveChanges();
                         transaction.Commit();
                     }
                     catch (EntityException ex)
@@ -175,21 +182,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         transaction.Rollback();
                         throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
                     }
+                    catch (NullReferenceException ex)
+                    {
+                        transaction.Rollback();
+                        throw new DbUpdateException("Operación no válida al acceder a la base de datos.", ex);
+                    }
                 }
             }
 
             return result;
         }
 
-        public List<CustomerOrderSet> GetAllCustomerOrders()
+        public int CancelCustomerOrder(CustomerOrderSet customerOrder)
         {
-            List<CustomerOrderSet> orders = new List<CustomerOrderSet>();
+            int result = 0;
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orders = context.CustomerOrderSet.ToList();
+                    CustomerOrderSet OriginalCustomerOrder = context.CustomerOrderSet
+                                            .FirstOrDefault(CustomerOrder => CustomerOrder.Id == customerOrder.Id);
+
+                    OriginalCustomerOrder.OrderStatusId = customerOrder.OrderStatusId;
+                    result = context.SaveChanges();
                 }
             }
             catch (EntityException ex)
@@ -200,8 +216,12 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
+            catch (DbUpdateException ex)
+            {
+                throw new DbUpdateException("Operación no válida al acceder a la base de datos.", ex);
+            }
 
-            return orders;
+            return result;
         }
 
         public List<CustomerOrderSet> GetCustomerOrdersByDate(DateTime date)
@@ -301,7 +321,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return orderTypes;
-
         }
     }
 }
