@@ -104,6 +104,7 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
 
         public void ShowOrders(List<CustomerOrderSet> customerOrders)
@@ -372,6 +373,7 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
     }
 }

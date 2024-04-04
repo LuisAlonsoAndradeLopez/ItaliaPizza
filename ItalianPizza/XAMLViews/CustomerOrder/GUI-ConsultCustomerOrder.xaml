@@ -427,7 +427,7 @@
             <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,360,23,154"/>
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Hidden">
+        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible">
             <Rectangle 
                 HorizontalAlignment="Left" 
                 Height="866" 
