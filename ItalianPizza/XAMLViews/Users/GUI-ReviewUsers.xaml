@@ -5,39 +5,123 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
       mc:Ignorable="d" 
-      Title="GUI_ReviewUsers"
-      Height="Auto"
-        Width="Auto">
+        d:DesignHeight="922.16"
+        d:DesignWidth="1742.8"
+      Title="GUI_ReviewUsers">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
-    <Viewbox Stretch="Uniform">
-        <Grid Background="#FF131313" Height="820" >
+    <Grid Background="#FF131313">
 
-            <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
 
-            <Rectangle HorizontalAlignment="Left" Height="893" Margin="256,13,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="928" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
+        <Rectangle HorizontalAlignment="Left" Height="893" Margin="256,13,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="928" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="3"/>
 
-            <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2" Grid.RowSpan="3">
-                <Label Content="Usuarios" HorizontalAlignment="Left" Margin="298,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="White" FontSize="28"/>
-                <Label Content="Tipo: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
-                <Label Content="Estado: " HorizontalAlignment="Left" Margin="297,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-                <ComboBox x:Name="cboUserStatus" HorizontalAlignment="Left" Margin="468,157,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_StatusSelection"/>
-                <ComboBox x:Name="cboUserType" HorizontalAlignment="Left" Margin="464,97,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_TipeSelection"/>
-                <Button Content="Agregar Nuevo Usuario" HorizontalAlignment="Left" Margin="834,110,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="GoToAddUserWindows"/>
-                <Rectangle HorizontalAlignment="Left" Height="48" Margin="298,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF1C0D02"/>
+        <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2" Grid.RowSpan="3">
+            <Label Content="Usuarios" HorizontalAlignment="Left" Margin="298,37,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="White" FontSize="28"/>
+            <Label Content="Tipo: " HorizontalAlignment="Left" Margin="297,101,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial"/>
+            <Label Content="Estado: " HorizontalAlignment="Left" Margin="297,155,0,0" VerticalAlignment="Top" Foreground="White" FontSize="19" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
+            <ComboBox x:Name="cboUserStatus" HorizontalAlignment="Left" Margin="468,157,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_StatusSelection"/>
+            <ComboBox x:Name="cboUserType" HorizontalAlignment="Left" Margin="464,97,0,0" VerticalAlignment="Top" FontSize="20" Width="231" Height="33" Background="#FF070711" SelectionChanged="ComboBox_TipeSelection"/>
+            <Button Content="Agregar Nuevo Usuario" HorizontalAlignment="Left" Margin="834,110,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="14" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="GoToAddUserWindows"/>
+            <Rectangle HorizontalAlignment="Left" Height="48" Margin="298,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#FF1C0D02"/>
 
-                <Label Content="Nombre del empleado" HorizontalAlignment="Left" Margin="411,238,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-                <Label Content="Tipo " HorizontalAlignment="Left" Margin="736,236,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"/>
-                <Label Content="Estado" HorizontalAlignment="Left" Margin="916,236,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Nombre del empleado" HorizontalAlignment="Left" Margin="462,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <Label Content="Tipo " HorizontalAlignment="Left" Margin="796,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"/>
+            <Label Content="Estado" HorizontalAlignment="Left" Margin="942,236,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
 
-                <WrapPanel x:Name="wpUsersRegistered" Margin="276,281,534,53">
-                    <WrapPanel/>
+            <ScrollViewer x:Name="UsersScrollViewer" Margin="276,281,608,30">
+                <WrapPanel Name="wpUsersRegistered">
+                    <Border Cursor="Hand" Height="142" Margin="5,4,5,0" CornerRadius="10" Background="#303033" MouseLeftButtonDown="UserButtonOnClick" Width="835">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="74" Height="100" Margin="40, 0, 0, 0" />
+                            <TextBlock Foreground="White" Margin="20, 0, 0, 0" Width="337" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Nombre completo del empleado"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="184" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Tipo empleado"/>
+                            <TextBlock Foreground="White" Margin="30, 0, 0, 0" Width="113" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="EStado"/>
+                        </StackPanel>
+                    </Border>
                 </WrapPanel>
+            </ScrollViewer>
 
-                <Label x:Name="lblOrderSelectionSignal" Content="Selecione un pedido" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222" Visibility="Collapsed"/>
-                <Label Content="Seleccione un &#x0a;    empleado" Margin="1218,398,0,0" Foreground="White" FontSize="50" HorizontalAlignment="Left" VerticalAlignment="Top" Height="144" Width="343" RenderTransformOrigin="0.522,0.475"/>
-            </Grid>
+            <Label x:Name="lblOrderSelectionSignal" Content="Selecione un pedido" HorizontalAlignment="Left" Margin="1241,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="40" FontFamily="Arial" RenderTransformOrigin="0.199,1.222" Visibility="Collapsed"/>
+        </Grid>
+
+        <Grid x:Name="grdVirtualWindowSelectUserAlert" Visibility="Visible">
+            <Rectangle 
+                HorizontalAlignment="Left" 
+                Height="866" 
+                Margin="1186,0,0,0" 
+                Stroke="#FFE71717" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Center" 
+                Width="547" 
+                Fill="#FF131313"/>
+
+            <Label Content="Selecione un empleado" 
+               HorizontalAlignment="Left" 
+               Margin="1255,407,0,0" 
+               VerticalAlignment="Top" 
+               FontFamily="Arial" 
+               FontWeight="Bold" 
+               FontSize="38" 
+               Foreground="White"/>
 
         </Grid>
-    </Viewbox>
+
+        <Grid x:Name="grdDetailsUser" Visibility="Hidden">
+
+
+            <Rectangle 
+                HorizontalAlignment="Left" 
+                Height="866" 
+                Margin="1186,0,0,0" 
+                Stroke="#FFE71717" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Center" 
+                Width="547" 
+                Fill="#FF131313"/>
+
+            <Image x:Name="imgUser" Margin="1362,77,170,589" Source="\Resources\Pictures\IMG_8823.jpg"/>
+            <StackPanel Orientation="Horizontal" Margin="1234,417,44,0" VerticalAlignment="Top">
+                <Label Content="Nombre " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"  Width="150"/>
+                <TextBlock x:Name="txtFullName" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Nombre completo" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1234,470,44,0" VerticalAlignment="Top">
+                <Label Content="Email " HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"  Width="150"/>
+                <TextBlock x:Name="txtEmail" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Email" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1234,540,44,0" VerticalAlignment="Top">
+                <Label Content="Telefono" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"  Width="150"/>
+                <TextBlock x:Name="txtPhoneNumber" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Telefono" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1234,610,44,0" VerticalAlignment="Top">
+                <Label Content="Estado" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704"  Width="150"/>
+                <TextBlock x:Name="txtState" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Estado" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1234,680,44,0" VerticalAlignment="Top">
+                <Label Content="Rol" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704" Width="150"/>
+                <TextBlock x:Name="txtRol" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Rol" TextWrapping="Wrap"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="1234,750,44,0" VerticalAlignment="Top">
+                <Label Content="Dirección" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="25" FontFamily="Arial Black" RenderTransformOrigin="1.195,0.704" Width="150"/>
+                <TextBlock x:Name="txtAddress" Foreground="White" Margin="30,0,0,0"  FontSize="25" Text="Direccion" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <Button Style="{StaticResource RedButtonStyle}" Content="Modificar Usuario" HorizontalAlignment="Left" Margin="1342,824,0,0" VerticalAlignment="Top" Height="48" Width="230"  Click="GoToModifyUserWindows"/>
+
+
+        </Grid>
+
+    </Grid>
 </Page>
