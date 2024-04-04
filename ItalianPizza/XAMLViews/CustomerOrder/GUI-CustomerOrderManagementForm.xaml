@@ -44,7 +44,7 @@
                 Width="43" 
                 Source="\Resources\Pictures\ICON-Buscar.png"/>
 
-            <TextBox 
+            <TextBox x:Name="txtProductSearch"
                 HorizontalAlignment="Left" 
                 Margin="380,96,0,0"
                 TextWrapping="Wrap"
@@ -53,7 +53,8 @@
                 Width="646" 
                 Height="48" 
                 Background="#FF262222"
-                Foreground="#FFECD9D9" 
+                Foreground="#FFECD9D9"
+                TextChanged="TextBox_ProductSearch"
                 BorderBrush="#FF262222"/>
 
             <Label Content="Crear Pedido" 
@@ -100,7 +101,8 @@
                       Height="30" 
                       FontSize="18" 
                       Background="#FF262222" 
-                      BorderBrush="#FF262222" 
+                      BorderBrush="#FF262222"
+                      SelectionChanged="ListBox_ProductTypeSelection"
                       Foreground="#FFF0F0F0"/>
 
             <ListBox x:Name="lboProductStatus"
@@ -112,6 +114,7 @@
                       FontSize="18" 
                       Background="#FF262222" 
                       BorderBrush="#FF262222" 
+                      SelectionChanged="ListBox_ProductStatusSelection"
                       Foreground="#FFF3F3F3"/>
 
             <WrapPanel x:Name="wpProducts" 
