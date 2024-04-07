@@ -212,7 +212,7 @@ namespace ItalianPizza.XAMLViews
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
-                    if(customerOrder.OrderStatusId == 2)
+                    if(customerOrder.OrderStatusId == 1)
                     {
                         btnModifyCustomerOrder.IsEnabled = true;
                         btnModifyCustomerOrder.IsEnabled = true;

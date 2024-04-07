@@ -8,7 +8,8 @@
 
     public enum ArticleTypes
     {
-        Insumo,
-        Producto
+        Producto,
+        Insumo
+        
     }
 }
