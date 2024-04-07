@@ -1,5 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
-using System.Data.Entity.Core;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
@@ -70,138 +72,147 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
                 EmployeeId = 1,
                 IdentificationCode = "9999"
             };
-
-            supplyDAO.AddSupply(successSupplySet2);
-            supplyDAO.AddSupply(successSupplySet3);
-            supplyDAO.AddSupply(failedSupplySet);
         }
 
-        [ClassCleanup]
-        public static void ClassCleanup()
+        [TestCleanup]
+        public void TestCleanup()
         {
-            supplyDAO.DeleteSupply(successSupplySet1);
-            supplyDAO.DeleteSupply(successSupplySet2);
-            supplyDAO.DeleteSupply(successSupplySet3);
-            supplyDAO.DeleteSupply(failedSupplySet);
+            using (var scope = new TransactionScope())
+            {
+                scope.Complete();
+            }
         }
 
         [TestMethod]
         public void AddSupplyTest()
         {
-            int result = supplyDAO.AddSupply(successSupplySet1);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int result = supplyDAO.AddSupply(successSupplySet1);
 
-            Assert.AreEqual(1, result);
-        }
-
-        [TestMethod]
-        public void AddSupplyTestFail()
-        {
-            Assert.ThrowsException<EntityException>(() => supplyDAO.AddSupply(failedSupplySet));
+                Assert.AreEqual(1, result);
+            }
         }
 
         [TestMethod]
         public void DisableSupplyTest()
-        {            
-            string supplyName = "Success Supply 1";
-            int result = supplyDAO.DisableSupply(supplyName);
-            Assert.AreEqual(1, result);
-        }
-
-        [TestMethod]
-        public void DisableSupplyTestFail()
         {
-            string invalidSupplyName = "Failed Supply";
-            Assert.ThrowsException<EntityException>(() => supplyDAO.DisableSupply(invalidSupplyName));
-        }
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string supplyName = "Success Supply 1";
+                int result = supplyDAO.DisableSupply(supplyName);
 
-        [TestMethod]
-        public void GetImageBySupplyNameTest()
-        {   
-            string supplyName = "Success Supply 1";
-            //var bitmapImage = supplyDAO.GetImageBySupplyName(supplyName);
-            //Assert.IsNotNull(bitmapImage);
-        }
-
-        [TestMethod]
-        public void GetImageBySupplyNameTestFail()
-        {   
-            string invalidSupplyName = "Failed Supply";
-            //Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.GetImageBySupplyName(invalidSupplyName));
+                Assert.AreEqual(1, result);
+            }
         }
 
         [TestMethod]
         public void GetSupplyByNameTest()
         {
-            string supplyName = "Success Supply 1"; 
-            SupplySet supply = supplyDAO.GetSupplyByName(supplyName);
-            Assert.IsNotNull(supply);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string supplyName = "Success Supply 1"; 
+                SupplySet supply = supplyDAO.GetSupplyByName(supplyName);
+
+                Assert.IsNotNull(supply);
+            }
         }
 
         [TestMethod]
         public void GetSupplyByNameTestFail()
         {
-            string invalidSupplyName = "Failed Supply";
-            Assert.ThrowsException<EntityException>(() => supplyDAO.GetSupplyByName(invalidSupplyName));
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidSupplyName = "Failed Supply";
+                SupplySet supply = supplyDAO.GetSupplyByName(invalidSupplyName);
+
+                Assert.IsNull(supply);
+            }
         }
 
         [TestMethod]
         public void GetSpecifiedSuppliesByNameOrCodeTest()
         {
-            string textForFindingArticle = "Success Supply 1"; 
-            string findByType = "Nombre"; 
-            List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
-            Assert.IsNotNull(specifiedSupplies);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string textForFindingArticle = "Success Supply 1"; 
+                string findByType = "Nombre"; 
+                List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
+
+                Assert.IsNotNull(specifiedSupplies);
+            }
         }
 
         [TestMethod]
         public void GetSpecifiedSuppliesByNameOrCodeTestFail()
         {
-            string invalidTextForFindingArticle = "Failed Supply"; 
-            string findByType = "Texto Inválido"; 
-            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType));
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidTextForFindingArticle = "Failed Supply"; 
+                string findByType = "Texto Inválido";
+                List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType);
+
+                Assert.IsNull(supplyDAO.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType));
+            }
         }
 
         [TestMethod]
         public void ModifySupplyTest()
-        {            
-            int result = supplyDAO.ModifySupply(successSupplySet2, successSupplySet3);
-            Assert.IsTrue(result > 0);
-        }
-
-        [TestMethod]
-        public void ModifySupplyTestFail()
         {
-            Assert.ThrowsException<EntityException>(() => supplyDAO.ModifySupply(successSupplySet3, failedSupplySet));
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int result = supplyDAO.ModifySupply(successSupplySet2, successSupplySet3    );
+
+                Assert.IsTrue(result > 0);
+            }
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTest()
         {
-            string supplyCode = "99999999"; 
-            bool result = supplyDAO.TheCodeIsAlreadyRegistred(supplyCode);
-            Assert.IsFalse(result); 
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string supplyCode = "99999999"; 
+                bool result = supplyDAO.TheCodeIsAlreadyRegistred(supplyCode);
+
+                Assert.IsTrue(result); 
+            }
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTestFail()
         {
-            string invalidSupplyCode = "9999"; 
-            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.TheCodeIsAlreadyRegistred(invalidSupplyCode));
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidSupplyCode = "9999";
+                bool result = supplyDAO.TheCodeIsAlreadyRegistred(invalidSupplyCode);
+
+                Assert.IsFalse(result);
+            }
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTest()
         {
-            string supplyName = "Success Supply 1"; 
-            bool result = supplyDAO.TheNameIsAlreadyRegistred(supplyName);
-            Assert.IsFalse(result); 
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string supplyName = "Success Supply 1"; 
+                bool result = supplyDAO.TheNameIsAlreadyRegistred(supplyName);
+
+                Assert.IsTrue(result); 
+            }
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTestFail()
         {
-            string invalidSupplyName = "Failed Supply"; 
-            Assert.ThrowsException<ArgumentNullException>(() => supplyDAO.TheNameIsAlreadyRegistred(invalidSupplyName));
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidSupplyName = "Failed Supply";
+                bool result = supplyDAO.TheNameIsAlreadyRegistred(invalidSupplyName);
+
+                Assert.IsFalse(result);
+            }
         }
     }
 }

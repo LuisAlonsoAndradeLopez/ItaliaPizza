@@ -96,6 +96,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\ItalianPizza\packages\System.Diagnostics.DiagnosticSource.5.0.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -119,6 +120,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProductDAOTest.cs" />
+    <Compile Include="ProductStatusDAOTest.cs" />
+    <Compile Include="ProductTypeDAOTest.cs" />
+    <Compile Include="SupplyDAOTest.cs" />
+    <Compile Include="SupplyTypeDAOTest.cs" />
+    <Compile Include="SupplyUnitDAOTest.cs" />
     <Compile Include="UserDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

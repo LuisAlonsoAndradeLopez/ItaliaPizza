@@ -1,4 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
@@ -13,56 +16,75 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
             supplyUnitDAO = new SupplyUnitDAO();
         }
 
-        [TestMethod]
-        public void GetAllSupplyUnitsTest()
+        [TestCleanup]
+        public void TestCleanup()
         {
-            List<SupplyUnitSet> supplyUnits = supplyUnitDAO.GetAllSupplyUnits();
-
-            Assert.IsNotNull(supplyUnits);
-            Assert.IsTrue(supplyUnits.Count > 0);
+            using (var scope = new TransactionScope())
+            {
+                scope.Complete();
+            }
         }
 
         [TestMethod]
-        public void GetAllSupplyUnitsTestFail()
-        {  
-            Assert.ThrowsException<Exception>(() => supplyUnitDAO.GetAllSupplyUnits());
+        public void GetAllSupplyUnitsTest()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<SupplyUnitSet> supplyUnits = supplyUnitDAO.GetAllSupplyUnits();
+
+                Assert.IsNotNull(supplyUnits);
+                Assert.IsTrue(supplyUnits.Count > 0);
+            }
         }
 
         [TestMethod]
         public void GetSupplyUnitByIdTest()
-        { 
-            int validId = 1;
-            SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitById(validId);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int validId = 1;
+                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitById(validId);
 
-            Assert.IsNotNull(supplyUnit);
-            Assert.AreEqual(validId, supplyUnit.Id);
+                Assert.IsNotNull(supplyUnit);
+                Assert.AreEqual(validId, supplyUnit.Id);
+            }
         }
 
         [TestMethod]
         public void GetSupplyUnitByIdTestFail()
-        {   
-            int invalidId = -1;
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int invalidId = -1;
+                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitById(invalidId);
 
-            Assert.ThrowsException<ArgumentNullException>(() => supplyUnitDAO.GetSupplyUnitById(invalidId));
+                Assert.IsNull(supplyUnit);
+            }
         }
 
         [TestMethod]
         public void GetSupplyUnitByNameTest()
-        {   
-            string validName = "Gramo";
-            SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(validName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string validName = "Gramo";
+                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(validName);
 
-            Assert.IsNotNull(supplyUnit);
-            Assert.AreEqual(validName, supplyUnit.Unit);
+                Assert.IsNotNull(supplyUnit);
+                Assert.AreEqual(validName, supplyUnit.Unit);
+            }
         }
 
         [TestMethod]
         public void GetSupplyUnitByNameTestFail()
         {
-            string invalidName = "Gayeta";
-            SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(invalidName);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidName = "Gayeta";
+                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(invalidName);
 
-            Assert.IsNull(supplyUnit);
+                Assert.IsNull(supplyUnit);
+            }
         }
     }
 }

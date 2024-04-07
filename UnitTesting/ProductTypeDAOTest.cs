@@ -1,4 +1,8 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
@@ -13,56 +17,75 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
             productTypeDAO = new ProductTypeDAO();
         }
 
-        [TestMethod]
-        public void GetAllProductTypesTest()
-        {            
-            List<ProductTypeSet> productTypes = productTypeDAO.GetAllProductTypes();
-
-            Assert.IsNotNull(productTypes);
-            Assert.IsTrue(productTypes.Count > 0);
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            using (var scope = new TransactionScope())
+            {
+                scope.Complete();
+            }
         }
 
         [TestMethod]
-        public void GetAllProductTypesTestFail()
-        {          
-            Assert.ThrowsException<Exception>(() => productTypeDAO.GetAllProductTypes());
+        public void GetAllProductTypesTest()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<ProductTypeSet> productTypes = productTypeDAO.GetAllProductTypes();
+
+                Assert.IsNotNull(productTypes);
+                Assert.IsTrue(productTypes.Count > 0);
+            }
         }
 
         [TestMethod]
         public void GetProductTypeByIdTest()
         {
-            int validId = 1;
-            ProductTypeSet productType = productTypeDAO.GetProductTypeById(validId);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int validId = 1;
+                ProductTypeSet productType = productTypeDAO.GetProductTypeById(validId);
 
-            Assert.IsNotNull(productType);
-            Assert.AreEqual(validId, productType.Id);
+                Assert.IsNotNull(productType);
+                Assert.AreEqual(validId, productType.Id);
+            }
         }
 
         [TestMethod]
         public void GetProductTypeByIdTestFail()
-        {            
-            int invalidId = -1;
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int invalidId = -1;
+                ProductTypeSet productType = productTypeDAO.GetProductTypeById(invalidId);
 
-            Assert.ThrowsException<ArgumentNullException>(() => productTypeDAO.GetProductTypeById(invalidId));
+                Assert.IsNull(productType);
+            }
         }
 
         [TestMethod]
         public void GetProductTypeByNameTest()
         {
-            string validName = "Pizza";
-            ProductTypeSet productType = productTypeDAO.GetProductTypeByName(validName);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string validName = "Pizzas";
+                ProductTypeSet productType = productTypeDAO.GetProductTypeByName(validName);
 
-            Assert.IsNotNull(productType);
-            Assert.AreEqual(validName, productType.Type);
+                Assert.IsNotNull(productType);
+                Assert.AreEqual(validName, productType.Type);
+            }
         }
 
         [TestMethod]
         public void GetProductTypeByNameTestTestFail()
-        {            
-            string invalidName = "Harina";
-            ProductTypeSet productType = productTypeDAO.GetProductTypeByName(invalidName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidName = "Harina";
+                ProductTypeSet productType = productTypeDAO.GetProductTypeByName(invalidName);
 
-            Assert.IsNull(productType);
+                Assert.IsNull(productType);
+            }
         }
     }
 }

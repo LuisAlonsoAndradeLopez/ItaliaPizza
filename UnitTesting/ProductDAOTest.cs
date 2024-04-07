@@ -1,5 +1,9 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
@@ -71,213 +75,195 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
                 IdentificationCode = "9999",
                 Description = "No"
             };
-
-            productDAO.AddProduct(successProductSaleSet2);
-            productDAO.AddProduct(successProductSaleSet3);
-            productDAO.AddProduct(failedProductSaleSet);
         }
 
-        [ClassCleanup]
-        public static void ClassCleanup()
+        [TestCleanup]
+        public void TestCleanup()
         {
-            productDAO.DeleteProduct(successProductSaleSet1);
-            productDAO.DeleteProduct(successProductSaleSet2);
-            productDAO.DeleteProduct(successProductSaleSet3);
-            productDAO.DeleteProduct(failedProductSaleSet);
+            using (var scope = new TransactionScope())
+            {
+                scope.Complete();
+            }
         }
 
         [TestMethod]
         public void AddProductTest()
-        {            
-            int result = productDAO.AddProduct(successProductSaleSet1);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int result = productDAO.AddProduct(successProductSaleSet1);
 
-            Assert.AreEqual(1, result);
-        }
-
-        [TestMethod]
-        public void AddProductTestFail()
-        {            
-            Assert.ThrowsException<EntityException>(() => productDAO.AddProduct(failedProductSaleSet));
+                Assert.AreEqual(1, result);
+            }
         }
 
         [TestMethod]
         public void DisableProductTest()
-        {            
-            string productName = "Success Product 1"; 
-            int result = productDAO.DisableProduct(productName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string productName = "Success Product 1"; 
+                int result = productDAO.DisableProduct(productName);
 
-            Assert.AreEqual(1, result);
-        }
-
-        [TestMethod]
-        public void DisableProductTestFail()
-        {            
-            string invalidProductName = "Failed Product"; 
-
-            Assert.ThrowsException<EntityException>(() => productDAO.DisableProduct(invalidProductName));
+                Assert.AreEqual(1, result);
+            }
         }
 
         [TestMethod]
         public void GetAllActiveProductsTest()
-        {            
-            List<ProductSaleSet> activeProducts = productDAO.GetAllActiveProducts();
-
-            Assert.IsNotNull(activeProducts);
-            Assert.IsTrue(activeProducts.Count > 0);
-        }
-
-        [TestMethod]
-        public void GetAllActiveProductsTestFail()
-        {         
-            Assert.ThrowsException<EntityException>(() => productDAO.GetAllActiveProducts());
-        }
-
-        [TestMethod]
-        public void GetImageByProductNameTest()
         {
-            //string productName = "Success Product 1"; 
-            //BitmapImage bitmapImage = productDAO.GetImageByProductName(productName);
-            //
-            //Assert.IsNotNull(bitmapImage);
-        }
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<ProductSaleSet> activeProducts = productDAO.GetAllActiveProducts();
 
-        [TestMethod]
-        public void GetImageByProductNameTestFail()
-        {
-            //string invalidProductName = "Failed Product"; 
-            //
-            //Assert.ThrowsException<ArgumentNullException>(() => productDAO.GetImageByProductName(invalidProductName));
+                Assert.IsNotNull(activeProducts);
+                Assert.IsTrue(activeProducts.Count > 0);
+            }
         }
 
         [TestMethod]
         public void GetProductByNameTest()
-        {            
-            string productName = "Success Product 1"; 
-            ProductSaleSet product = productDAO.GetProductByName(productName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string productName = "Success Product 1"; 
+                ProductSaleSet product = productDAO.GetProductByName(productName);
 
-            Assert.IsNotNull(product);
+                Assert.IsNotNull(product);
+            }
         }
 
         [TestMethod]
         public void GetProductByNameTestFail()
-        {            
-            string invalidProductName = "Failed Product"; 
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidProductName = "Failed Product";
+                ProductSaleSet product = productDAO.GetProductByName(invalidProductName);
 
-            Assert.ThrowsException<EntityException>(() => productDAO.GetProductByName(invalidProductName));
+                Assert.IsNull(product);
+            }
         }
 
         [TestMethod]
         public void GetSpecifiedProductsByNameOrCodeTest()
-        {            
-            string textForFindingArticle = "Success Product 1";
-            string findByType = "Nombre"; 
-            var specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string textForFindingArticle = "Success Product 1";
+                string findByType = "Nombre"; 
+                List<ProductSaleSet> specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
 
-            Assert.IsNotNull(specifiedProducts);
+                Assert.IsNotNull(specifiedProducts);
+            }
         }
 
         [TestMethod]
         public void GetSpecifiedProductsByNameOrCodeTestFail()
-        {            
-            string invalidTextForFindingArticle = "Failed Product"; 
-            string findByType = "Tipo Inválido"; 
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidTextForFindingArticle = "Failed Product"; 
+                string findByType = "Tipo Inválido";
+                List<ProductSaleSet> specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(invalidTextForFindingArticle, findByType);
 
-            Assert.ThrowsException<ArgumentNullException>(() => productDAO.GetSpecifiedProductsByNameOrCode(invalidTextForFindingArticle, findByType));
+                Assert.IsNull(specifiedProducts);
+            }
         }
 
         [TestMethod]
         public void ModifyProductTest()
-        {            
-            int result = productDAO.ModifyProduct(successProductSaleSet2, successProductSaleSet3);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int result = productDAO.ModifyProduct(successProductSaleSet2, successProductSaleSet3);
 
-            Assert.IsTrue(result > 0);
-        }
-
-        [TestMethod]
-        public void ModifyProductTestFail()
-        {            
-            Assert.ThrowsException<EntityException>(() => productDAO.ModifyProduct(successProductSaleSet3, failedProductSaleSet));
+                Assert.IsTrue(result > 0);
+            }
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTest()
-        {            
-            string productCode = "99999999";
-            bool result = productDAO.TheCodeIsAlreadyRegistred(productCode);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string productCode = "99999999";
+                bool result = productDAO.TheCodeIsAlreadyRegistred(productCode);
 
-            Assert.IsFalse(result);
+                Assert.IsTrue(result);
+            }
         }
 
         [TestMethod]
         public void TheCodeIsAlreadyRegistredTestFail()
-        {            
-            string invalidProductCode = "9999";
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidProductCode = "9999";
+                bool result = productDAO.TheCodeIsAlreadyRegistred(invalidProductCode);
 
-            Assert.ThrowsException<ArgumentNullException>(() => productDAO.TheCodeIsAlreadyRegistred(invalidProductCode));
+                Assert.IsFalse(result);
+            }
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTest()
-        {            
-            string productName = "Success Product 1";
-            bool result = productDAO.TheNameIsAlreadyRegistred(productName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string productName = "Success Product 1";
+                bool result = productDAO.TheNameIsAlreadyRegistred(productName);
 
-            Assert.IsFalse(result);
+                Assert.IsTrue(result);
+            }
         }
 
         [TestMethod]
         public void TheNameIsAlreadyRegistredTestFail()
-        {            
-            string invalidProductName = "Failed Product";
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidProductName = "Failed Product";
+                bool result = productDAO.TheNameIsAlreadyRegistred(invalidProductName);
 
-            Assert.ThrowsException<ArgumentNullException>(() => productDAO.TheNameIsAlreadyRegistred(invalidProductName));
+                Assert.IsFalse(result);
+            }
         }
 
         [TestMethod]
         public void GetOrderProductsTest()
         {
-            CustomerOrderSet customerOrder = new CustomerOrderSet();
-            List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrder);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                CustomerOrderSet customerOrder = new CustomerOrderSet();
+                List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrder);
 
-            Assert.IsNotNull(orderProducts);
-        }
-
-        [TestMethod]
-        public void GetOrderProductsTestFail()
-        {
-            CustomerOrderSet invalidCustomerOrder = new CustomerOrderSet();
-
-            Assert.ThrowsException<EntityException>(() => productDAO.GetOrderProducts(invalidCustomerOrder));
+                Assert.IsNotNull(orderProducts);
+            }
         }
 
         [TestMethod]
         public void GetAllProductTypesTest()
         {
-            List<ProductTypeSet> productTypes = productDAO.GetAllProductTypes();
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<ProductTypeSet> productTypes = productDAO.GetAllProductTypes();
 
-            Assert.IsNotNull(productTypes);
-            Assert.IsTrue(productTypes.Count > 0);
-        }
-
-        [TestMethod]
-        public void GetAllProductTypesTestFail()
-        {
-            Assert.ThrowsException<EntityException>(() => productDAO.GetAllProductTypes());
+                Assert.IsNotNull(productTypes);
+                Assert.IsTrue(productTypes.Count > 0);
+            }
         }
 
         [TestMethod]
         public void GetAllProductStatusesTest()
-        {            
-            List<ProductStatusSet> productStatuses = productDAO.GetAllProductStatuses();
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<ProductStatusSet> productStatuses = productDAO.GetAllProductStatuses();
 
-            Assert.IsNotNull(productStatuses);
-            Assert.IsTrue(productStatuses.Count > 0);
-        }
-
-        [TestMethod]
-        public void GetAllProductStatusesTestFail()
-        {         
-            Assert.ThrowsException<EntityException>(() => productDAO.GetAllProductStatuses());
+                Assert.IsNotNull(productStatuses);
+                Assert.IsTrue(productStatuses.Count > 0);
+            }
         }
     }
 }

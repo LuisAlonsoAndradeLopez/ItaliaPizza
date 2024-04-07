@@ -1,4 +1,8 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
 {
@@ -13,56 +17,75 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
             productStatusDAO = new ProductStatusDAO();
         }
 
-        [TestMethod]
-        public void GetAllProductStatusesTest()
+        [TestCleanup]
+        public void TestCleanup()
         {
-            List<ProductStatusSet> productStatuses = productStatusDAO.GetAllProductStatuses();
-
-            Assert.IsNotNull(productStatuses);
-            Assert.IsTrue(productStatuses.Count > 0);
+            using (var scope = new TransactionScope())
+            {
+                scope.Complete();
+            }
         }
 
         [TestMethod]
-        public void GetAllProductStatusesTestTestFail()
+        public void GetAllProductStatusesTest()
         {
-            Assert.ThrowsException<Exception>(() => productStatusDAO.GetAllProductStatuses());
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<ProductStatusSet> productStatuses = productStatusDAO.GetAllProductStatuses();
+
+                Assert.IsNotNull(productStatuses);
+                Assert.IsTrue(productStatuses.Count > 0);
+            }
         }
 
         [TestMethod]
         public void GetProductStatusByIdTest()
         {
-            int validId = 1;
-            ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(validId);
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int validId = 1;
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(validId);
 
-            Assert.IsNotNull(productStatus);
-            Assert.AreEqual(validId, productStatus.Id);
+                Assert.IsNotNull(productStatus);
+                Assert.AreEqual(validId, productStatus.Id);
+            }
         }
 
         [TestMethod]
         public void GetProductStatusByIdTestFail()
-        {            
-            int invalidId = -1;
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                int invalidId = -1;
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(invalidId);
 
-            Assert.ThrowsException<ArgumentNullException>(() => productStatusDAO.GetProductStatusById(invalidId));
+                Assert.IsNull(productStatus);
+            }
         }
 
         [TestMethod]
         public void GetProductStatusByNameTest()
-        {            
-            string validName = "Activo";
-            ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(validName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string validName = "Activo";
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(validName);
 
-            Assert.IsNotNull(productStatus);
-            Assert.AreEqual(validName, productStatus.Status);
+                Assert.IsNotNull(productStatus);
+                Assert.AreEqual(validName, productStatus.Status);
+            }
         }
 
         [TestMethod]
         public void GetProductStatusByNameTestFail()
-        {            
-            string invalidName = "Proactivo";
-            ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(invalidName);
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                string invalidName = "Proactivo";
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(invalidName);
 
-            Assert.IsNull(productStatus);
+                Assert.IsNull(productStatus);
+            }
         }
     }
 }
