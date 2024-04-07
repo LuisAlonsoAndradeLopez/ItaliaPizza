@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,15 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Label = System.Windows.Controls.Label;
+using ListBox = System.Windows.Controls.ListBox;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -23,6 +27,7 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_CustomerOrderManagementForm : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
+        private List<ProductSaleSet> productSaleSets;
         private List<ProductSaleSet> listProductsCustomerOrder;
         private List<ProductSaleSet> listProductsCustomerOrderCopy;
         private CustomerOrderSet customerOrderSet;
@@ -38,12 +43,48 @@ namespace ItalianPizza.XAMLViews
             GetCustomerOrderInformation(customerOrder);
         }
 
+        private void ListBox_ProductTypeSelection(object sender, SelectionChangedEventArgs e)
+        {
+            ProductTypeSet productType = (ProductTypeSet)lboProductType.SelectedItem;
+            List<ProductSaleSet> filteredProducts = productSaleSets
+                .Where(p => p.ProductTypeId == productType.Id).ToList();
+            AddVisualProductsToWindow(filteredProducts);
+        }
+
+        private void ListBox_ProductStatusSelection(object sender, SelectionChangedEventArgs e)
+        {
+            ProductStatusSet productStatus = (ProductStatusSet)lboProductStatus.SelectedItem;
+            List<ProductSaleSet> filteredProducts = productSaleSets
+                .Where(p => p.ProductStatusId == productStatus.Id).ToList();
+            AddVisualProductsToWindow(filteredProducts);
+        }
+
+        private void TextBox_ProductSearch(object sender, EventArgs e)
+        {
+            string textSearch = txtProductSearch.Text;
+            RecoverProducts(textSearch); 
+        }
+
+        private void RecoverProducts(string textSearch)
+        {
+            List<ProductSaleSet> filteredProducts = productSaleSets
+                .Where(p => p.Name.ToLower().Contains(textSearch.ToLower())).ToList();
+            AddVisualProductsToWindow(filteredProducts);
+        }
+
+
         private void GetCustomerOrderInformation(CustomerOrderSet customerOrder)
         {
             try
             {
                 if (customerOrderSet != null)
                 {
+                    CustomerSet customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
+                    DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
+                    lboCustomers.SelectedItem = customer;
+                    lboDeliverymen.SelectedItem = deliveryman;
+                    lboOrderStatusCustomer.SelectedItem = customerOrderSet.OrderStatusSet;
+                    lboOrderTypeCustomer.SelectedItem = customerOrderSet.OrderTypeSet;
                     listProductsCustomerOrder = productDAO.GetOrderProducts(customerOrder);
                     listProductsCustomerOrderCopy = new List<ProductSaleSet>();
                     foreach (ProductSaleSet product in listProductsCustomerOrder)
@@ -172,47 +213,82 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
         {
-            if (listProductsCustomerOrder.Count != 0)
+            if (ValidateOrderDetails())
             {
-                OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
-                if (orderType != null)
-                {
-                    CustomerOrderSet customerOrder = PrepareCustomerOrder();
-                    CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
-                    DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
+                CustomerOrderSet customerOrder = PrepareCustomerOrder();
+                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
+                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
 
-                    if (customerOrder.OrderTypeId == 1 && customer != null && deliveryman != null || customerOrder.OrderTypeId == 2)
-                    {
-                        try
-                        {
-                            customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
-                            new AlertPopup("Registro Exitoso", "Se ha registrado correctamente el pedido a la base de datos", Auxiliary.AlertPopupTypes.Success);
-                            listProductsCustomerOrder.Clear();
-                            CleanFields();
-                        }
-                        catch (EntityException)
-                        {
-                            new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
-                        } 
-                    }
-                    else
-                    {
-                        new AlertPopup("Informacion incompleta", "Verifique que el cliente y el repartidos del pedido ha registrar haya sido selecionado, gracias!", Auxiliary.AlertPopupTypes.Warning);
-                    }
-                }
-                else
+                try
                 {
-                    new AlertPopup("Informacion incompleta", "Verifique que el tipo de pedido haya sido selecionado, gracias!", Auxiliary.AlertPopupTypes.Warning);
+                    customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
+                    new AlertPopup("Registro Exitoso", "Se ha registrado correctamente el pedido a la base de datos", Auxiliary.AlertPopupTypes.Success);
+                    listProductsCustomerOrder.Clear();
+                    CleanFields();
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                }
+            }
+        }
+
+        private bool ValidateOrderDetails()
+        {
+            if (listProductsCustomerOrder.Count == 0)
+            {
+                ShowAlert("Informacion incompleta", "El pedido del cliente debe tener al menos un pedido registrado, verifique si el pedido cumple con esto e inténtelo de nuevo!");
+                return false;
+            }
+
+            if(customerOrderSet == null)
+            {
+                CustomerOrderSet customerOrder = PrepareCustomerOrder();
+                OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
+                if (orderType == null && customerOrder.OrderStatusId != 15)
+                {
+                    ShowAlert("Informacion incompleta", "Verifique que el tipo de pedido haya sido seleccionado, gracias!");
+                    return false;
+                }
+
+                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
+                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
+
+                if (customerOrder.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrder.OrderStatusId != 15)
+                {
+                    ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
+                    return false;
                 }
             }
             else
             {
-                new AlertPopup("Informacion incompleta", "El pedido del cliente debe tener al menos un pedido registrado, verfique si el pedido cumple con esto he intentelo de nuevo!", Auxiliary.AlertPopupTypes.Warning);
+                OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
+                if (orderType == null && customerOrderSet.OrderStatusId != 15)
+                {
+                    ShowAlert("Informacion incompleta", "Verifique que el tipo de pedido haya sido seleccionado, gracias!");
+                    return false;
+                }
+
+                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
+                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
+
+                if (customerOrderSet.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrderSet.OrderStatusId != 15)
+                {
+                    ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
+                    return false;
+                }
             }
+
+            return true;
+        }
+
+        private void ShowAlert(string title, string message)
+        {
+            new AlertPopup(title, message, Auxiliary.AlertPopupTypes.Warning);
         }
 
         private void CleanFields()
@@ -227,8 +303,8 @@ namespace ItalianPizza.XAMLViews
         {
             CustomerOrderSet customerOrder = new CustomerOrderSet();
             OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
-            customerOrder.OrderStatusId = 1;
             customerOrder.OrderTypeId = orderType.Id;
+            customerOrder.OrderStatusId = 1;
             customerOrder.OrderDate = DateTime.Now;
             customerOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
                 "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
@@ -318,6 +394,7 @@ namespace ItalianPizza.XAMLViews
             try
             {
                 productsSale = productDAO.GetAllActiveProducts();
+                productSaleSets = productsSale;
                 AddVisualProductsToWindow(productsSale);
             }
             catch (EntityException)
@@ -549,47 +626,68 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_ModifyCustomerOrder(object sender, RoutedEventArgs e)
         {
-            if (listProductsCustomerOrder.Count != 0)
+            if (ValidateOrderDetails())
             {
-                OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
                 OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
-                if (orderType != null && orderStatus != null)
+                if (orderStatus.Id != 15)
                 {
                     PrepareModifyCustomerOrder();
                     CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
                     DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
 
-                    if (customerOrderSet.OrderTypeId == 1 && customer != null && deliveryman != null || customerOrderSet.OrderTypeId == 2)
+                    try
                     {
-                        try
-                        {
-                            customerOrdersDAO.ModifyCustomerOrder(customerOrderSet, listProductsCustomerOrder, customer, deliveryman);
-                            new AlertPopup("Modificación exitosa", "Se han registrado correctamente la modificacion del pedido", Auxiliary.AlertPopupTypes.Success);
-                            NavigationService.Navigate(new GUI_ConsultCustomerOrder());
-                        }
-                        catch (EntityException)
-                        {
-                            new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
-                        }
+                        customerOrdersDAO.ModifyCustomerOrder(customerOrderSet, listProductsCustomerOrder, customer, deliveryman);
+                        new AlertPopup("Modificación exitosa", "Se han registrado correctamente la modificacion del pedido", Auxiliary.AlertPopupTypes.Success);
+                        NavigationService.Navigate(new GUI_ConsultCustomerOrder());
                     }
-                    else
+                    catch (EntityException)
                     {
-                        new AlertPopup("Informacion incompleta", "Verifique que el cliente y el repartidos del pedido ha registrar haya sido selecionado, gracias!", Auxiliary.AlertPopupTypes.Warning);
+                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
                     }
                 }
                 else
                 {
-                    new AlertPopup("Informacion incompleta", "Verifique que el tipo y el estatus del pedido haya sido selecionado, gracias!", Auxiliary.AlertPopupTypes.Warning);
+                    CancelOrder();
+                }
+            }
+        }
+
+        private void CancelOrder()
+        {
+            if(customerOrderSet.OrderStatusId == 2)
+            {
+                customerOrderSet.OrderStatusId = 15;
+
+                try
+                {
+                    List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrderSet);
+                    customerOrdersDAO.CancelCustomerOrder(customerOrderSet);
+                    foreach (var productSale in orderProducts)
+                    {
+                        productDAO.RestoreSuppliesOnSale(GetRecipeIngredientsByProduct(productSale));
+                    }
+                    new AlertPopup("Cancelacion de pedio completada", "Se a cancelado correctamente el pedido", Auxiliary.AlertPopupTypes.Success);
+                    NavigationService.Navigate(new GUI_ConsultCustomerOrder());
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
                 }
             }
             else
             {
-                new AlertPopup("Informacion incompleta", "El pedido del cliente debe tener al menos un pedido registrado, verfique si el pedido cumple con esto he intentelo de nuevo!", Auxiliary.AlertPopupTypes.Warning);
+                new AlertPopup("No se puede cancelar este pedio", "Una vez que entra a cocina un pedido, no se puede modificar", Auxiliary.AlertPopupTypes.Warning);
             }
+
         }
 
         private void VerifyUnconfirmedProducts()

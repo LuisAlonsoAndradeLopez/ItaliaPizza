@@ -126,6 +126,7 @@
     <Compile Include="SupplyDAOTest.cs" />
     <Compile Include="SupplyTypeDAOTest.cs" />
     <Compile Include="SupplyUnitDAOTest.cs" />
+    <Compile Include="CustomerOrderDAO.cs" />
     <Compile Include="UserDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

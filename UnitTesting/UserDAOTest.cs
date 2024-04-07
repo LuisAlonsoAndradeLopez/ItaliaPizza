@@ -107,5 +107,15 @@ namespace UnitTesting
             }
         }
 
+        [TestMethod]
+        public void GetAllEmployeeByStatusTest()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                List<EmployeeSet> employees = userDAO.GetAllEmployeesByStatus("Activo");
+                Assert.AreEqual(3, employees.Count);
+            }
+        }
+
     }
 }

@@ -43,13 +43,13 @@ namespace ItalianPizza.XAMLViews
             {
                 BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
 
-                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 10 * 1024 * 1024)
                 {
                     ArticleImage.Source = imageSource;
                 }
                 else
                 {
-                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 10MB", AlertPopupTypes.Error);
                 }
             }
         }

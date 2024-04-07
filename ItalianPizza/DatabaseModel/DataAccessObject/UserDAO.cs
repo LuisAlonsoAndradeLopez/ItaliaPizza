@@ -145,6 +145,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public BitmapImage GetUserImage(byte[] data)
         {
+            
             BitmapImage bitmapImage = new BitmapImage();
             using (MemoryStream memoryStream = new MemoryStream(data))
             {
@@ -215,6 +216,64 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return address;
         }
 
+        public List<EmployeeSet> GetAllEmployeesByStatus(string status)
+        {
+            List<EmployeeSet> employees = new List<EmployeeSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    employees = context.EmployeeSet.Where(employee => employee.UserStatusSet.Status == status)
+                        .Include(employee => employee.AddressSet)
+                        .Include(employee => employee.EmployeePositionSet)
+                        .Include(employee => employee.UserStatusSet)
+                        .Include(employee => employee.UserAccountSet)
+                        .ToList();
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return employees;
+        }
+
+        public List<EmployeeSet> GetAllEmployeesByPosition(string position)
+        {
+            List<EmployeeSet> employees = new List<EmployeeSet>();
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    employees = context.EmployeeSet.Where(employee => employee.EmployeePositionSet.Position == position)
+                        .Include(employee => employee.AddressSet)
+                        .Include(employee => employee.EmployeePositionSet)
+                        .Include(employee => employee.UserStatusSet)
+                        .Include(employee => employee.UserAccountSet)
+                        .ToList();
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return employees;
+        }
+
         public List<CustomerSet> GetAllCustomers()
         {
             List<CustomerSet> customerList;
@@ -228,8 +287,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customer => customer.UserStatusSet)
                         .ToList();
                 }
-
-                customerList.RemoveAt(0);
 
             }
             catch (EntityException ex)
@@ -269,6 +326,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return customer;
         }
 
+
+
         public List<DeliveryDriverSet> GetAllDeliveryDriver()
         {
             List<DeliveryDriverSet> deliveryDriverList;
@@ -294,7 +353,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public CustomerSet GetCustomerByCustomerOrder(int customerOrderID)
         {
-            CustomerSet customer = new CustomerSet();
+            CustomerSet customer = null;
 
             try
             {
@@ -304,7 +363,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customerOrderDetailAux => customerOrderDetailAux.CustomerSet)
                         .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    customer = customerOrderDetail.CustomerSet;
+                    if (customerOrderDetail != null)
+                    {
+                        customer = customerOrderDetail.CustomerSet;
+                    }
+                    
                 }
             }
             catch (EntityException ex)
@@ -321,7 +384,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public DeliveryDriverSet GetDeliveryDriverByCustomerOrder(int customerOrderID)
         {
-            DeliveryDriverSet deliveryDriver = new DeliveryDriverSet();
+            DeliveryDriverSet deliveryDriver = null;
 
             try
             {
@@ -331,7 +394,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customerOrderDetailAux => customerOrderDetailAux.DeliveryDriverSet)
                         .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    deliveryDriver = customerOrderDetail.DeliveryDriverSet;
+                    if (customerOrderDetail != null)
+                    {
+                        deliveryDriver = customerOrderDetail.DeliveryDriverSet;
+                    }
+                    
                 }
             }
             catch (EntityException ex)

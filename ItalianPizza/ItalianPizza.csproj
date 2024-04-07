@@ -116,6 +116,7 @@
     <Compile Include="Auxiliary\EntitiesEnums.cs" />
     <Compile Include="Auxiliary\ExceptionLogger.cs" />
     <Compile Include="Auxiliary\ImageManager.cs" />
+    <Compile Include="Auxiliary\RegexChecker.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
@@ -427,6 +428,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="DatabaseModel\DatabaseMapping\Model1.edmx.sql" />
     <Content Include="DatabaseModel\DatabaseMapping\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
