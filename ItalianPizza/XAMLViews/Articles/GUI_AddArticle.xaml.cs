@@ -26,7 +26,7 @@ namespace ItalianPizza.XAMLViews
         public GUI_AddArticle()
         {
             InitializeComponent();
-            InitializeComboBoxes();
+            //InitializeComboBoxes();
 
             PriceDecimalUpDown.Text = "$0.00";
         }

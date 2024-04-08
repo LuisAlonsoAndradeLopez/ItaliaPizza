@@ -1,4 +1,5 @@
 ﻿using ItalianPizza.XAMLViews;
+using ItalianPizza.XAMLViews.Finances;
 using System.Windows;
 
 namespace ItalianPizza
@@ -11,7 +12,7 @@ namespace ItalianPizza
         public MainWindow()
         {
             InitializeComponent();
-            frameContainer.Navigate(new GUI_Login());
+            frameContainer.Navigate(new GUI_Finances());
         }
     }
 }

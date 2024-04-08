@@ -28,7 +28,7 @@ namespace ItalianPizza.XAMLViews
                 case AlertPopupTypes.Decision:
                     DecisionAlertPopupButtonsPane.Visibility = Visibility.Visible;
                     AlertPopupImage.Source = new ImageManager().GetImageByItaliaPizzaStoragedImagePath("Resources\\Pictures\\AlertPopupImages\\ICON-Decision.png");
-                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.Blue);
+                    HeaderTextBlock.Foreground = new SolidColorBrush(Colors.LightBlue);
                     break;
 
                 case AlertPopupTypes.Error:
@@ -50,7 +50,6 @@ namespace ItalianPizza.XAMLViews
                     break;
 
                 default:
-                    this.Title = "Pene";
                     break;
 
             }

@@ -1,13 +1,18 @@
-﻿using ItalianPizza.Auxiliary;
+﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Navigation;
+using Border = System.Windows.Controls.Border;
 using Orientation = System.Windows.Controls.Orientation;
 
 namespace ItalianPizza.XAMLViews
@@ -21,7 +26,7 @@ namespace ItalianPizza.XAMLViews
         {
             InitializeComponent();
 
-            ShowArticles("");
+            //ShowArticles("");
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -52,6 +57,45 @@ namespace ItalianPizza.XAMLViews
             {
                 string selectedFolderPath = folderBrowserDialog.SelectedPath;
 
+                try
+                {
+                    string incompleteRPTPath = Path.GetFullPath("Resources\\InventoryReport.rpt");
+                    string RPTpathPartToDelete = "bin\\Debug\\";
+                    string completeRPTPath = incompleteRPTPath.Replace(RPTpathPartToDelete, "");
+
+                    ReportDocument reportDocument = new ReportDocument();
+                    reportDocument.Load(completeRPTPath);
+
+                    string tempFilePath = Path.Combine(Path.GetTempPath(), "temp_report.pdf");
+
+                    ExportOptions exportOptions = new ExportOptions
+                    {
+                        ExportFormatType = ExportFormatType.PortableDocFormat,
+                        ExportDestinationType = ExportDestinationType.DiskFile,
+                        DestinationOptions = new DiskFileDestinationOptions
+                        {
+                            DiskFileName = tempFilePath
+                        }
+                    };
+
+                    reportDocument.Export(exportOptions);
+
+                    reportDocument.Close();
+                    reportDocument.Dispose();
+
+                    string finalFilePath = Path.Combine(selectedFolderPath, "InventoryReport.pdf");
+                    File.Move(tempFilePath, finalFilePath);
+
+                    new AlertPopup("¡Reporte creado con éxito!", "El reporte ha sido creado exitosamente.", AlertPopupTypes.Success);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    new AlertPopup("¡Error al crear el reporte!", "No puedes exportar el reporte en esa carpeta, seleccione otra carpeta.", AlertPopupTypes.Error);
+                }
+                catch (Exception)
+                {
+                    new AlertPopup("¡Error al crear el reporte!", "Hubo un problema al crear el reporte, inténtelo más tarde.", AlertPopupTypes.Error);
+                }
             }
         }
 

@@ -1,13 +1,15 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
+    
+    
+    <!--<Style x:Key="GUI_AddArticleComboBoxStyle" TargetType="ComboBox">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderThickness" Value="2"/> 
         <Setter Property="BorderBrush" Value="Gray"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Padding" Value="6 3"/>
-        <Setter Property="Cursor" Value="IBeam"/>
+        <Setter Property="Cursor" Value="Arrow"/>
         <Setter Property="AllowDrop" Value="True"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="IsEnabled" Value="True"/>
@@ -15,16 +17,73 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">
-                    <Border Background="{TemplateBinding Background}"
-                        CornerRadius="10"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        BorderBrush="{TemplateBinding BorderBrush}">
+                    <Grid>
+                        <Border Background="{TemplateBinding Background}"
+                            CornerRadius="10"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
 
+                            <Grid Margin="{TemplateBinding Padding}">
+                            </Grid>
+                        </Border>
 
-                        <Grid Margin="{TemplateBinding Padding}">
-                            
-                        </Grid>
-                    </Border>
+                        <TextBox x:Name="PART_EditableTextBox"
+                             Style="{x:Null}"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             Padding="{TemplateBinding Padding}"
+                             Background="{TemplateBinding Background}"
+                             BorderBrush="{TemplateBinding BorderBrush}"
+                             BorderThickness="{TemplateBinding BorderThickness}"
+                             IsReadOnly="{TemplateBinding IsReadOnly}"
+                             Focusable="False"
+                             Cursor="IBeam"
+                             Foreground="{TemplateBinding Foreground}"
+                             CaretBrush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+
+                        --><!-- The ComboBox toggle button --><!--
+                        <ToggleButton x:Name="PART_ToggleButton"
+                                  Grid.Column="1"
+                                  Focusable="False"
+                                  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                  ClickMode="Press">
+                            <ToggleButton.Template>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Grid>
+                                        <Border x:Name="Border"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"/>
+                                        <Path x:Name="Arrow"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M0,0 L4,4 L8,0 Z"
+                                          Fill="{TemplateBinding Foreground}"
+                                          Margin="4,0,0,0"/>
+                                    </Grid>
+                                </ControlTemplate>
+                            </ToggleButton.Template>
+                        </ToggleButton>
+
+                        --><!-- The Popup containing the dropdown items --><!--
+                        <Popup x:Name="PART_Popup"
+                           AllowsTransparency="True"
+                           IsOpen="{TemplateBinding IsDropDownOpen}"
+                           Placement="Bottom"
+                           PopupAnimation="Slide">
+                            <Border x:Name="PopupBorder"
+                                Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                                BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
+                                BorderThickness="1">
+                                <ScrollViewer x:Name="ScrollViewer"
+                                          CanContentScroll="True"
+                                          HorizontalScrollBarVisibility="Auto"
+                                          VerticalScrollBarVisibility="Auto">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -36,5 +95,5 @@
                 <Setter Property="BorderBrush" Value="DarkRed"/>
             </Trigger>
         </Style.Triggers>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

@@ -92,10 +92,8 @@ namespace ItalianPizza.XAMLViews
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)
         {
-            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
-
-            //NavigationService navigationService = NavigationService.GetNavigationService(this);
-            //navigationService.Navigate(new GUI_InventoryReport());
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService.Navigate(new GUI_InventoryReport());
         }
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)

@@ -16,14 +16,14 @@ namespace ItalianPizza.Resources {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class Reporte : ReportClass {
+    public class InventoryReport : ReportClass {
         
-        public Reporte() {
+        public InventoryReport() {
         }
         
         public override string ResourceName {
             get {
-                return "Reporte.rpt";
+                return "InventoryReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace ItalianPizza.Resources {
         
         public override string FullResourceName {
             get {
-                return "ItalianPizza.Resources.Reporte.rpt";
+                return "ItalianPizza.Resources.InventoryReport.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace ItalianPizza.Resources {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReporte : Component, ICachedReport {
+    public class CachedInventoryReport : Component, ICachedReport {
         
-        public CachedReporte() {
+        public CachedInventoryReport() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace ItalianPizza.Resources {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            Reporte rpt = new Reporte();
+            InventoryReport rpt = new InventoryReport();
             rpt.Site = this.Site;
             return rpt;
         }
