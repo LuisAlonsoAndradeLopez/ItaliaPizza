@@ -19,12 +19,12 @@
 
         <Rectangle 
             HorizontalAlignment="Left" 
-            Height="524" 
-            Margin="82,105,0,0" 
+            Height="558" 
+            Margin="82,131,0,0" 
             RadiusX="30" 
             RadiusY="30" 
             VerticalAlignment="Top" 
-            Width="453" 
+            Width="534" 
             Opacity="0.3">
 
             <Rectangle.Fill>
@@ -37,12 +37,12 @@
 
         <Rectangle 
             HorizontalAlignment="Left" 
-            Height="523"
-            Margin="82,106,0,0" 
+            Height="558"
+            Margin="82,131,0,0" 
             RadiusX="30"
             RadiusY="30" 
             VerticalAlignment="Top"
-            Width="453" 
+            Width="534" 
             Opacity="0.3">
 
             <Rectangle.Fill>
@@ -56,164 +56,104 @@
 
         <Label Content="Pizza" 
                HorizontalAlignment="Left" 
-               Margin="303,131,0,0"
+               Margin="348,169,0,0"
                VerticalAlignment="Top" 
                Foreground="#FFDEAB04"
                FontFamily="Arial"
                FontWeight="Bold"
-               FontSize="30"/>
+               FontSize="40"/>
 
         <Label Content="Italian"
                HorizontalAlignment="Left"
-               Margin="217,131,0,0"
+               Margin="231,169,0,0"
                VerticalAlignment="Top"
                Foreground="White"
                FontFamily="Arial"
                FontWeight="Bold"
-               FontSize="30"
+               FontSize="40"
                RenderTransformOrigin="-0.025,-0.215"/>
 
         <Label Content="Ingrese nombre de usuario "
                HorizontalAlignment="Left"
-               Margin="117,211,0,0"
+               Margin="160,265,0,0"
                VerticalAlignment="Top"
                Foreground="#FFF8F3F3"
                FontFamily="Arial"
-               FontSize="18"
+               FontSize="22"
                FontWeight="Bold"/>
 
         <TextBox x:Name="txtUserName"
                  HorizontalAlignment="Left" 
-                 Margin="120,249,0,0"
+                 Margin="161,317,0,0"
                  TextWrapping="Wrap"
                  VerticalAlignment="Top" 
-                 Width="375" 
+                 Width="374" 
                  Background="{x:Null}"
                  BorderBrush="#FFF0F0F0"
                  Foreground="White" 
-                 Height="34" 
+                 Height="47" 
                  FontSize="18"/>
 
         <Label Content="Ingrese su contraseña" 
                HorizontalAlignment="Left" 
-               Margin="118,306,0,0" 
+               Margin="162,397,0,0" 
                VerticalAlignment="Top" 
                Foreground="#FFF8F3F3" 
                FontFamily="Arial"
-               FontSize="18"
+               FontSize="22"
                FontWeight="Bold"/>
 
         <TextBox x:Name="txtPassword"
             HorizontalAlignment="Left" 
-            Margin="121,344,0,0"
+            Margin="162,452,0,0"
             TextWrapping="Wrap" 
             VerticalAlignment="Top"
             Width="375"
             Background="{x:Null}" 
             BorderBrush="White"
             Foreground="White" 
-            Height="34"
+            Height="47"
             FontSize="18"/>
 
         <Button Content="Login" 
                 HorizontalAlignment="Left"
-                Margin="121,418,0,0"
+                Margin="192,566,0,0"
                 VerticalAlignment="Top" 
                 BorderBrush="#FFDEAB04"
                 Background="#FFDEAB04" 
                 Cursor="Hand"
-                Height="34"
-                Width="374"
+                Height="44"
+                Width="312"
                 Foreground="White"
-                FontFamily="Segoe UI Variable Small Semibold" 
-                FontSize="18" 
+                FontFamily="Verdana" 
+                FontSize="24" 
                 FontWeight="Bold" Click="Button_Click"/>
-
-        <GridSplitter 
-            HorizontalAlignment="Left" 
-            Height="146" 
-            Margin="205,418,0,0" 
-            VerticalAlignment="Top" 
-            Width="2" 
-            RenderTransformOrigin="0.5,0.5">
-            <GridSplitter.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </GridSplitter.RenderTransform>
-        </GridSplitter>
-
-
-        <GridSplitter 
-            HorizontalAlignment="Left" 
-            Height="148" 
-            Margin="411,417,0,0" 
-            VerticalAlignment="Top"
-            Width="2" 
-            RenderTransformOrigin="0.5,0.5">
-            <GridSplitter.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="90"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </GridSplitter.RenderTransform>
-        </GridSplitter>
-
-
-        <Label Content="Ó" 
-               HorizontalAlignment="Left" 
-               Margin="296,476,0,0"
-               VerticalAlignment="Top" 
-               FontFamily="Arial Black" 
-               Foreground="#FFFAF1F1" 
-               FontSize="18"/>
-
-        <Label Content="¿Aún no tienes una cuenta?"
-               HorizontalAlignment="Left" 
-               Margin="191,526,0,0"
-               VerticalAlignment="Top" 
-               FontSize="18" 
-               FontFamily="Segoe UI Semibold" 
-               Foreground="#FFFFF9F9"/>
-
-        <Label Content="De clic aquí para registrarse"
-               HorizontalAlignment="Left"
-               Margin="191,563,0,0"
-               VerticalAlignment="Top"
-               FontSize="18"
-               FontFamily="Segoe UI Semibold"
-               Foreground="#FFE4AE1F"/>
 
         <PasswordBox x:Name="pwPassword" 
                      HorizontalAlignment="Left" 
-                     Margin="121,344,0,0" 
+                     Margin="162,451,0,0" 
                      VerticalAlignment="Top" 
-                     Width="375" 
-                     Height="34" Background="{x:Null}" BorderBrush="White" Foreground="White" FontSize="18"/>
+                     Width="374" 
+                     Height="47" Background="{x:Null}" BorderBrush="White" Foreground="White" FontSize="18"/>
 
         <Image x:Name="imgHidePasswordIcon"
             HorizontalAlignment="Left" 
-            Height="21" 
-            Margin="470,351,0,0" 
+            Height="34" 
+            Margin="495,458,0,0" 
             VerticalAlignment="Top" 
-            Width="21" 
+            Width="33" 
             MouseLeftButtonDown = "HidePassword_MouseLeftButtonDown"
             Source="\Resources\Pictures\ICON-HidePassword.png"/>
 
         <Image x:Name="imgViewPasswordIcon"
             HorizontalAlignment="Left" 
-            Height="21" 
-            Margin="470,351,0,0" 
+            Height="33" 
+            Margin="495,458,0,0" 
             VerticalAlignment="Top" 
-            Width="21" 
+            Width="34" 
             MouseLeftButtonDown ="ViewPassword_MouseLeftButtonDown"
             Visibility="Collapsed"
-            Source="\Resources\Pictures\ICON-ViewPassword.png"/>
+            Source="\Resources\Pictures\ICON-ViewPassword.png" RenderTransformOrigin="2.952,3.352"/>
 
 
     </Grid>

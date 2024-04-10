@@ -135,13 +135,13 @@ C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\UnitTest.8DCDB1EF.
 C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\UnitTesting.dll
 C:\Users\marte\source\repos\ItaliaPizza\UnitTesting\obj\Debug\UnitTesting.pdb
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.Testing.Extensions.VSTestBridge.resources.dll
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.Testing.Platform.resources.dll
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.TestPlatform.CoreUtilities.resources.dll
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
-D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.Testing.Platform.resources.dll
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.TestPlatform.AdapterUtilities.resources.dll
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\es\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
 D:\Proyectos C#\ItalianPizza\ItaliaPizza\UnitTesting\bin\Debug\Microsoft.TestPlatform.AdapterUtilities.dll

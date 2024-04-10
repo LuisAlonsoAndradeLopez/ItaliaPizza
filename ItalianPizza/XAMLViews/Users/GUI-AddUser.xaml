@@ -28,8 +28,6 @@
         </Grid.ColumnDefinitions>
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
-
-
         <Rectangle HorizontalAlignment="Left" Height="692" Margin="349,61,0,0" Stroke="#FF0F0B02" VerticalAlignment="Top" Width="763" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
         <Label Content="Imagen del usuario" HorizontalAlignment="Left" Margin="533,124,0,0" VerticalAlignment="Top" Foreground="White" FontSize="42" Grid.ColumnSpan="2"/>
         <Button Content="Seleccionar imagen" HorizontalAlignment="Left" Margin="602,633,0,0" VerticalAlignment="Top" Height="49" Width="230" Background="#FF161618" Foreground="White" FontFamily="Arial" FontSize="20" BorderBrush="#FFDB4B2C" FontWeight="Thin" BorderThickness="3" Click="SelectImage_Clic" Grid.ColumnSpan="2"/>
