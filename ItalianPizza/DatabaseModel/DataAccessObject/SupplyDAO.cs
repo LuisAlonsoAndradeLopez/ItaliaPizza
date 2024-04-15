@@ -214,5 +214,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
         }
+
+        public List<string> GetAllSupplyWithoutPhoto()
+        {
+            List<string> supplyList;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    supplyList = context.SupplySet
+                        .Select(supply => supply.Name)
+                        .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return supplyList;
+        }
     }
 }

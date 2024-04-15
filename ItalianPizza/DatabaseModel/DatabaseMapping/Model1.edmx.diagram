@@ -25,7 +25,7 @@
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeDetailsSet" Width="1.5" PointX="15.75" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeSet" Width="1.5" PointX="13.5" PointY="10" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderDetailsSet" Width="1.5" PointX="15.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderSet" Width="1.5" PointX="13.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderSet" Width="2.25" PointX="13.5" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierSet" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplySet" Width="1.5" PointX="13.5" PointY="14.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplyTypeSet" Width="1.5" PointX="11.25" PointY="20.5" IsExpanded="true" />

@@ -92,18 +92,17 @@ namespace ItalianPizza.XAMLViews
 
         private void ViewPassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            txtPassword.Text = pwPassword.Password;
-            txtPassword.Visibility = Visibility.Visible;
-            pwPassword.Visibility = Visibility.Collapsed;
+            pwPassword.Password = txtPassword.Text;
+            pwPassword.Visibility = Visibility.Visible;
+            txtPassword.Visibility = Visibility.Collapsed;
             imgHidePasswordIcon.Visibility = Visibility.Visible;
             imgViewPasswordIcon.Visibility = Visibility.Collapsed;
         }
 
         private void HidePassword_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            pwPassword.Password = txtPassword.Text;
-            pwPassword.Visibility = Visibility.Visible;
-            txtPassword.Visibility = Visibility.Collapsed;
+            txtPassword.Visibility = Visibility.Visible;
+            pwPassword.Visibility = Visibility.Collapsed;
             imgHidePasswordIcon.Visibility = Visibility.Collapsed;
             imgViewPasswordIcon.Visibility = Visibility.Visible;
         }
@@ -112,5 +111,19 @@ namespace ItalianPizza.XAMLViews
         {
             NavigationService.Navigate(new GUI_AddUser());
         }
+
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            txtPassword.Text = pwPassword.Password;
+        }
+
+        private void TxtPassword_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtPassword.Text))
+            {
+                pwPassword.Password = txtPassword.Text;
+            }
+        }
+
     }
 }

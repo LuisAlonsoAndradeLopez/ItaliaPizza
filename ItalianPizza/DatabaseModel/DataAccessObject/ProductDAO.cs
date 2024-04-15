@@ -403,6 +403,5 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return productStatusesList;
         }
-
     }
 }

@@ -102,6 +102,7 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\RecipeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
@@ -224,6 +225,9 @@
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml.cs">
+      <DependentUpon>GUI-SuppliersModule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
     </Compile>
@@ -288,6 +292,10 @@
     <Page Include="XAMLViews\NavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Users\GUI-AddUser.xaml">
       <SubType>Designer</SubType>
@@ -366,7 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="XAMLViews\Finances\" />
-    <Folder Include="XAMLViews\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseModel\DatabaseMapping\Model1.Context.tt">
@@ -380,6 +387,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
+    <Resource Include="Resources\Pictures\ICON-Supplier.png" />
     <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
     <Resource Include="Resources\Pictures\ICON-Repartidor.png" />
     <Resource Include="Resources\Pictures\ICON-NumeroCalle.png" />
