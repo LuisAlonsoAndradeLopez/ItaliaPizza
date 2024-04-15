@@ -228,6 +228,9 @@
     <Compile Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml.cs">
       <DependentUpon>GUI-SuppliersModule.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Suppliers\SuppliersForm.xaml.cs">
+      <DependentUpon>SuppliersForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
     </Compile>
@@ -294,6 +297,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\SuppliersForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

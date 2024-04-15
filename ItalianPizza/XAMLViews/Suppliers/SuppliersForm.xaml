@@ -1,0 +1,306 @@
+﻿<UserControl x:Class="ItalianPizza.XAMLViews.Suppliers.SuppliersForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItalianPizza.XAMLViews.Suppliers"
+             mc:Ignorable="d" 
+             d:DesignHeight="881" 
+             d:DesignWidth="892"
+             Background="#FF131313"
+             BorderBrush="#FF131313">
+
+    <UserControl.Resources>
+
+        <Style TargetType="TextBox" x:Key="RoundCornerTextBoxStyle">
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="BorderBrush" Value="Gray" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        CornerRadius="5">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Rectangle 
+            HorizontalAlignment="Left"
+            Height="881" 
+            Stroke="#FF0F0B02" 
+            VerticalAlignment="Top" 
+            Width="892" 
+            Fill="#FF18171C"
+            RadiusX="20" 
+            RadiusY="20"/>
+
+        <Label Content="Formulario Proveedores" 
+           HorizontalAlignment="Left" 
+           Margin="30,24,0,0" 
+           VerticalAlignment="Top" 
+           FontFamily="Arial Black" 
+           Foreground="#FFE1BD3A" 
+           FontSize="28"/>
+
+        <Label Content="Nombre(s)* " 
+            HorizontalAlignment="Left" 
+            Margin="33,83,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+
+        <TextBox x:Name="txtNames" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="33,126,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="239" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"
+            />
+
+        <Label Content="Apellido paterno*" 
+            HorizontalAlignment="Left" 
+            Margin="314,83,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+
+        <TextBox x:Name="txtLastName" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="314,126,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="239" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"
+            />
+
+        <Label Content="Apellido Materno* " 
+            HorizontalAlignment="Left" 
+            Margin="606,83,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+
+        <TextBox x:Name="txtSecondLastName" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="606,126,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="239" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"
+            />
+        
+        <Label Content="Nombre Compania* " 
+            HorizontalAlignment="Left" 
+            Margin="33,194,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+        
+        <TextBox x:Name="txtCompanyName" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Abarrotes 'los tres hermanos'"
+            HorizontalAlignment="Left" 
+            Margin="33,237,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="372" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"
+            />
+        
+        <Label Content="Correo Electronico*" 
+            HorizontalAlignment="Left" 
+            Margin="466,194,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+        
+        <TextBox x:Name="txtEmail" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="466,237,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="379" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"/>
+        
+        <Label Content="Numero Telefonico* " 
+            HorizontalAlignment="Left" 
+            Margin="33,301,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+        
+        <TextBox x:Name="txtCellNumber" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="33,344,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="372" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"
+            />
+        
+        <ListBox x:Name="lboSupplys"
+            HorizontalAlignment="Left" 
+            Margin="33,456,0,0" 
+            VerticalAlignment="Top" 
+            FontSize="20" 
+            Width="365" 
+            Height="325" 
+            Background="#FF18171C" 
+            Foreground="#FFFFFDFD"
+            BorderBrush="#FF6C6969"
+            BorderThickness="2"/>
+        
+        <Label Content="Estado* " 
+            HorizontalAlignment="Left" 
+            Margin="466,301,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+        
+        <TextBox x:Name="txtStatus" 
+            Style="{StaticResource RoundCornerTextBoxStyle}"
+            Text="Miguel Angel Camo"
+            HorizontalAlignment="Left" 
+            Margin="466,344,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top" 
+            Width="379" 
+            Height="40" 
+            Background="#FF181818" 
+            Foreground="#FF433737" 
+            BorderBrush="#FF6C6969" 
+            FontSize="20" 
+            FontWeight="Bold"
+            VerticalContentAlignment="Center" 
+            FontFamily="Nirmala UI"/>
+        
+        <Label Content="De doble clic al insumo a agregar* " 
+            HorizontalAlignment="Left" 
+            Margin="33,415,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+        
+        <Button Content="Cancelar"
+            HorizontalAlignment="Left"
+            Margin="218,810,0,0"
+            VerticalAlignment="Top" 
+            Height="49" Width="204" 
+            Background="#FF161618" 
+            Foreground="White" 
+            FontFamily="Arial" 
+            FontSize="18" 
+            BorderBrush="#FFDB4B2C" 
+            FontWeight="Thin" 
+            BorderThickness="3"/>
+        
+        <Button Content="Registrar Proveedor"
+            HorizontalAlignment="Left"
+            Margin="463,810,0,0"
+            VerticalAlignment="Top" 
+            Height="49" Width="228" 
+            Background="#FF161618" 
+            Foreground="White" 
+            FontFamily="Arial" 
+            FontSize="18" 
+            BorderBrush="#FFDB4B2C" 
+            FontWeight="Thin" 
+            BorderThickness="3"/>
+        
+        <Label Content="Insumos asociados al proveedor* " 
+            HorizontalAlignment="Left" 
+            Margin="466,415,0,0" 
+            VerticalAlignment="Top" 
+            Foreground="White" 
+            FontSize="19" 
+            FontFamily="Arial" 
+            RenderTransformOrigin="0.54,0.632" 
+            FontWeight="Bold"/>
+
+    </Grid>
+</UserControl>
