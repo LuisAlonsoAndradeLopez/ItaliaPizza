@@ -134,6 +134,8 @@
     <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="Auxiliary\RegexChecker.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\InventoryValidationDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
@@ -238,6 +240,11 @@
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\UserStatusSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ItalianPizzaBDArticleReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Resources\InventoryReport.cs">
       <AutoGen>True</AutoGen>
@@ -395,6 +402,17 @@
     </EntityDeploy>
     <None Include="DatabaseModel\DatabaseMapping\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="ItalianPizzaBDArticleReportDataSet.xsc">
+      <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ItalianPizzaBDArticleReportDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ItalianPizzaBDArticleReportDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ItalianPizzaBDArticleReportDataSet.xss">
+      <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

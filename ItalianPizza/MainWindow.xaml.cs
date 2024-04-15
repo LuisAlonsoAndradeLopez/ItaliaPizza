@@ -12,7 +12,7 @@ namespace ItalianPizza
         public MainWindow()
         {
             InitializeComponent();
-            frameContainer.Navigate(new GUI_Finances());
+            frameContainer.Navigate(new GUI_Login());
         }
     }
 }

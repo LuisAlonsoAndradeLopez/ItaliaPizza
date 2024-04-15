@@ -89,34 +89,27 @@ namespace ItalianPizza.XAMLViews
         public void BtnUsersModule_Click(object sender, RoutedEventArgs e)
         {
             ChangePage(new GUI_ReviewUsers());
-            btnUsersModule.Background = new SolidColorBrush(Colors.Yellow);
         }
 
         public void BtnInventoryModule_Click(object sender, RoutedEventArgs e)
         {
             ChangePage(new GUI_Inventory());
-            btnInventoryModule.Background = new SolidColorBrush(Colors.Turquoise);
         }
 
         public void BtnCustomerOrderModule_Click(object sender, RoutedEventArgs e)
         {
             ChangePage(new GUI_ConsultCustomerOrder());
-            btnCustomerOrderModule.Background = new SolidColorBrush(Colors.Aqua);
         }
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
-
-            //ChangePage(new GUI_Finances());
-            //btnFinanceModule.Background = new SolidColorBrush(Colors.AliceBlue);
+            ChangePage(new GUI_Finances());
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)
         {
-            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+            new AlertPopup("¡No disponible!", "En desarrollo de software.", AlertPopupTypes.Error);
         }
-
 
         public void BtnLogOut_Click(object sender, RoutedEventArgs e)
         {

@@ -34,7 +34,7 @@
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
             <Rectangle HorizontalAlignment="Left" Height="707" Stretch="Uniform" Margin="277,39,0,0" VerticalAlignment="Top" Width="736" Fill="#000000" RadiusX="20" RadiusY="20"/>
             <TextBlock Name="SelectAnArticleTextBlock1" Text="Imágen del Artículo" Foreground="White" FontSize="50" Margin="427,62,876,772" TextAlignment="Center" TextWrapping="Wrap" Visibility="Visible"/>
-            <Image Name="ArticleImage" Stretch="Uniform" Margin="277,136,758,291" />
+            <Image Name="ArticleImage" Stretch="Uniform" Margin="405,165,872,339" />
             <Button Style="{StaticResource DarkRedButtonStyle}" Content="Seleccionar Imágen" HorizontalAlignment="Left" Margin="473,620,0,0" VerticalAlignment="Top" Height="66" Width="344" FontSize="25" Click="SelectImageButtonOnClick"/>
 
             <StackPanel Margin="1013,39,10,176">
@@ -78,7 +78,7 @@
 
                 <StackPanel Name="DescriptionStackPanel" Visibility="Visible">
                     <Label Content="Descripción: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                    <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="DescriptionTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="194" Width="681" FontSize="24" MaxLength="300"/>
+                    <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="DescriptionTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="194" Width="681" FontSize="24" MaxLength="300"/>
                 </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource BlackButtonStyle}" Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>

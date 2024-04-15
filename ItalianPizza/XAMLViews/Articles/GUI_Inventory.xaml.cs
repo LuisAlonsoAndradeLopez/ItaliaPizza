@@ -154,7 +154,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 2MB", AlertPopupTypes.Error);
                 }
             }
         }
@@ -458,7 +458,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new ProductDAO().GetImageByProductName(product.Name)
+                    //Source = new ProductDAO().GetImageByProductName(product.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -531,7 +531,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    //Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -648,9 +648,9 @@ namespace ItalianPizza.XAMLViews
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
             {
                 product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
-                SelectedArticleNameStackPanel.Margin = new Thickness(0, 0, 0, 0);
-                SelectedArticleUnitStackPanel.Visibility = Visibility.Collapsed;
-                SelectedArticleDescriptionStackPanel.Visibility = Visibility.Visible;
+                ModifySelectedArticleNameStackPanel.Margin = new Thickness(0, 0, 0, 0);
+                ModifySelectedArticleUnitStackPanel.Visibility = Visibility.Collapsed;
+                ModifySelectedArticleDescriptionStackPanel.Visibility = Visibility.Visible;
             }
 
             if (supply != null)

@@ -73,7 +73,7 @@
 
         <Border Height="548" Margin="509,232,44,30" Background="#000000" VerticalAlignment="Top" CornerRadius="20" Grid.Column="1">
             <StackPanel>
-                <TextBox Name="ModifySelectedArticleDescriptionTextBox" BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" Width="418" Height="526" MaxLength="300"/>
+                <TextBox Name="InventoryValidationTextBox" BorderBrush="Transparent" Background="Transparent" Foreground="White" FontSize="18" Margin="0,10,0,0" TextAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Width="418" Height="526" MaxLength="300"/>
             </StackPanel>
         </Border>
 

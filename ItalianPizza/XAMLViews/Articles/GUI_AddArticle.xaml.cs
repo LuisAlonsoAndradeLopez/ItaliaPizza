@@ -26,7 +26,7 @@ namespace ItalianPizza.XAMLViews
         public GUI_AddArticle()
         {
             InitializeComponent();
-            //InitializeComboBoxes();
+            InitializeComboBoxes();
 
             PriceDecimalUpDown.Text = "$0.00";
         }
@@ -118,84 +118,98 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                if(InvalidValuesInTextFieldsTextGenerator() == "")
+                if (SupplyOrProductTypesComboBox.SelectedItem != null || SupplyOrProductTypesComboBox.SelectedItem?.ToString() != "")
                 {
-                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source) != null)
+                    if (SupplyUnitsComboBox.SelectedItem != null || SupplyUnitsComboBox.SelectedItem?.ToString() != "")
                     {
-                        if (!new SupplyDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text) &&
-                            !new ProductDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text))
+                        if (InvalidValuesInTextFieldsTextGenerator() == "")
                         {
-                            if (!new SupplyDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text) &&
-                                !new ProductDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text))
+                            if (new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source) != null)
                             {
-
-                                double price;
-
-                                if (PriceDecimalUpDown.Value != null)
+                                if (!new SupplyDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text) &&
+                                    !new ProductDAO().TheNameIsAlreadyRegistred(ArticleNameTextBox.Text))
                                 {
-                                    price = (double)PriceDecimalUpDown.Value;
+                                    if (!new SupplyDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text) &&
+                                        !new ProductDAO().TheCodeIsAlreadyRegistred(CodeTextBox.Text))
+                                    {
+
+                                        double price;
+
+                                        if (PriceDecimalUpDown.Value != null)
+                                        {
+                                            price = (double)PriceDecimalUpDown.Value;
+                                        }
+                                        else
+                                        {
+                                            price = 0;
+                                        }
+
+                                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString())
+                                        {
+                                            SupplySet supply = new SupplySet
+                                            {
+                                                Name = ArticleNameTextBox.Text,
+                                                Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                                PricePerUnit = price,
+                                                Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
+                                                SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
+                                                ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                                SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
+                                                EmployeeId = 2,
+                                                IdentificationCode = CodeTextBox.Text
+                                            };
+
+                                            new SupplyDAO().AddSupply(supply);
+                                        }
+
+                                        if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
+                                        {
+                                            ProductSaleSet product = new ProductSaleSet
+                                            {
+                                                Name = ArticleNameTextBox.Text,
+                                                Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                                PricePerUnit = price,
+                                                Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
+                                                ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                                ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
+                                                EmployeeId = 2,
+                                                IdentificationCode = CodeTextBox.Text,
+                                                Description = DescriptionTextBox.Text
+                                            };
+
+                                            new ProductDAO().AddProduct(product);
+                                        }
+
+                                        new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
+                                    }
+                                    else
+                                    {
+                                        new AlertPopup("¡Código ya usado!", "El código ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
+                                    }
                                 }
                                 else
                                 {
-                                    price = 0;
+                                    new AlertPopup("¡Nombre ya usado!", "El nombre ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
                                 }
-
-                                if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString())
-                                {
-                                    SupplySet supply = new SupplySet
-                                    {
-                                        Name = ArticleNameTextBox.Text,
-                                        Quantity = QuantityIntegerUpDown.Value ?? 0,
-                                        PricePerUnit = price,
-                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
-                                        SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
-                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
-                                        SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
-                                        IdentificationCode = CodeTextBox.Text
-                                    };
-
-                                    new SupplyDAO().AddSupply(supply);
-                                }
-
-                                if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
-                                {
-                                    ProductSaleSet product = new ProductSaleSet
-                                    {
-                                        Name = ArticleNameTextBox.Text,
-                                        Quantity = QuantityIntegerUpDown.Value ?? 0,
-                                        PricePerUnit = price,
-                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
-                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
-                                        ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
-                                        IdentificationCode = CodeTextBox.Text,
-                                        Description = DescriptionTextBox.Text
-                                    };
-
-                                    new ProductDAO().AddProduct(product);
-                                }
-
-                                new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
                             }
                             else
                             {
-                                new AlertPopup("¡Código ya usado!", "El código ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
+                                new AlertPopup("¡Falta la imágen!", "Falta que selecciones la imágen", AlertPopupTypes.Error);
                             }
                         }
                         else
                         {
-                            new AlertPopup("¡Nombre ya usado!", "El nombre ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
+                            new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
                         }
-                    }           
+                    }
                     else
                     {
-                        new AlertPopup("¡Falta la imágen!", "Falta que selecciones la imágen", AlertPopupTypes.Error);
+                        new AlertPopup("¡Falta el tipo de insumo!", "Falta que selecciones el tipo de insumo", AlertPopupTypes.Error);
                     }
                 }
                 else
                 {
-                    new AlertPopup("¡Campos Incorrectos!", InvalidValuesInTextFieldsTextGenerator(), AlertPopupTypes.Error);
+                    new AlertPopup("¡Falta el tipo de artículo!", "Falta que selecciones el tipo de artículo", AlertPopupTypes.Error);
                 }
             }
             catch (DbEntityValidationException ex)

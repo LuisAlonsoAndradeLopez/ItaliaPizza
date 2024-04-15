@@ -3,6 +3,7 @@ using CrystalDecisions.Shared;
 using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.Resources;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Border = System.Windows.Controls.Border;
 using Orientation = System.Windows.Controls.Orientation;
@@ -26,7 +28,7 @@ namespace ItalianPizza.XAMLViews
         {
             InitializeComponent();
 
-            //ShowArticles("");
+            ShowArticles("");
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -63,8 +65,19 @@ namespace ItalianPizza.XAMLViews
                     string RPTpathPartToDelete = "bin\\Debug\\";
                     string completeRPTPath = incompleteRPTPath.Replace(RPTpathPartToDelete, "");
 
-                    ReportDocument reportDocument = new ReportDocument();
+                    InventoryReport reportDocument = new InventoryReport();
+                    //inventoryReport.SetData
+                    
+                    //ReportDocument reportDocument = new ReportDocument();
                     reportDocument.Load(completeRPTPath);
+
+                    reportDocument.SetDataSource(new ItalianPizzaBDArticleReportDataSet());
+                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
+                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
+                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
+                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
+                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
+
 
                     string tempFilePath = Path.Combine(Path.GetTempPath(), "temp_report.pdf");
 
@@ -78,6 +91,7 @@ namespace ItalianPizza.XAMLViews
                         }
                     };
 
+
                     reportDocument.Export(exportOptions);
 
                     reportDocument.Close();
@@ -88,19 +102,39 @@ namespace ItalianPizza.XAMLViews
 
                     new AlertPopup("¡Reporte creado con éxito!", "El reporte ha sido creado exitosamente.", AlertPopupTypes.Success);
                 }
-                catch (UnauthorizedAccessException)
+                catch (UnauthorizedAccessException ex)
                 {
                     new AlertPopup("¡Error al crear el reporte!", "No puedes exportar el reporte en esa carpeta, seleccione otra carpeta.", AlertPopupTypes.Error);
+                    new ExceptionLogger().LogException(ex);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     new AlertPopup("¡Error al crear el reporte!", "Hubo un problema al crear el reporte, inténtelo más tarde.", AlertPopupTypes.Error);
+                    new ExceptionLogger().LogException(ex);
                 }
             }
         }
 
         private void SaveJustificationButtonOnClick(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                InventoryValidationSet inventoryValidation = new InventoryValidationSet
+                {
+                    InventoryValidationDate = DateTime.Now,
+                    Description = InventoryValidationTextBox.Text,
+                    EmployeeId = 2
+                };
+
+                new InventoryValidationDAO().AddInventoryValidation(inventoryValidation);
+
+                new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
+            }
+            catch (Exception ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
 
         }
 
@@ -131,7 +165,9 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(26, 0, 0, 0),
-                    Source = new ProductDAO().GetImageByProductName(product.Name)
+                    //Source = new ProductDAO().GetImageByProductName(product.Name)
+                    //Source = new BitmapImage(new Uri(Convert.ToBase64String(product.Picture), UriKind.RelativeOrAbsolute)),
+                    //Stretch = Stretch.Fill
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -215,7 +251,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(26, 0, 0, 0),
-                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    //Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
