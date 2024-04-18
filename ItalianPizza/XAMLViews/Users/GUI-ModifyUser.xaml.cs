@@ -87,7 +87,7 @@ namespace ItalianPizza.XAMLViews
             {
                 BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
 
-                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 10 * 1024 * 1024)
                 {
                     userImage.Source = imageSource;
                 }

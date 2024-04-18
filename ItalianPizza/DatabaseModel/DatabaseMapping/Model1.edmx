@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ItalianPizzaServerBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ItalianPizzaServerBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AddressSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -72,11 +72,11 @@
         </EntityType>
         <EntityType Name="DailyClosingFinancialTransaction">
           <Key>
-            <PropertyRef Name="DailyClosing_Id" />
-            <PropertyRef Name="FinancialTransaction_Id" />
+            <PropertyRef Name="DailyClosingSet_Id" />
+            <PropertyRef Name="FinancialTransactionSet_Id" />
           </Key>
-          <Property Name="DailyClosing_Id" Type="int" Nullable="false" />
-          <Property Name="FinancialTransaction_Id" Type="int" Nullable="false" />
+          <Property Name="DailyClosingSet_Id" Type="int" Nullable="false" />
+          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DailyClosingSet">
           <Key>
@@ -126,11 +126,11 @@
         </EntityType>
         <EntityType Name="FinancialTransactionCustomerOrder">
           <Key>
-            <PropertyRef Name="FinancialTransaction_Id" />
-            <PropertyRef Name="CustomerOrder_Id" />
+            <PropertyRef Name="CustomerOrderSet_Id" />
+            <PropertyRef Name="FinancialTransactionSet_Id" />
           </Key>
-          <Property Name="FinancialTransaction_Id" Type="int" Nullable="false" />
-          <Property Name="CustomerOrder_Id" Type="int" Nullable="false" />
+          <Property Name="CustomerOrderSet_Id" Type="int" Nullable="false" />
+          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="FinancialTransactionSet">
           <Key>
@@ -144,11 +144,11 @@
         </EntityType>
         <EntityType Name="FinancialTransactionSupplierOrder">
           <Key>
-            <PropertyRef Name="FinancialTransaction_Id" />
-            <PropertyRef Name="SupplierOrder_Id" />
+            <PropertyRef Name="FinancialTransactionSet_Id" />
+            <PropertyRef Name="SupplierOrderSet_Id" />
           </Key>
-          <Property Name="FinancialTransaction_Id" Type="int" Nullable="false" />
-          <Property Name="SupplierOrder_Id" Type="int" Nullable="false" />
+          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
+          <Property Name="SupplierOrderSet_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="InventoryValidationSet">
           <Key>
@@ -256,14 +256,15 @@
           <Property Name="Phone" Type="nvarchar" MaxLength="12" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="UserStatusId" Type="int" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="70" Nullable="false" />
         </EntityType>
         <EntityType Name="SupplierSupply">
           <Key>
-            <PropertyRef Name="Supplier_Id" />
-            <PropertyRef Name="Supply_Id" />
+            <PropertyRef Name="SupplierSet_Id" />
+            <PropertyRef Name="SupplySet_Id" />
           </Key>
-          <Property Name="Supplier_Id" Type="int" Nullable="false" />
-          <Property Name="Supply_Id" Type="int" Nullable="false" />
+          <Property Name="SupplierSet_Id" Type="int" Nullable="false" />
+          <Property Name="SupplySet_Id" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SupplySet">
           <Key>
@@ -369,7 +370,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DailyClosingFinancialTransaction_DailyClosing">
+        <Association Name="FK_DailyClosingFinancialTransaction_DailyClosingSet">
           <End Role="DailyClosingSet" Type="Self.DailyClosingSet" Multiplicity="1" />
           <End Role="DailyClosingFinancialTransaction" Type="Self.DailyClosingFinancialTransaction" Multiplicity="*" />
           <ReferentialConstraint>
@@ -377,11 +378,11 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DailyClosingFinancialTransaction">
-              <PropertyRef Name="DailyClosing_Id" />
+              <PropertyRef Name="DailyClosingSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DailyClosingFinancialTransaction_FinancialTransaction">
+        <Association Name="FK_DailyClosingFinancialTransaction_FinancialTransactionSet">
           <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
           <End Role="DailyClosingFinancialTransaction" Type="Self.DailyClosingFinancialTransaction" Multiplicity="*" />
           <ReferentialConstraint>
@@ -389,7 +390,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DailyClosingFinancialTransaction">
-              <PropertyRef Name="FinancialTransaction_Id" />
+              <PropertyRef Name="FinancialTransactionSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -573,7 +574,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinancialTransactionCustomerOrder_CustomerOrder">
+        <Association Name="FK_FinancialTransactionCustomerOrder_CustomerOrderSet">
           <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
           <End Role="FinancialTransactionCustomerOrder" Type="Self.FinancialTransactionCustomerOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -581,11 +582,11 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="FinancialTransactionCustomerOrder">
-              <PropertyRef Name="CustomerOrder_Id" />
+              <PropertyRef Name="CustomerOrderSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinancialTransactionCustomerOrder_FinancialTransaction">
+        <Association Name="FK_FinancialTransactionCustomerOrder_FinancialTransactionSet">
           <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
           <End Role="FinancialTransactionCustomerOrder" Type="Self.FinancialTransactionCustomerOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -593,11 +594,11 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="FinancialTransactionCustomerOrder">
-              <PropertyRef Name="FinancialTransaction_Id" />
+              <PropertyRef Name="FinancialTransactionSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinancialTransactionSupplierOrder_FinancialTransaction">
+        <Association Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
           <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
           <End Role="FinancialTransactionSupplierOrder" Type="Self.FinancialTransactionSupplierOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -605,11 +606,11 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="FinancialTransactionSupplierOrder">
-              <PropertyRef Name="FinancialTransaction_Id" />
+              <PropertyRef Name="FinancialTransactionSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinancialTransactionSupplierOrder_SupplierOrder">
+        <Association Name="FK_FinancialTransactionSupplierOrder_SupplierOrderSet">
           <End Role="SupplierOrderSet" Type="Self.SupplierOrderSet" Multiplicity="1" />
           <End Role="FinancialTransactionSupplierOrder" Type="Self.FinancialTransactionSupplierOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -617,7 +618,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="FinancialTransactionSupplierOrder">
-              <PropertyRef Name="SupplierOrder_Id" />
+              <PropertyRef Name="SupplierOrderSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -753,7 +754,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupplierSupply_Supplier">
+        <Association Name="FK_SupplierSupply_SupplierSet">
           <End Role="SupplierSet" Type="Self.SupplierSet" Multiplicity="1" />
           <End Role="SupplierSupply" Type="Self.SupplierSupply" Multiplicity="*" />
           <ReferentialConstraint>
@@ -761,11 +762,11 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="SupplierSupply">
-              <PropertyRef Name="Supplier_Id" />
+              <PropertyRef Name="SupplierSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SupplierSupply_Supply">
+        <Association Name="FK_SupplierSupply_SupplySet">
           <End Role="SupplySet" Type="Self.SupplySet" Multiplicity="1" />
           <End Role="SupplierSupply" Type="Self.SupplierSupply" Multiplicity="*" />
           <ReferentialConstraint>
@@ -773,7 +774,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="SupplierSupply">
-              <PropertyRef Name="Supply_Id" />
+              <PropertyRef Name="SupplySet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -925,11 +926,11 @@
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
             <End Role="CustomerOrderDetailSet" EntitySet="CustomerOrderDetailSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_DailyClosingFinancialTransaction_DailyClosing" Association="Self.FK_DailyClosingFinancialTransaction_DailyClosing">
+          <AssociationSet Name="FK_DailyClosingFinancialTransaction_DailyClosingSet" Association="Self.FK_DailyClosingFinancialTransaction_DailyClosingSet">
             <End Role="DailyClosingSet" EntitySet="DailyClosingSet" />
             <End Role="DailyClosingFinancialTransaction" EntitySet="DailyClosingFinancialTransaction" />
           </AssociationSet>
-          <AssociationSet Name="FK_DailyClosingFinancialTransaction_FinancialTransaction" Association="Self.FK_DailyClosingFinancialTransaction_FinancialTransaction">
+          <AssociationSet Name="FK_DailyClosingFinancialTransaction_FinancialTransactionSet" Association="Self.FK_DailyClosingFinancialTransaction_FinancialTransactionSet">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
             <End Role="DailyClosingFinancialTransaction" EntitySet="DailyClosingFinancialTransaction" />
           </AssociationSet>
@@ -993,19 +994,19 @@
             <End Role="UserAccountSet" EntitySet="UserAccountSet" />
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_CustomerOrder" Association="Self.FK_FinancialTransactionCustomerOrder_CustomerOrder">
+          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_CustomerOrderSet" Association="Self.FK_FinancialTransactionCustomerOrder_CustomerOrderSet">
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
             <End Role="FinancialTransactionCustomerOrder" EntitySet="FinancialTransactionCustomerOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_FinancialTransaction" Association="Self.FK_FinancialTransactionCustomerOrder_FinancialTransaction">
+          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionCustomerOrder_FinancialTransactionSet">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
             <End Role="FinancialTransactionCustomerOrder" EntitySet="FinancialTransactionCustomerOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_FinancialTransaction" Association="Self.FK_FinancialTransactionSupplierOrder_FinancialTransaction">
+          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
             <End Role="FinancialTransactionSupplierOrder" EntitySet="FinancialTransactionSupplierOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_SupplierOrder" Association="Self.FK_FinancialTransactionSupplierOrder_SupplierOrder">
+          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_SupplierOrderSet" Association="Self.FK_FinancialTransactionSupplierOrder_SupplierOrderSet">
             <End Role="SupplierOrderSet" EntitySet="SupplierOrderSet" />
             <End Role="FinancialTransactionSupplierOrder" EntitySet="FinancialTransactionSupplierOrder" />
           </AssociationSet>
@@ -1053,11 +1054,11 @@
             <End Role="SupplierOrderSet" EntitySet="SupplierOrderSet" />
             <End Role="SupplierOrderDetailsSet" EntitySet="SupplierOrderDetailsSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupplierSupply_Supplier" Association="Self.FK_SupplierSupply_Supplier">
+          <AssociationSet Name="FK_SupplierSupply_SupplierSet" Association="Self.FK_SupplierSupply_SupplierSet">
             <End Role="SupplierSet" EntitySet="SupplierSet" />
             <End Role="SupplierSupply" EntitySet="SupplierSupply" />
           </AssociationSet>
-          <AssociationSet Name="FK_SupplierSupply_Supply" Association="Self.FK_SupplierSupply_Supply">
+          <AssociationSet Name="FK_SupplierSupply_SupplySet" Association="Self.FK_SupplierSupply_SupplySet">
             <End Role="SupplySet" EntitySet="SupplySet" />
             <End Role="SupplierSupply" EntitySet="SupplierSupply" />
           </AssociationSet>
@@ -1094,8 +1095,7 @@
             <End Role="SupplierSet" EntitySet="SupplierSet" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ItalianPizzaServerBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1398,6 +1398,7 @@
           <NavigationProperty Name="SupplierOrderSet" Relationship="Self.FK_SupplierOrderSupplier" FromRole="SupplierSet" ToRole="SupplierOrderSet" />
           <NavigationProperty Name="UserStatusSet" Relationship="Self.FK_UserStatusSupplier" FromRole="SupplierSet" ToRole="UserStatusSet" />
           <NavigationProperty Name="SupplySet" Relationship="Self.SupplierSupply" FromRole="SupplierSet" ToRole="SupplySet" />
+          <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SupplySet">
           <Key>
@@ -2146,342 +2147,342 @@
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ItalianPizzaServerBDModelStoreContainer" CdmEntityContainer="ItalianPizzaServerBDEntities">
-          <EntitySetMapping Name="AddressSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.AddressSet">
-              <MappingFragment StoreEntitySet="AddressSet">
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ItalianPizzaServerBDModelStoreContainer" CdmEntityContainer="ItalianPizzaServerBDEntities">
+    <EntitySetMapping Name="AddressSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.AddressSet)">
+        <MappingFragment StoreEntitySet="AddressSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+          <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Colony" ColumnName="Colony" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+          <ScalarProperty Name="Township" ColumnName="Township" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderCustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderCustomerSet)">
+        <MappingFragment StoreEntitySet="CustomerOrderCustomerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderDeliveryDriverSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderDeliveryDriverSet)">
+        <MappingFragment StoreEntitySet="CustomerOrderDeliveryDriverSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+          <ScalarProperty Name="DeliveryDriverId" ColumnName="DeliveryDriverId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderDetailSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderDetailSet)">
+        <MappingFragment StoreEntitySet="CustomerOrderDetailSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
+          <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+          <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
+          <ScalarProperty Name="ProductSaleId" ColumnName="ProductSaleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerOrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerOrderSet)">
+        <MappingFragment StoreEntitySet="CustomerOrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
+          <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
+          <ScalarProperty Name="OrderTypeId" ColumnName="OrderTypeId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CustomerSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.CustomerSet)">
+        <MappingFragment StoreEntitySet="CustomerSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
+          <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyClosingSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.DailyClosingSet)">
+        <MappingFragment StoreEntitySet="DailyClosingSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeliveryDriverSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.DeliveryDriverSet)">
+        <MappingFragment StoreEntitySet="DeliveryDriverSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeePositionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.EmployeePositionSet)">
+        <MappingFragment StoreEntitySet="EmployeePositionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.EmployeeSet)">
+        <MappingFragment StoreEntitySet="EmployeeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+          <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
+          <ScalarProperty Name="EmployeePositionId" ColumnName="EmployeePositionId" />
+          <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+          <ScalarProperty Name="UserAccount_Id" ColumnName="UserAccount_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FinancialTransactionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.FinancialTransactionSet)">
+        <MappingFragment StoreEntitySet="FinancialTransactionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="FinancialTransactionDate" ColumnName="FinancialTransactionDate" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryValidationSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.InventoryValidationSet)">
+        <MappingFragment StoreEntitySet="InventoryValidationSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InventoryValidationDate" ColumnName="InventoryValidationDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderStatusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.OrderStatusSet)">
+        <MappingFragment StoreEntitySet="OrderStatusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.OrderTypeSet)">
+        <MappingFragment StoreEntitySet="OrderTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductSaleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.ProductSaleSet)">
+        <MappingFragment StoreEntitySet="ProductSaleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
+          <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductStatusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.ProductStatusSet)">
+        <MappingFragment StoreEntitySet="ProductStatusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.ProductTypeSet)">
+        <MappingFragment StoreEntitySet="ProductTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecipeDetailsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.RecipeDetailsSet)">
+        <MappingFragment StoreEntitySet="RecipeDetailsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
+          <ScalarProperty Name="RecipeId" ColumnName="RecipeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RecipeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.RecipeSet)">
+        <MappingFragment StoreEntitySet="RecipeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Instructions" ColumnName="Instructions" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="ProductSale_Id" ColumnName="ProductSale_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierOrderDetailsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplierOrderDetailsSet)">
+        <MappingFragment StoreEntitySet="SupplierOrderDetailsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SupplyQuantity" ColumnName="SupplyQuantity" />
+          <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+          <ScalarProperty Name="SupplierOrderId" ColumnName="SupplierOrderId" />
+          <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierOrderSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplierOrderSet)">
+        <MappingFragment StoreEntitySet="SupplierOrderSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
+          <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplierSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplierSet)">
+        <MappingFragment StoreEntitySet="SupplierSet">
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
-                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Colony" ColumnName="Colony" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Township" ColumnName="Township" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerOrderCustomerSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderCustomerSet">
-              <MappingFragment StoreEntitySet="CustomerOrderCustomerSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerOrderDeliveryDriverSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriverSet">
-              <MappingFragment StoreEntitySet="CustomerOrderDeliveryDriverSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
-                <ScalarProperty Name="DeliveryDriverId" ColumnName="DeliveryDriverId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerOrderDetailSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderDetailSet">
-              <MappingFragment StoreEntitySet="CustomerOrderDetailSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ProductQuantity" ColumnName="ProductQuantity" />
-                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
-                <ScalarProperty Name="CustomerOrderId" ColumnName="CustomerOrderId" />
-                <ScalarProperty Name="ProductSaleId" ColumnName="ProductSaleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerOrderSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerOrderSet">
-              <MappingFragment StoreEntitySet="CustomerOrderSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
-                <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
-                <ScalarProperty Name="OrderTypeId" ColumnName="OrderTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CustomerSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.CustomerSet">
-              <MappingFragment StoreEntitySet="CustomerSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Names" ColumnName="Names" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
-                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DailyClosingSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.DailyClosingSet">
-              <MappingFragment StoreEntitySet="DailyClosingSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DeliveryDriverSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.DeliveryDriverSet">
-              <MappingFragment StoreEntitySet="DeliveryDriverSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Names" ColumnName="Names" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeePositionSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.EmployeePositionSet">
-              <MappingFragment StoreEntitySet="EmployeePositionSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Position" ColumnName="Position" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EmployeeSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.EmployeeSet">
-              <MappingFragment StoreEntitySet="EmployeeSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Names" ColumnName="Names" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
-                <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
-                <ScalarProperty Name="EmployeePositionId" ColumnName="EmployeePositionId" />
-                <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
-                <ScalarProperty Name="UserAccount_Id" ColumnName="UserAccount_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FinancialTransactionSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.FinancialTransactionSet">
-              <MappingFragment StoreEntitySet="FinancialTransactionSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="FinancialTransactionDate" ColumnName="FinancialTransactionDate" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InventoryValidationSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.InventoryValidationSet">
-              <MappingFragment StoreEntitySet="InventoryValidationSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="InventoryValidationDate" ColumnName="InventoryValidationDate" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderStatusSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.OrderStatusSet">
-              <MappingFragment StoreEntitySet="OrderStatusSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderTypeSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.OrderTypeSet">
-              <MappingFragment StoreEntitySet="OrderTypeSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductSaleSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.ProductSaleSet">
-              <MappingFragment StoreEntitySet="ProductSaleSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
-                <ScalarProperty Name="ProductTypeId" ColumnName="ProductTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductStatusSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.ProductStatusSet">
-              <MappingFragment StoreEntitySet="ProductStatusSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductTypeSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.ProductTypeSet">
-              <MappingFragment StoreEntitySet="ProductTypeSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RecipeDetailsSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.RecipeDetailsSet">
-              <MappingFragment StoreEntitySet="RecipeDetailsSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
-                <ScalarProperty Name="RecipeId" ColumnName="RecipeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RecipeSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.RecipeSet">
-              <MappingFragment StoreEntitySet="RecipeSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Instructions" ColumnName="Instructions" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="ProductSale_Id" ColumnName="ProductSale_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplierOrderDetailsSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplierOrderDetailsSet">
-              <MappingFragment StoreEntitySet="SupplierOrderDetailsSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SupplyQuantity" ColumnName="SupplyQuantity" />
-                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
-                <ScalarProperty Name="SupplierOrderId" ColumnName="SupplierOrderId" />
-                <ScalarProperty Name="SupplyId" ColumnName="SupplyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplierOrderSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplierOrderSet">
-              <MappingFragment StoreEntitySet="SupplierOrderSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
-                <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="Supplier_Id" ColumnName="Supplier_Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplierSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplierSet">
-              <MappingFragment StoreEntitySet="SupplierSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Names" ColumnName="Names" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplySet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplySet">
-              <MappingFragment StoreEntitySet="SupplySet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
-                <ScalarProperty Name="Picture" ColumnName="Picture" />
-                <ScalarProperty Name="SupplyUnitId" ColumnName="SupplyUnitId" />
-                <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
-                <ScalarProperty Name="SupplyTypeId" ColumnName="SupplyTypeId" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplyTypeSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplyTypeSet">
-              <MappingFragment StoreEntitySet="SupplyTypeSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SupplyUnitSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplyUnitSet">
-              <MappingFragment StoreEntitySet="SupplyUnitSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Unit" ColumnName="Unit" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserAccountSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.UserAccountSet">
-              <MappingFragment StoreEntitySet="UserAccountSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserStatusSet">
-            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.UserStatusSet">
-              <MappingFragment StoreEntitySet="UserStatusSet">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="DailyClosingFinancialTransaction" TypeName="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" StoreEntitySet="DailyClosingFinancialTransaction">
-            <EndProperty Name="DailyClosingSet">
-              <ScalarProperty Name="Id" ColumnName="DailyClosing_Id" />
-            </EndProperty>
-            <EndProperty Name="FinancialTransactionSet">
-              <ScalarProperty Name="Id" ColumnName="FinancialTransaction_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FinancialTransactionCustomerOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionCustomerOrder" StoreEntitySet="FinancialTransactionCustomerOrder">
-            <EndProperty Name="CustomerOrderSet">
-              <ScalarProperty Name="Id" ColumnName="CustomerOrder_Id" />
-            </EndProperty>
-            <EndProperty Name="FinancialTransactionSet">
-              <ScalarProperty Name="Id" ColumnName="FinancialTransaction_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="FinancialTransactionSupplierOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionSupplierOrder" StoreEntitySet="FinancialTransactionSupplierOrder">
-            <EndProperty Name="FinancialTransactionSet">
-              <ScalarProperty Name="Id" ColumnName="FinancialTransaction_Id" />
-            </EndProperty>
-            <EndProperty Name="SupplierOrderSet">
-              <ScalarProperty Name="Id" ColumnName="SupplierOrder_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="SupplierSupply" TypeName="ItalianPizzaServerBDModel.SupplierSupply" StoreEntitySet="SupplierSupply">
-            <EndProperty Name="SupplierSet">
-              <ScalarProperty Name="Id" ColumnName="Supplier_Id" />
-            </EndProperty>
-            <EndProperty Name="SupplySet">
-              <ScalarProperty Name="Id" ColumnName="Supply_Id" />
-            </EndProperty>
-          </AssociationSetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+          <ScalarProperty Name="Names" ColumnName="Names" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="SecondLastName" ColumnName="SecondLastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="UserStatusId" ColumnName="UserStatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplySet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplySet)">
+        <MappingFragment StoreEntitySet="SupplySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
+          <ScalarProperty Name="Picture" ColumnName="Picture" />
+          <ScalarProperty Name="SupplyUnitId" ColumnName="SupplyUnitId" />
+          <ScalarProperty Name="ProductStatusId" ColumnName="ProductStatusId" />
+          <ScalarProperty Name="SupplyTypeId" ColumnName="SupplyTypeId" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="IdentificationCode" ColumnName="IdentificationCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplyTypeSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplyTypeSet)">
+        <MappingFragment StoreEntitySet="SupplyTypeSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SupplyUnitSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplyUnitSet)">
+        <MappingFragment StoreEntitySet="SupplyUnitSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Unit" ColumnName="Unit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAccountSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.UserAccountSet)">
+        <MappingFragment StoreEntitySet="UserAccountSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserStatusSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.UserStatusSet)">
+        <MappingFragment StoreEntitySet="UserStatusSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="DailyClosingFinancialTransaction" TypeName="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" StoreEntitySet="DailyClosingFinancialTransaction">
+      <EndProperty Name="DailyClosingSet">
+        <ScalarProperty Name="Id" ColumnName="DailyClosingSet_Id" />
+      </EndProperty>
+      <EndProperty Name="FinancialTransactionSet">
+        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FinancialTransactionCustomerOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionCustomerOrder" StoreEntitySet="FinancialTransactionCustomerOrder">
+      <EndProperty Name="CustomerOrderSet">
+        <ScalarProperty Name="Id" ColumnName="CustomerOrderSet_Id" />
+      </EndProperty>
+      <EndProperty Name="FinancialTransactionSet">
+        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="FinancialTransactionSupplierOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionSupplierOrder" StoreEntitySet="FinancialTransactionSupplierOrder">
+      <EndProperty Name="FinancialTransactionSet">
+        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
+      </EndProperty>
+      <EndProperty Name="SupplierOrderSet">
+        <ScalarProperty Name="Id" ColumnName="SupplierOrderSet_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="SupplierSupply" TypeName="ItalianPizzaServerBDModel.SupplierSupply" StoreEntitySet="SupplierSupply">
+      <EndProperty Name="SupplierSet">
+        <ScalarProperty Name="Id" ColumnName="SupplierSet_Id" />
+      </EndProperty>
+      <EndProperty Name="SupplySet">
+        <ScalarProperty Name="Id" ColumnName="SupplySet_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -2495,7 +2496,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>

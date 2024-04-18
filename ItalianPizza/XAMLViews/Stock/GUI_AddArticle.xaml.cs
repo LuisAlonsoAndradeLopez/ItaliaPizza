@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -75,13 +76,13 @@ namespace ItalianPizza.XAMLViews
             {
                 BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
 
-                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 1048576)
+                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 10 * 1024 * 1024)
                 {
                     ArticleImage.Source = imageSource;
                 }
                 else
                 {
-                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 1MB", AlertPopupTypes.Error);
+                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 10MB", AlertPopupTypes.Error);
                 }
             }
         }
@@ -183,7 +184,7 @@ namespace ItalianPizza.XAMLViews
                                         SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                         SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
+                                        EmployeeId = UserToken.GetEmployeeID(),
                                         IdentificationCode = CodeTextBox.Text
                                     };
 
@@ -200,7 +201,7 @@ namespace ItalianPizza.XAMLViews
                                         Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                         ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
+                                        EmployeeId = UserToken.GetEmployeeID(),
                                         IdentificationCode = CodeTextBox.Text,
                                         Description = DescriptionTextBox.Text
                                     };

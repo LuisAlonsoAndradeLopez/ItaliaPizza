@@ -450,7 +450,7 @@
             
         </Grid>
 
-        <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
         
     </Grid>
 

@@ -102,6 +102,7 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\RecipeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
@@ -203,7 +204,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SingletonClasses\UserToken.cs" />
-    <Compile Include="XAMLViews\AlertPopup.xaml.cs">
+    <Compile Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
@@ -212,20 +213,20 @@
     <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
       <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI-Login.xaml.cs">
+    <Compile Include="XAMLViews\Login\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI_AddArticle.xaml.cs">
+    <Compile Include="XAMLViews\Stock\GUI_AddArticle.xaml.cs">
       <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI_Inventory.xaml.cs">
+    <Compile Include="XAMLViews\Stock\GUI_Inventory.xaml.cs">
       <DependentUpon>GUI_Inventory.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XAMLViews\Login\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml.cs">
+      <DependentUpon>GUI-SuppliersModule.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
@@ -248,7 +249,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="XAMLViews\AlertPopup.xaml">
+    <Page Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -260,7 +261,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI-Login.xaml">
+    <Page Include="XAMLViews\Login\GUI-Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -280,21 +281,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI_AddArticle.xaml">
+    <Page Include="XAMLViews\Stock\GUI_AddArticle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\GUI_Inventory.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="XAMLViews\Login\Login.xaml">
+    <Page Include="XAMLViews\Stock\GUI_Inventory.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\NavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Users\GUI-AddUser.xaml">
       <SubType>Designer</SubType>
@@ -373,8 +374,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="XAMLViews\Finances\" />
-    <Folder Include="XAMLViews\Stock\" />
-    <Folder Include="XAMLViews\Suppliers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseModel\DatabaseMapping\Model1.Context.tt">
@@ -382,11 +381,14 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="DatabaseModel\DatabaseMapping\Model1.edmx.sql" />
     <Content Include="DatabaseModel\DatabaseMapping\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
+    <Resource Include="Resources\Pictures\ICON-Supplier.png" />
     <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
     <Resource Include="Resources\Pictures\ICON-Repartidor.png" />
     <Resource Include="Resources\Pictures\ICON-NumeroCalle.png" />

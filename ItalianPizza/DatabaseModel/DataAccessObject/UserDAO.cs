@@ -187,6 +187,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public BitmapImage GetUserImage(byte[] data)
         {
+            
             BitmapImage bitmapImage = new BitmapImage();
             using (MemoryStream memoryStream = new MemoryStream(data))
             {
@@ -329,8 +330,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .ToList();
                 }
 
-                customerList.RemoveAt(0);
-
             }
             catch (EntityException ex)
             {
@@ -396,7 +395,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public CustomerSet GetCustomerByCustomerOrder(int customerOrderID)
         {
-            CustomerSet customer = new CustomerSet();
+            CustomerSet customer = null;
 
             try
             {
@@ -406,7 +405,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customerOrderDetailAux => customerOrderDetailAux.CustomerSet)
                         .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    customer = customerOrderDetail.CustomerSet;
+                    if (customerOrderDetail != null)
+                    {
+                        customer = customerOrderDetail.CustomerSet;
+                    }
+                    
                 }
             }
             catch (EntityException ex)
@@ -423,7 +426,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public DeliveryDriverSet GetDeliveryDriverByCustomerOrder(int customerOrderID)
         {
-            DeliveryDriverSet deliveryDriver = new DeliveryDriverSet();
+            DeliveryDriverSet deliveryDriver = null;
 
             try
             {
@@ -433,7 +436,11 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customerOrderDetailAux => customerOrderDetailAux.DeliveryDriverSet)
                         .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
-                    deliveryDriver = customerOrderDetail.DeliveryDriverSet;
+                    if (customerOrderDetail != null)
+                    {
+                        deliveryDriver = customerOrderDetail.DeliveryDriverSet;
+                    }
+                    
                 }
             }
             catch (EntityException ex)

@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.Suppliers;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,48 +17,13 @@ namespace ItalianPizza.XAMLViews
     /// </summary>
     public partial class NavigationBar : UserControl
     {
-        Dictionary<string, Button> diccionarioBotones = new Dictionary<string, Button>();
+        Dictionary<string, Button> ButtonsNavegationBar = new Dictionary<string, Button>();
 
         public NavigationBar()
         {
             InitializeComponent();
             LoadButtons();
-        }
-
-        public void LoadButtons()
-        {
-            diccionarioBotones.Add("UserModule", btnUsersModule);
-            diccionarioBotones.Add("InventoryModule", btnInventoryModule);
-            diccionarioBotones.Add("CustomerOrderModule", btnCustomerOrderModule);
-            diccionarioBotones.Add("FinanceModule", btnFinanceModule);
-            diccionarioBotones.Add("SupplierModule", btnSupplierModule);
-            diccionarioBotones.Add("LogOut", btnLogOut);
-        }
-
-        public void ReorganizarGrillas(Grid grillaOculta)
-        {
-            int indiceOculta = Background.Children.IndexOf(grillaOculta);
-
-            if (indiceOculta == -1)
-                return;
-
-            for (int i = indiceOculta + 1; i < Background.Children.Count; i++)
-            {
-                if (Background.Children[i] is Grid grilla)
-                {
-                    grilla.Margin = new Thickness(
-                        grilla.Margin.Left,
-                        grilla.Margin.Top - grillaOculta.ActualHeight - 89,
-                        grilla.Margin.Right,
-                        grilla.Margin.Bottom
-                    );
-                }
-            }
-        }
-
-        public void SelectModuleButton(string buttonName)
-        {
-
+            ShowButtonsbyUserType();
         }
 
         public static Frame FindFrame(DependencyObject start)
@@ -83,6 +52,74 @@ namespace ItalianPizza.XAMLViews
 
             return null;
         }
+        private void LoadButtons()
+        {
+            ButtonsNavegationBar.Add("UserModule", btnUsersModule);
+            ButtonsNavegationBar.Add("InventoryModule", btnInventoryModule);
+            ButtonsNavegationBar.Add("CustomerOrderModule", btnCustomerOrderModule);
+            ButtonsNavegationBar.Add("FinanceModule", btnFinanceModule);
+            ButtonsNavegationBar.Add("SupplierModule", btnSupplierModule);
+        }
+
+        private void ShowButtonsbyUserType()
+        {
+            EmployeePositionSet employeePosition = null;
+            try
+            {
+                employeePosition = UserToken.GetEmployeePosition();
+            }
+            catch (System.Exception)
+            {
+            }
+            
+            if(employeePosition != null)
+            {
+                switch (employeePosition.Position)
+                {
+                    case "Mesero":
+                        btnFinanceModule.Visibility = Visibility.Hidden;
+                        btnInventoryModule.Visibility = Visibility.Hidden;
+                        btnSupplierModule.Visibility = Visibility.Hidden;
+                        btnUsersModule.Visibility = Visibility.Hidden;
+                        break;
+                    case "Personal Cocina":
+                        btnFinanceModule.Visibility = Visibility.Hidden;
+                        btnUsersModule.Visibility = Visibility.Hidden;
+                        btnSupplierModule.Visibility = Visibility.Hidden;
+                        break;
+                    case "Recepcionista":
+                        btnUsersModule.Visibility = Visibility.Hidden;
+                        btnInventoryModule.Visibility = Visibility.Hidden;
+                        break;
+                }
+
+                VerificarVisibilidad();
+            }
+        }
+
+        public void VerificarVisibilidad()
+        {
+            double distanciaEntreElementos = 10;
+
+            for (int i = 1; i < ButtonsNavegationBar.Count; i++) 
+            {
+                Button button = ButtonsNavegationBar.ElementAt(i).Value;
+
+                Button buttonAnterior = ButtonsNavegationBar.ElementAt(i - 1).Value;
+                double desplazamientoY = 0; 
+
+                if (buttonAnterior.Visibility == Visibility.Hidden)
+                {
+                    desplazamientoY = buttonAnterior.Margin.Top + buttonAnterior.ActualHeight + distanciaEntreElementos;
+                    button.Margin = new Thickness(button.Margin.Left, desplazamientoY, button.Margin.Right, button.Margin.Bottom);
+                }
+                else
+                {
+                    desplazamientoY = buttonAnterior.Margin.Top + 90;
+                    button.Margin = new Thickness(button.Margin.Left, desplazamientoY, button.Margin.Right, button.Margin.Bottom);
+                }
+            }
+        }
 
         public void BtnUsersModule_Click(object sender, RoutedEventArgs e)
         {
@@ -109,7 +146,7 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)
         {
-            btnSupplierModule.Background = new SolidColorBrush(Colors.Aquamarine);
+            ChangePage(new GUI_SuppliersModule());
         }
 
 

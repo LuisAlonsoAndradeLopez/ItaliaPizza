@@ -9,25 +9,28 @@ namespace ItalianPizza.SingletonClasses
 {
     public class UserToken
     {
-        private static EmployeeSet instance;
+        private static EmployeeSet employeeInstance;
 
         private static readonly object lockObject = new object();
 
         private UserToken() { }
 
-        public static EmployeeSet GetInstance()
+        public static void GetInstance(EmployeeSet employee)
         {
-            if (instance == null)
+            lock (lockObject)
             {
-                lock (lockObject)
-                {
-                    if (instance == null)
-                    {
-                        instance = new EmployeeSet();
-                    }
-                }
+                employeeInstance = employee;
             }
-            return instance;
+        }
+
+        public static int GetEmployeeID()
+        {
+            return employeeInstance.Id;
+        }
+
+        public static EmployeePositionSet GetEmployeePosition()
+        {
+            return employeeInstance.EmployeePositionSet;
         }
     }
 }
