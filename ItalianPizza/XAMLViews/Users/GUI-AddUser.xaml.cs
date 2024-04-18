@@ -101,12 +101,13 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                       userDAO = new UserDAO();
-                        UserAccountSet account = new UserAccountSet()
-                        {
-                            UserName = txtEmail.Text,
-                            Password = txtPassword.Text
-                        };
+                    userDAO = new UserDAO();
+
+                    UserAccountSet account = new UserAccountSet()
+                    {
+                        UserName = txtEmail.Text,
+                        Password = txtPassword.Text
+                    };
                     EmployeeSet employee = new EmployeeSet()
                     {
                         Names = txtName.Text,
@@ -119,6 +120,18 @@ namespace ItalianPizza.XAMLViews
                         EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
                         Address_Id = 1
                         };
+                    if (userDAO.CheckUserExistence(account))
+                    {
+                        new AlertPopup("¡Error!", "Ya hay una cuenta de acceso con ese nombre de usuario y apellidos ya existe", AlertPopupTypes.Error);
+                        return;
+                    }
+                    else if (userDAO.CheckEmployeeExistence(employee))
+                    {
+                        new AlertPopup("¡Error!", "El empleado con esos nombres y apellidos ya existe", AlertPopupTypes.Error);
+                        return;
+                    }
+                    else
+                    {
                         int result = userDAO.RegisterUser(account, employee);
                         if (result == 2)
                         {
@@ -127,8 +140,9 @@ namespace ItalianPizza.XAMLViews
                         }
                         else
                         {
-                                new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
+                            new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
                         }
+                    }
                 }
             }
         }

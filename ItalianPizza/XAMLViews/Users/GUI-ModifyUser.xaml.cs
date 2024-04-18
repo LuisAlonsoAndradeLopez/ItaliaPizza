@@ -138,7 +138,7 @@ namespace ItalianPizza.XAMLViews
                         EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
                         Address_Id = 1
                     };
-                    int result = userDAO.ModifyUser(account, employee);
+                    int result = userDAO.ModifyEmployee(account, employee);
                     if (result != -1)
                     {
                         new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);

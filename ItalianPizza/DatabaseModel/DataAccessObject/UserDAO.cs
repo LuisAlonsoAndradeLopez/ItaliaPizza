@@ -123,6 +123,48 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public bool CheckUserExistence(UserAccountSet account)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    UserAccountSet userAccount = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
+                    if (userAccount != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
+        public bool CheckEmployeeExistence(EmployeeSet employee)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    EmployeeSet employeeToCheck = context.EmployeeSet.Where(e => e.Names == employee.Names && e.LastName == employee.LastName && e.SecondLastName == employee.SecondLastName && e.Email == employee.Email).FirstOrDefault();
+                    if (employeeToCheck != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
         public EmployeePositionSet GetEmployeePosition(string employeePosition)
         {
             EmployeePositionSet position = new EmployeePositionSet();
@@ -159,7 +201,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
 
-        public int ModifyUser(UserAccountSet account, EmployeeSet employee)
+        public int ModifyEmployee(UserAccountSet account, EmployeeSet employee)
         {
             int result = 0;
             try
