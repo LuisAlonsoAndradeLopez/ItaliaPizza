@@ -57,6 +57,7 @@
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -87,6 +88,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -246,16 +249,32 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ItalianPizzaServerBDDataSetTest.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Resources\InventoryReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>InventoryReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Resources\InventoryReportDataSet.cs">
+      <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\InventoryReportDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="SingletonClasses\UserToken.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Articles\InventoryReportPreview.xaml.cs">
+      <DependentUpon>InventoryReportPreview.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
       <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
@@ -308,6 +327,10 @@
     <Page Include="XAMLViews\AlertPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Articles\InventoryReportPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -414,10 +437,38 @@
     <None Include="ItalianPizzaBDArticleReportDataSet.xss">
       <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
     </None>
+    <None Include="ItalianPizzaServerBDDataSetTest.xsc">
+      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
+    </None>
+    <None Include="ItalianPizzaServerBDDataSetTest.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ItalianPizzaServerBDDataSetTest.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ItalianPizzaServerBDDataSetTest.xss">
+      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.ProductSaleSet.datasource" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.ProductStatusSet.datasource" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.ProductTypeSet.datasource" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.SupplySet.datasource" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.SupplyTypeSet.datasource" />
+    <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.SupplyUnitSet.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\InventoryReportDataSet.xsc">
+      <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Resources\InventoryReportDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>InventoryReportDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\InventoryReportDataSet.xss">
+      <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

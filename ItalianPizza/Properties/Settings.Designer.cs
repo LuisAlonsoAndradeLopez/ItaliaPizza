@@ -33,5 +33,16 @@ namespace ItalianPizza.Properties {
                 return ((string)(this["ItalianPizzaBDConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-4M9LUSB\\SQLEXPRESS;Initial Catalog=ItalianPizzaServerBD;Integ" +
+            "rated Security=True;TrustServerCertificate=True")]
+        public string ItalianPizzaServerBDConnectionStringTest {
+            get {
+                return ((string)(this["ItalianPizzaServerBDConnectionStringTest"]));
+            }
+        }
     }
 }

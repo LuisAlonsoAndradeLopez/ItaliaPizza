@@ -20,9 +20,9 @@ namespace ItalianPizza {
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
     [global::System.ComponentModel.ToolboxItem(true)]
     [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedDataSetSchema")]
-    [global::System.Xml.Serialization.XmlRootAttribute("ItalianPizzaBDArticleReportDataSet")]
+    [global::System.Xml.Serialization.XmlRootAttribute("ItalianPizzaBDArticlesReportDataSet")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
-    public partial class ItalianPizzaBDArticleReportDataSet : global::System.Data.DataSet {
+    public partial class ItalianPizzaBDArticlesReportDataSet : global::System.Data.DataSet {
         
         private ProductSaleSetDataTable tableProductSaleSet;
         
@@ -50,7 +50,7 @@ namespace ItalianPizza {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public ItalianPizzaBDArticleReportDataSet() {
+        public ItalianPizzaBDArticlesReportDataSet() {
             this.BeginInit();
             this.InitClass();
             global::System.ComponentModel.CollectionChangeEventHandler schemaChangedHandler = new global::System.ComponentModel.CollectionChangeEventHandler(this.SchemaChanged);
@@ -61,7 +61,7 @@ namespace ItalianPizza {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        protected ItalianPizzaBDArticleReportDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+        protected ItalianPizzaBDArticlesReportDataSet(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
                 base(info, context, false) {
             if ((this.IsBinarySerialized(info, context) == true)) {
                 this.InitVars(false);
@@ -212,7 +212,7 @@ namespace ItalianPizza {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public override global::System.Data.DataSet Clone() {
-            ItalianPizzaBDArticleReportDataSet cln = ((ItalianPizzaBDArticleReportDataSet)(base.Clone()));
+            ItalianPizzaBDArticlesReportDataSet cln = ((ItalianPizzaBDArticlesReportDataSet)(base.Clone()));
             cln.InitVars();
             cln.SchemaSerializationMode = this.SchemaSerializationMode;
             return cln;
@@ -334,9 +334,9 @@ namespace ItalianPizza {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitClass() {
-            this.DataSetName = "ItalianPizzaBDArticleReportDataSet";
+            this.DataSetName = "ItalianPizzaBDArticlesReportDataSet";
             this.Prefix = "";
-            this.Namespace = "http://tempuri.org/ItalianPizzaBDArticleReportDataSet.xsd";
+            this.Namespace = "http://tempuri.org/ItalianPizzaBDArticlesReportDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableProductSaleSet = new ProductSaleSetDataTable();
@@ -420,7 +420,7 @@ namespace ItalianPizza {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedDataSetSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-            ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+            ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
             global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
             global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
             global::System.Xml.Schema.XmlSchemaAny any = new global::System.Xml.Schema.XmlSchemaAny();
@@ -497,6 +497,8 @@ namespace ItalianPizza {
             
             private global::System.Data.DataColumn columnPricePerUnit;
             
+            private global::System.Data.DataColumn columnPicture;
+            
             private global::System.Data.DataColumn columnProductStatusId;
             
             private global::System.Data.DataColumn columnProductTypeId;
@@ -569,6 +571,14 @@ namespace ItalianPizza {
             public global::System.Data.DataColumn PricePerUnitColumn {
                 get {
                     return this.columnPricePerUnit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PictureColumn {
+                get {
+                    return this.columnPicture;
                 }
             }
             
@@ -649,23 +659,24 @@ namespace ItalianPizza {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ProductSaleSetRow AddProductSaleSetRow(string Name, int Quantity, double PricePerUnit, ProductStatusSetRow parentProductStatusSetRowByFK_ProductStatusProductSale, ProductTypeSetRow parentProductTypeSetRowByFK_ProductTypeProductSale, int EmployeeId, string IdentificationCode, string Description) {
+            public ProductSaleSetRow AddProductSaleSetRow(string Name, int Quantity, double PricePerUnit, byte[] Picture, ProductStatusSetRow parentProductStatusSetRowByFK_ProductStatusProductSale, ProductTypeSetRow parentProductTypeSetRowByFK_ProductTypeProductSale, int EmployeeId, string IdentificationCode, string Description) {
                 ProductSaleSetRow rowProductSaleSetRow = ((ProductSaleSetRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Name,
                         Quantity,
                         PricePerUnit,
+                        Picture,
                         null,
                         null,
                         EmployeeId,
                         IdentificationCode,
                         Description};
                 if ((parentProductStatusSetRowByFK_ProductStatusProductSale != null)) {
-                    columnValuesArray[4] = parentProductStatusSetRowByFK_ProductStatusProductSale[0];
+                    columnValuesArray[5] = parentProductStatusSetRowByFK_ProductStatusProductSale[0];
                 }
                 if ((parentProductTypeSetRowByFK_ProductTypeProductSale != null)) {
-                    columnValuesArray[5] = parentProductTypeSetRowByFK_ProductTypeProductSale[0];
+                    columnValuesArray[6] = parentProductTypeSetRowByFK_ProductTypeProductSale[0];
                 }
                 rowProductSaleSetRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowProductSaleSetRow);
@@ -700,6 +711,7 @@ namespace ItalianPizza {
                 this.columnName = base.Columns["Name"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnPricePerUnit = base.Columns["PricePerUnit"];
+                this.columnPicture = base.Columns["Picture"];
                 this.columnProductStatusId = base.Columns["ProductStatusId"];
                 this.columnProductTypeId = base.Columns["ProductTypeId"];
                 this.columnEmployeeId = base.Columns["EmployeeId"];
@@ -718,6 +730,8 @@ namespace ItalianPizza {
                 base.Columns.Add(this.columnQuantity);
                 this.columnPricePerUnit = new global::System.Data.DataColumn("PricePerUnit", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPricePerUnit);
+                this.columnPicture = new global::System.Data.DataColumn("Picture", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPicture);
                 this.columnProductStatusId = new global::System.Data.DataColumn("ProductStatusId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnProductStatusId);
                 this.columnProductTypeId = new global::System.Data.DataColumn("ProductTypeId", typeof(int), null, global::System.Data.MappingType.Element);
@@ -814,7 +828,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1092,7 +1106,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1370,7 +1384,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -1444,6 +1458,8 @@ namespace ItalianPizza {
             
             private global::System.Data.DataColumn columnPricePerUnit;
             
+            private global::System.Data.DataColumn columnPicture;
+            
             private global::System.Data.DataColumn columnSupplyUnitId;
             
             private global::System.Data.DataColumn columnProductStatusId;
@@ -1516,6 +1532,14 @@ namespace ItalianPizza {
             public global::System.Data.DataColumn PricePerUnitColumn {
                 get {
                     return this.columnPricePerUnit;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PictureColumn {
+                get {
+                    return this.columnPicture;
                 }
             }
             
@@ -1596,26 +1620,27 @@ namespace ItalianPizza {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public SupplySetRow AddSupplySetRow(string Name, int Quantity, double PricePerUnit, SupplyUnitSetRow parentSupplyUnitSetRowByFK_SupplyUnitSupply, ProductStatusSetRow parentProductStatusSetRowByFK_ProductStatusSupply, SupplyTypeSetRow parentSupplyTypeSetRowByFK_SupplyTypeSupply, int EmployeeId, string IdentificationCode) {
+            public SupplySetRow AddSupplySetRow(string Name, int Quantity, double PricePerUnit, byte[] Picture, SupplyUnitSetRow parentSupplyUnitSetRowByFK_SupplyUnitSupply, ProductStatusSetRow parentProductStatusSetRowByFK_ProductStatusSupply, SupplyTypeSetRow parentSupplyTypeSetRowByFK_SupplyTypeSupply, int EmployeeId, string IdentificationCode) {
                 SupplySetRow rowSupplySetRow = ((SupplySetRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Name,
                         Quantity,
                         PricePerUnit,
+                        Picture,
                         null,
                         null,
                         null,
                         EmployeeId,
                         IdentificationCode};
                 if ((parentSupplyUnitSetRowByFK_SupplyUnitSupply != null)) {
-                    columnValuesArray[4] = parentSupplyUnitSetRowByFK_SupplyUnitSupply[0];
+                    columnValuesArray[5] = parentSupplyUnitSetRowByFK_SupplyUnitSupply[0];
                 }
                 if ((parentProductStatusSetRowByFK_ProductStatusSupply != null)) {
-                    columnValuesArray[5] = parentProductStatusSetRowByFK_ProductStatusSupply[0];
+                    columnValuesArray[6] = parentProductStatusSetRowByFK_ProductStatusSupply[0];
                 }
                 if ((parentSupplyTypeSetRowByFK_SupplyTypeSupply != null)) {
-                    columnValuesArray[6] = parentSupplyTypeSetRowByFK_SupplyTypeSupply[0];
+                    columnValuesArray[7] = parentSupplyTypeSetRowByFK_SupplyTypeSupply[0];
                 }
                 rowSupplySetRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSupplySetRow);
@@ -1650,6 +1675,7 @@ namespace ItalianPizza {
                 this.columnName = base.Columns["Name"];
                 this.columnQuantity = base.Columns["Quantity"];
                 this.columnPricePerUnit = base.Columns["PricePerUnit"];
+                this.columnPicture = base.Columns["Picture"];
                 this.columnSupplyUnitId = base.Columns["SupplyUnitId"];
                 this.columnProductStatusId = base.Columns["ProductStatusId"];
                 this.columnSupplyTypeId = base.Columns["SupplyTypeId"];
@@ -1668,6 +1694,8 @@ namespace ItalianPizza {
                 base.Columns.Add(this.columnQuantity);
                 this.columnPricePerUnit = new global::System.Data.DataColumn("PricePerUnit", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPricePerUnit);
+                this.columnPicture = new global::System.Data.DataColumn("Picture", typeof(byte[]), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPicture);
                 this.columnSupplyUnitId = new global::System.Data.DataColumn("SupplyUnitId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSupplyUnitId);
                 this.columnProductStatusId = new global::System.Data.DataColumn("ProductStatusId", typeof(int), null, global::System.Data.MappingType.Element);
@@ -1763,7 +1791,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2041,7 +2069,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2319,7 +2347,7 @@ namespace ItalianPizza {
             public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
                 global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
                 global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                ItalianPizzaBDArticleReportDataSet ds = new ItalianPizzaBDArticleReportDataSet();
+                ItalianPizzaBDArticlesReportDataSet ds = new ItalianPizzaBDArticlesReportDataSet();
                 global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
                 any1.Namespace = "http://www.w3.org/2001/XMLSchema";
                 any1.MinOccurs = new decimal(0);
@@ -2438,6 +2466,22 @@ namespace ItalianPizza {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public byte[] Picture {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableProductSaleSet.PictureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Picture\' de la tabla \'ProductSaleSet\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProductSaleSet.PictureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int ProductStatusId {
                 get {
                     return ((int)(this[this.tableProductSaleSet.ProductStatusIdColumn]));
@@ -2511,6 +2555,18 @@ namespace ItalianPizza {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_ProductTypeProductSale"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPictureNull() {
+                return this.IsNull(this.tableProductSaleSet.PictureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPictureNull() {
+                this[this.tableProductSaleSet.PictureColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -2681,6 +2737,22 @@ namespace ItalianPizza {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public byte[] Picture {
+                get {
+                    try {
+                        return ((byte[])(this[this.tableSupplySet.PictureColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Picture\' de la tabla \'SupplySet\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSupplySet.PictureColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public int SupplyUnitId {
                 get {
                     return ((int)(this[this.tableSupplySet.SupplyUnitIdColumn]));
@@ -2765,6 +2837,18 @@ namespace ItalianPizza {
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["FK_SupplyUnitSupply"]);
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsPictureNull() {
+                return this.IsNull(this.tableSupplySet.PictureColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetPictureNull() {
+                this[this.tableSupplySet.PictureColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -3069,7 +3153,7 @@ namespace ItalianPizza {
         }
     }
 }
-namespace ItalianPizza.ItalianPizzaBDArticleReportDataSetTableAdapters {
+namespace ItalianPizza.ItalianPizzaBDArticlesReportDataSetTableAdapters {
     
     
     /// <summary>
@@ -3197,6 +3281,7 @@ namespace ItalianPizza.ItalianPizzaBDArticleReportDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("PricePerUnit", "PricePerUnit");
+            tableMapping.ColumnMappings.Add("Picture", "Picture");
             tableMapping.ColumnMappings.Add("ProductStatusId", "ProductStatusId");
             tableMapping.ColumnMappings.Add("ProductTypeId", "ProductTypeId");
             tableMapping.ColumnMappings.Add("EmployeeId", "EmployeeId");
@@ -3205,7 +3290,7 @@ namespace ItalianPizza.ItalianPizzaBDArticleReportDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [ProductSaleSet] WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([ProductTypeId] = @Original_ProductTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode) AND ([Description] = @Original_Description))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[ProductSaleSet] WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([ProductTypeId] = @Original_ProductTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode) AND ([Description] = @Original_Description))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -3217,12 +3302,13 @@ namespace ItalianPizza.ItalianPizzaBDArticleReportDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [ProductSaleSet] ([Name], [Quantity], [PricePerUnit], [ProductStatusId], [ProductTypeId], [EmployeeId], [IdentificationCode], [Description]) VALUES (@Name, @Quantity, @PricePerUnit, @ProductStatusId, @ProductTypeId, @EmployeeId, @IdentificationCode, @Description);
-SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description FROM ProductSaleSet WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[ProductSaleSet] ([Name], [Quantity], [PricePerUnit], [Picture], [ProductStatusId], [ProductTypeId], [EmployeeId], [IdentificationCode], [Description]) VALUES (@Name, @Quantity, @PricePerUnit, @Picture, @ProductStatusId, @ProductTypeId, @EmployeeId, @IdentificationCode, @Description);
+SELECT Id, Name, Quantity, PricePerUnit, Picture, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description FROM ProductSaleSet WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PricePerUnit", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PricePerUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Picture", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Picture", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductStatusId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductStatusId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductTypeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductTypeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EmployeeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EmployeeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3230,12 +3316,13 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [ProductSaleSet] SET [Name] = @Name, [Quantity] = @Quantity, [PricePerUnit] = @PricePerUnit, [ProductStatusId] = @ProductStatusId, [ProductTypeId] = @ProductTypeId, [EmployeeId] = @EmployeeId, [IdentificationCode] = @IdentificationCode, [Description] = @Description WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([ProductTypeId] = @Original_ProductTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode) AND ([Description] = @Original_Description));
-SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description FROM ProductSaleSet WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[ProductSaleSet] SET [Name] = @Name, [Quantity] = @Quantity, [PricePerUnit] = @PricePerUnit, [Picture] = @Picture, [ProductStatusId] = @ProductStatusId, [ProductTypeId] = @ProductTypeId, [EmployeeId] = @EmployeeId, [IdentificationCode] = @IdentificationCode, [Description] = @Description WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([ProductTypeId] = @Original_ProductTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode) AND ([Description] = @Original_Description));
+SELECT Id, Name, Quantity, PricePerUnit, Picture, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description FROM ProductSaleSet WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PricePerUnit", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PricePerUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Picture", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Picture", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductStatusId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductStatusId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductTypeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductTypeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EmployeeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EmployeeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -3265,8 +3352,8 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employee" +
-                "Id, IdentificationCode, Description FROM ProductSaleSet";
+            this._commandCollection[0].CommandText = "SELECT Id, Name, Quantity, PricePerUnit, Picture, ProductStatusId, ProductTypeId," +
+                " EmployeeId, IdentificationCode, Description FROM dbo.ProductSaleSet";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3274,7 +3361,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.ProductSaleSetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.ProductSaleSetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3287,9 +3374,9 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.ProductSaleSetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.ProductSaleSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.ProductSaleSetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.ProductSaleSetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.ProductSaleSetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.ProductSaleSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3297,14 +3384,14 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.ProductSaleSetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.ProductSaleSetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "ProductSaleSet");
         }
         
@@ -3366,7 +3453,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, int Quantity, double PricePerUnit, int ProductStatusId, int ProductTypeId, int EmployeeId, string IdentificationCode, string Description) {
+        public virtual int Insert(string Name, int Quantity, double PricePerUnit, byte[] Picture, int ProductStatusId, int ProductTypeId, int EmployeeId, string IdentificationCode, string Description) {
             if ((Name == null)) {
                 throw new global::System.ArgumentNullException("Name");
             }
@@ -3375,20 +3462,26 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Quantity));
             this.Adapter.InsertCommand.Parameters[2].Value = ((double)(PricePerUnit));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(ProductStatusId));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(ProductTypeId));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(EmployeeId));
+            if ((Picture == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((byte[])(Picture));
+            }
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(ProductStatusId));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(ProductTypeId));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(EmployeeId));
             if ((IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("IdentificationCode");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(IdentificationCode));
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(IdentificationCode));
             }
             if ((Description == null)) {
                 throw new global::System.ArgumentNullException("Description");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(Description));
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Description));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3414,6 +3507,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
                     string Name, 
                     int Quantity, 
                     double PricePerUnit, 
+                    byte[] Picture, 
                     int ProductStatusId, 
                     int ProductTypeId, 
                     int EmployeeId, 
@@ -3436,40 +3530,46 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Quantity));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(PricePerUnit));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(ProductStatusId));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(ProductTypeId));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(EmployeeId));
+            if ((Picture == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(Picture));
+            }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(ProductStatusId));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ProductTypeId));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(EmployeeId));
             if ((IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("IdentificationCode");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(IdentificationCode));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(IdentificationCode));
             }
             if ((Description == null)) {
                 throw new global::System.ArgumentNullException("Description");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Description));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Description));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Quantity));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((double)(Original_PricePerUnit));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_ProductStatusId));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_ProductTypeId));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_EmployeeId));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Quantity));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((double)(Original_PricePerUnit));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_ProductStatusId));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ProductTypeId));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_EmployeeId));
             if ((Original_IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("Original_IdentificationCode");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_IdentificationCode));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_IdentificationCode));
             }
             if ((Original_Description == null)) {
                 throw new global::System.ArgumentNullException("Original_Description");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_Description));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_Description));
             }
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3494,6 +3594,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
                     string Name, 
                     int Quantity, 
                     double PricePerUnit, 
+                    byte[] Picture, 
                     int ProductStatusId, 
                     int ProductTypeId, 
                     int EmployeeId, 
@@ -3507,7 +3608,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
                     int Original_EmployeeId, 
                     string Original_IdentificationCode, 
                     string Original_Description) {
-            return this.Update(Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description, Original_Id, Original_Quantity, Original_PricePerUnit, Original_ProductStatusId, Original_ProductTypeId, Original_EmployeeId, Original_IdentificationCode, Original_Description, Original_Id);
+            return this.Update(Name, Quantity, PricePerUnit, Picture, ProductStatusId, ProductTypeId, EmployeeId, IdentificationCode, Description, Original_Id, Original_Quantity, Original_PricePerUnit, Original_ProductStatusId, Original_ProductTypeId, Original_EmployeeId, Original_IdentificationCode, Original_Description, Original_Id);
         }
     }
     
@@ -3681,7 +3782,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.ProductStatusSetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.ProductStatusSetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3694,9 +3795,9 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.ProductStatusSetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.ProductStatusSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.ProductStatusSetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.ProductStatusSetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.ProductStatusSetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.ProductStatusSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -3704,14 +3805,14 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.ProductStatusSetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.ProductStatusSetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "ProductStatusSet");
         }
         
@@ -3999,7 +4100,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.ProductTypeSetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.ProductTypeSetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4012,9 +4113,9 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.ProductTypeSetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.ProductTypeSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.ProductTypeSetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.ProductTypeSetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.ProductTypeSetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.ProductTypeSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4022,14 +4123,14 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.ProductTypeSetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.ProductTypeSetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "ProductTypeSet");
         }
         
@@ -4272,6 +4373,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("Quantity", "Quantity");
             tableMapping.ColumnMappings.Add("PricePerUnit", "PricePerUnit");
+            tableMapping.ColumnMappings.Add("Picture", "Picture");
             tableMapping.ColumnMappings.Add("SupplyUnitId", "SupplyUnitId");
             tableMapping.ColumnMappings.Add("ProductStatusId", "ProductStatusId");
             tableMapping.ColumnMappings.Add("SupplyTypeId", "SupplyTypeId");
@@ -4280,7 +4382,7 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [SupplySet] WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([SupplyUnitId] = @Original_SupplyUnitId) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([SupplyTypeId] = @Original_SupplyTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[SupplySet] WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([SupplyUnitId] = @Original_SupplyUnitId) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([SupplyTypeId] = @Original_SupplyTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -4292,12 +4394,13 @@ SELECT Id, Name, Quantity, PricePerUnit, ProductStatusId, ProductTypeId, Employe
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IdentificationCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdentificationCode", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [SupplySet] ([Name], [Quantity], [PricePerUnit], [SupplyUnitId], [ProductStatusId], [SupplyTypeId], [EmployeeId], [IdentificationCode]) VALUES (@Name, @Quantity, @PricePerUnit, @SupplyUnitId, @ProductStatusId, @SupplyTypeId, @EmployeeId, @IdentificationCode);
-SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode FROM SupplySet WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[SupplySet] ([Name], [Quantity], [PricePerUnit], [Picture], [SupplyUnitId], [ProductStatusId], [SupplyTypeId], [EmployeeId], [IdentificationCode]) VALUES (@Name, @Quantity, @PricePerUnit, @Picture, @SupplyUnitId, @ProductStatusId, @SupplyTypeId, @EmployeeId, @IdentificationCode);
+SELECT Id, Name, Quantity, PricePerUnit, Picture, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode FROM SupplySet WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PricePerUnit", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PricePerUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Picture", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Picture", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupplyUnitId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupplyUnitId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductStatusId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductStatusId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupplyTypeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupplyTypeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -4305,12 +4408,13 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IdentificationCode", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IdentificationCode", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [SupplySet] SET [Name] = @Name, [Quantity] = @Quantity, [PricePerUnit] = @PricePerUnit, [SupplyUnitId] = @SupplyUnitId, [ProductStatusId] = @ProductStatusId, [SupplyTypeId] = @SupplyTypeId, [EmployeeId] = @EmployeeId, [IdentificationCode] = @IdentificationCode WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([SupplyUnitId] = @Original_SupplyUnitId) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([SupplyTypeId] = @Original_SupplyTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode));
-SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode FROM SupplySet WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[SupplySet] SET [Name] = @Name, [Quantity] = @Quantity, [PricePerUnit] = @PricePerUnit, [Picture] = @Picture, [SupplyUnitId] = @SupplyUnitId, [ProductStatusId] = @ProductStatusId, [SupplyTypeId] = @SupplyTypeId, [EmployeeId] = @EmployeeId, [IdentificationCode] = @IdentificationCode WHERE (([Id] = @Original_Id) AND ([Quantity] = @Original_Quantity) AND ([PricePerUnit] = @Original_PricePerUnit) AND ([SupplyUnitId] = @Original_SupplyUnitId) AND ([ProductStatusId] = @Original_ProductStatusId) AND ([SupplyTypeId] = @Original_SupplyTypeId) AND ([EmployeeId] = @Original_EmployeeId) AND ([IdentificationCode] = @Original_IdentificationCode));
+SELECT Id, Name, Quantity, PricePerUnit, Picture, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode FROM SupplySet WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Quantity", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Quantity", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PricePerUnit", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PricePerUnit", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Picture", global::System.Data.SqlDbType.VarBinary, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Picture", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupplyUnitId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupplyUnitId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ProductStatusId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ProductStatusId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SupplyTypeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SupplyTypeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -4340,8 +4444,8 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTyp" +
-                "eId, EmployeeId, IdentificationCode FROM SupplySet";
+            this._commandCollection[0].CommandText = "SELECT Id, Name, Quantity, PricePerUnit, Picture, SupplyUnitId, ProductStatusId, " +
+                "SupplyTypeId, EmployeeId, IdentificationCode FROM dbo.SupplySet";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4349,7 +4453,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.SupplySetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.SupplySetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4362,9 +4466,9 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.SupplySetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.SupplySetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.SupplySetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.SupplySetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.SupplySetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.SupplySetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4372,14 +4476,14 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.SupplySetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.SupplySetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "SupplySet");
         }
         
@@ -4436,7 +4540,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Name, int Quantity, double PricePerUnit, int SupplyUnitId, int ProductStatusId, int SupplyTypeId, int EmployeeId, string IdentificationCode) {
+        public virtual int Insert(string Name, int Quantity, double PricePerUnit, byte[] Picture, int SupplyUnitId, int ProductStatusId, int SupplyTypeId, int EmployeeId, string IdentificationCode) {
             if ((Name == null)) {
                 throw new global::System.ArgumentNullException("Name");
             }
@@ -4445,15 +4549,21 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
             }
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Quantity));
             this.Adapter.InsertCommand.Parameters[2].Value = ((double)(PricePerUnit));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(SupplyUnitId));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(ProductStatusId));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(SupplyTypeId));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(EmployeeId));
+            if ((Picture == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((byte[])(Picture));
+            }
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(SupplyUnitId));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(ProductStatusId));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(SupplyTypeId));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((int)(EmployeeId));
             if ((IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("IdentificationCode");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(IdentificationCode));
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(IdentificationCode));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4479,6 +4589,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
                     string Name, 
                     int Quantity, 
                     double PricePerUnit, 
+                    byte[] Picture, 
                     int SupplyUnitId, 
                     int ProductStatusId, 
                     int SupplyTypeId, 
@@ -4501,30 +4612,36 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
             }
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Quantity));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(PricePerUnit));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(SupplyUnitId));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(ProductStatusId));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(SupplyTypeId));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(EmployeeId));
+            if ((Picture == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((byte[])(Picture));
+            }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(SupplyUnitId));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(ProductStatusId));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(SupplyTypeId));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(EmployeeId));
             if ((IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("IdentificationCode");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(IdentificationCode));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(IdentificationCode));
             }
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Quantity));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((double)(Original_PricePerUnit));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_SupplyUnitId));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_ProductStatusId));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_SupplyTypeId));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_EmployeeId));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Quantity));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((double)(Original_PricePerUnit));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_SupplyUnitId));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_ProductStatusId));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_SupplyTypeId));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_EmployeeId));
             if ((Original_IdentificationCode == null)) {
                 throw new global::System.ArgumentNullException("Original_IdentificationCode");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_IdentificationCode));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_IdentificationCode));
             }
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Id));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4549,6 +4666,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
                     string Name, 
                     int Quantity, 
                     double PricePerUnit, 
+                    byte[] Picture, 
                     int SupplyUnitId, 
                     int ProductStatusId, 
                     int SupplyTypeId, 
@@ -4562,7 +4680,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
                     int Original_SupplyTypeId, 
                     int Original_EmployeeId, 
                     string Original_IdentificationCode) {
-            return this.Update(Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode, Original_Id, Original_Quantity, Original_PricePerUnit, Original_SupplyUnitId, Original_ProductStatusId, Original_SupplyTypeId, Original_EmployeeId, Original_IdentificationCode, Original_Id);
+            return this.Update(Name, Quantity, PricePerUnit, Picture, SupplyUnitId, ProductStatusId, SupplyTypeId, EmployeeId, IdentificationCode, Original_Id, Original_Quantity, Original_PricePerUnit, Original_SupplyUnitId, Original_ProductStatusId, Original_SupplyTypeId, Original_EmployeeId, Original_IdentificationCode, Original_Id);
         }
     }
     
@@ -4736,7 +4854,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.SupplyTypeSetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.SupplyTypeSetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -4749,9 +4867,9 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.SupplyTypeSetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.SupplyTypeSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.SupplyTypeSetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.SupplyTypeSetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.SupplyTypeSetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.SupplyTypeSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -4759,14 +4877,14 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.SupplyTypeSetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.SupplyTypeSetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "SupplyTypeSet");
         }
         
@@ -5054,7 +5172,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(ItalianPizzaBDArticleReportDataSet.SupplyUnitSetDataTable dataTable) {
+        public virtual int Fill(ItalianPizzaBDArticlesReportDataSet.SupplyUnitSetDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -5067,9 +5185,9 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual ItalianPizzaBDArticleReportDataSet.SupplyUnitSetDataTable GetData() {
+        public virtual ItalianPizzaBDArticlesReportDataSet.SupplyUnitSetDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
-            ItalianPizzaBDArticleReportDataSet.SupplyUnitSetDataTable dataTable = new ItalianPizzaBDArticleReportDataSet.SupplyUnitSetDataTable();
+            ItalianPizzaBDArticlesReportDataSet.SupplyUnitSetDataTable dataTable = new ItalianPizzaBDArticlesReportDataSet.SupplyUnitSetDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -5077,14 +5195,14 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet.SupplyUnitSetDataTable dataTable) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet.SupplyUnitSetDataTable dataTable) {
             return this.Adapter.Update(dataTable);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int Update(ItalianPizzaBDArticlesReportDataSet dataSet) {
             return this.Adapter.Update(dataSet, "SupplyUnitSet");
         }
         
@@ -5408,7 +5526,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateUpdatedRows(ItalianPizzaBDArticleReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateUpdatedRows(ItalianPizzaBDArticlesReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._productStatusSetTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.ProductStatusSet.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
@@ -5472,7 +5590,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateInsertedRows(ItalianPizzaBDArticleReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
+        private int UpdateInsertedRows(ItalianPizzaBDArticlesReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
             if ((this._productStatusSetTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.ProductStatusSet.Select(null, null, global::System.Data.DataViewRowState.Added);
@@ -5530,7 +5648,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        private int UpdateDeletedRows(ItalianPizzaBDArticleReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
+        private int UpdateDeletedRows(ItalianPizzaBDArticlesReportDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
             if ((this._supplySetTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.SupplySet.Select(null, null, global::System.Data.DataViewRowState.Deleted);
@@ -5612,7 +5730,7 @@ SELECT Id, Name, Quantity, PricePerUnit, SupplyUnitId, ProductStatusId, SupplyTy
         ///</summary>
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-        public virtual int UpdateAll(ItalianPizzaBDArticleReportDataSet dataSet) {
+        public virtual int UpdateAll(ItalianPizzaBDArticlesReportDataSet dataSet) {
             if ((dataSet == null)) {
                 throw new global::System.ArgumentNullException("dataSet");
             }

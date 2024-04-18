@@ -4,8 +4,10 @@ using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.Resources;
+using ItalianPizza.XAMLViews.Articles;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity.Core;
 using System.IO;
 using System.Windows;
@@ -28,7 +30,7 @@ namespace ItalianPizza.XAMLViews
         {
             InitializeComponent();
 
-            ShowArticles("");
+            //ShowArticles("");
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -52,67 +54,8 @@ namespace ItalianPizza.XAMLViews
 
         private void ExportToPDFButtonOnClick(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
-            DialogResult result = folderBrowserDialog.ShowDialog();
-
-            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
-            {
-                string selectedFolderPath = folderBrowserDialog.SelectedPath;
-
-                try
-                {
-                    string incompleteRPTPath = Path.GetFullPath("Resources\\InventoryReport.rpt");
-                    string RPTpathPartToDelete = "bin\\Debug\\";
-                    string completeRPTPath = incompleteRPTPath.Replace(RPTpathPartToDelete, "");
-
-                    InventoryReport reportDocument = new InventoryReport();
-                    //inventoryReport.SetData
-                    
-                    //ReportDocument reportDocument = new ReportDocument();
-                    reportDocument.Load(completeRPTPath);
-
-                    reportDocument.SetDataSource(new ItalianPizzaBDArticleReportDataSet());
-                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
-                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
-                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
-                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
-                    //reportDocument.SetDataSource(new ProductDAO().GetAllActiveProducts());
-
-
-                    string tempFilePath = Path.Combine(Path.GetTempPath(), "temp_report.pdf");
-
-                    ExportOptions exportOptions = new ExportOptions
-                    {
-                        ExportFormatType = ExportFormatType.PortableDocFormat,
-                        ExportDestinationType = ExportDestinationType.DiskFile,
-                        DestinationOptions = new DiskFileDestinationOptions
-                        {
-                            DiskFileName = tempFilePath
-                        }
-                    };
-
-
-                    reportDocument.Export(exportOptions);
-
-                    reportDocument.Close();
-                    reportDocument.Dispose();
-
-                    string finalFilePath = Path.Combine(selectedFolderPath, "InventoryReport.pdf");
-                    File.Move(tempFilePath, finalFilePath);
-
-                    new AlertPopup("¡Reporte creado con éxito!", "El reporte ha sido creado exitosamente.", AlertPopupTypes.Success);
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    new AlertPopup("¡Error al crear el reporte!", "No puedes exportar el reporte en esa carpeta, seleccione otra carpeta.", AlertPopupTypes.Error);
-                    new ExceptionLogger().LogException(ex);
-                }
-                catch (Exception ex)
-                {
-                    new AlertPopup("¡Error al crear el reporte!", "Hubo un problema al crear el reporte, inténtelo más tarde.", AlertPopupTypes.Error);
-                    new ExceptionLogger().LogException(ex);
-                }
-            }
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            navigationService.Navigate(new InventoryReportPreview());
         }
 
         private void SaveJustificationButtonOnClick(object sender, RoutedEventArgs e)
@@ -165,7 +108,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(26, 0, 0, 0),
-                    //Source = new ProductDAO().GetImageByProductName(product.Name)
+                    Source = new ProductDAO().GetImageByProductName(product.Name)
                     //Source = new BitmapImage(new Uri(Convert.ToBase64String(product.Picture), UriKind.RelativeOrAbsolute)),
                     //Stretch = Stretch.Fill
                 };
@@ -251,7 +194,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(26, 0, 0, 0),
-                    //Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -314,5 +257,11 @@ namespace ItalianPizza.XAMLViews
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
         }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
     }
 }

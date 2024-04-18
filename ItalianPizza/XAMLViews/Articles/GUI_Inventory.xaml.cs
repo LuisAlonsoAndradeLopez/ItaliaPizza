@@ -28,7 +28,7 @@ namespace ItalianPizza.XAMLViews
             InitializeComponent();
             InitializeSearchComboBoxes();
 
-            ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+            //ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -37,7 +37,7 @@ namespace ItalianPizza.XAMLViews
             {
                 if (ShowComboBox != null)
                 {
-                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                    //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
                 }
             }
             catch (EntityException ex)
@@ -458,7 +458,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    //Source = new ProductDAO().GetImageByProductName(product.Name)
+                    Source = new ProductDAO().GetImageByProductName(product.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -531,7 +531,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 100,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    //Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock

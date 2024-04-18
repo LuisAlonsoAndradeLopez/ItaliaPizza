@@ -683,3 +683,40 @@ System.Reflection.TargetInvocationException: Se produjo una excepción en el des
    en ItalianPizza.XAMLViews.GUI_InventoryReport.ExportToPDFButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 74
 --------------------------------------------------
 
+Timestamp: 15/04/2024 03:52:54 p. m.
+Exception Details:
+System.Runtime.InteropServices.COMException (0x8002000B): El índice no es válido. (Excepción de HRESULT: 0x8002000B (DISP_E_BADINDEX))
+   en CrystalDecisions.ReportAppServer.DataDefModel.FieldsClass.get_Item(Int32 Index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(Int32 index)
+   en CrystalDecisions.CrystalReports.Engine.ParameterFieldDefinitions.get_Item(String fieldName)
+   en ItalianPizza.XAMLViews.GUI_InventoryReport.ExportToPDFButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 81
+--------------------------------------------------
+
+Timestamp: 16/04/2024 06:48:10 p. m.
+Exception Details:
+CrystalDecisions.CrystalReports.Engine.ParameterFieldCurrentValueException: Faltan los valores del parámetro. ---> System.Runtime.InteropServices.COMException: Faltan los valores del parámetro.
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.Export(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Export(ExportOptions options)
+   en ItalianPizza.XAMLViews.GUI_InventoryReport.ExportToPDFButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 112
+--------------------------------------------------
+
+Timestamp: 16/04/2024 06:52:35 p. m.
+Exception Details:
+CrystalDecisions.CrystalReports.Engine.ParameterFieldCurrentValueException: Faltan los valores del parámetro. ---> System.Runtime.InteropServices.COMException: Faltan los valores del parámetro.
+   en CrystalDecisions.ReportAppServer.Controllers.ReportSourceClass.Export(ExportOptions pExportOptions, RequestContext pRequestContext)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   --- Fin del seguimiento de la pila de la excepción interna ---
+   en CrystalDecisions.ReportAppServer.ConvertDotNetToErom.ThrowDotNetException(Exception e)
+   en CrystalDecisions.ReportSource.EromReportSourceBase.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.ExportToStream(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.FormatEngine.Export(ExportRequestContext reqContext)
+   en CrystalDecisions.CrystalReports.Engine.ReportDocument.Export(ExportOptions options)
+   en ItalianPizza.XAMLViews.GUI_InventoryReport.ExportToPDFButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 112
+--------------------------------------------------
+

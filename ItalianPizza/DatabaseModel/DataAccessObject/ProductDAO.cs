@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -101,7 +102,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    activeProducts = context.ProductSaleSet.ToList();
+                    activeProducts = context.ProductSaleSet.AsNoTracking().Where(p => p.ProductStatusId == 1).ToList();
                 }
             }
             catch (EntityException ex)
@@ -203,7 +204,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                byte[] imageBytes = context.ProductSaleSet.Where(ps => ps.Name == productName).First().Picture;
+                byte[] imageBytes = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().FirstOrDefault(ps => ps.Name == productName).Picture;
 
                 BitmapImage bitmapImage = new BitmapImage();
 
@@ -220,6 +221,39 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
         }
 
+        public List<ProductSaleSet> GetProductsForInventoryReport()
+        {
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var activeSupplies = context.ProductSaleSet.AsNoTracking()
+                        .Where(p => p.ProductStatusSet.Status == ArticleStatus.Activo.ToString())
+                        .Select(p => new ProductSaleSet
+                        {
+                            IdentificationCode = p.IdentificationCode,
+                            Name = p.Name,
+                            PricePerUnit = p.PricePerUnit,
+                            Quantity = p.Quantity,
+                            ProductStatusSet = p.ProductStatusSet,
+                            ProductTypeSet = p.ProductTypeSet
+                        })
+                        .ToList();
+
+                    return activeSupplies;
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+        }
+
         public ProductSaleSet GetProductByName(string productName)
         {
             ProductSaleSet product = new ProductSaleSet();
@@ -227,7 +261,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
+                    product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().FirstOrDefault(p => p.Name == productName);
                 }
             }
             catch (EntityException ex)
@@ -250,12 +284,12 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 if (findByType == "Nombre")
                 {
-                    specifiedProducts = context.ProductSaleSet.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
                 }
 
                 if (findByType == "Código")
                 {
-                    specifiedProducts = context.ProductSaleSet.Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
                 }
             }
 
@@ -304,7 +338,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    ProductSaleSet product = context.ProductSaleSet.Where(p => p.IdentificationCode == productCode).FirstOrDefault();
+                    ProductSaleSet product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.IdentificationCode == productCode).FirstOrDefault();
                     if (product != null)
                     {
                         return true;
@@ -329,7 +363,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    ProductSaleSet product = context.ProductSaleSet.Where(p => p.Name == productName).FirstOrDefault();
+                    ProductSaleSet product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.Name == productName).FirstOrDefault();
                     if (product != null)
                     {
                         return true;
@@ -392,7 +426,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    productTypesList = context.ProductTypeSet.ToList();
+                    productTypesList = context.ProductTypeSet.AsNoTracking().ToList();
                 }
             }
             catch (EntityException ex)
@@ -415,7 +449,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    productStatusesList = context.ProductStatusSet.ToList();
+                    productStatusesList = context.ProductStatusSet.AsNoTracking().ToList();
                 }
             }
             catch (EntityException ex)
