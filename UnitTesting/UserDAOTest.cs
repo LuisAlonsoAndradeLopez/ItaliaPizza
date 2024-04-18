@@ -5,6 +5,7 @@ using System.Transactions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.SymbolStore;
 
 namespace UnitTesting
 {
@@ -40,6 +41,14 @@ namespace UnitTesting
             };
             employeeAlreadyRegistered = new EmployeeSet()
             {
+                Names = "Alvaro",
+                LastName = "Vazquez",
+                SecondLastName = "Aguirre",
+                Email = "alvaro@gmail.com",
+                Phone = "1234567890",
+                UserStatusId = validValue,
+                EmployeePositionId = validValue,
+                Address_Id = validValue,
             };
             employeeToGet = new EmployeeSet()
             {
@@ -51,6 +60,8 @@ namespace UnitTesting
             };
             accountAlreadyRegistered = new UserAccountSet()
             {
+                UserName = "alvaro@gmail.com",
+                Password = "dadada"
             };
             accountToGet = new UserAccountSet()
             {
@@ -76,17 +87,26 @@ namespace UnitTesting
             }
         }
 
-        /* Falta hacer bien esta prueba
+        
         [TestMethod]
         public void RegisterUserTest_InvalidByUserAlreadyRegistered()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                int result = userDAO.RegisterUser(accountAlreadyRegistered, employeeAlreadyRegistered);
-                Assert.AreEqual(0, result);
+                bool result = userDAO.CheckUserExistence(accountAlreadyRegistered);
+                Assert.AreEqual(true, result);
             }
         }
-        */
+
+        [TestMethod]
+        public void RegisterEmployeeTest_InvalidByEmployeeAlreadyRegistered()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                bool result = userDAO.CheckEmployeeExistence(employeeAlreadyRegistered);
+                Assert.AreEqual(true, result);
+            }
+        }
 
         [TestMethod]
         public void GetAllEmployeesTest()
@@ -115,6 +135,17 @@ namespace UnitTesting
             {
                 List<EmployeeSet> employees = userDAO.GetAllEmployeesByStatus("Activo");
                 Assert.AreEqual(3, employees.Count);
+            }
+        }
+
+        [TestMethod]
+        public void ModifyEmployeeTest()
+        {
+            using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
+            {
+                employeeAlreadyRegistered.UserStatusId = 2;
+                int result = userDAO.ModifyEmployee(accountAlreadyRegistered,employeeAlreadyRegistered);
+                Assert.AreEqual(1, result);
             }
         }
 
