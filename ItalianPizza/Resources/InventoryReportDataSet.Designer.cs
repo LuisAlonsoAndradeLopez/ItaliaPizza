@@ -293,6 +293,8 @@ namespace ItalianPizza.Resources {
             
             private global::System.Data.DataColumn columnQuantity;
             
+            private global::System.Data.DataColumn columnObservation;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public ArticleDataTable() {
@@ -384,6 +386,14 @@ namespace ItalianPizza.Resources {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn ObservationColumn {
+                get {
+                    return this.columnObservation;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -419,7 +429,7 @@ namespace ItalianPizza.Resources {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public ArticleRow AddArticleRow(string Name, string ArticleType, string ArticleCategory, string UnitOfMeasurement, string IdentificationCode, string PricePerUnit, string Quantity) {
+            public ArticleRow AddArticleRow(string Name, string ArticleType, string ArticleCategory, string UnitOfMeasurement, string IdentificationCode, string PricePerUnit, string Quantity, string Observation) {
                 ArticleRow rowArticleRow = ((ArticleRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Name,
@@ -428,7 +438,8 @@ namespace ItalianPizza.Resources {
                         UnitOfMeasurement,
                         IdentificationCode,
                         PricePerUnit,
-                        Quantity};
+                        Quantity,
+                        Observation};
                 rowArticleRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowArticleRow);
                 return rowArticleRow;
@@ -458,6 +469,7 @@ namespace ItalianPizza.Resources {
                 this.columnIdentificationCode = base.Columns["IdentificationCode"];
                 this.columnPricePerUnit = base.Columns["PricePerUnit"];
                 this.columnQuantity = base.Columns["Quantity"];
+                this.columnObservation = base.Columns["Observation"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -477,6 +489,8 @@ namespace ItalianPizza.Resources {
                 base.Columns.Add(this.columnPricePerUnit);
                 this.columnQuantity = new global::System.Data.DataColumn("Quantity", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnQuantity);
+                this.columnObservation = new global::System.Data.DataColumn("Observation", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnObservation);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -731,6 +745,22 @@ namespace ItalianPizza.Resources {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public string Observation {
+                get {
+                    try {
+                        return ((string)(this[this.tableArticle.ObservationColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'Observation\' de la tabla \'Article\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableArticle.ObservationColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public bool IsNameNull() {
                 return this.IsNull(this.tableArticle.NameColumn);
             }
@@ -811,6 +841,18 @@ namespace ItalianPizza.Resources {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public void SetQuantityNull() {
                 this[this.tableArticle.QuantityColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public bool IsObservationNull() {
+                return this.IsNull(this.tableArticle.ObservationColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public void SetObservationNull() {
+                this[this.tableArticle.ObservationColumn] = global::System.Convert.DBNull;
             }
         }
         

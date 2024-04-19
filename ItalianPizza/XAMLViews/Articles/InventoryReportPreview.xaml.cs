@@ -1,6 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using ItalianPizza.DatabaseModel.DataAccessObject;
-using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.Resources;
 using System.IO;
 using System.Windows;
@@ -37,7 +36,8 @@ namespace ItalianPizza.XAMLViews.Articles
                     "NA",
                     product.IdentificationCode,
                     product.PricePerUnit.ToString(),
-                    product.Quantity.ToString()
+                    product.Quantity.ToString(),
+                    product.Observation
                 );
             }
 
@@ -50,7 +50,8 @@ namespace ItalianPizza.XAMLViews.Articles
                     supply.SupplyUnitSet.Unit,
                     supply.IdentificationCode,
                     supply.PricePerUnit.ToString(),
-                    supply.Quantity.ToString()
+                    supply.Quantity.ToString(),
+                    "NA"
                 );
             }
 

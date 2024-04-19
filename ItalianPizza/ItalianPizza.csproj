@@ -138,7 +138,6 @@
     <Compile Include="Auxiliary\RegexChecker.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionDAO.cs" />
-    <Compile Include="DatabaseModel\DataAccessObject\InventoryValidationDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
@@ -373,6 +372,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\Articles\GUI_InventoryReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\GUIComponentsStyles\ToggleButtonsStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

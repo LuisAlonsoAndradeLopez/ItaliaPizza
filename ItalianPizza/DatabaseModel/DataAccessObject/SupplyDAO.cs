@@ -99,8 +99,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    var activeSupplies = context.SupplySet.AsNoTracking()
+                    var activeSupplies = context.SupplySet
                         .Where(s => s.ProductStatusSet.Status == ArticleStatus.Activo.ToString())
+                        .ToList()
                         .Select(s => new SupplySet
                         {
                             IdentificationCode = s.IdentificationCode,

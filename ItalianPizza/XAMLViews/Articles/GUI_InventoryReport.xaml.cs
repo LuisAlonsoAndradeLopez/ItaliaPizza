@@ -62,14 +62,7 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                InventoryValidationSet inventoryValidation = new InventoryValidationSet
-                {
-                    InventoryValidationDate = DateTime.Now,
-                    Description = InventoryValidationTextBox.Text,
-                    EmployeeId = 2
-                };
-
-                new InventoryValidationDAO().AddInventoryValidation(inventoryValidation);
+                
 
                 new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
             }

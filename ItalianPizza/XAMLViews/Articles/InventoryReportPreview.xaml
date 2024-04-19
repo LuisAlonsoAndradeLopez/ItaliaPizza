@@ -21,7 +21,7 @@
     </Page.Resources>
 
     <Grid Background="#171721">
-        <WindowsFormsHost Name="windowsFormsHost" Margin="0,0,0,88" />
+        <WindowsFormsHost Name="windowsFormsHost" Margin="0,0,0,73" />
         <Button Style="{StaticResource BlackButtonStyle}" Content="Salir de la Vista Previa del Reporte" Margin="728,852,728,14" Click="ExitButtonOnClick"/>
     </Grid>
 </Page>

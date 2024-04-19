@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
                 <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
                 <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ToggleButtonsStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -37,8 +38,8 @@
             <Image Name="ArticleImage" Stretch="Uniform" Margin="405,165,872,339" />
             <Button Style="{StaticResource DarkRedButtonStyle}" Content="Seleccionar Imágen" HorizontalAlignment="Left" Margin="473,620,0,0" VerticalAlignment="Top" Height="66" Width="344" FontSize="25" Click="SelectImageButtonOnClick"/>
 
-            <StackPanel Margin="1013,39,10,176">
-                <StackPanel Name="NameAndArticleTypeStackPanel" Orientation="Horizontal" Height="142" Width="716" Margin="0,10,0,0">
+            <StackPanel Margin="1013,20,10,176">
+                <StackPanel Name="NameAndArticleTypeStackPanel" Orientation="Horizontal" Height="142" Width="716" Margin="0,0,0,0">
                     <StackPanel Width="388">
                         <Label Content="Nombre del Artículo: " HorizontalAlignment="Center" Margin="0,13,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
                         <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="ArticleNameTextBox" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top" Height="64" Width="363" FontSize="24" MaxLength="40"/>
@@ -78,7 +79,12 @@
 
                 <StackPanel Name="DescriptionStackPanel" Visibility="Visible">
                     <Label Content="Descripción: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
-                    <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="DescriptionTextBox" HorizontalAlignment="Left" VerticalAlignment="Top" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="194" Width="681" FontSize="24" MaxLength="300"/>
+                    <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="DescriptionTextBox" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Margin="0,0,0,0" TextWrapping="Wrap" AcceptsReturn="True" Height="186" Width="693" FontSize="24" MaxLength="300"/>
+                </StackPanel>
+
+                <StackPanel Name="EnableOrDisableRecipeStackPanel" Margin="0,20,0,0" Orientation="Horizontal" Visibility="Visible" Width="719">
+                    <Label Content="¿Desea activar receta para este producto? " HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="32" FontFamily="Arial"/>
+                    <ToggleButton Style="{StaticResource RedToggleButtonStyle}" Content="Si" VerticalAlignment="Center" Height="35" Width="67" FontSize="25" Click="EnableOrDisableToggleButtonOnClick" IsChecked="{Binding IsToggleButtonChecked, Mode=TwoWay}"/>
                 </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource BlackButtonStyle}" Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>

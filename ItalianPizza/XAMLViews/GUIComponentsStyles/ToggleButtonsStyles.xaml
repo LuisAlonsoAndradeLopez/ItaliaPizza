@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="RedToggleButtonStyle" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid>
+                        <!-- Background for the switch button -->
+                        <Border x:Name="SwitchBackground" 
+                            Background="Red"
+                            CornerRadius="10"
+                            Width="50"
+                            Height="30"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!-- Trigger for Checked state -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="SwitchBackground" Property="Background" Value="DarkRed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
