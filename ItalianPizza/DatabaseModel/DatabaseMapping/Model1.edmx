@@ -101,6 +101,14 @@
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="UserStatusId" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="EmployeePictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="EmployeeImage" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Employee_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="EmployeePositionSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -173,6 +181,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="ProductPictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProductImage" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ProductSaleSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -187,6 +203,7 @@
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="IdentificationCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Observations" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ProductStatusSet">
           <Key>
@@ -266,6 +283,14 @@
           <Property Name="SupplierSet_Id" Type="int" Nullable="false" />
           <Property Name="SupplySet_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SupplyPictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SupplyImage" Type="varbinary(max)" Nullable="false" />
+          <Property Name="Supply_Id" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="SupplySet">
           <Key>
             <PropertyRef Name="Id" />
@@ -280,6 +305,7 @@
           <Property Name="SupplyTypeId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="IdentificationCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Observations" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SupplyTypeSet">
           <Key>
@@ -310,6 +336,60 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__EmployeeP__Emplo__56E8E7AB">
+          <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
+          <End Role="EmployeePictureSet" Type="Self.EmployeePictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeePictureSet">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductPi__Produ__51300E55">
+          <End Role="ProductSaleSet" Type="Self.ProductSaleSet" Multiplicity="1" />
+          <End Role="ProductPictureSet" Type="Self.ProductPictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSaleSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPictureSet">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupplyPic__Suppl__540C7B00">
+          <End Role="SupplySet" Type="Self.SupplySet" Multiplicity="1" />
+          <End Role="SupplyPictureSet" Type="Self.SupplyPictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplySet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplyPictureSet">
+              <PropertyRef Name="Supply_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CustomerAddress">
           <End Role="AddressSet" Type="Self.AddressSet" Multiplicity="1" />
           <End Role="CustomerSet" Type="Self.CustomerSet" Multiplicity="*" />
@@ -884,6 +964,7 @@
           <EntitySet Name="DailyClosingFinancialTransaction" EntityType="Self.DailyClosingFinancialTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyClosingSet" EntityType="Self.DailyClosingSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryDriverSet" EntityType="Self.DeliveryDriverSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeePictureSet" EntityType="Self.EmployeePictureSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePositionSet" EntityType="Self.EmployeePositionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSet" EntityType="Self.EmployeeSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionCustomerOrder" EntityType="Self.FinancialTransactionCustomerOrder" Schema="dbo" store:Type="Tables" />
@@ -892,6 +973,7 @@
           <EntitySet Name="InventoryValidationSet" EntityType="Self.InventoryValidationSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatusSet" EntityType="Self.OrderStatusSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderTypeSet" EntityType="Self.OrderTypeSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductPictureSet" EntityType="Self.ProductPictureSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductSaleSet" EntityType="Self.ProductSaleSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductStatusSet" EntityType="Self.ProductStatusSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductTypeSet" EntityType="Self.ProductTypeSet" Schema="dbo" store:Type="Tables" />
@@ -901,11 +983,34 @@
           <EntitySet Name="SupplierOrderSet" EntityType="Self.SupplierOrderSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierSet" EntityType="Self.SupplierSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierSupply" EntityType="Self.SupplierSupply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupplyPictureSet" EntityType="Self.SupplyPictureSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplySet" EntityType="Self.SupplySet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyTypeSet" EntityType="Self.SupplyTypeSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplyUnitSet" EntityType="Self.SupplyUnitSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccountSet" EntityType="Self.UserAccountSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserStatusSet" EntityType="Self.UserStatusSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__EmployeeP__Emplo__56E8E7AB" Association="Self.FK__EmployeeP__Emplo__56E8E7AB">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="EmployeePictureSet" EntitySet="EmployeePictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductPi__Produ__51300E55" Association="Self.FK__ProductPi__Produ__51300E55">
+            <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
+            <End Role="ProductPictureSet" EntitySet="ProductPictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupplyPic__Suppl__540C7B00" Association="Self.FK__SupplyPic__Suppl__540C7B00">
+            <End Role="SupplySet" EntitySet="SupplySet" />
+            <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
+          </AssociationSet>
           <AssociationSet Name="FK_CustomerAddress" Association="Self.FK_CustomerAddress">
             <End Role="AddressSet" EntitySet="AddressSet" />
             <End Role="CustomerSet" EntitySet="CustomerSet" />
@@ -1249,6 +1354,7 @@
           <NavigationProperty Name="SupplySet" Relationship="Self.FK_EmployeeSupply" FromRole="EmployeeSet" ToRole="SupplySet" />
           <NavigationProperty Name="UserAccountSet" Relationship="Self.FK_EmployeeUserAccount" FromRole="EmployeeSet" ToRole="UserAccountSet" />
           <NavigationProperty Name="UserStatusSet" Relationship="Self.FK_UserStatusEmployee" FromRole="EmployeeSet" ToRole="UserStatusSet" />
+          <NavigationProperty Name="EmployeePictureSet" Relationship="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB" FromRole="EmployeeSet" ToRole="EmployeePictureSet" />
         </EntityType>
         <EntityType Name="FinancialTransactionSet">
           <Key>
@@ -1310,6 +1416,8 @@
           <NavigationProperty Name="RecipeSet" Relationship="Self.FK_ProductSaleRecipe" FromRole="ProductSaleSet" ToRole="RecipeSet" />
           <NavigationProperty Name="ProductStatusSet" Relationship="Self.FK_ProductStatusProductSale" FromRole="ProductSaleSet" ToRole="ProductStatusSet" />
           <NavigationProperty Name="ProductTypeSet" Relationship="Self.FK_ProductTypeProductSale" FromRole="ProductSaleSet" ToRole="ProductTypeSet" />
+          <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductPictureSet" Relationship="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55" FromRole="ProductSaleSet" ToRole="ProductPictureSet" />
         </EntityType>
         <EntityType Name="ProductStatusSet">
           <Key>
@@ -1421,6 +1529,8 @@
           <NavigationProperty Name="SupplyTypeSet" Relationship="Self.FK_SupplyTypeSupply" FromRole="SupplySet" ToRole="SupplyTypeSet" />
           <NavigationProperty Name="SupplyUnitSet" Relationship="Self.FK_SupplyUnitSupply" FromRole="SupplySet" ToRole="SupplyUnitSet" />
           <NavigationProperty Name="SupplierSet" Relationship="Self.SupplierSupply" FromRole="SupplySet" ToRole="SupplierSet" />
+          <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupplyPictureSet" Relationship="ItalianPizzaServerBDModel.FK__SupplyPic__Suppl__540C7B00" FromRole="SupplySet" ToRole="SupplyPictureSet" />
         </EntityType>
         <EntityType Name="SupplyTypeSet">
           <Key>
@@ -2142,7 +2252,102 @@
             <End Role="SupplierSet" EntitySet="SupplierSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
           </AssociationSet>
+          <EntitySet Name="EmployeePictureSet" EntityType="ItalianPizzaServerBDModel.EmployeePictureSet" />
+          <EntitySet Name="ProductPictureSet" EntityType="ItalianPizzaServerBDModel.ProductPictureSet" />
+          <EntitySet Name="SupplyPictureSet" EntityType="ItalianPizzaServerBDModel.SupplyPictureSet" />
+          <EntitySet Name="database_firewall_rules" EntityType="ItalianPizzaServerBDModel.database_firewall_rules" />
+          <AssociationSet Name="FK__EmployeeP__Emplo__56E8E7AB" Association="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="EmployeePictureSet" EntitySet="EmployeePictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductPi__Produ__51300E55" Association="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55">
+            <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
+            <End Role="ProductPictureSet" EntitySet="ProductPictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupplyPic__Suppl__540C7B00" Association="ItalianPizzaServerBDModel.FK__SupplyPic__Suppl__540C7B00">
+            <End Role="SupplySet" EntitySet="SupplySet" />
+            <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="EmployeePictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeImage" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Employee_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EmployeeSet" Relationship="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB" FromRole="EmployeePictureSet" ToRole="EmployeeSet" />
+        </EntityType>
+        <EntityType Name="ProductPictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="ProductImage" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ProductSaleSet" Relationship="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55" FromRole="ProductPictureSet" ToRole="ProductSaleSet" />
+        </EntityType>
+        <EntityType Name="SupplyPictureSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="SupplyImage" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="Supply_Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SupplySet" Relationship="ItalianPizzaServerBDModel.FK__SupplyPic__Suppl__540C7B00" FromRole="SupplyPictureSet" ToRole="SupplySet" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="start_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="end_ip_address" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK__EmployeeP__Emplo__56E8E7AB">
+          <End Type="ItalianPizzaServerBDModel.EmployeeSet" Role="EmployeeSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.EmployeePictureSet" Role="EmployeePictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeePictureSet">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductPi__Produ__51300E55">
+          <End Type="ItalianPizzaServerBDModel.ProductSaleSet" Role="ProductSaleSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.ProductPictureSet" Role="ProductPictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSaleSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductPictureSet">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupplyPic__Suppl__540C7B00">
+          <End Type="ItalianPizzaServerBDModel.SupplySet" Role="SupplySet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.SupplyPictureSet" Role="SupplyPictureSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupplySet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SupplyPictureSet">
+              <PropertyRef Name="Supply_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2310,7 +2515,8 @@
     <EntitySetMapping Name="ProductSaleSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.ProductSaleSet)">
         <MappingFragment StoreEntitySet="ProductSaleSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Observations" ColumnName="Observations" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
@@ -2403,7 +2609,8 @@
     <EntitySetMapping Name="SupplySet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplySet)">
         <MappingFragment StoreEntitySet="SupplySet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Observations" ColumnName="Observations" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="PricePerUnit" ColumnName="PricePerUnit" />
@@ -2481,6 +2688,45 @@
         <ScalarProperty Name="Id" ColumnName="SupplySet_Id" />
       </EndProperty>
     </AssociationSetMapping>
+          <EntitySetMapping Name="EmployeePictureSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.EmployeePictureSet">
+              <MappingFragment StoreEntitySet="EmployeePictureSet">
+                <ScalarProperty Name="Employee_Id" ColumnName="Employee_Id" />
+                <ScalarProperty Name="EmployeeImage" ColumnName="EmployeeImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductPictureSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.ProductPictureSet">
+              <MappingFragment StoreEntitySet="ProductPictureSet">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="ProductImage" ColumnName="ProductImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupplyPictureSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.SupplyPictureSet">
+              <MappingFragment StoreEntitySet="SupplyPictureSet">
+                <ScalarProperty Name="Supply_Id" ColumnName="Supply_Id" />
+                <ScalarProperty Name="SupplyImage" ColumnName="SupplyImage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

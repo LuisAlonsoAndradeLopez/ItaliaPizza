@@ -1,7 +1,9 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -215,16 +217,66 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
         }
 
-        public List<string> GetAllSupplyWithoutPhoto()
+        public List<SupplySet> GetAllSupplyWithoutPhoto()
         {
-            List<string> supplyList;
+            List<SupplySet> supplyList;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var supplyProperties = context.SupplySet
+                        .Select(s => new
+                        {
+                            s.Id,
+                            s.Name,
+                            s.Quantity,
+                            s.PricePerUnit,
+                            s.SupplyUnitId,
+                            s.ProductStatusId,
+                            s.SupplyTypeId,
+                            s.EmployeeId,
+                            s.IdentificationCode
+                        })
+                        .ToList();
+
+                    supplyList = supplyProperties.Select(sp => new SupplySet
+                    {
+                        Id = sp.Id,
+                        Name = sp.Name,
+                        Quantity = sp.Quantity,
+                        PricePerUnit = sp.PricePerUnit,
+                        SupplyUnitId = sp.SupplyUnitId,
+                        ProductStatusId = sp.ProductStatusId,
+                        SupplyTypeId = sp.SupplyTypeId,
+                        EmployeeId = sp.EmployeeId,
+                        IdentificationCode = sp.IdentificationCode
+                    }).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return supplyList;
+        }
+
+
+        public List<SupplySet> GetAllSupply()
+        {
+            List<SupplySet> supplyList;
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     supplyList = context.SupplySet
-                        .Select(supply => supply.Name)
+                        .Include(supply => supply.SupplyUnitSet)
                         .ToList();
                 }
             }
@@ -238,6 +290,93 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return supplyList;
+        }
+
+        public List<int> GetAllSuppliesBySupplier(int supplierID)
+        {
+            List<int> suppliers;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    suppliers = context.SupplySet
+                        .Where(supplier => supplier.SupplierSet.Any(supply => supply.Id == supplierID))
+                        .Select(supplyAux => supplyAux.Id)
+                        .ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return suppliers;
+        }
+
+        public List<SupplySet> GetAllSuppliesBySupplierOrder(SupplierOrderSet supplierOrder)
+        {
+            List<SupplySet> suppliesListOrder;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var customerOrderDetails = context.SupplierOrderDetailsSet
+                                            .Include(d => d.SupplySet)
+                                            .Include(d => d.SupplySet.SupplyUnitSet)
+                                            .Where(d => d.SupplierOrderId == supplierOrder.Id)
+                                            .ToList();
+
+                    suppliesListOrder = customerOrderDetails.Select(detalle =>
+                        new SupplySet
+                        {
+                            Id = detalle.SupplySet.Id,
+                            Name = detalle.SupplySet.Name,
+                            Quantity = detalle.SupplyQuantity,
+                            SupplyUnitId = detalle.SupplySet.SupplyUnitId,
+                            PricePerUnit = detalle.PricePerUnit,
+                            SupplyUnitSet = detalle.SupplySet.SupplyUnitSet
+                        }).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return suppliesListOrder;
+        }
+
+        public SupplyPictureSet GetSupplyPicturebyID(int supplyID)
+        {
+            SupplyPictureSet supplyPicture;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    supplyPicture = context.SupplyPictureSet.FirstOrDefault(p => p.Supply_Id == supplyID);
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return supplyPicture;
         }
     }
 }

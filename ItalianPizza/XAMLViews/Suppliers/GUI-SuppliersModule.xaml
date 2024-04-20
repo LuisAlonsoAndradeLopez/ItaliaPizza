@@ -103,20 +103,21 @@
                 FontSize="18" 
                 BorderThickness="3" 
                 FontWeight="Thin" 
-                BorderBrush="#FFDB4B2C"/>
+                BorderBrush="#FFDB4B2C" Click="Button_Click"/>
 
-            <Button Content="Nuevo Proveedor"
-                HorizontalAlignment="Left"
-                Margin="917,200,0,0"
-                VerticalAlignment="Top" 
-                Height="49" Width="203" 
-                Background="#FF161618" 
-                Foreground="White" 
-                FontFamily="Arial" 
-                FontSize="18" 
-                BorderBrush="#FFDB4B2C" 
-                FontWeight="Thin" 
-                BorderThickness="3"/>
+            <Button x:Name="btnRegisterSupplier"
+                    Content="Nuevo Proveedor"
+                    HorizontalAlignment="Left"
+                    Margin="917,200,0,0"
+                    VerticalAlignment="Top" 
+                    Height="49" Width="203" 
+                    Background="#FF161618" 
+                    Foreground="White" 
+                    FontFamily="Arial" 
+                    FontSize="18" 
+                    BorderBrush="#FFDB4B2C" 
+                    FontWeight="Thin" 
+                    BorderThickness="3" Click="BtnRegisterSupplier_Click"/>
 
             <WrapPanel x:Name="wpSuppliers" 
                        Margin="274,311,609,47">
@@ -202,6 +203,6 @@
                    Margin="1160,255,14,28"/>
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
-        
+
     </Grid>
 </Page>

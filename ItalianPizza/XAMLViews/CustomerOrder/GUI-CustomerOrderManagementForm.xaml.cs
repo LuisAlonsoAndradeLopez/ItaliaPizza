@@ -1,4 +1,5 @@
 ﻿
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
@@ -10,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -19,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Label = System.Windows.Controls.Label;
 using ListBox = System.Windows.Controls.ListBox;
+using Path = System.IO.Path;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -34,10 +35,12 @@ namespace ItalianPizza.XAMLViews
         private CustomerOrderSet customerOrderSet;
         private ProductDAO productDAO;
         private UserDAO userDAO;
+        private ImageManager imageManager;
         public GUI_CustomerOrderManagementForm(CustomerOrderSet customerOrder)
         {
             InitializeComponent();
             customerOrderSet = customerOrder;
+            imageManager = new ImageManager();
             InitializeDAOConnections();
             ShowActiveProducts();
             InitializeListBoxes();
@@ -185,7 +188,7 @@ namespace ItalianPizza.XAMLViews
                             var lastName = item.GetType().GetProperty("LastName").GetValue(item, null);
                             var secondLastName = item.GetType().GetProperty("SecondLastName").GetValue(item, null);
                             var fullName = $"{names} {lastName} {secondLastName}";
-                            container.Content = fullName;
+                            container.Content = fullName.Trim();
                         }
                     }
                 }
@@ -217,13 +220,11 @@ namespace ItalianPizza.XAMLViews
 
         public void MouseLeftButtonUp_AddDeliveryMan(object sender, MouseButtonEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Visible;
         }
 
         public void MouseLeftButtonUp_AddCustomer(object sender, MouseButtonEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Visible;
-            grdVitualWindowAddressForm.Visibility = Visibility.Visible;
+
         }
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
@@ -447,6 +448,10 @@ namespace ItalianPizza.XAMLViews
 
             StackPanel stackPanelContainer = new StackPanel();
 
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath = "";
+            string imagePath = "";
+
             foreach (var product in products)
             {
                 Grid grdContainer = new Grid
@@ -475,15 +480,20 @@ namespace ItalianPizza.XAMLViews
                 rectBackground.Effect = dropShadowEffect;
                 grdContainer.Children.Add(rectBackground);
 
-                Image imgPhotoProduct = new Image
+                if(imageManager.CheckProductImagePath(product.Id))
                 {
-                    Height = 120,
-                    Width = 120,
-                    Source = GetBitmapImage(product.Picture),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(-665, 0, 0, 0),
-                };
-                grdContainer.Children.Add(imgPhotoProduct);
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(System.IO.Path.Combine(baseDirectory, relativePath));
+                    Image imgPhotoProduct = new Image
+                    {
+                        Height = 120,
+                        Width = 120,
+                        Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)),
+                        Stretch = Stretch.Fill,
+                        Margin = new Thickness(-665, 0, 0, 0),
+                    };
+                    grdContainer.Children.Add(imgPhotoProduct);
+                }
 
                 Label lblNameCustomerOrder = new Label
                 {
@@ -599,7 +609,6 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con" +
                     " la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
-
         }
 
         private List<RecipeDetailsSet> GetRecipeIngredientsByProduct(ProductSaleSet productSale)
@@ -653,8 +662,7 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_AddCustomer(object sender, RoutedEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Collapsed;
-            grdVitualWindowAddressForm.Visibility = Visibility.Collapsed;
+
         }
 
         private void Button_ModifyCustomerOrder(object sender, RoutedEventArgs e)

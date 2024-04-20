@@ -4,13 +4,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms.VisualStyles;
+
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -322,5 +317,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return orderTypes;
         }
+
+
     }
 }
