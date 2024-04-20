@@ -1,22 +1,16 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
-using CrystalDecisions.Shared;
 using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.Resources;
 using ItalianPizza.XAMLViews.Articles;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity.Core;
-using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Xceed.Wpf.Toolkit;
 using Border = System.Windows.Controls.Border;
@@ -34,7 +28,7 @@ namespace ItalianPizza.XAMLViews
         {
             InitializeComponent();
 
-            //ShowArticles("");
+            ShowArticles("");
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -72,7 +66,28 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                
+                List<Border> articlesBorders = new List<Border>();
+
+                foreach (Border articleBorder in ArticlesStackPanel.Children)
+                {
+                    StackPanel articleBorderStackPanel = (StackPanel)VisualTreeHelper.GetChild(articleBorder, 0);
+                    TextBlock articleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 1);
+                    TextBlock articleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 2);
+                    IntegerUpDown articleManualQuantityIntegerUpDown = (IntegerUpDown)VisualTreeHelper.GetChild(articleBorderStackPanel, 4);
+                    TextBox articleObservationsTextBox = (TextBox)VisualTreeHelper.GetChild(articleBorderStackPanel, 5);
+
+                    if (articleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                    {
+                        new ProductDAO().UpdateProductObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
+                        new ProductDAO().UpdateProductRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
+                    }
+
+                    if (articleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                    {
+                        new SupplyDAO().UpdateSupplyObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
+                        new SupplyDAO().UpdateSupplyRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
+                    }
+                }
 
                 new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
             }
@@ -81,7 +96,6 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
-
         }
 
         private void ShowArticles(string textForFindingArticle)
@@ -147,8 +161,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = product.Quantity.ToString()
-                    
+                    Text = product.Quantity.ToString()                    
                 };
 
                 IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
@@ -162,7 +175,8 @@ namespace ItalianPizza.XAMLViews
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 36,
                     Width = 129,
-                    FontSize = 24
+                    FontSize = 24,
+                    Text = product.Quantity.ToString()
                 };
 
                 articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
@@ -176,7 +190,8 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Height = 108
+                    Height = 108,
+                    Text = product.Observations
                 };
 
                 articleStackPanel.Children.Add(articleImage);
@@ -261,21 +276,23 @@ namespace ItalianPizza.XAMLViews
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 36,
                     Width = 129,
-                    FontSize = 24
+                    FontSize = 24,
+                    Text = supply.Quantity.ToString()
                 };
 
                 articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
 
                 TextBox articleObservationsTextBox = new TextBox
                 {
-                    Foreground = Brushes.White,
+                    Foreground = Brushes.Black,
                     Margin = new Thickness(54, 0, 0, 0),
                     Width = 323,
                     TextWrapping = TextWrapping.Wrap,
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Height = 108
+                    Height = 108,
+                    Text = supply.Observations
                 };
 
                 articleStackPanel.Children.Add(articleImage);

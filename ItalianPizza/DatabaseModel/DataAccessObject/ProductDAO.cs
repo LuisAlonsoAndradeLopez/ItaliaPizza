@@ -204,17 +204,20 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                byte[] imageBytes = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().FirstOrDefault(ps => ps.Name == productName).Picture;
+                byte[] imageBytes = context.ProductSaleSet.AsNoTracking().FirstOrDefault(ps => ps.Name == productName).Picture;
 
                 BitmapImage bitmapImage = new BitmapImage();
 
-                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                if (imageBytes != null)
                 {
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze(); // Freeze the image for performance benefits
+                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                    {
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze(); // Freeze the image for performance benefits
+                    }
                 }
 
                 return bitmapImage;
@@ -262,7 +265,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().FirstOrDefault(p => p.Name == productName);
+                    product = context.ProductSaleSet.AsNoTracking().FirstOrDefault(p => p.Name == productName);
                 }
             }
             catch (EntityException ex)
@@ -285,12 +288,12 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 if (findByType == "Nombre")
                 {
-                    specifiedProducts = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.AsNoTracking().Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
                 }
 
                 if (findByType == "Código")
                 {
-                    specifiedProducts = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                    specifiedProducts = context.ProductSaleSet.AsNoTracking().Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
                 }
             }
 
@@ -339,7 +342,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    ProductSaleSet product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.IdentificationCode == productCode).FirstOrDefault();
+                    ProductSaleSet product = context.ProductSaleSet.AsNoTracking().Where(p => p.IdentificationCode == productCode).FirstOrDefault();
                     if (product != null)
                     {
                         return true;
@@ -364,7 +367,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    ProductSaleSet product = context.ProductSaleSet.Include(p => p.Picture).AsNoTracking().Where(p => p.Name == productName).FirstOrDefault();
+                    ProductSaleSet product = context.ProductSaleSet.AsNoTracking().Where(p => p.Name == productName).FirstOrDefault();
                     if (product != null)
                     {
                         return true;
@@ -465,5 +468,62 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return productStatusesList;
         }
 
+        public int UpdateProductObservations(string productName, string observations)
+        {
+            int generatedID = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    ProductSaleSet productFound = context.ProductSaleSet.Where(s => s.Name == productName).FirstOrDefault();
+                    if (productFound != null)
+                    {
+                        productFound.Observations = observations;
+                        context.SaveChanges();
+                        generatedID = (int)productFound.Id;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return generatedID;
+        }
+
+        public int UpdateProductRegisteredQuantity(string productName, int quantity)
+        {
+            int generatedID = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    ProductSaleSet productFound = context.ProductSaleSet.Where(s => s.Name == productName).FirstOrDefault();
+                    if (productFound != null)
+                    {
+                        productFound.Quantity = quantity;
+                        context.SaveChanges();
+                        generatedID = (int)productFound.Id;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return generatedID;
+        }
     }
 }

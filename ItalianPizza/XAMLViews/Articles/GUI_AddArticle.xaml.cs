@@ -108,6 +108,16 @@ namespace ItalianPizza.XAMLViews
             e.Handled = regex.IsMatch(e.Text);
         }
 
+        private void EnableOrDisableToggleButtonChecked(object sender, RoutedEventArgs e)
+        {
+            EnableOrDisableToggleButton.Content = "Si";
+        }
+
+        private void EnableOrDisableToggleButtonUnchecked(object sender, RoutedEventArgs e)
+        {
+            EnableOrDisableToggleButton.Content = "No";
+        }
+
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
         {
             NavigationService navigationService = NavigationService.GetNavigationService(this);

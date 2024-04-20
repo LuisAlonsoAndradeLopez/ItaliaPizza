@@ -136,13 +136,16 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                 BitmapImage bitmapImage = new BitmapImage();
 
-                using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                if (imageBytes != null)
                 {
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = memoryStream;
-                    bitmapImage.EndInit();
-                    bitmapImage.Freeze(); // Freeze the image for performance benefits
+                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                    {
+                        bitmapImage.BeginInit();
+                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmapImage.StreamSource = memoryStream;
+                        bitmapImage.EndInit();
+                        bitmapImage.Freeze(); // Freeze the image for performance benefits
+                    }
                 }
 
                 return bitmapImage;
@@ -275,6 +278,64 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
+        }
+
+        public int UpdateSupplyObservations(string supplyName, string observations)
+        {
+            int generatedID = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    SupplySet supplyFound = context.SupplySet.Where(s => s.Name == supplyName).FirstOrDefault();
+                    if (supplyFound != null)
+                    {
+                        supplyFound.Observations = observations;
+                        context.SaveChanges();
+                        generatedID = (int)supplyFound.Id;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return generatedID;
+        }
+
+        public int UpdateSupplyRegisteredQuantity(string supplyName, int quantity)
+        {
+            int generatedID = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    SupplySet supplyFound = context.SupplySet.Where(s => s.Name == supplyName).FirstOrDefault();
+                    if (supplyFound != null)
+                    {
+                        supplyFound.Quantity = quantity;
+                        context.SaveChanges();
+                        generatedID = (int)supplyFound.Id;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return generatedID;
         }
     }
 }

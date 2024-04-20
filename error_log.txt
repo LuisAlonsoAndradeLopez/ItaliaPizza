@@ -720,3 +720,23 @@ CrystalDecisions.CrystalReports.Engine.ParameterFieldCurrentValueException: Falt
    en ItalianPizza.XAMLViews.GUI_InventoryReport.ExportToPDFButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 112
 --------------------------------------------------
 
+Timestamp: 20/04/2024 03:25:10 p. m.
+Exception Details:
+System.ArgumentOutOfRangeException: El índice especificado está fuera de intervalo o el objeto secundario en el índice es nulo. No llame a este método si VisualChildrenCount devuelve cero, lo que indica que el Visual no tiene objetos secundarios.
+Nombre del parámetro: index
+Valor actual 1.
+   en System.Windows.Controls.Decorator.GetVisualChild(Int32 index)
+   en System.Windows.Media.VisualTreeHelper.GetChild(DependencyObject reference, Int32 childIndex)
+   en ItalianPizza.XAMLViews.GUI_InventoryReport.SaveJustificationButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 74
+--------------------------------------------------
+
+Timestamp: 20/04/2024 03:25:17 p. m.
+Exception Details:
+System.ArgumentOutOfRangeException: El índice especificado está fuera de intervalo o el objeto secundario en el índice es nulo. No llame a este método si VisualChildrenCount devuelve cero, lo que indica que el Visual no tiene objetos secundarios.
+Nombre del parámetro: index
+Valor actual 1.
+   en System.Windows.Controls.Decorator.GetVisualChild(Int32 index)
+   en System.Windows.Media.VisualTreeHelper.GetChild(DependencyObject reference, Int32 childIndex)
+   en ItalianPizza.XAMLViews.GUI_InventoryReport.SaveJustificationButtonOnClick(Object sender, RoutedEventArgs e) en C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\XAMLViews\Articles\GUI_InventoryReport.xaml.cs:línea 74
+--------------------------------------------------
+

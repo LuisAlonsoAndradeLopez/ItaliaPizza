@@ -37,7 +37,7 @@ namespace ItalianPizza.XAMLViews
             {
                 if (ShowComboBox != null)
                 {
-                    //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
                 }
             }
             catch (EntityException ex)
@@ -51,7 +51,7 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
             {
@@ -75,7 +75,7 @@ namespace ItalianPizza.XAMLViews
                 }
 
 
-                //ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
             { 
