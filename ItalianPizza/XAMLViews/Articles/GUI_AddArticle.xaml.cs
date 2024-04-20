@@ -156,7 +156,8 @@ namespace ItalianPizza.XAMLViews
                                                 ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                                 SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
                                                 EmployeeId = 2,
-                                                IdentificationCode = CodeTextBox.Text
+                                                IdentificationCode = CodeTextBox.Text,
+                                                Observations = ""
                                             };
 
                                             new SupplyDAO().AddSupply(supply);
@@ -174,7 +175,8 @@ namespace ItalianPizza.XAMLViews
                                                 ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
                                                 EmployeeId = 2,
                                                 IdentificationCode = CodeTextBox.Text,
-                                                Description = DescriptionTextBox.Text
+                                                Description = DescriptionTextBox.Text,
+                                                Observations = ""
                                             };
 
                                             new ProductDAO().AddProduct(product);

@@ -84,7 +84,9 @@
 
                 <StackPanel Name="EnableOrDisableRecipeStackPanel" Margin="0,20,0,0" Orientation="Horizontal" Visibility="Visible" Width="719">
                     <Label Content="¿Desea activar receta para este producto? " HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="32" FontFamily="Arial"/>
-                    <ToggleButton Style="{StaticResource RedToggleButtonStyle}" Content="Si" VerticalAlignment="Center" Height="35" Width="67" FontSize="25" Click="EnableOrDisableToggleButtonOnClick" IsChecked="{Binding IsToggleButtonChecked, Mode=TwoWay}"/>
+                    <ToggleButton Style="{StaticResource RedToggleButtonStyle}" Name="EnableOrDisableToggleButton" VerticalAlignment="Center" Height="35" Width="67" FontSize="18">
+                        <TextBlock Text="Si"/>
+                    </ToggleButton>
                 </StackPanel>
             </StackPanel>
             <Button Style="{StaticResource BlackButtonStyle}" Content="Atrás" HorizontalAlignment="Left" Margin="507,788,0,0" VerticalAlignment="Top" Height="66" Width="280" FontSize="25" Click="BackButtonOnClick"/>

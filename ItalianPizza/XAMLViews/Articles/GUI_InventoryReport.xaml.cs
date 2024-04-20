@@ -10,14 +10,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Core;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Xceed.Wpf.Toolkit;
 using Border = System.Windows.Controls.Border;
 using Orientation = System.Windows.Controls.Orientation;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -44,6 +48,12 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+        }
+
+        private void ManualQuantityIntegerUpDownPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
@@ -102,8 +112,6 @@ namespace ItalianPizza.XAMLViews
                     Height = 100,
                     Margin = new Thickness(26, 0, 0, 0),
                     Source = new ProductDAO().GetImageByProductName(product.Name)
-                    //Source = new BitmapImage(new Uri(Convert.ToBase64String(product.Picture), UriKind.RelativeOrAbsolute)),
-                    //Stretch = Stretch.Fill
                 };
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -130,37 +138,53 @@ namespace ItalianPizza.XAMLViews
                     Text = ArticleTypes.Producto.ToString()
                 };
 
-                TextBlock articleStatusTextBlock = new TextBlock
+                TextBlock articleRegisteredQuantityTextBlock = new TextBlock
                 {
                     Foreground = Brushes.White,
-                    Margin = new Thickness(6, 0, 0, 0),
-                    Width = 144,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 25,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = new ProductStatusDAO().GetProductStatusById(product.ProductStatusId).Status
-                    
-                };
-
-                TextBlock articleQuantityTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(6, 0, 0, 0),
+                    Margin = new Thickness(46, 0, 0, 0),
                     Width = 144,
                     TextWrapping = TextWrapping.Wrap,
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     Text = product.Quantity.ToString()
+                    
                 };
 
+                IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
+                {
+                    Margin = new Thickness(74, 0, 0, 0),
+                    Value = 0,
+                    Increment = 1,
+                    Maximum = 10000,
+                    Minimum = 0,
+                    MaxLength = 5,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Height = 36,
+                    Width = 129,
+                    FontSize = 24
+                };
+
+                articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
+
+                TextBox articleObservationsTextBox = new TextBox
+                {
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(54, 0, 0, 0),
+                    Width = 323,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Height = 108
+                };
 
                 articleStackPanel.Children.Add(articleImage);
                 articleStackPanel.Children.Add(articleNameTextBlock);
                 articleStackPanel.Children.Add(articleTypeTextBlock);
-                articleStackPanel.Children.Add(articleStatusTextBlock);
-                articleStackPanel.Children.Add(articleQuantityTextBlock);
+                articleStackPanel.Children.Add(articleRegisteredQuantityTextBlock);
+                articleStackPanel.Children.Add(articleManualQuantityIntegerUpDown);
+                articleStackPanel.Children.Add(articleObservationsTextBox);
 
                 articleBorder.Child = articleStackPanel;
 
@@ -214,22 +238,10 @@ namespace ItalianPizza.XAMLViews
                     Text = ArticleTypes.Insumo.ToString()
                 };
 
-                TextBlock articleStatusTextBlock = new TextBlock
+                TextBlock articleRegisteredQuantityTextBlock = new TextBlock
                 {
                     Foreground = Brushes.White,
-                    Margin = new Thickness(6, 0, 0, 0),
-                    Width = 144,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 25,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = new ProductStatusDAO().GetProductStatusById(supply.ProductStatusId).Status
-                };
-
-                TextBlock articleQuantityTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(6, 0, 0, 0),
+                    Margin = new Thickness(46, 0, 0, 0),
                     Width = 144,
                     TextWrapping = TextWrapping.Wrap,
                     FontSize = 25,
@@ -238,23 +250,45 @@ namespace ItalianPizza.XAMLViews
                     Text = supply.Quantity.ToString()
                 };
 
+                IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
+                {
+                    Margin = new Thickness(74, 0, 0, 0),
+                    Value = 0,
+                    Increment = 1,
+                    Maximum = 10000,
+                    Minimum = 0,
+                    MaxLength = 5,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Height = 36,
+                    Width = 129,
+                    FontSize = 24
+                };
+
+                articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
+
+                TextBox articleObservationsTextBox = new TextBox
+                {
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(54, 0, 0, 0),
+                    Width = 323,
+                    TextWrapping = TextWrapping.Wrap,
+                    FontSize = 25,
+                    TextAlignment = TextAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    Height = 108
+                };
 
                 articleStackPanel.Children.Add(articleImage);
                 articleStackPanel.Children.Add(articleNameTextBlock);
                 articleStackPanel.Children.Add(articleTypeTextBlock);
-                articleStackPanel.Children.Add(articleStatusTextBlock);
-                articleStackPanel.Children.Add(articleQuantityTextBlock);
+                articleStackPanel.Children.Add(articleRegisteredQuantityTextBlock);
+                articleStackPanel.Children.Add(articleManualQuantityIntegerUpDown);
+                articleStackPanel.Children.Add(articleObservationsTextBox);
 
                 articleBorder.Child = articleStackPanel;
 
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
         }
-    }
-
-    public class Person
-    {
-        public string Name { get; set; }
-        public int Age { get; set; }
     }
 }

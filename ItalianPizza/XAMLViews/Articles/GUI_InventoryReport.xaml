@@ -49,9 +49,9 @@
                             <Image Width="100" Height="100" Margin="26, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
                             <TextBlock Foreground="White" Margin="30, 0, 0, 0" Width="290" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Articulo 1"/>
                             <TextBlock Foreground="White" Margin="6, 0, 0, 0" Width="142" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Insumo"/>
-                            <TextBlock Foreground="White" Margin="50, 0, 0, 0" Width="144" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
-                            <xctk:IntegerUpDown Margin="70,0,0,0" Name="ManualQuantityIntegerUpDown" Value="0" Increment="1" Maximum="10000" Minimum="0" MaxLength="5" VerticalAlignment="Center" Height="36" Width="129" FontSize="24" PreviewTextInput="ManualQuantityIntegerUpDownPreviewTextInput"/>
-                            <TextBox Foreground="White" Margin="50, 0, 0, 0" Name="ArticleObservationTextBox" Width="323" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="2" Height="108"/>
+                            <TextBlock Foreground="White" Margin="46, 0, 0, 0" Width="144" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                            <xctk:IntegerUpDown Margin="74,0,0,0" Name="ManualQuantityIntegerUpDown" Value="0" Increment="1" Maximum="10000" Minimum="0" MaxLength="5" VerticalAlignment="Center" Height="36" Width="129" FontSize="24" PreviewTextInput="ManualQuantityIntegerUpDownPreviewTextInput"/>
+                            <TextBox Foreground="White" Margin="54, 0, 0, 0" Name="ArticleObservationTextBox" Width="323" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="2" Height="108"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>

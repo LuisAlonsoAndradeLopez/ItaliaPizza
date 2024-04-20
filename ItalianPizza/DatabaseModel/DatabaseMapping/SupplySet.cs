@@ -32,6 +32,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int SupplyTypeId { get; set; }
         public int EmployeeId { get; set; }
         public string IdentificationCode { get; set; }
+        public string Observations { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual ProductStatusSet ProductStatusSet { get; set; }

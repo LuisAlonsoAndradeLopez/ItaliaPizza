@@ -29,6 +29,17 @@ namespace ItalianPizza.XAMLViews.Articles
 
             foreach(var product in new ProductDAO().GetProductsForInventoryReport())
             {
+                string productObservations;
+
+                if (product.Observations == "")
+                {
+                    productObservations = "No hay observaciones";
+                }
+                else
+                {
+                    productObservations = product.Observations;
+                }
+
                 products.AddArticleRow(
                     product.Name,
                     "Producto",
@@ -37,12 +48,23 @@ namespace ItalianPizza.XAMLViews.Articles
                     product.IdentificationCode,
                     product.PricePerUnit.ToString(),
                     product.Quantity.ToString(),
-                    product.Observation
+                    productObservations
                 );
             }
 
             foreach (var supply in new SupplyDAO().GetSuppliesForInventoryReport())
             {
+                string supplyObservations;
+
+                if (supply.Observations == "")
+                {
+                    supplyObservations = "No hay observaciones";
+                }
+                else
+                {
+                    supplyObservations = supply.Observations;
+                }
+
                 products.AddArticleRow(
                     supply.Name,
                     "Insumo",
@@ -51,7 +73,7 @@ namespace ItalianPizza.XAMLViews.Articles
                     supply.IdentificationCode,
                     supply.PricePerUnit.ToString(),
                     supply.Quantity.ToString(),
-                    "NA"
+                    supplyObservations
                 );
             }
 
