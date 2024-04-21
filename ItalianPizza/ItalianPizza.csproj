@@ -248,11 +248,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="ItalianPizzaServerBDDataSetTest.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Resources\InventoryReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -439,17 +434,6 @@
     </None>
     <None Include="ItalianPizzaBDArticleReportDataSet.xss">
       <DependentUpon>ItalianPizzaBDArticleReportDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="ItalianPizzaServerBDDataSetTest.xsc">
-      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
-    </None>
-    <None Include="ItalianPizzaServerBDDataSetTest.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>ItalianPizzaServerBDDataSetTest.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="ItalianPizzaServerBDDataSetTest.xss">
-      <DependentUpon>ItalianPizzaServerBDDataSetTest.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\ItalianPizza.DatabaseModel.DatabaseMapping.ProductSaleSet.datasource" />

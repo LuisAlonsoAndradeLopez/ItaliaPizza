@@ -1,11 +1,11 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using ItalianPizza.Auxiliary;
+﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.XAMLViews.Articles;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -90,6 +90,8 @@ namespace ItalianPizza.XAMLViews
                 }
 
                 new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
+
+                ShowArticles(TextForFindingArticleTextBox.Text);
             }
             catch (Exception ex)
             {
@@ -104,6 +106,17 @@ namespace ItalianPizza.XAMLViews
             List<ProductSaleSet> products = new ProductDAO().GetSpecifiedProductsByNameOrCode(textForFindingArticle, "Nombre");
 
             ArticlesStackPanel.Children.Clear();
+
+            string incompleteArticleQuantityTextBoxStylePath = Path.GetFullPath("XAMLViews\\GUIComponentsStyles\\TextBoxStyles.xaml");
+            string articleQuantityTextBoxStylePathPartToDelete = "bin\\Debug\\";
+            string completeArticleQuantityTextBoxStylePath = incompleteArticleQuantityTextBoxStylePath.Replace(articleQuantityTextBoxStylePathPartToDelete, "");
+
+            ResourceDictionary resourceDictionary = new ResourceDictionary
+            {
+                Source = new Uri(completeArticleQuantityTextBoxStylePath)
+            };
+
+            Style articleQuantityTextBoxStyle = (Style)resourceDictionary["ModifyArticleTextBoxStyle"];
 
             foreach (var product in products)
             {
@@ -167,7 +180,7 @@ namespace ItalianPizza.XAMLViews
                 IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
                 {
                     Margin = new Thickness(74, 0, 0, 0),
-                    Value = 0,
+                    Value = product.Quantity,
                     Increment = 1,
                     Maximum = 10000,
                     Minimum = 0,
@@ -175,8 +188,7 @@ namespace ItalianPizza.XAMLViews
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 36,
                     Width = 129,
-                    FontSize = 24,
-                    Text = product.Quantity.ToString()
+                    FontSize = 24
                 };
 
                 articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
@@ -191,7 +203,8 @@ namespace ItalianPizza.XAMLViews
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 108,
-                    Text = product.Observations
+                    Text = product.Observations,
+                    Style = articleQuantityTextBoxStyle
                 };
 
                 articleStackPanel.Children.Add(articleImage);
@@ -268,7 +281,7 @@ namespace ItalianPizza.XAMLViews
                 IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
                 {
                     Margin = new Thickness(74, 0, 0, 0),
-                    Value = 0,
+                    Value = supply.Quantity,
                     Increment = 1,
                     Maximum = 10000,
                     Minimum = 0,
@@ -276,8 +289,7 @@ namespace ItalianPizza.XAMLViews
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 36,
                     Width = 129,
-                    FontSize = 24,
-                    Text = supply.Quantity.ToString()
+                    FontSize = 24
                 };
 
                 articleManualQuantityIntegerUpDown.PreviewTextInput += ManualQuantityIntegerUpDownPreviewTextInput;
@@ -292,7 +304,8 @@ namespace ItalianPizza.XAMLViews
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     Height = 108,
-                    Text = supply.Observations
+                    Text = supply.Observations,
+                    Style = articleQuantityTextBoxStyle
                 };
 
                 articleStackPanel.Children.Add(articleImage);

@@ -240,7 +240,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             PricePerUnit = p.PricePerUnit,
                             Quantity = p.Quantity,
                             ProductStatusSet = p.ProductStatusSet,
-                            ProductTypeSet = p.ProductTypeSet
+                            ProductTypeSet = p.ProductTypeSet,
+                            Observations = p.Observations
                         })
                         .ToList();
 

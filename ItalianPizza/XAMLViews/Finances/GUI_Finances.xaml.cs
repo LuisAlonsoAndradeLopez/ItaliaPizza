@@ -1,4 +1,5 @@
 ﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,12 @@ namespace ItalianPizza.XAMLViews.Finances
     /// </summary>
     public partial class GUI_Finances : Page
     {
+        //TODO:
+
+        //Try-catch a todos los botonazos de todas las ventanas
+        //Camo, como decias lo de la foto
+        //Almacenar articulos en la lista para cuando se cargan, y que al usar los textboxes y comboboxes no lageen
+
         public GUI_Finances()
         {
             InitializeComponent();
@@ -52,7 +59,7 @@ namespace ItalianPizza.XAMLViews.Finances
                 Description = FinancialTransactionDescriptionTextBox.Text
             };
 
-            //new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+            new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
 
             new AlertPopup("¡Transacción exitosa!", "Transacción financiera registrada con éxito.", AlertPopupTypes.Success);
 
