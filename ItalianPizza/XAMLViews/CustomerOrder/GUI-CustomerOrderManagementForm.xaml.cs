@@ -639,21 +639,6 @@ namespace ItalianPizza.XAMLViews
             return recipeDetails;
         }
 
-        private BitmapImage GetBitmapImage(byte[] data)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(data))
-            {
-                memoryStream.Position = 0;
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-            }
-
-            return bitmapImage;
-        }
-
         private void GoToConsultCustomerOrdersVirtualWindow(object sender, RoutedEventArgs e)
         {
             VerifyUnconfirmedProducts();

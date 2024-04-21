@@ -432,31 +432,6 @@
         </Grid>
 
         <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
-
-        <Rectangle 
-    HorizontalAlignment="Left" 
-    Height="889"
-    VerticalAlignment="Top" 
-    Width="644" 
-    RadiusX="30" 
-    RadiusY="30"
-    Fill="#FF18171C" Margin="1090,10,0,0" RenderTransformOrigin="0.5,0.5">
-            <Rectangle.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleY="-0.259"/>
-                    <RotateTransform/>
-                    <TranslateTransform Y="-1.181"/>
-                </TransformGroup>
-            </Rectangle.RenderTransform>
-            <Rectangle.Stroke>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFE2A218"/>
-                    <GradientStop Color="#FFC50E0E" Offset="1"/>
-                </LinearGradientBrush>
-            </Rectangle.Stroke>
-        </Rectangle>
-
     </Grid>
 </Page>
 

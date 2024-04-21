@@ -406,9 +406,6 @@
     <Resource Include="Resources\Pictures\IMG_8823.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="TempCache\Products\" />
-    <Folder Include="TempCache\Supplies\" />
-    <Folder Include="TempCache\Users\" />
     <Folder Include="XAMLViews\Finances\" />
   </ItemGroup>
   <ItemGroup>

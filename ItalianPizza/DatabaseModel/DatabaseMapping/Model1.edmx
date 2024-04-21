@@ -105,9 +105,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="EmployeeImage" Type="varbinary(max)" Nullable="false" />
           <Property Name="Employee_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="EmployeePositionSet">
           <Key>
@@ -185,9 +185,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="ProductImage" Type="varbinary(max)" Nullable="false" />
           <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="ProductSaleSet">
           <Key>
@@ -287,9 +287,9 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="SupplyImage" Type="varbinary(max)" Nullable="false" />
           <Property Name="Supply_Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="SupplySet">
           <Key>
