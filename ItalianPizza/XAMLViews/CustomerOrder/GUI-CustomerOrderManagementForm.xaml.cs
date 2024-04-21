@@ -1,6 +1,8 @@
 ﻿
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -9,7 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -18,6 +19,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Label = System.Windows.Controls.Label;
 using ListBox = System.Windows.Controls.ListBox;
+using Path = System.IO.Path;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -33,10 +35,12 @@ namespace ItalianPizza.XAMLViews
         private CustomerOrderSet customerOrderSet;
         private ProductDAO productDAO;
         private UserDAO userDAO;
+        private ImageManager imageManager;
         public GUI_CustomerOrderManagementForm(CustomerOrderSet customerOrder)
         {
             InitializeComponent();
             customerOrderSet = customerOrder;
+            imageManager = new ImageManager();
             InitializeDAOConnections();
             ShowActiveProducts();
             InitializeListBoxes();
@@ -85,25 +89,7 @@ namespace ItalianPizza.XAMLViews
                     lboDeliverymen.SelectedItem = deliveryman;
                     lboOrderStatusCustomer.SelectedItem = customerOrderSet.OrderStatusSet;
                     lboOrderTypeCustomer.SelectedItem = customerOrderSet.OrderTypeSet;
-                    listProductsCustomerOrder = productDAO.GetOrderProducts(customerOrder);
-                    listProductsCustomerOrderCopy = new List<ProductSaleSet>();
-                    foreach (ProductSaleSet product in listProductsCustomerOrder)
-                    {
-                        ProductSaleSet productSaleSet = new ProductSaleSet
-                        {
-                            Id = product.Id,
-                            Name = product.Name,
-                            Description = product.Description,
-                            PricePerUnit = product.PricePerUnit,
-                            ProductStatusId = product.ProductStatusId,
-                            EmployeeId = product.EmployeeId,
-                            Quantity = product.Quantity
-                        };
-                        listProductsCustomerOrderCopy.Add(productSaleSet);
-                    }
-                    ShowOrderProducts(listProductsCustomerOrder);
-                    btnModifyCustomerOrder.Visibility = Visibility.Visible;
-                    btnRegisterCustomerOrder.Visibility = Visibility.Hidden;
+                    GetOrderProductsActually(customerOrder);
                 }
                 else
                 {
@@ -113,12 +99,39 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
+                    " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que " +
+                    "los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+        }
+
+        private void GetOrderProductsActually(CustomerOrderSet customerOrder)
+        {
+            listProductsCustomerOrder = productDAO.GetOrderProducts(customerOrder);
+            listProductsCustomerOrderCopy = new List<ProductSaleSet>();
+            foreach (ProductSaleSet product in listProductsCustomerOrder)
+            {
+                ProductSaleSet productSaleSet = new ProductSaleSet
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    Description = product.Description,
+                    PricePerUnit = product.PricePerUnit,
+                    ProductStatusId = product.ProductStatusId,
+                    EmployeeId = product.EmployeeId,
+                    Quantity = product.Quantity
+                };
+                listProductsCustomerOrderCopy.Add(productSaleSet);
+            }
+            ShowOrderProducts(listProductsCustomerOrder);
+            btnModifyCustomerOrder.Visibility = Visibility.Visible;
+            btnRegisterCustomerOrder.Visibility = Visibility.Hidden;
         }
 
         private void InitializeDAOConnections()
@@ -147,11 +160,16 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
+                    " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -170,7 +188,7 @@ namespace ItalianPizza.XAMLViews
                             var lastName = item.GetType().GetProperty("LastName").GetValue(item, null);
                             var secondLastName = item.GetType().GetProperty("SecondLastName").GetValue(item, null);
                             var fullName = $"{names} {lastName} {secondLastName}";
-                            container.Content = fullName;
+                            container.Content = fullName.Trim();
                         }
                     }
                 }
@@ -202,13 +220,11 @@ namespace ItalianPizza.XAMLViews
 
         public void MouseLeftButtonUp_AddDeliveryMan(object sender, MouseButtonEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Visible;
         }
 
         public void MouseLeftButtonUp_AddCustomer(object sender, MouseButtonEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Visible;
-            grdVitualWindowAddressForm.Visibility = Visibility.Visible;
+
         }
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
@@ -221,18 +237,25 @@ namespace ItalianPizza.XAMLViews
 
                 try
                 {
-                    customerOrdersDAO.RegisterCustomerOrder(customerOrder, listProductsCustomerOrder, customer, deliveryman);
-                    new AlertPopup("Registro Exitoso", "Se ha registrado correctamente el pedido a la base de datos", Auxiliary.AlertPopupTypes.Success);
+                    customerOrdersDAO.RegisterCustomerOrder(customerOrder, 
+                        listProductsCustomerOrder, customer, deliveryman);
                     listProductsCustomerOrder.Clear();
                     CleanFields();
+                    new AlertPopup("Registro Exitoso", "Se ha registrado " +
+                        "correctamente el pedido a la base de datos", Auxiliary.AlertPopupTypes.Success);
+                    ;
                 }
                 catch (EntityException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", 
+                        "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
+                        " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
                 }
                 catch (InvalidOperationException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", "Lo siento, " +
+                        "pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                        Auxiliary.AlertPopupTypes.Error);
                 }
             }
         }
@@ -241,7 +264,8 @@ namespace ItalianPizza.XAMLViews
         {
             if (listProductsCustomerOrder.Count == 0)
             {
-                ShowAlert("Informacion incompleta", "El pedido del cliente debe tener al menos un pedido registrado, verifique si el pedido cumple con esto e inténtelo de nuevo!");
+                ShowAlert("Informacion incompleta", "El pedido del cliente debe tener al" +
+                    " menos un pedido registrado, verifique si el pedido cumple con esto e inténtelo de nuevo!");
                 return false;
             }
 
@@ -309,7 +333,7 @@ namespace ItalianPizza.XAMLViews
             customerOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
                 "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
             customerOrder.TotalAmount = CalculateTotalCost();
-            customerOrder.EmployeeId = 1;
+            customerOrder.EmployeeId = UserToken.GetEmployeeID();
 
             return customerOrder;
         }
@@ -399,11 +423,15 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
+                    "la conexion a la base de datos, intentelo mas tarde por favor, gracias!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un" +
+                    " error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
 
         }
@@ -419,6 +447,10 @@ namespace ItalianPizza.XAMLViews
             };
 
             StackPanel stackPanelContainer = new StackPanel();
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath = "";
+            string imagePath = "";
 
             foreach (var product in products)
             {
@@ -448,15 +480,20 @@ namespace ItalianPizza.XAMLViews
                 rectBackground.Effect = dropShadowEffect;
                 grdContainer.Children.Add(rectBackground);
 
-                Image imgPhotoProduct = new Image
+                if(imageManager.CheckProductImagePath(product.Id))
                 {
-                    Height = 120,
-                    Width = 120,
-                    Source = GetBitmapImage(product.Picture),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(-665, 0, 0, 0),
-                };
-                grdContainer.Children.Add(imgPhotoProduct);
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(System.IO.Path.Combine(baseDirectory, relativePath));
+                    Image imgPhotoProduct = new Image
+                    {
+                        Height = 120,
+                        Width = 120,
+                        Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)),
+                        Stretch = Stretch.Fill,
+                        Margin = new Thickness(-665, 0, 0, 0),
+                    };
+                    grdContainer.Children.Add(imgPhotoProduct);
+                }
 
                 Label lblNameCustomerOrder = new Label
                 {
@@ -533,7 +570,9 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                new AlertPopup("Faltan ingredientes", "Lo siento, pero no nos alcanza los ingredientes para otro producto mas de este tipo", Auxiliary.AlertPopupTypes.Warning);
+                new AlertPopup("Faltan ingredientes", "Lo siento, pero no nos alcanza " +
+                    "los ingredientes para otro producto mas de este tipo", 
+                    Auxiliary.AlertPopupTypes.Warning);
             }
         }
 
@@ -562,13 +601,14 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con" +
+                    " la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con" +
+                    " la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
-
         }
 
         private List<RecipeDetailsSet> GetRecipeIngredientsByProduct(ProductSaleSet productSale)
@@ -587,29 +627,16 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error" +
+                    " con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error" +
+                    " con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
 
             return recipeDetails;
-        }
-
-        private BitmapImage GetBitmapImage(byte[] data)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(data))
-            {
-                memoryStream.Position = 0;
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-            }
-
-            return bitmapImage;
         }
 
         private void GoToConsultCustomerOrdersVirtualWindow(object sender, RoutedEventArgs e)
@@ -620,8 +647,7 @@ namespace ItalianPizza.XAMLViews
 
         private void Button_AddCustomer(object sender, RoutedEventArgs e)
         {
-            grdVirtualWindowDeliveryCustomerRegistrationForm.Visibility = Visibility.Collapsed;
-            grdVitualWindowAddressForm.Visibility = Visibility.Collapsed;
+
         }
 
         private void Button_ModifyCustomerOrder(object sender, RoutedEventArgs e)
@@ -629,7 +655,7 @@ namespace ItalianPizza.XAMLViews
             if (ValidateOrderDetails())
             {
                 OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
-                if (orderStatus.Id != 15)
+                if (orderStatus.Id != 6)
                 {
                     PrepareModifyCustomerOrder();
                     CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
@@ -643,11 +669,13 @@ namespace ItalianPizza.XAMLViews
                     }
                     catch (EntityException)
                     {
-                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error " +
+                            "con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
                     }
                     catch (InvalidOperationException)
                     {
-                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
+                            "la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
                     }
                 }
                 else
@@ -661,7 +689,7 @@ namespace ItalianPizza.XAMLViews
         {
             if(customerOrderSet.OrderStatusId == 2)
             {
-                customerOrderSet.OrderStatusId = 15;
+                customerOrderSet.OrderStatusId = 6;
 
                 try
                 {
@@ -671,21 +699,27 @@ namespace ItalianPizza.XAMLViews
                     {
                         productDAO.RestoreSuppliesOnSale(GetRecipeIngredientsByProduct(productSale));
                     }
-                    new AlertPopup("Cancelacion de pedio completada", "Se a cancelado correctamente el pedido", Auxiliary.AlertPopupTypes.Success);
+                    new AlertPopup("Cancelacion de pedio completada", "Se a cancelado correctamente el pedido", 
+                        Auxiliary.AlertPopupTypes.Success);
                     NavigationService.Navigate(new GUI_ConsultCustomerOrder());
                 }
                 catch (EntityException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la " +
+                        "conexion a la base de datos, intentelo mas tarde por favor, gracias!",
+                        Auxiliary.AlertPopupTypes.Error);
                 }
                 catch (InvalidOperationException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la" +
+                        " base de datos, verifique que los datos que usted ingresa no esten corrompidos!", 
+                        Auxiliary.AlertPopupTypes.Error);
                 }
             }
             else
             {
-                new AlertPopup("No se puede cancelar este pedio", "Una vez que entra a cocina un pedido, no se puede modificar", Auxiliary.AlertPopupTypes.Warning);
+                new AlertPopup("No se puede cancelar este pedio", "Una vez que entra a cocina un pedido, " +
+                    "no se puede modificar", Auxiliary.AlertPopupTypes.Warning);
             }
 
         }
@@ -696,7 +730,8 @@ namespace ItalianPizza.XAMLViews
             {
                 foreach (ProductSaleSet product in listProductsCustomerOrder)
                 {
-                    ProductSaleSet correspondingProductInCopy = listProductsCustomerOrderCopy.FirstOrDefault(p => p.Id == product.Id);
+                    ProductSaleSet correspondingProductInCopy = listProductsCustomerOrderCopy.
+                        FirstOrDefault(p => p.Id == product.Id);
                     if (correspondingProductInCopy == null)
                     {
                         List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
@@ -741,11 +776,13 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la" +
+                    " conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
+                    "la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
     }

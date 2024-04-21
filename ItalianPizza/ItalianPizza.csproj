@@ -143,6 +143,7 @@
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\RecipeDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\SupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyTypeDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\SupplyUnitDAO.cs" />
@@ -168,7 +169,13 @@
     <Compile Include="DatabaseModel\DatabaseMapping\DailyClosingSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\database_firewall_rules.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\DeliveryDriverSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\EmployeePictureSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\EmployeePositionSet.cs">
@@ -204,6 +211,9 @@
     <Compile Include="DatabaseModel\DatabaseMapping\OrderTypeSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductPictureSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\ProductSaleSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -226,6 +236,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\SupplierSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyPictureSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\SupplySet.cs">
@@ -263,6 +276,7 @@
       <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="SingletonClasses\UserToken.cs" />
+    <Compile Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml.cs">
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
@@ -280,11 +294,14 @@
       <DependentUpon>GUI_Finances.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\GUI-Login.xaml.cs">
+    <Compile Include="XAMLViews\Login\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Articles\GUI_AddArticle.xaml.cs">
+    <Compile Include="XAMLViews\Stock\GUI_AddArticle.xaml.cs">
       <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Stock\GUI_Inventory.xaml.cs">
     <Compile Include="XAMLViews\Articles\GUI_Inventory.xaml.cs">
       <DependentUpon>GUI_Inventory.xaml</DependentUpon>
     </Compile>
@@ -296,6 +313,18 @@
     </Compile>
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Suppliers\GUI-SupplierOrdersModule.xaml.cs">
+      <DependentUpon>GUI-SupplierOrdersModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml.cs">
+      <DependentUpon>GUI-SuppliersModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Suppliers\SuppliersForm.xaml.cs">
+      <DependentUpon>SuppliersForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Users\CustomerForm.xaml.cs">
+      <DependentUpon>CustomerForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
@@ -318,7 +347,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="XAMLViews\AlertPopup.xaml">
+    <Page Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -334,6 +363,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="XAMLViews\Login\GUI-Login.xaml">
     <Page Include="XAMLViews\Finances\GUI_Finances.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -358,6 +388,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="XAMLViews\Stock\GUI_AddArticle.xaml">
     <Page Include="XAMLViews\Articles\GUI_AddArticle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -366,6 +397,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="XAMLViews\Stock\GUI_Inventory.xaml">
     <Page Include="XAMLViews\Articles\GUI_InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -374,13 +406,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLViews\Login\Login.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="XAMLViews\NavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\GUI-SupplierOrdersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\SuppliersForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Users\CustomerForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Users\GUI-AddUser.xaml">
       <SubType>Designer</SubType>
@@ -491,6 +535,7 @@
     <Resource Include="Resources\Pictures\IMG_8823.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="XAMLViews\Finances\" />
     <Folder Include="XAMLViews\Stock\" />
     <Folder Include="XAMLViews\Suppliers\" />
   </ItemGroup>
@@ -506,6 +551,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-Eliminar.png" />
+    <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
+    <Resource Include="Resources\Pictures\ICON-Supplier.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

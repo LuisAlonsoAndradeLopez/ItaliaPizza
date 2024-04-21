@@ -28,6 +28,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
             this.SupplierSet = new HashSet<SupplierSet>();
             this.SupplierOrderSet = new HashSet<SupplierOrderSet>();
             this.SupplySet = new HashSet<SupplySet>();
+            this.EmployeePictureSet = new HashSet<EmployeePictureSet>();
         }
     
         public int Id { get; set; }
@@ -68,5 +69,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual ICollection<SupplySet> SupplySet { get; set; }
         public virtual UserAccountSet UserAccountSet { get; set; }
         public virtual UserStatusSet UserStatusSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmployeePictureSet> EmployeePictureSet { get; set; }
     }
 }

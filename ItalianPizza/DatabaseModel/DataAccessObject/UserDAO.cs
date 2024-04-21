@@ -25,21 +25,53 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    employee = context.EmployeeSet
-                        .Include(employeeAux => employeeAux.AddressSet)
-                        .Include(employeeAux => employeeAux.UserAccountSet)
-                        .Include(employeeAux => employeeAux.EmployeePositionSet)
-                        .Include(employeeAux => employeeAux.UserStatusSet)
-                        .FirstOrDefault(employeeAux => employeeAux.UserAccountSet.UserName == employeeAccount.UserName && employeeAux.UserAccountSet.Password == employeeAccount.Password);
+                    var result = context.EmployeeSet
+                        .Include(s => s.EmployeePositionSet)
+                        .Include(s => s.UserAccountSet)
+                        .Include(s => s.UserStatusSet)
+                        .Where(e => e.UserAccountSet.UserName == employeeAccount.UserName && e.UserAccountSet.Password == employeeAccount.Password)
+                        .Select(e => new
+                        {
+                            e.Id,
+                            e.Names,
+                            e.LastName,
+                            e.SecondLastName,
+                            e.UserAccount_Id,
+                            e.UserStatusId,
+                            e.EmployeePositionId,
+                            e.Address_Id,
+                            e.UserStatusSet,
+                            e.EmployeePositionSet,
+                            e.UserAccountSet
+                        })
+                        .FirstOrDefault();
+
+                    if (result != null)
+                    {
+                        employee = new EmployeeSet
+                        {
+                            Id = result.Id,
+                            Names = result.Names,
+                            LastName = result.LastName,
+                            SecondLastName = result.SecondLastName,
+                            UserAccount_Id = result.UserAccount_Id,
+                            UserStatusId = result.UserStatusId,
+                            EmployeePositionId = result.EmployeePositionId,
+                            Address_Id = result.Address_Id,
+                            UserStatusSet = result.UserStatusSet,
+                            EmployeePositionSet = result.EmployeePositionSet,
+                            UserAccountSet = result.UserAccountSet
+                        };
+                    }
                 }
-            }
-            catch (EntityException ex)
-            {
-                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
             }
             catch (InvalidOperationException ex)
             {
-                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                throw new InvalidOperationException("Error al acceder a la base de datos.", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Ocurrió un error inesperado.", ex);
             }
 
             return employee;
@@ -411,6 +443,39 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return deliveryDriver;
+        }
+
+        public List<UserStatusSet> GetAllUserStatus()
+        {
+            List<UserStatusSet> statusList = new List<UserStatusSet>();
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                statusList = context.UserStatusSet.ToList();
+            }
+            return statusList;
+        }
+
+        public EmployeePictureSet GetUserPicturebyID(int userID)
+        {
+            EmployeePictureSet userPicture;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    userPicture = context.EmployeePictureSet.FirstOrDefault(p => p.Employee_Id == userID);
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return userPicture;
         }
 
     }

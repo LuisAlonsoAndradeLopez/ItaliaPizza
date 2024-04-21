@@ -1,5 +1,5 @@
 ﻿using ItalianPizza.XAMLViews;
-using ItalianPizza.XAMLViews.Finances;
+using ItalianPizza.XAMLViews.Suppliers;
 using System.Windows;
 
 namespace ItalianPizza

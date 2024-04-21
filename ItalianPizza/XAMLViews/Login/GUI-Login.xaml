@@ -1,0 +1,207 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.GUI_Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      mc:Ignorable="d" 
+      Height="922.16" 
+      Width="1742.8"
+      Title="GUI_Login">
+
+    <Grid Background="#070711" Margin="0,0,0,-6" >
+        <Image 
+            HorizontalAlignment="Center" 
+            Height="1201" 
+            VerticalAlignment="Top" 
+            Width="1796" 
+            Source="\Resources\Pictures\FONDO-LOGIN.jpg" Margin="0,-189,0,0"/>
+
+        <Rectangle 
+            HorizontalAlignment="Left" 
+            Height="558" 
+            Margin="82,175,0,0" 
+            RadiusX="30" 
+            RadiusY="30" 
+            VerticalAlignment="Top" 
+            Width="534" 
+            Opacity="0.3">
+
+            <Rectangle.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="315" 
+                                  ShadowDepth="7" 
+                                  Opacity="0.6"/>
+            </Rectangle.Effect>
+
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle 
+            HorizontalAlignment="Left" 
+            Height="558"
+            Margin="82,175,0,0" 
+            RadiusX="30"
+            RadiusY="30" 
+            VerticalAlignment="Top"
+            Width="534" 
+            Opacity="0.3">
+
+            <Rectangle.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="315" 
+                                  ShadowDepth="7" 
+                                  Opacity="0.6"/>
+            </Rectangle.Effect>
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0.948"/>
+                    <GradientStop Color="White" Offset="0"/>
+                    <GradientStop Color="#FF171717" Offset="0.862"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Label Content="Pizza" 
+               HorizontalAlignment="Left" 
+               Margin="348,209,0,0"
+               VerticalAlignment="Top" 
+               Foreground="#FFDEAB04"
+               FontFamily="Arial"
+               FontWeight="Bold"
+               FontSize="40"/>
+
+        <Label Content="Italian"
+               HorizontalAlignment="Left"
+               Margin="231,209,0,0"
+               VerticalAlignment="Top"
+               Foreground="White"
+               FontFamily="Arial"
+               FontWeight="Bold"
+               FontSize="40"
+               RenderTransformOrigin="-0.025,-0.215"/>
+
+        <Label Content="Ingrese nombre de usuario "
+               HorizontalAlignment="Left"
+               Margin="160,305,0,0"
+               VerticalAlignment="Top"
+               Foreground="#FFF8F3F3"
+               FontFamily="Arial"
+               FontSize="22"
+               FontWeight="Bold"/>
+
+        <TextBox x:Name="txtUserName"
+                 HorizontalAlignment="Left" 
+                 Margin="161,357,0,0"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Top" 
+                 Width="374" 
+                 Background="{x:Null}"
+                 BorderBrush="#FFF0F0F0"
+                 Foreground="White" 
+                 Height="47" 
+                 FontSize="24">
+            <TextBox.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="315" 
+                                  ShadowDepth="5" 
+                                  Opacity="0.6"/>
+            </TextBox.Effect>
+        </TextBox>
+
+        <Label Content="Ingrese su contraseña" 
+               HorizontalAlignment="Left" 
+               Margin="162,437,0,0" 
+               VerticalAlignment="Top" 
+               Foreground="#FFF8F3F3" 
+               FontFamily="Arial"
+               FontSize="22"
+               FontWeight="Bold"/>
+
+        <TextBox x:Name="txtPassword"
+            HorizontalAlignment="Left" 
+            Margin="162,491,0,0"
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="375"
+            Background="{x:Null}" 
+            BorderBrush="White"
+            Foreground="White" 
+            Height="47"
+            FontSize="24"
+            Visibility="Hidden"
+            TextChanged="TxtPassword_TextChanged">
+            <TextBox.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="315" 
+                                  ShadowDepth="5"
+                                  Opacity="0.6"/>
+            </TextBox.Effect>
+        </TextBox>
+
+        <Button Content="Login" 
+                HorizontalAlignment="Left"
+                Margin="219,606,0,0"
+                VerticalAlignment="Top" 
+                BorderBrush="#FFDEAB04"
+                Background="#FFDEAB04" 
+                Cursor="Hand"
+                Height="44"
+                Width="264"
+                Foreground="White"
+                FontFamily="Verdana" 
+                FontSize="24" 
+                FontWeight="Bold" Click="Button_Click">
+            <Button.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="240" 
+                                  ShadowDepth="10"
+                                  Opacity="0.6"/>
+            </Button.Effect>
+        </Button>
+
+        <PasswordBox x:Name="pwPassword" 
+                     HorizontalAlignment="Left" 
+                     Margin="162,491,0,0" 
+                     VerticalAlignment="Top" 
+                     Width="374" 
+                     Height="47" Background="{x:Null}" 
+                     BorderBrush="White" 
+                     Foreground="White" 
+                     FontSize="24"
+                     PasswordChanged="PasswordBox_PasswordChanged">
+            <PasswordBox.Effect>
+                <DropShadowEffect Color="Black" 
+                                  Direction="315" 
+                                  ShadowDepth="5" 
+                                  Opacity="0.6"/>
+            </PasswordBox.Effect>
+        </PasswordBox>
+
+        <Image x:Name="imgHidePasswordIcon"
+            HorizontalAlignment="Left" 
+            Height="34" 
+            Margin="495,500,0,0" 
+            VerticalAlignment="Top" 
+            Width="33" 
+            MouseLeftButtonDown = "HidePassword_MouseLeftButtonDown"
+            Source="\Resources\Pictures\ICON-HidePassword.png"/>
+
+        <Image x:Name="imgViewPasswordIcon"
+            HorizontalAlignment="Left" 
+            Height="33" 
+            Margin="495,498,0,0" 
+            VerticalAlignment="Top" 
+            Width="34" 
+            MouseLeftButtonDown ="ViewPassword_MouseLeftButtonDown"
+            Visibility="Hidden"
+            Source="\Resources\Pictures\ICON-ViewPassword.png" 
+            RenderTransformOrigin="2.952,3.352"/>
+    </Grid>
+
+</Page>

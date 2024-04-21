@@ -11,8 +11,6 @@
 
     <Grid x:Name="Background" Background="#FF131313">
 
-        
-
         <Rectangle 
             HorizontalAlignment="Left"
             Height="888" 
@@ -187,7 +185,7 @@
                       HorizontalAlignment="Left"
                       Margin="1220,169,0,0"
                       VerticalAlignment="Top"
-                      Width="318" 
+                      Width="358" 
                       Height="38"
                       FontSize="20" 
                       Background="#FF131313" 
@@ -207,8 +205,8 @@
                       HorizontalAlignment="Left"
                       Margin="1254,233,0,0"
                       VerticalAlignment="Top"
-                      Width="284"
-                      Height="35"
+                      Width="324"
+                      Height="37"
                       FontSize="20" 
                       Background="#FF131313" 
                       Foreground="White"/>
@@ -217,7 +215,7 @@
                 <Rectangle 
                     HorizontalAlignment="Left" 
                     Height="37" 
-                    Margin="1552,168,0,0"
+                    Margin="1588,168,0,0"
                     VerticalAlignment="Top" 
                     Width="110"
                     Fill="#FFDDCC4E"
@@ -227,14 +225,14 @@
                 <Image 
                     HorizontalAlignment="Left"
                     Height="38" 
-                    Margin="1564,169,0,0" 
+                    Margin="1600,169,0,0" 
                     VerticalAlignment="Top"
                     Width="34"
                     Source="/Resources/Pictures/ICON-Cliente.png" IsEnabled="False"/>
 
                 <Label Content="Agregar" 
                        HorizontalAlignment="Left" 
-                       Margin="1597,173,0,0"
+                       Margin="1633,173,0,0"
                        VerticalAlignment="Top" 
                        Foreground="White" FontWeight="Bold"/>
             </Grid>
@@ -243,7 +241,7 @@
                 <Rectangle 
                     HorizontalAlignment="Left" 
                     Height="37"
-                    Margin="1552,230,0,0"
+                    Margin="1588,230,0,0"
                     VerticalAlignment="Top"
                     Width="110" 
                     Fill="#FFDDCC4E"
@@ -253,7 +251,7 @@
                 <Image 
                     HorizontalAlignment="Left"
                     Height="35" 
-                    Margin="1561,232,0,0" 
+                    Margin="1597,232,0,0" 
                     VerticalAlignment="Top" 
                     Width="33" 
                     Source="/Resources/Pictures/ICON-Repartidor.png"/>
@@ -261,260 +259,9 @@
                 <Label 
                     Content="Agregar"
                     HorizontalAlignment="Left"
-                    Margin="1595,236,0,0" 
+                    Margin="1631,236,0,0" 
                     VerticalAlignment="Top"
                     Foreground="White" FontWeight="Bold"/>
-            </Grid>
-
-            <Grid Name="grdVirtualWindowDeliveryCustomerRegistrationForm" Visibility="Hidden">
-                <Rectangle 
-                    HorizontalAlignment="Left" 
-                    Height="863"
-                    Margin="1165,13,0,0" 
-                    VerticalAlignment="Top" 
-                    Width="522" 
-                    RadiusX="30" 
-                    RadiusY="30"
-                    Fill="#FF18171C">
-                    <Rectangle.Stroke>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFE2A218"/>
-                            <GradientStop Color="#FFC50E0E" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Rectangle.Stroke>
-                </Rectangle>
-
-                <Label Content="Registrar Nuevo Empleado" 
-                       HorizontalAlignment="Left" 
-                       Margin="1276,35,0,0" 
-                       VerticalAlignment="Top"
-                       Foreground="#FFE03434" 
-                       FontFamily="Arial Black" 
-                       FontSize="20" FontWeight="Bold"/>
-
-                <Label Content="Nombre(s)" 
-                       HorizontalAlignment="Left" 
-                       Margin="1288,90,0,0" 
-                       VerticalAlignment="Top" 
-                       FontFamily="Arial" 
-                       FontSize="18" 
-                       Foreground="#FFF8F8F8"/>
-
-                <TextBox 
-                    HorizontalAlignment="Left" 
-                    Margin="1304,128,0,0" 
-                    TextWrapping="Wrap" 
-                    Text="" 
-                    VerticalAlignment="Top"
-                    Width="319"
-                    FontFamily="Arial" 
-                    FontSize="23"
-                    Height="32"/>
-
-                <Label Content="Apellido Paterno" 
-                       HorizontalAlignment="Left" 
-                       Margin="1288,177,0,0"
-                       VerticalAlignment="Top"
-                       FontFamily="Arial"
-                       FontSize="18"
-                       Foreground="#FFF8F8F8"/>
-
-                <TextBox HorizontalAlignment="Left" 
-                         Margin="1306,215,0,0"
-                         TextWrapping="Wrap" 
-                         Text="" VerticalAlignment="Top" 
-                         Width="317" 
-                         FontFamily="Arial"
-                         FontSize="23"
-                         Height="32"/>
-
-
-                <Label Content="Apellido Materno"
-                       HorizontalAlignment="Left"
-                       Margin="1288,265,0,0" 
-                       VerticalAlignment="Top" 
-                       FontFamily="Arial" 
-                       FontSize="18" 
-                       Foreground="White"/>
-
-
-                <TextBox HorizontalAlignment="Left" 
-                         Margin="1304,303,0,0" 
-                         TextWrapping="Wrap" 
-                         Text="" 
-                         VerticalAlignment="Top"
-                         Width="319" 
-                         FontFamily="Arial"
-                         FontSize="23"
-                         Height="32"/>
-
-                <Label Content="Numero Telefonico"
-                       HorizontalAlignment="Left" 
-                       Margin="1288,352,0,0"
-                       VerticalAlignment="Top"
-                       FontFamily="Arial"
-                       FontSize="18"
-                       Foreground="#FFF8F8F8"/>
-
-                <TextBox HorizontalAlignment="Left"
-                         Margin="1306,390,0,0"
-                         TextWrapping="Wrap"
-                         Text="" 
-                         VerticalAlignment="Top" 
-                         Width="317" 
-                         FontFamily="Arial" 
-                         FontSize="23" 
-                         Height="32"/>
-
-                <Image HorizontalAlignment="Left" 
-                       Height="44" 
-                       Margin="1223,81,0,0"
-                       VerticalAlignment="Top"
-                       Width="49" 
-                       Source="\Resources\Pictures\ICON-ID.png" Stretch="UniformToFill"/>
-
-                <Image HorizontalAlignment="Left" 
-                       Height="44" 
-                       Margin="1223,168,0,0" 
-                       VerticalAlignment="Top"
-                       Width="49" 
-                       Source="\Resources\Pictures\ICON-ID.png" 
-                       Stretch="UniformToFill"/>
-
-                <Image HorizontalAlignment="Left" 
-                       Height="44" 
-                       Margin="1223,256,0,0" 
-                       VerticalAlignment="Top" 
-                       Width="49" 
-                       Source="\Resources\Pictures\ICON-ID.png" 
-                       Stretch="UniformToFill"/>
-
-                <Image HorizontalAlignment="Left" 
-                       Height="41" 
-                       Margin="1231,347,0,0" 
-                       VerticalAlignment="Top" 
-                       Width="40" 
-                       Source="\Resources\Pictures\ICON-Numero.png" 
-                       Stretch="UniformToFill"/>
-
-
-                <Grid x:Name="grdVitualWindowAddressForm" Visibility="Visible">
-
-                    <Label Content="Calle" 
-                           HorizontalAlignment="Left" 
-                           Margin="1289,442,0,0" 
-                           VerticalAlignment="Top"
-                           FontFamily="Arial" 
-                           FontSize="18"
-                           Foreground="#FFF8F8F8"/>
-
-                    <TextBox HorizontalAlignment="Left" 
-                             Margin="1307,478,0,0"
-                             TextWrapping="Wrap" 
-                             Text="" 
-                             VerticalAlignment="Top"
-                             Width="317"
-                             FontFamily="Arial"
-                             FontSize="23"
-                             Height="32"/>
-
-                    <Label Content="Ciudad" 
-                           HorizontalAlignment="Left" 
-                           Margin="1289,528,0,0"
-                           VerticalAlignment="Top"
-                           FontFamily="Arial"
-                           FontSize="18"
-                           Foreground="White"/>
-
-                    <TextBox HorizontalAlignment="Left" 
-                             Margin="1305,566,0,0" 
-                             TextWrapping="Wrap" 
-                             Text="" 
-                             VerticalAlignment="Top"
-                             Width="319"
-                             FontFamily="Arial" 
-                             FontSize="23"
-                             Height="32"/>
-
-                    <Label Content="Numero de calle" 
-                           HorizontalAlignment="Left"
-                           Margin="1289,615,0,0"
-                           VerticalAlignment="Top"
-                           FontFamily="Arial" 
-                           FontSize="18" 
-                           Foreground="#FFF8F8F8"/>
-
-                    <TextBox HorizontalAlignment="Left" 
-                             Margin="1307,653,0,0"
-                             TextWrapping="Wrap"
-                             Text="" 
-                             VerticalAlignment="Top"
-                             Width="317"
-                             FontFamily="Arial"
-                             FontSize="23"
-                             Height="32"/>
-
-                    <Label Content="Codigo Postal" 
-                           HorizontalAlignment="Left"
-                           Margin="1289,707,0,0"
-                           VerticalAlignment="Top"
-                           FontFamily="Arial"
-                           FontSize="18"
-                           Foreground="#FFF8F8F8"/>
-
-                    <TextBox HorizontalAlignment="Left"
-                             Margin="1307,745,0,0"
-                             TextWrapping="Wrap"
-                             Text=""
-                             VerticalAlignment="Top"
-                             Width="317"
-                             FontFamily="Arial"
-                             FontSize="23"
-                             Height="32"/>
-
-                    <Image HorizontalAlignment="Left" 
-                           Height="30"
-                           Margin="1234,442,0,0"
-                           VerticalAlignment="Top"
-                           Width="37"
-                           Source="\Resources\Pictures\ICON-Calle.png"
-                           Stretch="UniformToFill"/>
-
-                    <Image HorizontalAlignment="Left" 
-                           Height="30" 
-                           Margin="1235,528,0,0" 
-                           VerticalAlignment="Top" 
-                           Width="37" 
-                           Source="\Resources\Pictures\ICON-Ciudad.png" 
-                           Stretch="UniformToFill"/>
-
-                    <Image HorizontalAlignment="Left"
-                           Height="31" 
-                           Margin="1238,615,0,0" 
-                           VerticalAlignment="Top"
-                           Width="31" 
-                           Source="\Resources\Pictures\ICON-NumeroCalle.png" 
-                           Stretch="UniformToFill"/>
-
-                    <Image HorizontalAlignment="Left" 
-                           Height="30" 
-                           Margin="1235,707,0,0"
-                           VerticalAlignment="Top" 
-                           Width="37"
-                           Source="\Resources\Pictures\ICON-CodigoPostal.png"
-                           Stretch="UniformToFill"/>
-
-                    <Button Content="Registrar Cliente" 
-                            HorizontalAlignment="Left" 
-                            Margin="1319,799,0,0" 
-                            VerticalAlignment="Top" 
-                            Height="49" 
-                            Width="214"
-                            FontFamily="Arial"
-                            FontSize="20" 
-                            Click="Button_AddCustomer"/>
-
-                </Grid>
             </Grid>
         </Grid>
 
@@ -685,7 +432,6 @@
         </Grid>
 
         <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
-        
     </Grid>
 </Page>
 

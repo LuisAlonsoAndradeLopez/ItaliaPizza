@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -203,6 +204,47 @@ namespace ItalianPizza.XAMLViews
                                 {
                                     new AlertPopup("¡Nombre ya usado!", "El nombre ya está usado, por favor introduzca otro", AlertPopupTypes.Error);
                                 }
+<<<<<<<< HEAD:ItalianPizza/XAMLViews/Articles/GUI_AddArticle.xaml.cs
+========
+
+                                if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString())
+                                {
+                                    SupplySet supply = new SupplySet
+                                    {
+                                        Name = ArticleNameTextBox.Text,
+                                        Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                        PricePerUnit = price,
+                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
+                                        SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
+                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                        SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
+                                        EmployeeId = UserToken.GetEmployeeID(),
+                                        IdentificationCode = CodeTextBox.Text
+                                    };
+
+                                    new SupplyDAO().AddSupply(supply);
+                                }
+
+                                if (ArticleTypesComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
+                                {
+                                    ProductSaleSet product = new ProductSaleSet
+                                    {
+                                        Name = ArticleNameTextBox.Text,
+                                        Quantity = QuantityIntegerUpDown.Value ?? 0,
+                                        PricePerUnit = price,
+                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
+                                        ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
+                                        ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
+                                        EmployeeId = UserToken.GetEmployeeID(),
+                                        IdentificationCode = CodeTextBox.Text,
+                                        Description = DescriptionTextBox.Text
+                                    };
+
+                                    new ProductDAO().AddProduct(product);
+                                }
+
+                                new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
+>>>>>>>> main:ItalianPizza/XAMLViews/Stock/GUI_AddArticle.xaml.cs
                             }
                             else
                             {
