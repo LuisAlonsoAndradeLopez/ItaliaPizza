@@ -44,6 +44,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
         public void InitializeListBox()
         {
             lboSearchbySupply.ItemsSource = supplyDAO.GetAllSupplyWithoutPhoto();
+            lboSearchbySupply.DisplayMemberPath = "Name";
         }
 
         public void InitializeDAOConnections()
@@ -86,7 +87,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
             StackPanel stackPanelContainer = new StackPanel();
 
-            foreach (var supplierOrder in supplierOrderList)
+            foreach (SupplierOrderSet supplierOrder in supplierOrderList)
             {
                 Grid grdContainer = new Grid
                 {
@@ -154,6 +155,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     FontSize = 15,
                     Margin = new Thickness(385, 0, 0, 0),
                 };
+
+                btnViewDetails.Click += (sender, e) => NavigationService.Navigate(new GUI_SupplierOrdersModule(supplierOrder));
+
                 grdContainer.Children.Add(btnViewDetails);
                 stackPanelContainer.Children.Add(grdContainer);
             }
@@ -242,6 +246,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     FontSize = 16,
                     Margin = new Thickness(660, 10, 0, 0),
                 };
+
+                btnViewDetails.Click += (sender, e) => OpenSupplierForm(supplier);
+
                 grdContainer.Children.Add(btnViewDetails);
                 stackPanelContainer.Children.Add(grdContainer);
             }
@@ -250,21 +257,44 @@ namespace ItalianPizza.XAMLViews.Suppliers
             wpSuppliers.Children.Add(scrollViewer);
         }
 
+        private void OpenSupplierForm(SupplierSet supplier)
+        {
+            SuppliersForm suppliersForm = new SuppliersForm(supplier)
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(255, 13, 0, 0)
+            };
+            Grid.SetColumn(suppliersForm, 0);
+            Background.Children.Add(suppliersForm);
+
+            if(supplier != null)
+            {
+                List<SupplierOrderSet> supplierOrders;
+                supplierOrders = orderSupplierDAO.GetSupplierOrderbySupplier(supplier.Id);
+                ShowOnSupplierOrdersScreen(supplierOrders);
+            }
+        }
+
         private void LboSearchbySupply_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             List<SupplierSet> suppliers;
             try
             {
-                suppliers = supplierDAO.GetAllSuppliersBySupply(lboSearchbySupply.SelectedItem.ToString());
+                SupplySet supply = (SupplySet)lboSearchbySupply.SelectedItem;
+                suppliers = supplierDAO.GetAllSuppliersBySupply(supply.Name);
                 ShowOnSuppliersScreen(suppliers);
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
+                    " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que " +
+                    "los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -291,11 +321,15 @@ namespace ItalianPizza.XAMLViews.Suppliers
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los " +
+                    "datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -317,6 +351,17 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 .ToList();
             ShowOnSuppliersScreen(filteredSupplier);
         }
+
+        private void BtnRegisterSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            OpenSupplierForm(null);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new GUI_SupplierOrdersModule(null));
+        }
+
 
     }
 }

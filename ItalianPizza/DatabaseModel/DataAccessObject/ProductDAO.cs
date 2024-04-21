@@ -14,12 +14,17 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         public int AddProduct(ProductSaleSet product)
         {
             int result = 0;
-
+            ProductPictureSet pictureSet = new ProductPictureSet();
+            pictureSet.ProductImage = product.Picture;
+            product.Picture = null;
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     context.ProductSaleSet.Add(product);
+                    context.SaveChanges();
+                    pictureSet.Product_Id = product.Id;
+                    context.ProductPictureSet.Add(pictureSet);
                     context.SaveChanges();
                 }
 
@@ -171,7 +176,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return result;
         }
-
 
         public BitmapImage GetImageByProductName(string productName)
         {
@@ -403,5 +407,80 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return productStatusesList;
         }
+    
+        public List<SupplySet> GetSupplierProducts(int supplierID)
+        {
+            List<SupplySet> supplyList;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var supplyProperties = context.SupplierSet
+                        .Where(s => s.Id == supplierID)
+                        .SelectMany(s => s.SupplySet)
+                        .Select(s => new
+                        {
+                            s.Id,
+                            s.Name,
+                            s.Quantity,
+                            s.PricePerUnit,
+                            s.SupplyUnitId,
+                            s.ProductStatusId,
+                            s.SupplyTypeId,
+                            s.EmployeeId,
+                            s.IdentificationCode
+                        })
+                        .ToList();
+
+                    supplyList = supplyProperties.Select(sp => new SupplySet
+                    {
+                        Id = sp.Id,
+                        Name = sp.Name,
+                        Quantity = sp.Quantity,
+                        PricePerUnit = sp.PricePerUnit,
+                        SupplyUnitId = sp.SupplyUnitId,
+                        ProductStatusId = sp.ProductStatusId,
+                        SupplyTypeId = sp.SupplyTypeId,
+                        EmployeeId = sp.EmployeeId,
+                        IdentificationCode = sp.IdentificationCode
+                    }).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return supplyList;
+        }
+
+        public ProductPictureSet GetProductPicturebyID(int productID)
+        {
+            ProductPictureSet productPicture;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    productPicture = context.ProductPictureSet.FirstOrDefault(p => p.Product_Id == productID);
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return productPicture;
+        }
+
     }
 }

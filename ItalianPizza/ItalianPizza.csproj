@@ -128,7 +128,13 @@
     <Compile Include="DatabaseModel\DatabaseMapping\DailyClosingSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\database_firewall_rules.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\DeliveryDriverSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\EmployeePictureSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\EmployeePositionSet.cs">
@@ -164,6 +170,9 @@
     <Compile Include="DatabaseModel\DatabaseMapping\OrderTypeSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\ProductPictureSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\ProductSaleSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -186,6 +195,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\SupplierSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\SupplyPictureSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\SupplySet.cs">
@@ -225,8 +237,17 @@
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Suppliers\GUI-SupplierOrdersModule.xaml.cs">
+      <DependentUpon>GUI-SupplierOrdersModule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml.cs">
       <DependentUpon>GUI-SuppliersModule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Suppliers\SuppliersForm.xaml.cs">
+      <DependentUpon>SuppliersForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Users\CustomerForm.xaml.cs">
+      <DependentUpon>CustomerForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
       <DependentUpon>GUI-AddUser.xaml</DependentUpon>
@@ -293,7 +314,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="XAMLViews\Suppliers\GUI-SupplierOrdersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAMLViews\Suppliers\GUI-SuppliersModule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Suppliers\SuppliersForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Users\CustomerForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -387,6 +420,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-Eliminar.png" />
     <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
     <Resource Include="Resources\Pictures\ICON-Supplier.png" />
     <Resource Include="Resources\Pictures\ICON-ViewPassword.png" />
