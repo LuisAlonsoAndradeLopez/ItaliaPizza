@@ -15,6 +15,7 @@ using System.Data.Entity.Core;
 using System.Text.RegularExpressions;
 using System.Data.Entity.Validation;
 using System.IO;
+using System.Linq;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -23,12 +24,16 @@ namespace ItalianPizza.XAMLViews
     /// </summary>
     public partial class GUI_Inventory : Page
     {
+        private List<SupplySet> supplies;
+        private List<ProductSaleSet> products;
+
         public GUI_Inventory()
         {
+            supplies = new SupplyDAO().GetAllSupplyWithoutPhoto();
+            products = new ProductDAO().GetAllProductsWithoutPhoto();
+
             InitializeComponent();
             InitializeSearchComboBoxes();
-
-            //ShowArticles("", ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
         }
 
         private void TextForFindingArticleTextBoxTextChanged(object sender, TextChangedEventArgs e)
@@ -68,32 +73,47 @@ namespace ItalianPizza.XAMLViews
                 {
                     ArticleNameOrCodeLabel.Content = "Nombre del artículo: ";
                 }
-                
+
                 if (FindByComboBox.SelectedItem?.ToString() == "Código")
                 {
                     ArticleNameOrCodeLabel.Content = "Código del artículo: ";
                 }
 
-
                 ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
-            { 
-                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error); 
-                new ExceptionLogger().LogException(ex); 
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
         }
 
         private void AddArticleButtonOnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_AddArticle());
+            try
+            {
+                NavigationService navigationService = NavigationService.GetNavigationService(this);
+                navigationService.Navigate(new GUI_AddArticle());
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_InventoryReport());
+            try
+            {
+                NavigationService navigationService = NavigationService.GetNavigationService(this);
+                navigationService.Navigate(new GUI_InventoryReport());
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void ArticleButtonOnClick(object sender, RoutedEventArgs e)
@@ -119,7 +139,7 @@ namespace ItalianPizza.XAMLViews
                     if (selectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                     {
                         ConsultProductRecipeButton.Visibility = Visibility.Collapsed;
-                        ModifyArticleButton1.Margin = new Thickness(200, 0 ,0 ,0);
+                        ModifyArticleButton1.Margin = new Thickness(200, 0, 0, 0);
                     }
 
                     if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
@@ -193,9 +213,17 @@ namespace ItalianPizza.XAMLViews
 
         private void ConsultProductRecipeButtonOnClick(object sender, RoutedEventArgs e)
         {
-            new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+            try
+            {
+                new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+                //Este método lo hace el Álvaro
 
-            //Este método lo hace el Álvaro
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
@@ -213,20 +241,20 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                if(new AlertPopup("¿Está seguro?", "¿Está seguro que quiere desactivar este artículo?", AlertPopupTypes.Decision).GetDecisionOfDecisionPopup())
+                if (new AlertPopup("¿Está seguro?", "¿Está seguro que quiere desactivar este artículo?", AlertPopupTypes.Decision).GetDecisionOfDecisionPopup())
                 {
                     if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                     {
                         new SupplyDAO().DisableSupply(SelectedArticleNameTextBlock.Text);
                     }
-                
+
                     if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
                     {
                         new ProductDAO().DisableProduct(SelectedArticleNameTextBlock.Text);
                     }
-                
+
                     new AlertPopup("¡Muy bien!", "Artículo desactivado con éxito", AlertPopupTypes.Success);
-                
+
                     UpdateSelectedArticleDetailsStackPanel(SelectedArticleNameTextBlock.Text, SelectedArticleTypeTextBlock.Text);
                     ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
 
@@ -252,7 +280,7 @@ namespace ItalianPizza.XAMLViews
             {
                 if (InvalidValuesInTextFieldsTextGenerator() == "")
                 {
-                    if (new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source) != null)
+                    if (ModifySelectedArticleImage.Source != null)
                     {
                         if ((!new SupplyDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text) &&
                             !new ProductDAO().TheNameIsAlreadyRegistred(ModifySelectedArticleNameTextBox.Text)) ||
@@ -275,7 +303,7 @@ namespace ItalianPizza.XAMLViews
                                         SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
                                         SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
+                                        EmployeeId = 2,
                                         IdentificationCode = ModifySelectedArticleCodeTextBox.Text
                                     };
 
@@ -294,7 +322,7 @@ namespace ItalianPizza.XAMLViews
                                         Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
                                         ProductTypeId = new ProductTypeDAO().GetProductTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
-                                        EmployeeId = 1,
+                                        EmployeeId = 2,
                                         IdentificationCode = ModifySelectedArticleCodeTextBox.Text,
                                         Description = ModifySelectedArticleDescriptionTextBox.Text
                                     };
@@ -381,7 +409,7 @@ namespace ItalianPizza.XAMLViews
             {
                 FindByComboBox.Items.Add(findByType);
             }
-             
+
             FindByComboBox.SelectedItem = FindByComboBox.Items[0];
         }
 
@@ -420,22 +448,42 @@ namespace ItalianPizza.XAMLViews
 
         private void ShowArticles(string textForFindingArticle, string showType, string findByType)
         {
-            List<SupplySet> supplies = new List<SupplySet>();
-            List<ProductSaleSet> products = new List<ProductSaleSet>();
+            List<SupplySet> selectedSupplies = new List<SupplySet>();
+            List<ProductSaleSet> selectedProducts = new List<ProductSaleSet>();
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath;
+            string imagePath;
 
             if (showType == ArticleTypes.Insumo.ToString())
             {
-                supplies = new SupplyDAO().GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
-            }
+                if (findByType == "Nombre")
+                {
+                    selectedSupplies = supplies.Where(s => s.Name.StartsWith(textForFindingArticle)).ToList();
+                }
 
+                if (findByType == "Código")
+                {
+                    selectedSupplies = supplies.Where(s => s.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                }
+            }
+            
             if (showType == ArticleTypes.Producto.ToString())
             {
-                products = new ProductDAO().GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
+                if (findByType == "Nombre")
+                {
+                    selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                }
+
+                if (findByType == "Código")
+                {
+                    selectedProducts = products.Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                }
             }
 
             ArticlesStackPanel.Children.Clear();
 
-            foreach (var product in products)
+            foreach (var product in selectedProducts)
             {
                 Border articleBorder = new Border
                 {
@@ -453,14 +501,20 @@ namespace ItalianPizza.XAMLViews
                     Orientation = Orientation.Horizontal
                 };
 
-                /*Image articleImage = new Image
+                Image articleImage = new Image
                 {
                     Width = 100,
                     Height = 100,
-                    Margin = new Thickness(40, 0, 0, 0),
-                    Source = new ProductDAO().GetImageByProductName(product.Name)
-                };*/
+                    Margin = new Thickness(40, 0, 0, 0)
+                };
 
+                if (new ImageManager().CheckProductImagePath(product.Id))
+                {
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
 
                 TextBlock articleNameTextBlock = new TextBlock
                 {
@@ -498,8 +552,7 @@ namespace ItalianPizza.XAMLViews
                     Text = new ProductStatusDAO().GetProductStatusById(product.ProductStatusId).Status
                 };
 
-                
-                //articleStackPanel.Children.Add(articleImage);
+                articleStackPanel.Children.Add(articleImage);
                 articleStackPanel.Children.Add(articleNameTextBlock);
                 articleStackPanel.Children.Add(articleTypeTextBlock);
                 articleStackPanel.Children.Add(articleStatusTextBlock);
@@ -509,7 +562,7 @@ namespace ItalianPizza.XAMLViews
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
 
-            foreach (var supply in supplies)
+            foreach (var supply in selectedSupplies)
             {
                 Border articleBorder = new Border
                 {
@@ -527,15 +580,20 @@ namespace ItalianPizza.XAMLViews
                     Orientation = Orientation.Horizontal
                 };
 
-                /*
                 Image articleImage = new Image
                 {
                     Width = 100,
                     Height = 100,
-                    Margin = new Thickness(40, 0, 0, 0),
-                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    Margin = new Thickness(40, 0, 0, 0)
                 };
-                */
+
+                if (new ImageManager().CheckSupplyImagePath(supply.Id))
+                {
+                    relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
 
                 TextBlock articleNameTextBlock = new TextBlock
                 {
@@ -573,8 +631,7 @@ namespace ItalianPizza.XAMLViews
                     Text = new ProductStatusDAO().GetProductStatusById(supply.ProductStatusId).Status
                 };
 
-
-                //articleStackPanel.Children.Add(articleImage);
+                articleStackPanel.Children.Add(articleImage);
                 articleStackPanel.Children.Add(articleNameTextBlock);
                 articleStackPanel.Children.Add(articleTypeTextBlock);
                 articleStackPanel.Children.Add(articleStatusTextBlock);
@@ -589,6 +646,10 @@ namespace ItalianPizza.XAMLViews
         {
             SupplySet supply = null;
             ProductSaleSet product = null;
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath;
+            string imagePath;
 
             if (articleType == ArticleTypes.Insumo.ToString())
             {
@@ -608,7 +669,14 @@ namespace ItalianPizza.XAMLViews
 
             if (supply != null)
             {
-                //SelectedArticleImage.Source = new SupplyDAO().GetImageBySupplyName(supply.Name);
+                if (new ImageManager().CheckSupplyImagePath(supply.Id))
+                {
+                    relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+                    
+                    SelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
+
                 SelectedArticleNameTextBlock.Text = supply.Name;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Insumo.ToString();
                 SelectedArticleCategoryTextBlock.Text = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
@@ -621,7 +689,14 @@ namespace ItalianPizza.XAMLViews
 
             if (product != null)
             {
-                //SelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Name);
+                if (new ImageManager().CheckProductImagePath(product.Id))
+                {
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    SelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
+
                 SelectedArticleNameTextBlock.Text = product.Name;
                 SelectedArticleTypeTextBlock.Text = ArticleTypes.Producto.ToString();
                 SelectedArticleCategoryTextBlock.Text = new ProductTypeDAO().GetProductTypeById(product.ProductTypeId).Type;
@@ -639,6 +714,10 @@ namespace ItalianPizza.XAMLViews
 
             SupplySet supply = null;
             ProductSaleSet product = null;
+
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath;
+            string imagePath;
 
             if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
             {
@@ -658,7 +737,14 @@ namespace ItalianPizza.XAMLViews
 
             if (supply != null)
             {
-                //ModifySelectedArticleImage.Source = new SupplyDAO().GetImageBySupplyName(supply.Name);
+                if (new ImageManager().CheckSupplyImagePath(supply.Id))
+                {
+                    relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    ModifySelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
+
                 ModifySelectedArticleNameTextBox.Text = supply.Name;
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new SupplyTypeDAO().GetSupplyTypeById(supply.SupplyTypeId).Type;
                 ModifySelectedArticleQuantityIntegerUpDown.Text = supply.Quantity.ToString();
@@ -675,7 +761,14 @@ namespace ItalianPizza.XAMLViews
 
             if (product != null)
             {
-                //ModifySelectedArticleImage.Source = new ProductDAO().GetImageByProductName(product.Name);
+                if (new ImageManager().CheckProductImagePath(product.Id))
+                {
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    ModifySelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
+
                 ModifySelectedArticleNameTextBox.Text = product.Name;
                 ModifySelectedArticleCategoryComboBox.SelectedItem = new ProductTypeDAO().GetProductTypeById(product.ProductTypeId).Type;
                 ModifySelectedArticleQuantityIntegerUpDown.Text = product.Quantity.ToString();

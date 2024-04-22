@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Xceed.Wpf.Toolkit;
 using Border = System.Windows.Controls.Border;
@@ -105,6 +106,10 @@ namespace ItalianPizza.XAMLViews
             List<SupplySet> supplies = new SupplyDAO().GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, "Nombre");
             List<ProductSaleSet> products = new ProductDAO().GetSpecifiedProductsByNameOrCode(textForFindingArticle, "Nombre");
 
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath;
+            string imagePath;
+
             ArticlesStackPanel.Children.Clear();
 
             string incompleteArticleQuantityTextBoxStylePath = Path.GetFullPath("XAMLViews\\GUIComponentsStyles\\TextBoxStyles.xaml");
@@ -137,9 +142,16 @@ namespace ItalianPizza.XAMLViews
                 {
                     Width = 100,
                     Height = 100,
-                    Margin = new Thickness(26, 0, 0, 0),
-                    Source = new ProductDAO().GetImageByProductName(product.Name)
+                    Margin = new Thickness(26, 0, 0, 0)
                 };
+
+                if (new ImageManager().CheckProductImagePath(product.Id))
+                {
+                    relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
 
                 TextBlock articleNameTextBlock = new TextBlock
                 {
@@ -238,9 +250,16 @@ namespace ItalianPizza.XAMLViews
                 {
                     Width = 100,
                     Height = 100,
-                    Margin = new Thickness(26, 0, 0, 0),
-                    Source = new SupplyDAO().GetImageBySupplyName(supply.Name)
+                    Margin = new Thickness(26, 0, 0, 0)
                 };
+
+                if (new ImageManager().CheckProductImagePath(supply.Id))
+                {
+                    relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
 
                 TextBlock articleNameTextBlock = new TextBlock
                 {

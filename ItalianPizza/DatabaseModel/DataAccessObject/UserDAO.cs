@@ -179,13 +179,17 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             
             BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(data))
+
+            if (data != null)
             {
-                memoryStream.Position = 0;
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
+                using (MemoryStream memoryStream = new MemoryStream(data))
+                {
+                    memoryStream.Position = 0;
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                }
             }
 
             return bitmapImage;

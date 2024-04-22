@@ -53,6 +53,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ItalianPizza.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
@@ -276,10 +279,12 @@
       <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="SingletonClasses\UserToken.cs" />
-    <Compile Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml.cs">
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Articles\GUI_AddArticle.xaml.cs">
+      <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Articles\InventoryReportPreview.xaml.cs">
       <DependentUpon>InventoryReportPreview.xaml</DependentUpon>
@@ -293,23 +298,14 @@
     <Compile Include="XAMLViews\Finances\GUI_Finances.xaml.cs">
       <DependentUpon>GUI_Finances.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\GUI-Login.xaml.cs">
     <Compile Include="XAMLViews\Login\GUI-Login.xaml.cs">
       <DependentUpon>GUI-Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\Articles\GUI_AddArticle.xaml.cs">
-    <Compile Include="XAMLViews\Stock\GUI_AddArticle.xaml.cs">
-      <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XAMLViews\Stock\GUI_Inventory.xaml.cs">
     <Compile Include="XAMLViews\Articles\GUI_Inventory.xaml.cs">
       <DependentUpon>GUI_Inventory.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Articles\GUI_InventoryReport.xaml.cs">
       <DependentUpon>GUI_InventoryReport.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="XAMLViews\Login\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\NavigationBar.xaml.cs">
       <DependentUpon>NavigationBar.xaml</DependentUpon>
@@ -347,7 +343,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="XAMLViews\GUIComponentsStyles\AlertPopup.xaml">
+    <Page Include="XAMLViews\AlertPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -363,14 +359,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\Login\GUI-Login.xaml">
     <Page Include="XAMLViews\Finances\GUI_Finances.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XAMLViews\GUI-Login.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -388,7 +379,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\Stock\GUI_AddArticle.xaml">
     <Page Include="XAMLViews\Articles\GUI_AddArticle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -397,7 +387,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="XAMLViews\Stock\GUI_Inventory.xaml">
     <Page Include="XAMLViews\Articles\GUI_InventoryReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -405,6 +394,10 @@
     <Page Include="XAMLViews\GUIComponentsStyles\ToggleButtonsStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Login\GUI-Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\NavigationBar.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -534,11 +527,7 @@
     <Resource Include="Resources\Pictures\ICON-UserRegistrarion.png" />
     <Resource Include="Resources\Pictures\IMG_8823.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="XAMLViews\Finances\" />
-    <Folder Include="XAMLViews\Stock\" />
-    <Folder Include="XAMLViews\Suppliers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="DatabaseModel\DatabaseMapping\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -149,6 +149,8 @@
           <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="FinancialTransactionDate" Type="datetime" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="MonetaryValue" Type="float" />
+          <Property Name="Context" Type="nvarchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="FinancialTransactionSupplierOrder">
           <Key>
@@ -1369,6 +1371,8 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="DailyClosingSet" Relationship="Self.DailyClosingFinancialTransaction" FromRole="FinancialTransactionSet" ToRole="DailyClosingSet" />
           <NavigationProperty Name="CustomerOrderSet" Relationship="Self.FinancialTransactionCustomerOrder" FromRole="FinancialTransactionSet" ToRole="CustomerOrderSet" />
           <NavigationProperty Name="SupplierOrderSet" Relationship="Self.FinancialTransactionSupplierOrder" FromRole="FinancialTransactionSet" ToRole="SupplierOrderSet" />
+          <Property Name="MonetaryValue" Type="Double" />
+          <Property Name="Context" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="InventoryValidationSet">
           <Key>
@@ -2478,7 +2482,9 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     <EntitySetMapping Name="FinancialTransactionSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.FinancialTransactionSet)">
         <MappingFragment StoreEntitySet="FinancialTransactionSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="MonetaryValue" ColumnName="MonetaryValue" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="FinancialTransactionDate" ColumnName="FinancialTransactionDate" />

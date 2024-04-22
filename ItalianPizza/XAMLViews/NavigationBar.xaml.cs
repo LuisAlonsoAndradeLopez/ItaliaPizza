@@ -140,7 +140,9 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_Finances());
+            new AlertPopup("¡No disponible!", "En desarrollo de software.", AlertPopupTypes.Error);
+
+            //ChangePage(new GUI_Finances());
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)

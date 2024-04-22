@@ -1,4 +1,7 @@
 .vs/
 ItalianPizza/.vs/
 ItalianPizza/obj/
+ItalianPizza/bin/Debug/
+ItalianPizza/bin/Release/
 UnitTesting/obj/
+UnitTesting/bin/

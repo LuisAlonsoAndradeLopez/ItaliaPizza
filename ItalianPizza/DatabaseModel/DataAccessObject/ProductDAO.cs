@@ -15,9 +15,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         public int AddProduct(ProductSaleSet product)
         {
             int result = 0;
-            ProductPictureSet pictureSet = new ProductPictureSet();
-            pictureSet.ProductImage = product.Picture;
+            ProductPictureSet pictureSet = new ProductPictureSet
+            {
+                ProductImage = product.Picture
+            };
+
             product.Picture = null;
+
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -305,9 +309,63 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return specifiedProducts;
         }
 
+        public List<ProductSaleSet> GetAllProductsWithoutPhoto()
+        {
+            List<ProductSaleSet> ProductList;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    var ProductProperties = context.ProductSaleSet
+                        .Select(s => new
+                        {
+                            s.Id,
+                            s.Name,
+                            s.Quantity,
+                            s.PricePerUnit,
+                            s.ProductStatusId,
+                            s.ProductTypeId,
+                            s.EmployeeId,
+                            s.IdentificationCode
+                        })
+                        .ToList();
+
+                    ProductList = ProductProperties.Select(sp => new ProductSaleSet
+                    {
+                        Id = sp.Id,
+                        Name = sp.Name,
+                        Quantity = sp.Quantity,
+                        PricePerUnit = sp.PricePerUnit,
+                        ProductStatusId = sp.ProductStatusId,
+                        ProductTypeId = sp.ProductTypeId,
+                        EmployeeId = sp.EmployeeId,
+                        IdentificationCode = sp.IdentificationCode
+                    }).ToList();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return ProductList;
+        }
+
         public int ModifyProduct(ProductSaleSet originalProduct, ProductSaleSet modifiedProduct)
         {
             int generatedID = 0;
+
+            ProductPictureSet pictureSet = new ProductPictureSet
+            {
+                ProductImage = modifiedProduct.Picture
+            };
+
+            modifiedProduct.Picture = null;
 
             try
             {
@@ -324,6 +382,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         productFound.EmployeeId = modifiedProduct.EmployeeId;
                         productFound.IdentificationCode = modifiedProduct.IdentificationCode;
                         productFound.Description = modifiedProduct.Description;
+                        context.SaveChanges();
+                        pictureSet.Product_Id = originalProduct.Id;
+                        context.ProductPictureSet.Add(pictureSet);
                         context.SaveChanges();
                         generatedID = (int)productFound.Id;
                     }

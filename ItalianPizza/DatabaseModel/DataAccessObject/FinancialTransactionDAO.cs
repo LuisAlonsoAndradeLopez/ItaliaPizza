@@ -34,6 +34,18 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public List<FinancialTransactionSet> GetFinancialTransactions()
+        {
+            List<FinancialTransactionSet> financialTransactions = new List<FinancialTransactionSet>();
+
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                financialTransactions = context.FinancialTransactionSet.ToList();
+            }
+
+            return financialTransactions;
+        }
+
         public List<FinancialTransactionSet> GetSpecifiedFinancialTransactionsByTransactionTypeAndRealizationDate(string transactionType, DateTime realizationDate)
         {
             List<FinancialTransactionSet> specifiedFinancialTransactions = new List<FinancialTransactionSet>();

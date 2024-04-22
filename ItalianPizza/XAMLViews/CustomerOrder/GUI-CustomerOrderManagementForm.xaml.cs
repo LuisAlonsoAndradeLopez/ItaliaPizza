@@ -483,7 +483,7 @@ namespace ItalianPizza.XAMLViews
                 if(imageManager.CheckProductImagePath(product.Id))
                 {
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
-                    imagePath = Path.GetFullPath(System.IO.Path.Combine(baseDirectory, relativePath));
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
                     Image imgPhotoProduct = new Image
                     {
                         Height = 120,

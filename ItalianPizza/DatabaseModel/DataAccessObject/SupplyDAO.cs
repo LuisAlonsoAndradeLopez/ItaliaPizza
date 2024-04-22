@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
-using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Windows.Media.Imaging;
@@ -16,12 +15,21 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         public int AddSupply(SupplySet supply)
         {
             int result = 0;
+            SupplyPictureSet pictureSet = new SupplyPictureSet
+            {
+                SupplyImage = supply.Picture
+            };
+
+            supply.Picture = null;
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     context.SupplySet.Add(supply);
+                    context.SaveChanges();
+                    pictureSet.Supply_Id = supply.Id;
+                    context.SupplyPictureSet.Add(pictureSet);
                     context.SaveChanges();
                 }
 
@@ -201,6 +209,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             int generatedID = 0;
 
+            SupplyPictureSet pictureSet = new SupplyPictureSet
+            {
+                SupplyImage = modifiedSupply.Picture
+            };
+
+            modifiedSupply.Picture = null;
+
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -216,6 +231,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         supplyFound.SupplyTypeId = modifiedSupply.SupplyTypeId;
                         supplyFound.EmployeeId = modifiedSupply.EmployeeId;
                         supplyFound.IdentificationCode = modifiedSupply.IdentificationCode;
+                        context.SaveChanges();
+                        pictureSet.Supply_Id = originalSupply.Id;
+                        context.SupplyPictureSet.Add(pictureSet);
                         context.SaveChanges();
                         generatedID = (int)supplyFound.Id;
                     }
@@ -332,7 +350,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return supplyList;
         }
 
-
         public List<SupplySet> GetAllSupply()
         {
             List<SupplySet> supplyList;
@@ -418,6 +435,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
+
+            return suppliesListOrder;
         }
 
         public int UpdateSupplyObservations(string supplyName, string observations)
@@ -476,8 +495,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return generatedID;
-
-            return suppliesListOrder;
         }
 
         public SupplyPictureSet GetSupplyPicturebyID(int supplyID)

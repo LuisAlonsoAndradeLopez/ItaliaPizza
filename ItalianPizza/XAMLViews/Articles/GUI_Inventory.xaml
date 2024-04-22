@@ -58,7 +58,7 @@
                 <StackPanel Name="ArticlesStackPanel">
                     <Border Cursor="Hand" Height="142" Margin="5,4,5,0" CornerRadius="10" Background="#7E1616" MouseLeftButtonDown="ArticleButtonOnClick">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="100" Height="100" Margin="40, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
+                            <Image Width="100" Height="100" Margin="40, 0, 0, 0"/>
                             <TextBlock Foreground="White" Margin="47, 0, 0, 0" Width="290" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Articulo 1"/>
                             <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="142" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Insumo"/>
                             <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="144" TextWrapping="Wrap" FontSize="25" TextAlignment="Center" VerticalAlignment="Center" Text="Activo"/>
@@ -74,12 +74,12 @@
 
                 <StackPanel Name="SelectedArticleImageStackPanel" Height="207" Orientation="Horizontal" Visibility="Collapsed">
                     <TextBlock Text="Imágen del Artículo: " Foreground="White" FontSize="50" Margin="50,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Width="255" Height="138"/>
-                    <Image Name="SelectedArticleImage" Width="150" Height="150" Margin="56, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
+                    <Image Name="SelectedArticleImage" Width="150" Height="150" Margin="56, 0, 0, 0"/>
                 </StackPanel>
 
                 <StackPanel Name="ModifySelectedArticleImageStackPanel" Height="207" Orientation="Horizontal" Visibility="Collapsed">
                     <TextBlock Text="Imágen del Artículo: " Foreground="White" FontSize="30" Margin="30,0,0,0" TextAlignment="Center" TextWrapping="Wrap" Width="151" Height="83"/>
-                    <Image Name="ModifySelectedArticleImage" Width="150" Height="150" Margin="40, 0, 0, 0" Source="C:\Users\Luis Alonso\Pictures\boja.png"/>
+                    <Image Name="ModifySelectedArticleImage" Width="150" Height="150" Margin="40, 0, 0, 0"/>
                     <Button Style="{StaticResource DarkRedButtonStyle}" Margin="30,0,0,0" Width="138" Height="49" Click="SelectImageButtonOnClick">
                         <TextBlock TextWrapping="Wrap" TextAlignment="Center" Text="Seleccionar Imágen" Width="132"/>
                     </Button>
@@ -142,12 +142,12 @@
                 <StackPanel Name="ModifySelectedArticleDetailsStackPanel" Height="548" Visibility="Collapsed">
                     <StackPanel Name="ModifySelectedArticleNameStackPanel" Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Nombre del Artículo: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="171" Height="26"/>
-                        <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" x:Name="ModifySelectedArticleNameTextBox" TextAlignment="Left" Width="367" Height="26" MaxLength="40"/>
+                        <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" x:Name="ModifySelectedArticleNameTextBox" TextAlignment="Left" Width="367" Height="34" MaxLength="40"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Categoría: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="86" Height="26"/>
-                        <ComboBox Name="ModifySelectedArticleCategoryComboBox" FontSize="18" Margin="0,0,0,0" Width="451" Height="26"/>
+                        <ComboBox Name="ModifySelectedArticleCategoryComboBox" FontSize="18" Margin="0,0,0,0" Width="451" Height="34"/>
                     </StackPanel>
 
                     <StackPanel Name="ModifySelectedArticleUnitStackPanel" Width="569" Orientation="Horizontal" Height="61" Visibility="Collapsed">
@@ -157,17 +157,17 @@
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Cantidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="79" Height="26"/>
-                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" MaxLength="6" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="457" Height="26"/>
+                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" MaxLength="6" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="457" Height="34"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Código: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="68" Height="26"/>
-                        <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="ModifySelectedArticleCodeTextBox" Margin="0,0,0,0" TextAlignment="Left" Width="468" Height="26" MaxLength="20"/>
+                        <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="ModifySelectedArticleCodeTextBox" Margin="0,0,0,0" TextAlignment="Left" Width="468" Height="34" MaxLength="20"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Precio: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="58" Height="26"/>
-                        <xctk:DecimalUpDown Name="ModifySelectedArticlePriceDecimalUpDown" MaxLength="10" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="478" Height="26"/>
+                        <xctk:DecimalUpDown Name="ModifySelectedArticlePriceDecimalUpDown" MaxLength="10" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="478" Height="34"/>
                     </StackPanel>
 
                     <StackPanel Name="ModifySelectedArticleDescriptionStackPanel" Width="569" Orientation="Vertical" Height="243" Visibility="Visible">

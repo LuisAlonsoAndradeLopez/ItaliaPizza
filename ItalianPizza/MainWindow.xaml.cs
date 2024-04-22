@@ -1,5 +1,4 @@
 ﻿using ItalianPizza.XAMLViews;
-using ItalianPizza.XAMLViews.Suppliers;
 using System.Windows;
 
 namespace ItalianPizza

@@ -42,39 +42,43 @@
             <Rectangle HorizontalAlignment="Left" Height="670" Margin="272,228,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="1448" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
 
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="276,174,0,0" Stroke="Black" VerticalAlignment="Top" Width="1404" Fill="#000000"/>
-            <TextBlock Text="ID" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="360,186,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
-            <TextBlock Text="Tipo de Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="449,177,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="109"/>
+            <TextBlock Text="Tipo de Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="308,179,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="114"/>
+            <TextBlock Text="Contexto de la Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="439,180,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="129"/>
             <TextBlock Text="Fecha de Realización" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="583,180,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="110"/>
-            <TextBlock Text="Cantidad" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="747,190,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            <TextBlock Text="Cantidad" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="741,190,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
             <TextBlock Text="Descripción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1218,189,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
 
             <ScrollViewer x:Name="FinancialTransactionsScrollViewer" Margin="290,250,41,43">
                 <StackPanel Name="FinancialTransactionsStackPanel">
                     <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="1"/>
-                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Pago de pedido de proveedor"/>
                             <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
                             <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
                             <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
                         </StackPanel>
                     </Border>
-                    <Border Name="AddFinancialTransactionBorder" Height="99" Margin="5,4,5,0" Background="#7E1616">
+                    <Border Name="AddFinancialTransactionBorder" Height="99" Margin="5,4,5,0" Background="#7E1616" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Width="346">
                                 <StackPanel Orientation="Horizontal" Margin="0, 14, 0, 0">
                                     <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="165" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Tipo de Transacción:"/>
-                                    <ComboBox Name="FinancialTransactionTypeComboBox" Width="171" Height="30"></ComboBox>
+                                    <ComboBox Name="FinancialTransactionTypeComboBox" Width="171" Height="30"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
                                     <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Cantidad: "/>
                                     <xctk:DecimalUpDown Name="FinancialTransactionPriceDecimalUpDown" MaxLength="30" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="26"/>
                                 </StackPanel>
                             </StackPanel>
-                            <TextBlock Foreground="White" Margin="20, 0, 0, 0" Width="101" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Descripción: "/>
-                            <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="FinancialTransactionDescriptionTextBox" TextWrapping="Wrap" Width="540" Height="76"/>
+                            <StackPanel Margin="10, 6, 0, 0">
+                                <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Contexto: "/>
+                                <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="ContextTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="58" MaxLength="20"/>
+                            </StackPanel>
+                            <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="101" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Descripción: "/>
+                            <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="FinancialTransactionDescriptionTextBox" TextWrapping="Wrap" Width="357" Height="76" MaxLength="100"/>
                             <Button Style="{StaticResource RedButtonStyle}" Margin="10, 0, 0, 0" Height="44" Width="174" Content="Guardar Transacción" Click="SaveTransactionButtonOnClick"/>
-                            <Button Style="{StaticResource BlackButtonStyle}" Margin="10, 0, 0, 0" Height="44" Width="174" Content="Cancelar" Click="CancelButtonOnClick"/>                            
+                            <Button Style="{StaticResource BlackButtonStyle}" Margin="10, 0, 0, 0" Height="44" Width="100" Content="Cancelar" Click="CancelButtonOnClick"/>                            
                         </StackPanel>
                     </Border>
                 </StackPanel>

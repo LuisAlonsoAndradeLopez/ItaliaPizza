@@ -27,6 +27,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public string Description { get; set; }
         public System.DateTime FinancialTransactionDate { get; set; }
         public int EmployeeId { get; set; }
+        public Nullable<double> MonetaryValue { get; set; }
+        public string Context { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
