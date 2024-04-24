@@ -18,6 +18,7 @@ namespace ItalianPizza.XAMLViews.Finances
         //TODO:
 
         //Try-catch a todos los botonazos de todas las ventanas
+        //Validaciones
 
         List<FinancialTransactionSet> financialTransactions;
 
@@ -26,22 +27,21 @@ namespace ItalianPizza.XAMLViews.Finances
             financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
 
             InitializeComponent();
-            ShowFinancialTransactions("", "");
+
+            string formattedDate = DateTime.Now.ToString("dd/MM/yyyy");
+            RealizationDatePicker.Text = formattedDate;
+
+            InitializeComboboxes();
         }
 
         private void TransactionTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowFinancialTransactions(TransactionTypeComboBox.Text, RealizationDatePicker.Text);
+            ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
         }
 
         private void RealizationDatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            ShowFinancialTransactions(TransactionTypeComboBox.Text, RealizationDatePicker.Text);
-        }
-
-        private void EraseSelectedDateButtonOnClick(object sender, RoutedEventArgs e)
-        {
-            RealizationDatePicker.Text = "";
+            ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
         }
 
         private void AddFinancialTransactionButtonOnClick(object sender, RoutedEventArgs e)
@@ -60,17 +60,26 @@ namespace ItalianPizza.XAMLViews.Finances
         private void SaveTransactionButtonOnClick(object sender, RoutedEventArgs e)
         {
             string financialTransactionType;
+            string financialTransactionContext;
+            double financialTransactionMonetaryValue;
 
-            if (FinancialTransactionTypeComboBox.Text != null)
+            if (FinancialTransactionTypeComboBox.SelectedItem?.ToString() != null)
             {
-                financialTransactionType = FinancialTransactionTypeComboBox.Text;
+                financialTransactionType = FinancialTransactionTypeComboBox.SelectedItem?.ToString();
             }
             else
             {
                 financialTransactionType = "";
             }
 
-            double financialTransactionMonetaryValue;
+            if (FinancialTransactionContextComboBox.SelectedItem?.ToString() != null)
+            {
+                financialTransactionContext = FinancialTransactionContextComboBox.SelectedItem?.ToString();
+            }
+            else
+            {
+                financialTransactionContext = "";
+            }
 
             if (FinancialTransactionPriceDecimalUpDown.Value != null)
             {
@@ -88,7 +97,7 @@ namespace ItalianPizza.XAMLViews.Finances
                 FinancialTransactionDate = DateTime.Now,
                 EmployeeId = 2,
                 MonetaryValue = financialTransactionMonetaryValue,
-                Context = ContextTextBox.Text
+                Context = financialTransactionContext
             };
 
             new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
@@ -97,6 +106,8 @@ namespace ItalianPizza.XAMLViews.Finances
 
             AddFinancialTransactionBorder.Visibility = Visibility.Collapsed;
             AddFinancialTransactionButton.IsEnabled = true;
+
+            ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
         }
 
         private void CancelButtonOnClick(object sender, RoutedEventArgs e)
@@ -105,10 +116,15 @@ namespace ItalianPizza.XAMLViews.Finances
             AddFinancialTransactionButton.IsEnabled = true;
         }
 
-        private void ShowFinancialTransactions(string financialTransactionType, string realizationDate)
+        private void ShowFinancialTransactions(string financialTransactionType, DateTime realizationDate)
         {
-            List<FinancialTransactionSet> selectedFinancialTransactions = financialTransactions.Where(ft => ft.Type == financialTransactionType)
-                    .Where(ft => ft.FinancialTransactionDate == DateTime.Parse(realizationDate)).ToList();
+            DateTime startDate = realizationDate.Date;
+            DateTime endDate = startDate.AddDays(1).AddTicks(-1);
+
+            List<FinancialTransactionSet> selectedFinancialTransactions = financialTransactions
+                .Where(ft => ft.Type == financialTransactionType && 
+                             ft.FinancialTransactionDate >= startDate && ft.FinancialTransactionDate <= endDate)
+                .ToList();
 
             while(FinancialTransactionsStackPanel.Children.Count > 1)
             {
@@ -174,7 +190,7 @@ namespace ItalianPizza.XAMLViews.Finances
                     FontSize = 18,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = financialTransaction.MonetaryValue.ToString()
+                    Text = "$" + financialTransaction.MonetaryValue.ToString()
                 };
 
                 TextBlock financialTransactionDescriptionTextBlock = new TextBlock
@@ -199,6 +215,17 @@ namespace ItalianPizza.XAMLViews.Finances
                 int indexToInsert = FinancialTransactionsStackPanel.Children.Count - 1;
                 FinancialTransactionsStackPanel.Children.Insert(indexToInsert, financialTransactionBorder);
             }
+        }
+
+        private void InitializeComboboxes()
+        {
+            TransactionTypeComboBox.Items.Add(FinancialTransactionTypes.Entrada.ToString());
+            TransactionTypeComboBox.Items.Add(FinancialTransactionTypes.Salida.ToString());
+            TransactionTypeComboBox.SelectedItem = TransactionTypeComboBox.Items[0];
+
+            FinancialTransactionTypeComboBox.Items.Add(FinancialTransactionTypes.Entrada.ToString());
+            FinancialTransactionTypeComboBox.Items.Add(FinancialTransactionTypes.Salida.ToString());
+            FinancialTransactionTypeComboBox.SelectedItem = FinancialTransactionTypeComboBox.Items[0];
         }
     }
 }

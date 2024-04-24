@@ -9,6 +9,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Label = System.Windows.Controls.Label;
@@ -109,6 +110,8 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
+            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
 
@@ -255,7 +258,9 @@ namespace ItalianPizza.XAMLViews
             customerOrderSet = customerOrder;
             try
             {
-                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Hidden;
+                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Collapsed;
+                grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
+                grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
                 lblOrderTypeCustomer.Content = customerOrder.OrderTypeSet.Type;
 
                 if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
@@ -378,7 +383,58 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
+            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
+            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
+        }
+
+        private void BtnPayCustomerOrderOnClick(object sender, RoutedEventArgs e)
+        {     
+
+            PayTransactionTypeComboBox.SelectedItem = FinancialTransactionTypes.Entrada.ToString();
+            PayMonetaryValueDecimalUpDown.
+            PayContextComboBox.SelectedItem =
+            PayDescriptionTextBox.
+
+            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
+            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
+            grdVirtualWindowPayDetails.Visibility = Visibility.Visible;
+        }
+
+        private void BtnBackOnClick(object sender, RoutedEventArgs e)
+        {
+            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
+            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
+            grdVirtualWindowPayDetails.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                {
+                    Type = PayTransactionTypeComboBox.SelectedItem.ToString(),
+                    Description = PayDescriptionTextBox.Text,
+                    FinancialTransactionDate = DateTime.Now,
+                    EmployeeId = 2,
+                    MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
+                    Context = PayContextComboBox.SelectedItem.ToString()
+                };
+
+                new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+
+                new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+
+            }
+            catch (EntityException)
+            {
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (InvalidOperationException)
+            {
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+            }
         }
     }
 }

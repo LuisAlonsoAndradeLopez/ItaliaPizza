@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="922.16" 
       d:DesignWidth="1742.8"
@@ -28,6 +29,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
 
     </Page.Resources>
 
@@ -205,7 +207,7 @@
                Visibility="Collapsed"/>
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowCustomerOrderInformation" Visibility="Visible">
+        <Grid x:Name="grdVirtualWindowCustomerOrderInformation" Visibility="Collapsed">
             <Label Content="Detalles del pedido: " 
                HorizontalAlignment="Left" 
                Margin="1192,39,0,0" 
@@ -302,7 +304,8 @@
                 FontFamily="Arial" 
                 FontSize="18" 
                 BorderThickness="0" 
-                FontWeight="Thin"/>
+                FontWeight="Thin"
+                Click="BtnPayCustomerOrderOnClick"/>
 
             <Button x:Name="btnModifyCustomerOrder" Content="Modificar Pedido" 
                 HorizontalAlignment="Left" 
@@ -320,7 +323,7 @@
                 Click="GoToModifyOrderVirtualWindow"/>
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0">
+        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0" Visibility="Collapsed">
             <Label Content="Contenido del pedido" 
                HorizontalAlignment="Left" 
                Margin="1351,284,0,0" 
@@ -447,11 +450,52 @@
                FontWeight="Bold" 
                FontSize="38" 
                Foreground="White"/>
-            
+
         </Grid>
 
-        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
-        
+        <Grid Name="grdVirtualWindowPayDetails" Visibility="Collapsed">
+            <TextBlock Text="Datos del Pago: " TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1321,170,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="265"/>
+            <TextBlock Text="Tipo de Transacción: " TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1207,247,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="221"/>
+            <ComboBox Name="PayTransactionTypeComboBox" HorizontalAlignment="Left" Margin="1169,309,0,0" VerticalAlignment="Top" Height="51" Width="279" FontSize="24" Background="#FF131313" Foreground="White" BorderBrush="#FF6C6969" IsEnabled="False"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1540,274,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="130"><Run Language="es-mx" Text="Cantidad: "/></TextBlock>
+            <xctk:DecimalUpDown Name="PayMonetaryValueDecimalUpDown" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" MaxLength="10" HorizontalAlignment="Left" Margin="1476,309,0,0" VerticalAlignment="Top" Height="51" Width="246" FontSize="24" IsEnabled="False"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1343,392,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="222"><Run Language="es-mx" Text="Contexto:"/></TextBlock>
+            <ComboBox Name="PayContextComboBox" HorizontalAlignment="Left" Margin="1308,428,0,0" VerticalAlignment="Top" Height="51" Width="280" FontSize="24" Background="#FF131313" Foreground="White" BorderBrush="#FF6C6969" IsEnabled="False"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1343,519,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="222"><Run Language="es-mx" Text="Descripción:"/></TextBlock>
+            <TextBox Style="{StaticResource RoundCornerTextBoxStyle}" Name="PayDescriptionTextBox" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Margin="1169,556,0,248" TextWrapping="Wrap" AcceptsReturn="True" Width="553" FontSize="24" MaxLength="300" Background="#FF131313" Foreground="White"/>
+            <Button x:Name="btnBack" Content="Atrás" 
+                HorizontalAlignment="Left" 
+                Margin="1213,698,0,0" 
+                VerticalAlignment="Top"
+                Height="44"
+                Width="206"
+                Background="#000000"
+                Foreground="#FFF8F8F8"
+                FontFamily="Arial" 
+                FontSize="18" 
+                BorderBrush="#FFBC8B21" 
+                BorderThickness="0"
+                FontWeight="Thin" 
+                Click="BtnBackOnClick"/>
+
+            <Button x:Name="btnRealizatePayCustomerOrder"
+                Content="Pagar Pedido" 
+                HorizontalAlignment="Left" 
+                Margin="1484,697,0,0" 
+                VerticalAlignment="Top" 
+                Height="44" 
+                Width="206" 
+                Background="#FFDB4B2C" 
+                Foreground="#FFF8F8F8" 
+                FontFamily="Arial" 
+                FontSize="18" 
+                BorderThickness="0" 
+                FontWeight="Thin"
+                Click="BtnRealizatePayCustomerOrderOnClick"/>
+        </Grid>
+
+        <local:NavigationBar HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+
     </Grid>
 
 </Page>
