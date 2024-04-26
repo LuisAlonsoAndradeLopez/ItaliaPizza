@@ -56,52 +56,60 @@ namespace ItalianPizza.XAMLViews
 
         private void ArticleTypesComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox articleTypesComboBox = (ComboBox)sender;
-            string selectedOption = articleTypesComboBox.SelectedItem?.ToString();
-
-            SupplyOrProductTypesComboBox.Items.Clear();
-            SupplyUnitsComboBox.Items.Clear();
-
-            List<SupplyTypeSet> supplyCategories = new SupplyTypeDAO().GetAllSupplyTypes();
-            List<ProductTypeSet> productCategories = new ProductTypeDAO().GetAllProductTypes();
-
-
-            if (selectedOption == ArticleTypes.Insumo.ToString())
+            try
             {
-                foreach (var supply in supplyCategories)
+                ComboBox articleTypesComboBox = (ComboBox)sender;
+                string selectedOption = articleTypesComboBox.SelectedItem?.ToString();
+
+                SupplyOrProductTypesComboBox.Items.Clear();
+                SupplyUnitsComboBox.Items.Clear();
+
+                List<SupplyTypeSet> supplyCategories = new SupplyTypeDAO().GetAllSupplyTypes();
+                List<ProductTypeSet> productCategories = new ProductTypeDAO().GetAllProductTypes();
+
+
+                if (selectedOption == ArticleTypes.Insumo.ToString())
                 {
-                    SupplyOrProductTypesComboBox.Items.Add(supply.Type);
+                    foreach (var supply in supplyCategories)
+                    {
+                        SupplyOrProductTypesComboBox.Items.Add(supply.Type);
+                    }
+
+                    NameAndArticleTypeStackPanel.Margin = new Thickness(0, 74, 0, 0);
+                    SupplyUnitsStackPanel.Visibility = Visibility.Visible;
+                    DescriptionStackPanel.Visibility = Visibility.Collapsed;
+                    EnableOrDisableRecipeStackPanel.Visibility = Visibility.Collapsed;
                 }
 
-                NameAndArticleTypeStackPanel.Margin = new Thickness(0, 74, 0, 0);
-                SupplyUnitsStackPanel.Visibility = Visibility.Visible;
-                DescriptionStackPanel.Visibility = Visibility.Collapsed;
-                EnableOrDisableRecipeStackPanel.Visibility = Visibility.Collapsed;
-            }
-
-            if (selectedOption == ArticleTypes.Producto.ToString())
-            {
-                foreach (var product in productCategories)
+                if (selectedOption == ArticleTypes.Producto.ToString())
                 {
-                    SupplyOrProductTypesComboBox.Items.Add(product.Type);
+                    foreach (var product in productCategories)
+                    {
+                        SupplyOrProductTypesComboBox.Items.Add(product.Type);
+                    }
+
+                    NameAndArticleTypeStackPanel.Margin = new Thickness(0, 10, 0, 0);
+                    SupplyUnitsStackPanel.Visibility = Visibility.Collapsed;
+                    DescriptionStackPanel.Visibility = Visibility.Visible;
+                    EnableOrDisableRecipeStackPanel.Visibility = Visibility.Visible;
                 }
 
-                NameAndArticleTypeStackPanel.Margin = new Thickness(0, 10, 0, 0);
-                SupplyUnitsStackPanel.Visibility = Visibility.Collapsed;
-                DescriptionStackPanel.Visibility = Visibility.Visible;
-                EnableOrDisableRecipeStackPanel.Visibility = Visibility.Visible;
+                SupplyOrProductTypesComboBox.SelectedItem = SupplyOrProductTypesComboBox.Items[0];
+
+                List<SupplyUnitSet> supplyUnits = new SupplyUnitDAO().GetAllSupplyUnits();
+
+                foreach (var supplyUnit in supplyUnits)
+                {
+                    SupplyUnitsComboBox.Items.Add(supplyUnit.Unit);
+                }
+
+                SupplyUnitsComboBox.SelectedItem = SupplyUnitsComboBox.Items[0];
             }
-
-            SupplyOrProductTypesComboBox.SelectedItem = SupplyOrProductTypesComboBox.Items[0];
-
-            List<SupplyUnitSet> supplyUnits = new SupplyUnitDAO().GetAllSupplyUnits();
-
-            foreach (var supplyUnit in supplyUnits)
+            catch (EntityException ex)
             {
-                SupplyUnitsComboBox.Items.Add(supplyUnit.Unit);
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
             }
-
-            SupplyUnitsComboBox.SelectedItem = SupplyUnitsComboBox.Items[0];
         }
 
         private void QuantityIntegerUpDownPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -122,8 +130,16 @@ namespace ItalianPizza.XAMLViews
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_Inventory());
+            try
+            {
+                NavigationService navigationService = NavigationService.GetNavigationService(this);
+                navigationService.Navigate(new GUI_Inventory());
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
         }
 
         private void AddArticleButtonOnClick(object sender, RoutedEventArgs e)
@@ -251,7 +267,6 @@ namespace ItalianPizza.XAMLViews
                 new ExceptionLogger().LogException(ex);
             }
         }
-
 
         private void InitializeComboBoxes()
         {

@@ -28,7 +28,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public System.DateTime FinancialTransactionDate { get; set; }
         public int EmployeeId { get; set; }
         public Nullable<double> MonetaryValue { get; set; }
-        public string Context { get; set; }
+        public Nullable<int> Context_ID { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -37,5 +37,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual ICollection<CustomerOrderSet> CustomerOrderSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierOrderSet> SupplierOrderSet { get; set; }
+        public virtual FinancialTransactionContextSet FinancialTransactionContextSet { get; set; }
     }
 }

@@ -32,6 +32,7 @@ namespace ItalianPizza.XAMLViews
             InitializeDAOConnections();
             ShowAllOrdersToday();
             FillListBoxStatus();
+            FillComboboxes();
         }
 
         private void FillListBoxStatus()
@@ -54,6 +55,28 @@ namespace ItalianPizza.XAMLViews
                     "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
             }
+        }
+
+        private void FillComboboxes()
+        {
+            string[] financialTransactionTypes = { FinancialTransactionTypes.Entrada.ToString(), FinancialTransactionTypes.Salida.ToString() };
+
+            foreach (var financialTransactionType in financialTransactionTypes)
+            {
+                PayTransactionTypeComboBox.Items.Add(financialTransactionType);
+            }
+
+            PayTransactionTypeComboBox.SelectedItem = PayTransactionTypeComboBox.Items[0];
+
+
+            List<FinancialTransactionContextSet> financialTransactionContexts = new FinancialTransactionContextDAO().GetAllFinancialTransactionContexts();
+
+            foreach (var financialTransactionContext in financialTransactionContexts)
+            {
+                PayContextComboBox.Items.Add(financialTransactionContext.Context);
+            }
+
+            PayContextComboBox.SelectedItem = PayContextComboBox.Items[0];
         }
 
         public void InitializeDAOConnections()
@@ -223,12 +246,19 @@ namespace ItalianPizza.XAMLViews
                     if(customerOrder.OrderStatusId == 1)
                     {
                         btnModifyCustomerOrder.IsEnabled = true;
-                        btnModifyCustomerOrder.IsEnabled = true;
                     }
                     else
                     {
                         btnModifyCustomerOrder.IsEnabled = false;
-                        btnModifyCustomerOrder.IsEnabled = false;
+                    }
+
+                    if (customerOrder.OrderStatusId == 5)
+                    {
+                        btnPayCustomerOrder.IsEnabled = false;
+                    }
+                    else
+                    {
+                        btnPayCustomerOrder.IsEnabled = true;
                     }
                 };
 
@@ -390,12 +420,8 @@ namespace ItalianPizza.XAMLViews
 
         private void BtnPayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {     
-
-            PayTransactionTypeComboBox.SelectedItem = FinancialTransactionTypes.Entrada.ToString();
-            PayMonetaryValueDecimalUpDown.
-            PayContextComboBox.SelectedItem =
-            PayDescriptionTextBox.
-
+            PayMonetaryValueDecimalUpDown.Text = lblTotalOrderCost.Content.ToString();
+            
             grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
             grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowPayDetails.Visibility = Visibility.Visible;
@@ -412,20 +438,31 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                if (PayDescriptionTextBox.Text != "")
                 {
-                    Type = PayTransactionTypeComboBox.SelectedItem.ToString(),
-                    Description = PayDescriptionTextBox.Text,
-                    FinancialTransactionDate = DateTime.Now,
-                    EmployeeId = 2,
-                    MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
-                    Context = PayContextComboBox.SelectedItem.ToString()
-                };
+                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                    {
+                        Type = PayTransactionTypeComboBox.SelectedItem.ToString(),
+                        Description = PayDescriptionTextBox.Text,
+                        FinancialTransactionDate = DateTime.Now,
+                        EmployeeId = 2,
+                        MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
+                        Context_ID = new FinancialTransactionContextDAO().GetFinancialTransactionContextByName(PayContextComboBox.SelectedItem.ToString()).Id
+                    };
 
-                new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                    new CustomerOrdersDAO().PayCustomerOrder(customerOrderSet);
 
-                new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
 
+                    grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
+                    grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
+                    grdVirtualWindowPayDetails.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    new AlertPopup("¡Falta la descripción!", "Falta que introduzcas la descripción de la transacción financiera a realizar", AlertPopupTypes.Error);
+                }
             }
             catch (EntityException)
             {

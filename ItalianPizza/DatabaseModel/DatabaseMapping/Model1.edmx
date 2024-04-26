@@ -132,6 +132,13 @@
           <Property Name="Address_Id" Type="int" Nullable="false" />
           <Property Name="UserAccount_Id" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="FinancialTransactionContextSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Context" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="FinancialTransactionCustomerOrder">
           <Key>
             <PropertyRef Name="CustomerOrderSet_Id" />
@@ -150,7 +157,7 @@
           <Property Name="FinancialTransactionDate" Type="datetime" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="MonetaryValue" Type="float" />
-          <Property Name="Context" Type="nvarchar" MaxLength="25" />
+          <Property Name="Context_ID" Type="int" />
         </EntityType>
         <EntityType Name="FinancialTransactionSupplierOrder">
           <Key>
@@ -680,6 +687,18 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_FinancialTransactionSet_FinancialTransactionContextSet">
+          <End Role="FinancialTransactionContextSet" Type="Self.FinancialTransactionContextSet" Multiplicity="0..1" />
+          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialTransactionContextSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FinancialTransactionSet">
+              <PropertyRef Name="Context_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
           <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
           <End Role="FinancialTransactionSupplierOrder" Type="Self.FinancialTransactionSupplierOrder" Multiplicity="*" />
@@ -969,6 +988,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <EntitySet Name="EmployeePictureSet" EntityType="Self.EmployeePictureSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePositionSet" EntityType="Self.EmployeePositionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSet" EntityType="Self.EmployeeSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinancialTransactionContextSet" EntityType="Self.FinancialTransactionContextSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionCustomerOrder" EntityType="Self.FinancialTransactionCustomerOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionSet" EntityType="Self.FinancialTransactionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionSupplierOrder" EntityType="Self.FinancialTransactionSupplierOrder" Schema="dbo" store:Type="Tables" />
@@ -1108,6 +1128,10 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <AssociationSet Name="FK_FinancialTransactionCustomerOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionCustomerOrder_FinancialTransactionSet">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
             <End Role="FinancialTransactionCustomerOrder" EntitySet="FinancialTransactionCustomerOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_FinancialTransactionSet_FinancialTransactionContextSet" Association="Self.fk_FinancialTransactionSet_FinancialTransactionContextSet">
+            <End Role="FinancialTransactionContextSet" EntitySet="FinancialTransactionContextSet" />
+            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
             <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
@@ -1372,7 +1396,8 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="CustomerOrderSet" Relationship="Self.FinancialTransactionCustomerOrder" FromRole="FinancialTransactionSet" ToRole="CustomerOrderSet" />
           <NavigationProperty Name="SupplierOrderSet" Relationship="Self.FinancialTransactionSupplierOrder" FromRole="FinancialTransactionSet" ToRole="SupplierOrderSet" />
           <Property Name="MonetaryValue" Type="Double" />
-          <Property Name="Context" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="Context_ID" Type="Int32" />
+          <NavigationProperty Name="FinancialTransactionContextSet" Relationship="ItalianPizzaServerBDModel.fk_FinancialTransactionSet_FinancialTransactionContextSet" FromRole="FinancialTransactionSet" ToRole="FinancialTransactionContextSet" />
         </EntityType>
         <EntityType Name="InventoryValidationSet">
           <Key>
@@ -2272,6 +2297,11 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="SupplySet" EntitySet="SupplySet" />
             <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
           </AssociationSet>
+          <EntitySet Name="FinancialTransactionContextSet" EntityType="ItalianPizzaServerBDModel.FinancialTransactionContextSet" />
+          <AssociationSet Name="fk_FinancialTransactionSet_FinancialTransactionContextSet" Association="ItalianPizzaServerBDModel.fk_FinancialTransactionSet_FinancialTransactionContextSet">
+            <End Role="FinancialTransactionContextSet" EntitySet="FinancialTransactionContextSet" />
+            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EmployeePictureSet">
           <Key>
@@ -2349,6 +2379,26 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Principal>
             <Dependent Role="SupplyPictureSet">
               <PropertyRef Name="Supply_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FinancialTransactionContextSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Context" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="FinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.fk_FinancialTransactionSet_FinancialTransactionContextSet" FromRole="FinancialTransactionContextSet" ToRole="FinancialTransactionSet" />
+        </EntityType>
+        <Association Name="fk_FinancialTransactionSet_FinancialTransactionContextSet">
+          <End Type="ItalianPizzaServerBDModel.FinancialTransactionContextSet" Role="FinancialTransactionContextSet" Multiplicity="0..1" />
+          <End Type="ItalianPizzaServerBDModel.FinancialTransactionSet" Role="FinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialTransactionContextSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="FinancialTransactionSet">
+              <PropertyRef Name="Context_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2482,7 +2532,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     <EntitySetMapping Name="FinancialTransactionSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.FinancialTransactionSet)">
         <MappingFragment StoreEntitySet="FinancialTransactionSet">
-          <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Context_ID" ColumnName="Context_ID" />
                 <ScalarProperty Name="MonetaryValue" ColumnName="MonetaryValue" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Type" ColumnName="Type" />
@@ -2730,6 +2780,14 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
                 <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinancialTransactionContextSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.FinancialTransactionContextSet">
+              <MappingFragment StoreEntitySet="FinancialTransactionContextSet">
+                <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

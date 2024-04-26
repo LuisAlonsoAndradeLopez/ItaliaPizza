@@ -140,6 +140,7 @@
     <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="Auxiliary\RegexChecker.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionContextDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
@@ -185,6 +186,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\EmployeeSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionContextSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionSet.cs">

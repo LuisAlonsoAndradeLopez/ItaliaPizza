@@ -215,7 +215,7 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                new AlertPopup("¡No disponible!", "En desarrollo", AlertPopupTypes.Error);
+                new AlertPopup("¡No disponible!", "En desarrollo de software con el Álvaro", AlertPopupTypes.Error);
                 //Este método lo hace el Álvaro
 
             }
