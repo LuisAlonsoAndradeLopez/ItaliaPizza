@@ -117,7 +117,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                                     CustomerOrderId = OriginalCustomerOrder.Id,
                                     CustomerId = customer.Id
                                 };
-                                
+
                                 customerOrderDeliveryDriverSet = new CustomerOrderDeliveryDriverSet
                                 {
                                     CustomerOrderId = OriginalCustomerOrder.Id,

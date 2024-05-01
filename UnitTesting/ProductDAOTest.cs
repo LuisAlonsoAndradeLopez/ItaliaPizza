@@ -1,8 +1,6 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core;
 using System.Transactions;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
@@ -102,7 +100,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string productName = "Success Product 1"; 
+                string productName = "Success Product 1";
                 int result = productDAO.DisableProduct(productName);
 
                 Assert.AreEqual(1, result);
@@ -126,7 +124,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string productName = "Success Product 1"; 
+                string productName = "Success Product 1";
                 ProductSaleSet product = productDAO.GetProductByName(productName);
 
                 Assert.IsNotNull(product);
@@ -151,7 +149,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 string textForFindingArticle = "Success Product 1";
-                string findByType = "Nombre"; 
+                string findByType = "Nombre";
                 List<ProductSaleSet> specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(textForFindingArticle, findByType);
 
                 Assert.IsNotNull(specifiedProducts);
@@ -163,7 +161,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string invalidTextForFindingArticle = "Failed Product"; 
+                string invalidTextForFindingArticle = "Failed Product";
                 string findByType = "Tipo Inválido";
                 List<ProductSaleSet> specifiedProducts = productDAO.GetSpecifiedProductsByNameOrCode(invalidTextForFindingArticle, findByType);
 

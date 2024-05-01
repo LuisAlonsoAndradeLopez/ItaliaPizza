@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
-    public  class ProductTypeDAO
+    public class ProductTypeDAO
     {
         public List<ProductTypeSet> GetAllProductTypes()
         {

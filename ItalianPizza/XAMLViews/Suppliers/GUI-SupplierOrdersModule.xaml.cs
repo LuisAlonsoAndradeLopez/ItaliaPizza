@@ -1,21 +1,13 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
@@ -428,7 +420,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             foreach (int supplyID in SupplierSuppliesID)
             {
                 SupplySet supply = supplySetList.FirstOrDefault(s => s.Id == supplyID);
-                if(supply != null)
+                if (supply != null)
                 {
                     supplySetListAux.Add(supply);
                 }
@@ -442,10 +434,10 @@ namespace ItalianPizza.XAMLViews.Suppliers
             List<string> errorMessages = new List<string>();
             SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
             List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
-            foreach(SupplySet supply in listSupplySupplierOrder)
+            foreach (SupplySet supply in listSupplySupplierOrder)
             {
-                int aux = SupplierSuppliesID.FirstOrDefault(a => a ==  supply.Id);
-                if(aux == 0)
+                int aux = SupplierSuppliesID.FirstOrDefault(a => a == supply.Id);
+                if (aux == 0)
                 {
                     errorMessages.Add(supply.Name);
                 }
@@ -478,19 +470,19 @@ namespace ItalianPizza.XAMLViews.Suppliers
                         Auxiliary.AlertPopupTypes.Warning);
                 }
             }
-            
+
         }
 
         private bool AreValidFields()
         {
             bool result = true;
 
-            if(lboOrderStatus.SelectedItem != null)
+            if (lboOrderStatus.SelectedItem != null)
             {
 
             }
 
-            if(lboSuppliers.SelectedItem != null)
+            if (lboSuppliers.SelectedItem != null)
             {
 
             }

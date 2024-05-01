@@ -9,7 +9,7 @@
     public enum ArticleTypes
     {
         Producto,
-        Insumo        
+        Insumo
     }
 
     public enum FinancialTransactionTypes

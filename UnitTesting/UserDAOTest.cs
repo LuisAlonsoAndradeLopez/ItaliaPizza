@@ -1,11 +1,9 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Transactions;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.SymbolStore;
+using System.Transactions;
 
 namespace UnitTesting
 {

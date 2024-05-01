@@ -6,20 +6,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Window = System.Windows.Window;
 
 namespace ItalianPizza.XAMLViews.Suppliers
@@ -40,7 +33,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             supplyDAO = new SupplyDAO();
             productDAO = new ProductDAO();
             InitializeListBox();
-            if (supplier != null )
+            if (supplier != null)
             {
                 supplierSet = supplier;
                 IniatializeFields();
@@ -189,8 +182,8 @@ namespace ItalianPizza.XAMLViews.Suppliers
             else
             {
                 string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
-                new AlertPopup("Campos invalidos", "Los campos " + WrongFields 
-                    + " no deben ser nulos, ni debe tener caracteres especiales", 
+                new AlertPopup("Campos invalidos", "Los campos " + WrongFields
+                    + " no deben ser nulos, ni debe tener caracteres especiales",
                     Auxiliary.AlertPopupTypes.Warning);
             }
         }
@@ -235,7 +228,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 errorMessages.Add("'Email'");
             }
 
-            if(lboStatus.SelectedItem == null)
+            if (lboStatus.SelectedItem == null)
             {
                 lboStatus.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Estado usuario'");
@@ -321,7 +314,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             else
             {
                 new AlertPopup("Insumo ya relacionado", "El insumo que usted seleciono, " +
-                    "ya se encuentra actualmente relacionado con el proveedor", 
+                    "ya se encuentra actualmente relacionado con el proveedor",
                     AlertPopupTypes.Warning);
             }
         }

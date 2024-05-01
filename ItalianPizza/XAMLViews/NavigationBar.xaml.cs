@@ -1,8 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
-using ItalianPizza.XAMLViews.Suppliers;
-using ItalianPizza.Auxiliary;
 using ItalianPizza.XAMLViews.Finances;
+using ItalianPizza.XAMLViews.Suppliers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -73,8 +72,8 @@ namespace ItalianPizza.XAMLViews
             catch (System.Exception)
             {
             }
-            
-            if(employeePosition != null)
+
+            if (employeePosition != null)
             {
                 switch (employeePosition.Position)
                 {
@@ -103,12 +102,12 @@ namespace ItalianPizza.XAMLViews
         {
             double distanciaEntreElementos = 10;
 
-            for (int i = 1; i < ButtonsNavegationBar.Count; i++) 
+            for (int i = 1; i < ButtonsNavegationBar.Count; i++)
             {
                 Button button = ButtonsNavegationBar.ElementAt(i).Value;
 
                 Button buttonAnterior = ButtonsNavegationBar.ElementAt(i - 1).Value;
-                double desplazamientoY = 0; 
+                double desplazamientoY = 0;
 
                 if (buttonAnterior.Visibility == Visibility.Hidden)
                 {

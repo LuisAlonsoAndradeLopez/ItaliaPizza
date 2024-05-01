@@ -3,19 +3,11 @@ using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -31,7 +23,7 @@ namespace ItalianPizza.XAMLViews
             InitializeComponent();
             InitalizeComboBox();
             userDAO = new UserDAO();
-            FillFields(employeeToModify, userAccount);         
+            FillFields(employeeToModify, userAccount);
         }
 
         private void FillFields(EmployeeSet employeeToModify, UserAccountSet userAccount)
@@ -42,8 +34,10 @@ namespace ItalianPizza.XAMLViews
             txtEmail.Text = employeeToModify.Email;
             txtPhoneNumber.Text = employeeToModify.Phone;
             cboUserRol.SelectedItem = employeeToModify.EmployeePositionSet.Position;
-            if (employeeToModify.ProfilePhoto != null) { 
-            userImage.Source = userDAO.GetUserImage(employeeToModify.ProfilePhoto); }
+            if (employeeToModify.ProfilePhoto != null)
+            {
+                userImage.Source = userDAO.GetUserImage(employeeToModify.ProfilePhoto);
+            }
             txtPassword.Text = userAccount.Password;
             txtUser.Text = userAccount.UserName;
             cboUserStatus.SelectedItem = employeeToModify.UserStatusSet.Status;

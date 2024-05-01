@@ -6,16 +6,16 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
     public class FinancialTransactionIncomeContextDAO
     {
-        
+
         public List<FinancialTransactionIncomeContextSet> GetAllFinancialTransactionIncomeContexts()
         {
             List<FinancialTransactionIncomeContextSet> financialTransactionIncomeContexts = new List<FinancialTransactionIncomeContextSet>();
-        
+
             using (var context = new ItalianPizzaServerBDEntities())
             {
                 financialTransactionIncomeContexts = context.FinancialTransactionIncomeContextSet.ToList();
             }
-        
+
             return financialTransactionIncomeContexts;
         }
 

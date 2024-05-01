@@ -4,20 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ItalianPizza.XAMLViews.Suppliers
 {
@@ -57,7 +50,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
         public void ShowSuppliersList()
         {
             suppliersList = supplierDAO.GetAllSuppliers();
-            if(suppliersList != null)
+            if (suppliersList != null)
             {
                 ShowOnSuppliersScreen(suppliersList);
             }
@@ -69,7 +62,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             UpdateDatePickerField(dateToday);
             supplierOrderlist = orderSupplierDAO.GetSupplierOrdersByDate(dateToday);
 
-            if(supplierOrderlist != null)
+            if (supplierOrderlist != null)
             {
                 ShowOnSupplierOrdersScreen(supplierOrderlist);
             }
@@ -267,7 +260,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             Grid.SetColumn(suppliersForm, 0);
             Background.Children.Add(suppliersForm);
 
-            if(supplier != null)
+            if (supplier != null)
             {
                 List<SupplierOrderSet> supplierOrders;
                 supplierOrders = orderSupplierDAO.GetSupplierOrderbySupplier(supplier.Id);
@@ -286,13 +279,13 @@ namespace ItalianPizza.XAMLViews.Suppliers
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
                     " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la base de datos, verifique que " +
                     "los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
@@ -321,13 +314,13 @@ namespace ItalianPizza.XAMLViews.Suppliers
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
                     "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la base de datos, verifique que los " +
                     "datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
@@ -343,10 +336,10 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             List<SupplierSet> filteredSupplier = suppliersList
                 .Where(p =>
-                    p.Names.ToLower().Contains(textSearch.ToLower()) || 
+                    p.Names.ToLower().Contains(textSearch.ToLower()) ||
                     p.LastName.ToLower().Contains(textSearch.ToLower()) ||
-                    p.SecondLastName.ToLower().Contains(textSearch.ToLower()) || 
-                    p.CompanyName.ToLower().Contains(textSearch.ToLower()) 
+                    p.SecondLastName.ToLower().Contains(textSearch.ToLower()) ||
+                    p.CompanyName.ToLower().Contains(textSearch.ToLower())
                 )
                 .ToList();
             ShowOnSuppliersScreen(filteredSupplier);

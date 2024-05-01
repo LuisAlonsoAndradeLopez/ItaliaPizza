@@ -1,4 +1,8 @@
-﻿using System;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
@@ -9,10 +13,6 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ItalianPizza.Auxiliary;
-using ItalianPizza.DatabaseModel.DataAccessObject;
-using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.SingletonClasses;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -45,13 +45,13 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
                     "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", 
+                new AlertPopup("Error con la base de datos",
                     "Lo siento, pero a ocurrido un error con la base de datos, " +
                     "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
@@ -244,7 +244,7 @@ namespace ItalianPizza.XAMLViews
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
-                    if(customerOrder.OrderStatusId == 1)
+                    if (customerOrder.OrderStatusId == 1)
                     {
                         btnModifyCustomerOrder.IsEnabled = true;
                     }
@@ -420,9 +420,9 @@ namespace ItalianPizza.XAMLViews
         }
 
         private void BtnPayCustomerOrderOnClick(object sender, RoutedEventArgs e)
-        {     
+        {
             PayMonetaryValueDecimalUpDown.Text = lblTotalOrderCost.Content.ToString();
-            
+
             grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
             grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowPayDetails.Visibility = Visibility.Visible;

@@ -237,7 +237,7 @@ namespace ItalianPizza.XAMLViews.Finances
             DateTime endDate = startDate.AddDays(1);
 
             List<FinancialTransactionSet> selectedFinancialTransactions = financialTransactions
-                .Where(ft => ft.Type == financialTransactionType && 
+                .Where(ft => ft.Type == financialTransactionType &&
                              ft.FinancialTransactionDate >= startDate && ft.FinancialTransactionDate <= endDate)
                 .ToList();
 

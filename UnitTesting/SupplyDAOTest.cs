@@ -111,7 +111,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string supplyName = "Success Supply 1"; 
+                string supplyName = "Success Supply 1";
                 SupplySet supply = supplyDAO.GetSupplyByName(supplyName);
 
                 Assert.IsNotNull(supply);
@@ -135,8 +135,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string textForFindingArticle = "Success Supply 1"; 
-                string findByType = "Nombre"; 
+                string textForFindingArticle = "Success Supply 1";
+                string findByType = "Nombre";
                 List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, findByType);
 
                 Assert.IsNotNull(specifiedSupplies);
@@ -148,7 +148,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string invalidTextForFindingArticle = "Failed Supply"; 
+                string invalidTextForFindingArticle = "Failed Supply";
                 string findByType = "Texto Inválido";
                 List<SupplySet> specifiedSupplies = supplyDAO.GetSpecifiedSuppliesByNameOrCode(invalidTextForFindingArticle, findByType);
 
@@ -161,7 +161,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                int result = supplyDAO.ModifySupply(successSupplySet2, successSupplySet3    );
+                int result = supplyDAO.ModifySupply(successSupplySet2, successSupplySet3);
 
                 Assert.IsTrue(result > 0);
             }
@@ -172,10 +172,10 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string supplyCode = "99999999"; 
+                string supplyCode = "99999999";
                 bool result = supplyDAO.TheCodeIsAlreadyRegistred(supplyCode);
 
-                Assert.IsTrue(result); 
+                Assert.IsTrue(result);
             }
         }
 
@@ -196,10 +196,10 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string supplyName = "Success Supply 1"; 
+                string supplyName = "Success Supply 1";
                 bool result = supplyDAO.TheNameIsAlreadyRegistred(supplyName);
 
-                Assert.IsTrue(result); 
+                Assert.IsTrue(result);
             }
         }
 

@@ -48,7 +48,7 @@ namespace ItalianPizza.Auxiliary
         public bool CheckProductImagePath(int productId)
         {
             bool result = true;
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory; 
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string relativePath = $"..\\TempCache\\Products\\{productId}.png";
             string imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
@@ -70,7 +70,7 @@ namespace ItalianPizza.Auxiliary
                     }
                     else
                     {
-                        result = false; 
+                        result = false;
                     }
                 }
                 catch (EntityException ex)
