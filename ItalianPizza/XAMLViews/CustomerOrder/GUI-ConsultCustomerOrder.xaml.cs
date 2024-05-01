@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -69,7 +70,7 @@ namespace ItalianPizza.XAMLViews
             PayTransactionTypeComboBox.SelectedItem = PayTransactionTypeComboBox.Items[0];
 
 
-            List<FinancialTransactionContextSet> financialTransactionContexts = new FinancialTransactionContextDAO().GetAllFinancialTransactionContexts();
+            List<FinancialTransactionIncomeContextSet> financialTransactionContexts = new FinancialTransactionIncomeContextDAO().GetAllFinancialTransactionIncomeContexts();
 
             foreach (var financialTransactionContext in financialTransactionContexts)
             {
@@ -445,15 +446,17 @@ namespace ItalianPizza.XAMLViews
                         Type = PayTransactionTypeComboBox.SelectedItem.ToString(),
                         Description = PayDescriptionTextBox.Text,
                         FinancialTransactionDate = DateTime.Now,
-                        EmployeeId = 2,
+                        EmployeeId = UserToken.GetEmployeeID(),
                         MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
-                        Context_ID = new FinancialTransactionContextDAO().GetFinancialTransactionContextByName(PayContextComboBox.SelectedItem.ToString()).Id
+                        IncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(PayContextComboBox.SelectedItem.ToString()).Id
                     };
 
                     new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
                     new CustomerOrdersDAO().PayCustomerOrder(customerOrderSet);
 
                     new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+
+                    ShowAllOrdersToday();
 
                     grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
                     grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;

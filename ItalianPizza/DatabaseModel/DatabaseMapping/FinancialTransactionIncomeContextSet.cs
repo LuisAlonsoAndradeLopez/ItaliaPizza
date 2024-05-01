@@ -12,10 +12,10 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     using System;
     using System.Collections.Generic;
     
-    public partial class FinancialTransactionContextSet
+    public partial class FinancialTransactionIncomeContextSet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FinancialTransactionContextSet()
+        public FinancialTransactionIncomeContextSet()
         {
             this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
         }

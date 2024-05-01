@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -183,7 +184,7 @@ namespace ItalianPizza.XAMLViews
                                                 SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(SupplyUnitsComboBox.SelectedItem?.ToString()).Id,
                                                 ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                                 SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                                EmployeeId = 2,
+                                                EmployeeId = UserToken.GetEmployeeID(),
                                                 IdentificationCode = CodeTextBox.Text,
                                                 Observations = ""
                                             };
@@ -201,7 +202,7 @@ namespace ItalianPizza.XAMLViews
                                                 Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ArticleImage.Source),
                                                 ProductStatusId = new ProductStatusDAO().GetProductStatusByName(ArticleStatus.Activo.ToString()).Id,
                                                 ProductTypeId = new ProductTypeDAO().GetProductTypeByName(SupplyOrProductTypesComboBox.SelectedItem?.ToString()).Id,
-                                                EmployeeId = 2,
+                                                EmployeeId = UserToken.GetEmployeeID(),
                                                 IdentificationCode = CodeTextBox.Text,
                                                 Description = DescriptionTextBox.Text,
                                                 Observations = ""

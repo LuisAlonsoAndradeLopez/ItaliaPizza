@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -18,11 +19,6 @@ namespace ItalianPizza.XAMLViews.Finances
     /// </summary>
     public partial class GUI_Finances : Page
     {
-        //TODO
-
-        //Empleado logueado el verdadero en creación de transacciones y artículos
-        //CustomerOrderDAO actualizar
-
         List<FinancialTransactionSet> financialTransactions;
 
         public GUI_Finances()
@@ -63,6 +59,47 @@ namespace ItalianPizza.XAMLViews.Finances
             }
         }
 
+        private void FinancialTransactionTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ComboBox financialTransactionTypesComboBox = (ComboBox)sender;
+                string selectedOption = FinancialTransactionTypeComboBox.SelectedItem?.ToString();
+
+                FinancialTransactionContextComboBox.Items.Clear();
+
+                List<FinancialTransactionIncomeContextSet> financialTransactionIncomeContexts = new FinancialTransactionIncomeContextDAO().GetAllFinancialTransactionIncomeContexts();
+                List<FinancialTransactionWithDrawContextSet> financialTransactionWithDrawContexts = new FinancialTransactionWithDrawContextDAO().GetAllFinancialTransactionWithDrawContexts();
+
+
+                if (selectedOption == FinancialTransactionTypes.Entrada.ToString())
+                {
+                    foreach (var financialTransactionIncomeContext in financialTransactionIncomeContexts)
+                    {
+                        FinancialTransactionContextComboBox.Items.Add(financialTransactionIncomeContext.Context);
+                    }
+                }
+
+                if (selectedOption == FinancialTransactionTypes.Salida.ToString())
+                {
+                    foreach (var financialTransactionWithDrawContext in financialTransactionWithDrawContexts)
+                    {
+                        FinancialTransactionContextComboBox.Items.Add(financialTransactionWithDrawContext.Context);
+                    }
+                }
+
+                if (FinancialTransactionContextComboBox.Items.Count > 0)
+                {
+                    FinancialTransactionContextComboBox.SelectedItem = FinancialTransactionContextComboBox.Items[0];
+                }
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
+        }
+
         private void AddFinancialTransactionButtonOnClick(object sender, RoutedEventArgs e)
         {
             AddFinancialTransactionButton.IsEnabled = false;
@@ -88,64 +125,79 @@ namespace ItalianPizza.XAMLViews.Finances
         {
             try
             {
-                if (FinancialTransactionDescriptionTextBox.Text != "")
+                if (FinancialTransactionContextComboBox.Items.Count > 0)
                 {
-                    string financialTransactionType;
-                    string financialTransactionContext;
-                    double financialTransactionMonetaryValue;
-
-                    if (FinancialTransactionTypeComboBox.SelectedItem?.ToString() != null)
+                    if (FinancialTransactionDescriptionTextBox.Text != "")
                     {
-                        financialTransactionType = FinancialTransactionTypeComboBox.SelectedItem?.ToString();
+                        string financialTransactionType;
+                        string financialTransactionContext;
+                        double financialTransactionMonetaryValue;
+
+                        if (FinancialTransactionTypeComboBox.SelectedItem?.ToString() != null)
+                        {
+                            financialTransactionType = FinancialTransactionTypeComboBox.SelectedItem?.ToString();
+                        }
+                        else
+                        {
+                            financialTransactionType = "";
+                        }
+
+                        if (FinancialTransactionContextComboBox.SelectedItem?.ToString() != null)
+                        {
+                            financialTransactionContext = FinancialTransactionContextComboBox.SelectedItem?.ToString();
+                        }
+                        else
+                        {
+                            financialTransactionContext = "";
+                        }
+
+                        if (FinancialTransactionPriceDecimalUpDown.Value != null)
+                        {
+                            financialTransactionMonetaryValue = (double)FinancialTransactionPriceDecimalUpDown.Value;
+                        }
+                        else
+                        {
+                            financialTransactionMonetaryValue = 0;
+                        }
+
+                        FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                        {
+                            Type = financialTransactionType,
+                            Description = FinancialTransactionDescriptionTextBox.Text,
+                            FinancialTransactionDate = DateTime.Now,
+                            EmployeeId = UserToken.GetEmployeeID(),
+                            MonetaryValue = financialTransactionMonetaryValue
+                        };
+
+                        if (financialTransactionType == FinancialTransactionTypes.Entrada.ToString())
+                        {
+                            financialTransaction.IncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(financialTransactionContext).Id;
+                        }
+
+                        if (financialTransactionType == FinancialTransactionTypes.Salida.ToString())
+                        {
+                            financialTransaction.WithDrawContextId = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextByName(financialTransactionContext).Id;
+                        }
+
+                        new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+
+                        new AlertPopup("¡Transacción exitosa!", "Transacción financiera registrada con éxito.", AlertPopupTypes.Success);
+
+                        AddFinancialTransactionBorder.Visibility = Visibility.Collapsed;
+                        AddFinancialTransactionButton.IsEnabled = true;
+
+                        financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
+                        ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
                     }
                     else
                     {
-                        financialTransactionType = "";
+                        new AlertPopup("¡Falta la descripción!", "Falta que introduzcas la descripción de la transacción financiera a realizar", AlertPopupTypes.Error);
                     }
-
-                    if (FinancialTransactionContextComboBox.SelectedItem?.ToString() != null)
-                    {
-                        financialTransactionContext = FinancialTransactionContextComboBox.SelectedItem?.ToString();
-                    }
-                    else
-                    {
-                        financialTransactionContext = "";
-                    }
-
-                    if (FinancialTransactionPriceDecimalUpDown.Value != null)
-                    {
-                        financialTransactionMonetaryValue = (double)FinancialTransactionPriceDecimalUpDown.Value;
-                    }
-                    else
-                    {
-                        financialTransactionMonetaryValue = 0;
-                    }
-
-                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
-                    {
-                        Type = financialTransactionType,
-                        Description = FinancialTransactionDescriptionTextBox.Text,
-                        FinancialTransactionDate = DateTime.Now,
-                        EmployeeId = 2,
-                        MonetaryValue = financialTransactionMonetaryValue,
-                        Context_ID = new FinancialTransactionContextDAO().GetFinancialTransactionContextByName(financialTransactionContext).Id
-                    };
-
-                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
-
-                    new AlertPopup("¡Transacción exitosa!", "Transacción financiera registrada con éxito.", AlertPopupTypes.Success);
-
-                    AddFinancialTransactionBorder.Visibility = Visibility.Collapsed;
-                    AddFinancialTransactionButton.IsEnabled = true;
-
-                    financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
-                    ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
                 }
                 else
                 {
-                    new AlertPopup("¡Falta la descripción!", "Falta que introduzcas la descripción de la transacción financiera a realizar", AlertPopupTypes.Error);
+                    new AlertPopup("¡No se puede crear la transacción financiera!", "No se puede seleccionar un contexto para la transacción. Se tiene que agregar contextos en la base de datos.", AlertPopupTypes.Error);
                 }
-
             }
             catch (DbEntityValidationException ex)
             {
@@ -228,9 +280,18 @@ namespace ItalianPizza.XAMLViews.Finances
                     TextWrapping = TextWrapping.Wrap,
                     FontSize = 18,
                     TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = new FinancialTransactionContextDAO().GetFinancialTransactionContextById(financialTransaction.Context_ID ?? 0).Context
+                    VerticalAlignment = VerticalAlignment.Center
                 };
+
+                if (financialTransaction.Type == FinancialTransactionTypes.Entrada.ToString())
+                {
+                    financialTransactionContextTextBlock.Text = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextById(financialTransaction.IncomeContextId ?? 0).Context;
+                }
+
+                if (financialTransaction.Type == FinancialTransactionTypes.Salida.ToString())
+                {
+                    financialTransactionContextTextBlock.Text = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextById(financialTransaction.WithDrawContextId ?? 0).Context;
+                }
 
                 TextBlock financialTransactionRealizationDateTextBlock = new TextBlock
                 {
@@ -292,16 +353,6 @@ namespace ItalianPizza.XAMLViews.Finances
 
             TransactionTypeComboBox.SelectedItem = TransactionTypeComboBox.Items[0];
             FinancialTransactionTypeComboBox.SelectedItem = FinancialTransactionTypeComboBox.Items[0];
-
-
-            List<FinancialTransactionContextSet> financialTransactionContexts = new FinancialTransactionContextDAO().GetAllFinancialTransactionContexts();
-
-            foreach (var financialTransactionContext in financialTransactionContexts)
-            {
-                FinancialTransactionContextComboBox.Items.Add(financialTransactionContext.Context);
-            }
-
-            FinancialTransactionContextComboBox.SelectedItem = FinancialTransactionContextComboBox.Items[0];
         }
     }
 }

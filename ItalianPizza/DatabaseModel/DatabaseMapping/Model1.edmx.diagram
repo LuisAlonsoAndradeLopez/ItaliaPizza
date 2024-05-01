@@ -82,8 +82,10 @@
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__SupplyPic__Suppl__540C7B00" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionContextSet" Width="2.5" PointX="11.375" PointY="0.875" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.fk_FinancialTransactionSet_FinancialTransactionContextSet" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionIncomeContextSet" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet" Width="3" PointX="13.375" PointY="0.875" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FinancialTransactionSet_FinancialTransactionWithDrawContextSet" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
