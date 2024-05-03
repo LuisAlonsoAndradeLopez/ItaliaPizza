@@ -1,9 +1,10 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
+namespace DAOsTests
 {
     [TestClass]
     public class SupplyDAOTests

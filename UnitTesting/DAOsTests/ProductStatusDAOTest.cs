@@ -1,19 +1,20 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
+namespace DAOsTests
 {
     [TestClass]
-    public class SupplyUnitDAOTest
+    public class ProductStatusDAOTest
     {
-        private static SupplyUnitDAO supplyUnitDAO;
+        private static ProductStatusDAO productStatusDAO;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            supplyUnitDAO = new SupplyUnitDAO();
+            productStatusDAO = new ProductStatusDAO();
         }
 
         [TestCleanup]
@@ -26,64 +27,64 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         }
 
         [TestMethod]
-        public void GetAllSupplyUnitsTest()
+        public void GetAllProductStatusesTest()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                List<SupplyUnitSet> supplyUnits = supplyUnitDAO.GetAllSupplyUnits();
+                List<ProductStatusSet> productStatuses = productStatusDAO.GetAllProductStatuses();
 
-                Assert.IsNotNull(supplyUnits);
-                Assert.IsTrue(supplyUnits.Count > 0);
+                Assert.IsNotNull(productStatuses);
+                Assert.IsTrue(productStatuses.Count > 0);
             }
         }
 
         [TestMethod]
-        public void GetSupplyUnitByIdTest()
+        public void GetProductStatusByIdTest()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 int validId = 1;
-                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitById(validId);
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(validId);
 
-                Assert.IsNotNull(supplyUnit);
-                Assert.AreEqual(validId, supplyUnit.Id);
+                Assert.IsNotNull(productStatus);
+                Assert.AreEqual(validId, productStatus.Id);
             }
         }
 
         [TestMethod]
-        public void GetSupplyUnitByIdTestFail()
+        public void GetProductStatusByIdTestFail()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 int invalidId = -1;
-                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitById(invalidId);
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusById(invalidId);
 
-                Assert.IsNull(supplyUnit);
+                Assert.IsNull(productStatus);
             }
         }
 
         [TestMethod]
-        public void GetSupplyUnitByNameTest()
+        public void GetProductStatusByNameTest()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string validName = "Gramo";
-                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(validName);
+                string validName = "Activo";
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(validName);
 
-                Assert.IsNotNull(supplyUnit);
-                Assert.AreEqual(validName, supplyUnit.Unit);
+                Assert.IsNotNull(productStatus);
+                Assert.AreEqual(validName, productStatus.Status);
             }
         }
 
         [TestMethod]
-        public void GetSupplyUnitByNameTestFail()
+        public void GetProductStatusByNameTestFail()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
-                string invalidName = "Gayeta";
-                SupplyUnitSet supplyUnit = supplyUnitDAO.GetSupplyUnitByName(invalidName);
+                string invalidName = "Proactivo";
+                ProductStatusSet productStatus = productStatusDAO.GetProductStatusByName(invalidName);
 
-                Assert.IsNull(supplyUnit);
+                Assert.IsNull(productStatus);
             }
         }
     }

@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Transactions;
 
-namespace UnitTesting
+namespace DAOsTests
 {
 
     [TestClass]

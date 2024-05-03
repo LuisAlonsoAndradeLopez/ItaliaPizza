@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Globalization;
 
-namespace UnitTesting
+namespace DAOsTests
 {
     [TestClass()]
     public class CustomerOrdersDAOTests
