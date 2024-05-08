@@ -77,6 +77,7 @@ namespace ItalianPizza.XAMLViews
                     }
 
                     NameAndArticleTypeStackPanel.Margin = new Thickness(0, 74, 0, 0);
+                    PriceStackPanel.Visibility = Visibility.Collapsed;
                     SupplyUnitsStackPanel.Visibility = Visibility.Visible;
                     DescriptionStackPanel.Visibility = Visibility.Collapsed;
                     EnableOrDisableRecipeStackPanel.Visibility = Visibility.Collapsed;
@@ -90,6 +91,7 @@ namespace ItalianPizza.XAMLViews
                     }
 
                     NameAndArticleTypeStackPanel.Margin = new Thickness(0, 10, 0, 0);
+                    PriceStackPanel.Visibility = Visibility.Visible;
                     SupplyUnitsStackPanel.Visibility = Visibility.Collapsed;
                     DescriptionStackPanel.Visibility = Visibility.Visible;
                     EnableOrDisableRecipeStackPanel.Visibility = Visibility.Visible;

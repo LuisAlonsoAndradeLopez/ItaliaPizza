@@ -309,6 +309,7 @@ namespace ItalianPizza.XAMLViews
                                     };
 
                                     new SupplyDAO().ModifySupply(originalSupply, modifiedSupply);
+                                    //new ImageManager().OverwriteSupplyImagePath(originalSupply.Id);
                                 }
 
                                 if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
@@ -329,6 +330,7 @@ namespace ItalianPizza.XAMLViews
                                     };
 
                                     new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
+                                    //new ImageManager().OverwriteProductImagePath(originalProduct.Id);
                                 }
 
                                 new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);

@@ -71,7 +71,7 @@
                         <Label Content="Código: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
                         <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="CodeTextBox" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="359" FontSize="24" MaxLength="20"/>
                     </StackPanel>
-                    <StackPanel Width="332">
+                    <StackPanel Name="PriceStackPanel" Width="332">
                         <Label Content="Precio: " HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="34" FontFamily="Arial"/>
                         <xctk:DecimalUpDown Name="PriceDecimalUpDown" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" MaxLength="10" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Center" Height="64" Width="283" FontSize="24"/>
                     </StackPanel>

@@ -1,7 +1,9 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.XAMLViews;
 using System;
 using System.Data.Entity.Core;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -169,6 +171,80 @@ namespace ItalianPizza.Auxiliary
                     result = false;
                     throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
                 }
+            }
+
+            return result;
+        }
+
+        public bool OverwriteProductImagePath(int productId)
+        {
+            bool result = true;
+            string baseDirectory = Directory.GetCurrentDirectory();
+            string relativePath = $"..\\TempCache\\Products\\{productId}.png";
+            string imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+            ProductDAO productDAO = new ProductDAO();
+            try
+            {
+                ProductPictureSet productPicture = productDAO.GetProductPicturebyID(productId);
+                if (productPicture != null)
+                {                  
+                    File.WriteAllBytes(imagePath, productPicture.ProductImage);
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                result = false;
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = false;
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }            
+
+            return result;
+        }
+
+        public bool OverwriteSupplyImagePath(int supplyID)
+        {
+            bool result = true;
+            string baseDirectory = Directory.GetCurrentDirectory();
+            string relativePath = $"..\\TempCache\\Supplies\\{supplyID}.png";
+            string imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+            string directoryPath = Path.GetDirectoryName(imagePath);
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+
+            SupplyDAO supplyDAO = new SupplyDAO();
+            try
+            {
+                SupplyPictureSet supplyPicture = supplyDAO.GetSupplyPicturebyID(supplyID);
+                if (supplyPicture != null)
+                {
+                    File.WriteAllBytes(imagePath, supplyPicture.SupplyImage);
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch (EntityException ex)
+            {
+                result = false;
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                result = false;
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
 
             return result;
