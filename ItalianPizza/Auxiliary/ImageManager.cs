@@ -27,6 +27,23 @@ namespace ItalianPizza.Auxiliary
             return bytes;
         }
 
+        public byte[] GetWriteableBitmapBytes(WriteableBitmap imageSource)
+        {
+            byte[] bytes;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BitmapSource bitmapSource = imageSource;
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(stream);
+
+                bytes = stream.ToArray();
+            }
+
+            return bytes;
+        }
+
         public BitmapImage GetImageByItaliaPizzaStoragedImagePath(string filePath)
         {
             string incompletePath = Path.GetFullPath(filePath);
@@ -189,6 +206,7 @@ namespace ItalianPizza.Auxiliary
                 ProductPictureSet productPicture = productDAO.GetProductPicturebyID(productId);
                 if (productPicture != null)
                 {                  
+                    File.Delete(imagePath);
                     File.WriteAllBytes(imagePath, productPicture.ProductImage);
                 }
                 else
@@ -229,6 +247,7 @@ namespace ItalianPizza.Auxiliary
                 SupplyPictureSet supplyPicture = supplyDAO.GetSupplyPicturebyID(supplyID);
                 if (supplyPicture != null)
                 {
+                    File.Delete(imagePath);
                     File.WriteAllBytes(imagePath, supplyPicture.SupplyImage);
                 }
                 else
