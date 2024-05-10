@@ -159,23 +159,26 @@ namespace ItalianPizza.XAMLViews
 
         private void SelectImageButtonOnClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                Filter = "Image Files (*.png)|*.png",
-                Title = "Selecciona una imágen"
-            };
+                openFileDialog.Filter = "Image Files (*.png)|*.png";
+                openFileDialog.Title = "Selecciona una imágen";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                WriteableBitmap imageSource = new WriteableBitmap(new BitmapImage(new Uri(openFileDialog.FileName)));
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WriteableBitmap imageSource = new WriteableBitmap(new BitmapImage(new Uri(openFileDialog.FileName)));
 
-                if (new ImageManager().GetWriteableBitmapBytes(imageSource).Length <= 10 * 1024 * 1024)
-                {
-                    ModifySelectedArticleImage.Source = imageSource;
-                }
-                else
-                {
-                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 2MB", AlertPopupTypes.Error);
+                    if (new ImageManager().GetWriteableBitmapBytes(imageSource).Length <= 10 * 1024 * 1024)
+                    {
+                        ModifySelectedArticleImage.Source = imageSource;
+                    }
+                    else
+                    {
+                        new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 2MB", AlertPopupTypes.Error);
+                    }
+
+                    imageSource.Freeze();
+                    imageSource = null;
                 }
             }
         }
@@ -505,8 +508,12 @@ namespace ItalianPizza.XAMLViews
                 {
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
-                
-                    articleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    articleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -584,8 +591,12 @@ namespace ItalianPizza.XAMLViews
                 {
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
-                
-                    articleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    articleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -667,7 +678,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    SelectedArticleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    SelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 SelectedArticleNameTextBlock.Text = supply.Name;
@@ -686,8 +701,12 @@ namespace ItalianPizza.XAMLViews
                 {
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
-                
-                    SelectedArticleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    SelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 SelectedArticleNameTextBlock.Text = product.Name;
@@ -735,7 +754,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    ModifySelectedArticleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    ModifySelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 ModifySelectedArticleNameTextBox.Text = supply.Name;
@@ -759,7 +782,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    ModifySelectedArticleImage.Source = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    ModifySelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 ModifySelectedArticleNameTextBox.Text = product.Name;

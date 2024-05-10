@@ -28,7 +28,7 @@ namespace DAOsTests
                 Picture = new byte[1],
                 ProductStatusId = 1,
                 ProductTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "99999999",
                 Description = "None"
             };
@@ -42,7 +42,7 @@ namespace DAOsTests
                 Picture = new byte[2],
                 ProductStatusId = 1,
                 ProductTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "9999999",
                 Description = "Nada"
             };
@@ -56,7 +56,7 @@ namespace DAOsTests
                 Picture = new byte[3],
                 ProductStatusId = 1,
                 ProductTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "99999",
                 Description = "Nadona"
             };

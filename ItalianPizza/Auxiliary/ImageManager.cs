@@ -1,9 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.XAMLViews;
 using System;
 using System.Data.Entity.Core;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -24,6 +22,9 @@ namespace ItalianPizza.Auxiliary
                 bytes = stream.ToArray();
             }
 
+            imageSource.Freeze();
+            imageSource = null;
+
             return bytes;
         }
 
@@ -40,6 +41,9 @@ namespace ItalianPizza.Auxiliary
 
                 bytes = stream.ToArray();
             }
+
+            imageSource.Freeze();
+            imageSource = null;
 
             return bytes;
         }
@@ -240,7 +244,7 @@ namespace ItalianPizza.Auxiliary
             {
                 Directory.CreateDirectory(directoryPath);
             }
-
+            
             SupplyDAO supplyDAO = new SupplyDAO();
             try
             {
