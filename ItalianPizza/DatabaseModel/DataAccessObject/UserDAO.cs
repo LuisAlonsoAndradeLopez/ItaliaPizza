@@ -5,11 +5,6 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
@@ -131,7 +126,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return userAccount;
-        }   
+        }
 
 
         public int RegisterUser(UserAccountSet account, EmployeeSet employee)
@@ -147,6 +142,48 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     result = context.SaveChanges();
                 }
 
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
+        public bool CheckUserExistence(UserAccountSet account)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    UserAccountSet userAccount = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
+                    if (userAccount != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
+        public bool CheckEmployeeExistence(EmployeeSet employee)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    EmployeeSet employeeToCheck = context.EmployeeSet.Where(e => e.Names == employee.Names && e.LastName == employee.LastName && e.SecondLastName == employee.SecondLastName && e.Email == employee.Email).FirstOrDefault();
+                    if (employeeToCheck != null)
+                    {
+                        result = true;
+                    }
+                }
             }
             catch (EntityException ex)
             {
@@ -177,7 +214,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public BitmapImage GetUserImage(byte[] data)
         {
-            
+
             BitmapImage bitmapImage = new BitmapImage();
 
             if (data != null)
@@ -195,8 +232,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return bitmapImage;
         }
 
-
-        public int ModifyUser(UserAccountSet account, EmployeeSet employee)
+        public int ModifyEmployee(UserAccountSet account, EmployeeSet employee)
         {
             int result = 0;
             try
@@ -206,7 +242,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     UserAccountSet userAccountToModify = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
                     EmployeeSet employeeToModify = context.EmployeeSet.Where(e => e.Email == employee.Email).FirstOrDefault();
 
-                    if(userAccountToModify != null && employeeToModify != null)
+                    if (userAccountToModify != null && employeeToModify != null)
                     {
                         userAccountToModify.UserName = account.UserName;
                         userAccountToModify.Password = account.Password;
@@ -220,7 +256,46 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         employeeToModify.EmployeePositionId = employee.EmployeePositionId;
                         employeeToModify.Address_Id = employee.Address_Id;
                         result = context.SaveChanges();
-                    }                   
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
+
+        public int ModifyUser(UserAccountSet account, EmployeeSet employee)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    UserAccountSet userAccountToModify = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
+                    EmployeeSet employeeToModify = context.EmployeeSet.Where(e => e.Email == employee.Email).FirstOrDefault();
+
+                    if (userAccountToModify != null && employeeToModify != null)
+                    {
+                        userAccountToModify.UserName = account.UserName;
+                        userAccountToModify.Password = account.Password;
+                        employeeToModify.Names = employee.Names;
+                        employeeToModify.LastName = employee.LastName;
+                        employeeToModify.SecondLastName = employee.SecondLastName;
+                        employeeToModify.Email = employee.Email;
+                        employeeToModify.Phone = employee.Phone;
+                        employeeToModify.ProfilePhoto = employee.ProfilePhoto;
+                        employeeToModify.UserStatusId = employee.UserStatusId;
+                        employeeToModify.EmployeePositionId = employee.EmployeePositionId;
+                        employeeToModify.Address_Id = employee.Address_Id;
+                        result = context.SaveChanges();
+                    }
                 }
             }
             catch (EntityException ex)
@@ -403,7 +478,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     {
                         customer = customerOrderDetail.CustomerSet;
                     }
-                    
+
                 }
             }
             catch (EntityException ex)
@@ -434,7 +509,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     {
                         deliveryDriver = customerOrderDetail.DeliveryDriverSet;
                     }
-                    
+
                 }
             }
             catch (EntityException ex)
@@ -483,5 +558,5 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
     }
-    
+
 }

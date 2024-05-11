@@ -10,6 +10,11 @@
     {
         Producto,
         Insumo
-        
+    }
+
+    public enum FinancialTransactionTypes
+    {
+        Entrada,
+        Salida
     }
 }

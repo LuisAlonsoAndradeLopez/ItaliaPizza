@@ -1,23 +1,12 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Effects;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -74,7 +63,7 @@ namespace ItalianPizza.XAMLViews
             txtState.Text = employee.UserStatusSet.Status;
             txtAddress.Text = userDAO.GetUserAddressByEmployeeID(employee.Id);
             if (employee.ProfilePhoto != null)
-            imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
+                imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
         }
 
         private void GetAllUsers()
@@ -87,7 +76,7 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException ex)
             {
-                new AlertPopup("Error de conexión","Error al acceder a la base de datos.", AlertPopupTypes.Error);
+                new AlertPopup("Error de conexión", "Error al acceder a la base de datos.", AlertPopupTypes.Error);
             }
 
         }
@@ -95,9 +84,9 @@ namespace ItalianPizza.XAMLViews
         private void ShowAllUsers(List<EmployeeSet> employees)
         {
             wpUsersRegistered.Children.Clear();
-            
 
-            foreach(var employee in employees)
+
+            foreach (var employee in employees)
             {
                 Border userBorder = new Border
                 {
@@ -200,7 +189,7 @@ namespace ItalianPizza.XAMLViews
         {
             string status = cboUserStatus.SelectedItem.ToString();
             employees = userDAO.GetAllEmployeesByStatus(status);
-            if(employees.Count == 0)
+            if (employees.Count == 0)
             {
                 new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
             }

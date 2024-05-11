@@ -5,7 +5,9 @@ using ItalianPizza.XAMLViews.Articles;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.Data.Entity.Core.Metadata.Edm;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,10 +27,15 @@ namespace ItalianPizza.XAMLViews
     /// </summary>
     public partial class GUI_InventoryReport : Page
     {
+        List<SupplySet> supplies;
+        List<ProductSaleSet> products;
+
         public GUI_InventoryReport()
         {
             InitializeComponent();
 
+            supplies = new SupplyDAO().GetAllSupplyWithoutPhoto().OrderBy(item => item.Name).ToList();
+            products = new ProductDAO().GetAllProductsWithoutPhoto().OrderBy(item => item.Name).ToList();
             ShowArticles("");
         }
 
@@ -67,32 +74,42 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                List<Border> articlesBorders = new List<Border>();
-
-                foreach (Border articleBorder in ArticlesStackPanel.Children)
+                if(NamesOfAllArticlesWhichHaveRegisteredQuantitiesAndManualQuantitiesNotEqualsAndDontHaveJustification() == "")
                 {
-                    StackPanel articleBorderStackPanel = (StackPanel)VisualTreeHelper.GetChild(articleBorder, 0);
-                    TextBlock articleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 1);
-                    TextBlock articleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 2);
-                    IntegerUpDown articleManualQuantityIntegerUpDown = (IntegerUpDown)VisualTreeHelper.GetChild(articleBorderStackPanel, 4);
-                    TextBox articleObservationsTextBox = (TextBox)VisualTreeHelper.GetChild(articleBorderStackPanel, 5);
+                    List<Border> articlesBorders = new List<Border>();
 
-                    if (articleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                    foreach (Border articleBorder in ArticlesStackPanel.Children)
                     {
-                        new ProductDAO().UpdateProductObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
-                        new ProductDAO().UpdateProductRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
+                        StackPanel articleBorderStackPanel = (StackPanel)VisualTreeHelper.GetChild(articleBorder, 0);
+                        TextBlock articleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 1);
+                        TextBlock articleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 2);
+                        TextBlock articleRegisteredQuantityTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 3);
+                        IntegerUpDown articleManualQuantityIntegerUpDown = (IntegerUpDown)VisualTreeHelper.GetChild(articleBorderStackPanel, 4);
+                        TextBox articleObservationsTextBox = (TextBox)VisualTreeHelper.GetChild(articleBorderStackPanel, 5);
+
+                        if (articleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                        {
+                            new ProductDAO().UpdateProductObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
+                            new ProductDAO().UpdateProductRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
+                        }
+
+                        if (articleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
+                        {
+                            new SupplyDAO().UpdateSupplyObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
+                            new SupplyDAO().UpdateSupplyRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
+                        }
                     }
 
-                    if (articleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
-                    {
-                        new SupplyDAO().UpdateSupplyObservations(articleNameTextBlock.Text, articleObservationsTextBox.Text);
-                        new SupplyDAO().UpdateSupplyRegisteredQuantity(articleNameTextBlock.Text, int.Parse(articleManualQuantityIntegerUpDown.Text));
-                    }
+                    new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
+
+                    supplies = new SupplyDAO().GetAllSupplyWithoutPhoto().OrderBy(item => item.Name).ToList();
+                    products = new ProductDAO().GetAllProductsWithoutPhoto().OrderBy(item => item.Name).ToList();
+                    ShowArticles(TextForFindingArticleTextBox.Text);
                 }
-
-                new AlertPopup("¡Muy bien!", "Justificación de inventario creada con éxito", AlertPopupTypes.Success);
-
-                ShowArticles(TextForFindingArticleTextBox.Text);
+                else
+                {
+                    new AlertPopup("¡Faltan agregar justificaciones!", "Tiene que agregar justificaciones para los siguientes artículos: " + NamesOfAllArticlesWhichHaveRegisteredQuantitiesAndManualQuantitiesNotEqualsAndDontHaveJustification(), AlertPopupTypes.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -103,12 +120,15 @@ namespace ItalianPizza.XAMLViews
 
         private void ShowArticles(string textForFindingArticle)
         {
-            List<SupplySet> supplies = new SupplyDAO().GetSpecifiedSuppliesByNameOrCode(textForFindingArticle, "Nombre");
-            List<ProductSaleSet> products = new ProductDAO().GetSpecifiedProductsByNameOrCode(textForFindingArticle, "Nombre");
+            List<SupplySet> selectedSupplies = new List<SupplySet>();
+            List<ProductSaleSet> selectedProducts = new List<ProductSaleSet>();
 
             string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
             string relativePath;
             string imagePath;
+
+            selectedSupplies = supplies.Where(s => s.Name.StartsWith(textForFindingArticle)).ToList();
+            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
 
             ArticlesStackPanel.Children.Clear();
 
@@ -123,7 +143,7 @@ namespace ItalianPizza.XAMLViews
 
             Style articleQuantityTextBoxStyle = (Style)resourceDictionary["ModifyArticleTextBoxStyle"];
 
-            foreach (var product in products)
+            foreach (var product in selectedProducts)
             {
                 Border articleBorder = new Border
                 {
@@ -186,7 +206,7 @@ namespace ItalianPizza.XAMLViews
                     FontSize = 25,
                     TextAlignment = TextAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
-                    Text = product.Quantity.ToString()                    
+                    Text = product.Quantity.ToString()
                 };
 
                 IntegerUpDown articleManualQuantityIntegerUpDown = new IntegerUpDown
@@ -231,7 +251,7 @@ namespace ItalianPizza.XAMLViews
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
 
-            foreach (var supply in supplies)
+            foreach (var supply in selectedSupplies)
             {
                 Border articleBorder = new Border
                 {
@@ -253,7 +273,7 @@ namespace ItalianPizza.XAMLViews
                     Margin = new Thickness(26, 0, 0, 0)
                 };
 
-                if (new ImageManager().CheckProductImagePath(supply.Id))
+                if (new ImageManager().CheckSupplyImagePath(supply.Id))
                 {
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
@@ -338,6 +358,36 @@ namespace ItalianPizza.XAMLViews
 
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
+        }
+
+        public string NamesOfAllArticlesWhichHaveRegisteredQuantitiesAndManualQuantitiesNotEqualsAndDontHaveJustification()
+        {
+            string namesOfArticles = "";
+
+            foreach (Border articleBorder in ArticlesStackPanel.Children)
+            {
+                StackPanel articleBorderStackPanel = (StackPanel)VisualTreeHelper.GetChild(articleBorder, 0);
+                TextBlock articleNameTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 1);
+                TextBlock articleTypeTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 2);
+                TextBlock articleRegisteredQuantityTextBlock = (TextBlock)VisualTreeHelper.GetChild(articleBorderStackPanel, 3);
+                IntegerUpDown articleManualQuantityIntegerUpDown = (IntegerUpDown)VisualTreeHelper.GetChild(articleBorderStackPanel, 4);
+                TextBox articleObservationsTextBox = (TextBox)VisualTreeHelper.GetChild(articleBorderStackPanel, 5);
+
+                if ( (articleRegisteredQuantityTextBlock.Text != articleManualQuantityIntegerUpDown.Text) && (articleObservationsTextBox.Text == "") )
+                {
+                    if (namesOfArticles != "")
+                    {
+                        namesOfArticles = namesOfArticles.Substring(0, namesOfArticles.Length - 1);
+                        namesOfArticles = namesOfArticles + ", " + articleNameTextBlock.Text + ".";
+                    }
+                    else
+                    {
+                        namesOfArticles = namesOfArticles + articleNameTextBlock.Text + ".";
+                    }
+                }
+            }
+
+            return namesOfArticles;
         }
     }
 }

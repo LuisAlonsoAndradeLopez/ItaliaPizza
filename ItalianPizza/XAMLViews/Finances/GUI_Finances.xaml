@@ -34,8 +34,7 @@
             <Label Content="Tipo de Transacción: " HorizontalAlignment="Left" Margin="277,45,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontFamily="Arial" Width="211"/>
             <ComboBox Name="TransactionTypeComboBox" HorizontalAlignment="Left" Margin="493,38,0,0" VerticalAlignment="Top" FontSize="24" Height="46" Width="744" SelectionChanged="TransactionTypeComboBoxSelectionChanged"/>
             <Label Content="Fecha de Realización: " HorizontalAlignment="Left" Margin="277,102,0,0" VerticalAlignment="Top" Foreground="White" FontSize="22" FontFamily="Arial" Width="229"/>
-            <DatePicker Name="RealizationDatePicker" HorizontalAlignment="Left" Margin="511,97,0,0" VerticalAlignment="Top" FontSize="24" Height="46" Width="534" IsEnabled="True" SelectedDateChanged="RealizationDatePickerSelectedDateChanged"/>
-            <Button Style="{StaticResource RedButtonStyle}" Content="Borrar Fecha" HorizontalAlignment="Left" Margin="1050,97,0,0" VerticalAlignment="Top" Height="46" Width="184" FontSize="14" Click="EraseSelectedDateButtonOnClick"/>
+            <DatePicker Name="RealizationDatePicker" HorizontalAlignment="Left" Margin="511,97,0,0" VerticalAlignment="Top" FontSize="24" Height="46" Width="726" IsEnabled="True" SelectedDateChanged="RealizationDatePickerSelectedDateChanged"/>
             <Button Style="{StaticResource RedButtonStyle}" Name="AddFinancialTransactionButton" Content="Agregar Transacción Financiera" HorizontalAlignment="Left" Margin="1258,55,0,0" VerticalAlignment="Top" Height="68" Width="210" FontSize="14" Click="AddFinancialTransactionButtonOnClick"/>
             <Button Style="{StaticResource RedButtonStyle}" Content="Realizar Balance Diario" HorizontalAlignment="Left" Margin="1489,55,0,0" VerticalAlignment="Top" Height="68" Width="210" FontSize="14" Click="MakeDailyBalanceButtonOnClick"/>
 
@@ -62,18 +61,18 @@
                     <Border Name="AddFinancialTransactionBorder" Height="99" Margin="5,4,5,0" Background="#7E1616" Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel Width="346">
-                                <StackPanel Orientation="Horizontal" Margin="0, 14, 0, 0">
+                                <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
                                     <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="165" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Tipo de Transacción:"/>
-                                    <ComboBox Name="FinancialTransactionTypeComboBox" Width="171" Height="30"/>
+                                    <ComboBox Name="FinancialTransactionTypeComboBox" Width="171" Height="34" SelectionChanged="FinancialTransactionTypeComboBoxSelectionChanged"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
                                     <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Cantidad: "/>
-                                    <xctk:DecimalUpDown Name="FinancialTransactionPriceDecimalUpDown" MaxLength="30" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="26"/>
+                                    <xctk:DecimalUpDown Name="FinancialTransactionPriceDecimalUpDown" MaxLength="30" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="34"/>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Margin="10, 6, 0, 0">
                                 <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Contexto: "/>
-                                <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="ContextTextBox" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="58" MaxLength="20"/>
+                                <ComboBox Name="FinancialTransactionContextComboBox" FontSize="18" Margin="0,0,0,0" Width="256" Height="58" />
                             </StackPanel>
                             <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="101" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Descripción: "/>
                             <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="FinancialTransactionDescriptionTextBox" TextWrapping="Wrap" Width="357" Height="76" MaxLength="100"/>

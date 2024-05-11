@@ -1,13 +1,12 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
-using System.Data.Entity.Core;
 using System;
+using System.Data.Entity.Core;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -36,7 +35,7 @@ namespace ItalianPizza.XAMLViews
                 try
                 {
                     EmployeeSet employee = userDAO.CheckEmployeeExistencebyLogin(userAccount);
-                    if(employee != null)
+                    if (employee != null)
                     {
                         UserToken.GetInstance(employee);
                         NavigationService.Navigate(new GUI_ConsultCustomerOrder());
@@ -75,7 +74,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    new AlertPopup("Nombres y contraseña largos", 
+                    new AlertPopup("Nombres y contraseña largos",
                         "El nombre de usuario y la contraseña debe ser como maximo" +
                         " de 20 caracteres", Auxiliary.AlertPopupTypes.Warning);
                 }

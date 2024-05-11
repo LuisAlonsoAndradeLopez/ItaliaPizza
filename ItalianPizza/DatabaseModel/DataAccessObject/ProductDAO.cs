@@ -462,7 +462,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     var customerOrderDetails = context.CustomerOrderDetailSet
                                             .Include(d => d.ProductSaleSet)
-                                            .Where(d => d.CustomerOrderId == customerOrder.Id)                                            
+                                            .Where(d => d.CustomerOrderId == customerOrder.Id)
                                             .ToList();
 
                     customerOrderProducts = customerOrderDetails.Select(detalle =>
@@ -533,7 +533,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
             return productStatusesList;
         }
-    
+
         public List<SupplySet> GetSupplierProducts(int supplierID)
         {
             List<SupplySet> supplyList;

@@ -104,7 +104,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
         public List<SupplySet> GetSuppliesForInventoryReport()
-        {          
+        {
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -124,7 +124,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             Observations = s.Observations
                         })
                         .ToList();
-                    
+
                     return activeSupplies;
                 }
 
@@ -140,10 +140,10 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
         public BitmapImage GetImageBySupplyName(string supplyName)
-        {         
+        {
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                byte[] imageBytes = context.SupplySet.AsNoTracking().FirstOrDefault(s => s.Name == supplyName).Picture;             
+                byte[] imageBytes = context.SupplySet.AsNoTracking().FirstOrDefault(s => s.Name == supplyName).Picture;
 
                 BitmapImage bitmapImage = new BitmapImage();
 
