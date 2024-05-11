@@ -1,23 +1,13 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace ItalianPizza.XAMLViews
@@ -81,7 +71,7 @@ namespace ItalianPizza.XAMLViews
 
         private void RegisterButton_Clic(object sender, RoutedEventArgs e)
         {
-            if(pnlForm.Visibility == Visibility.Visible)
+            if (pnlForm.Visibility == Visibility.Visible)
             {
                 btnRegister.Content = "Registrar";
                 pnlForm.Visibility = Visibility.Hidden;
@@ -101,12 +91,12 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                       userDAO = new UserDAO();
-                        UserAccountSet account = new UserAccountSet()
-                        {
-                            UserName = txtEmail.Text,
-                            Password = txtPassword.Text
-                        };
+                    userDAO = new UserDAO();
+                    UserAccountSet account = new UserAccountSet()
+                    {
+                        UserName = txtEmail.Text,
+                        Password = txtPassword.Text
+                    };
                     EmployeeSet employee = new EmployeeSet()
                     {
                         Names = txtName.Text,
@@ -118,17 +108,17 @@ namespace ItalianPizza.XAMLViews
                         UserStatusId = 1,
                         EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
                         Address_Id = 1
-                        };
-                        int result = userDAO.RegisterUser(account, employee);
-                        if (result == 2)
-                        {
-                            new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
-                            NavigationService.GoBack();
-                        }
-                        else
-                        {
-                                new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
-                        }
+                    };
+                    int result = userDAO.RegisterUser(account, employee);
+                    if (result == 2)
+                    {
+                        new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
+                    }
                 }
             }
         }

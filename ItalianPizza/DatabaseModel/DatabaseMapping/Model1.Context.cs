@@ -56,5 +56,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual DbSet<ProductPictureSet> ProductPictureSet { get; set; }
         public virtual DbSet<SupplyPictureSet> SupplyPictureSet { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<FinancialTransactionIncomeContextSet> FinancialTransactionIncomeContextSet { get; set; }
+        public virtual DbSet<FinancialTransactionWithDrawContextSet> FinancialTransactionWithDrawContextSet { get; set; }
     }
 }

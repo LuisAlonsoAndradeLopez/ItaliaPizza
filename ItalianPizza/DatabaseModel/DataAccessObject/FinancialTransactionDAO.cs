@@ -1,7 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
-using System.Data.Entity.Core;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject

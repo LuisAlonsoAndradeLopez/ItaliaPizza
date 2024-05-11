@@ -30,12 +30,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="DarkRed"/>
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="DarkRed"/>
-            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -68,12 +62,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderBrush" Value="DarkRed"/>
-            </Trigger>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="DarkRed"/>
-            </Trigger>
         </Style.Triggers>
     </Style>
 
@@ -106,9 +94,6 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <Trigger Property="IsFocused" Value="True">
-                <Setter Property="BorderBrush" Value="DarkRed"/>
-            </Trigger>
         </Style.Triggers>
     </Style>
 

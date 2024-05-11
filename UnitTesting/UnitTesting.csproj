@@ -120,14 +120,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ProductDAOTest.cs" />
-    <Compile Include="ProductStatusDAOTest.cs" />
-    <Compile Include="ProductTypeDAOTest.cs" />
-    <Compile Include="SupplyDAOTest.cs" />
-    <Compile Include="SupplyTypeDAOTest.cs" />
-    <Compile Include="SupplyUnitDAOTest.cs" />
-    <Compile Include="CustomerOrderDAO.cs" />
-    <Compile Include="UserDAOTest.cs" />
+    <Compile Include="DAOsTests\FinancialTransactionWithDrawContextDAOTest.cs" />
+    <Compile Include="DAOsTests\FinancialTransactionDAOTest.cs" />
+    <Compile Include="DAOsTests\ProductDAOTest.cs" />
+    <Compile Include="DAOsTests\ProductStatusDAOTest.cs" />
+    <Compile Include="DAOsTests\ProductTypeDAOTest.cs" />
+    <Compile Include="DAOsTests\SupplyDAOTest.cs" />
+    <Compile Include="DAOsTests\SupplyTypeDAOTest.cs" />
+    <Compile Include="DAOsTests\FinancialTransactionIncomeContextDAOTest.cs" />
+    <Compile Include="DAOsTests\SupplyUnitDAOTest.cs" />
+    <Compile Include="DAOsTests\CustomerOrderDAO.cs" />
+    <Compile Include="DAOsTests\UserDAOTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

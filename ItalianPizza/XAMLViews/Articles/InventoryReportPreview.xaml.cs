@@ -27,7 +27,7 @@ namespace ItalianPizza.XAMLViews.Articles
             InventoryReportDataSet inventoryReportDataSet = new InventoryReportDataSet();
             InventoryReportDataSet.ArticleDataTable products = inventoryReportDataSet.Article;
 
-            foreach(var product in new ProductDAO().GetProductsForInventoryReport())
+            foreach (var product in new ProductDAO().GetProductsForInventoryReport())
             {
                 string productObservations;
 

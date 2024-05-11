@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
@@ -102,7 +100,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
-            
+
             return result;
 
         }

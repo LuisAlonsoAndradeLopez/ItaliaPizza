@@ -157,7 +157,7 @@
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
                         <TextBlock Text="Cantidad: " Foreground="White" FontSize="18" Margin="16,0,0,0" TextAlignment="Left" TextWrapping="Wrap" Width="79" Height="26"/>
-                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" MaxLength="6" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="457" Height="34"/>
+                        <xctk:IntegerUpDown Name="ModifySelectedArticleQuantityIntegerUpDown" Value="0" Increment="1" Maximum="100000" MaxLength="6" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="457" Height="34" IsEnabled="False"/>
                     </StackPanel>
 
                     <StackPanel Width="569" Orientation="Horizontal" Height="61">
