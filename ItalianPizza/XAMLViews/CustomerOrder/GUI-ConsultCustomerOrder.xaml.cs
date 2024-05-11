@@ -4,13 +4,17 @@ using System.Data.Entity.Core;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CrystalDecisions.CrystalReports.Engine;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.XAMLViews.CustomerOrder;
+using ItalianPizza.XAMLViews.Suppliers;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -123,7 +127,7 @@ namespace ItalianPizza.XAMLViews
             };
 
             StackPanel stackPanelContainer = new StackPanel();
-
+            int marginSpace = 0;
             foreach (var customerOrder in customerOrders)
             {
                 Grid grdContainer = new Grid
@@ -154,13 +158,15 @@ namespace ItalianPizza.XAMLViews
 
                 string addressIconOrderTypeCustomer = "";
 
-                if (customerOrder.OrderTypeId == 2)
+                if (customerOrder.OrderTypeId == 1)
                 {
                     addressIconOrderTypeCustomer = Properties.Resources.ICON_CustomerHomeDeliveryOrder;
+                    marginSpace = 90;
                 }
                 else
                 {
                     addressIconOrderTypeCustomer = Properties.Resources.ICON_LocalCustomerOrder;
+                    marginSpace = 100;
                 }
 
                 Image image = new Image
@@ -179,7 +185,7 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(110, 10, 0, 0),
+                    Margin = new Thickness(marginSpace, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblNameCustomerOrder);
 
@@ -189,7 +195,7 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(326, 10, 0, 0),
+                    Margin = new Thickness(316, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderDate);
 
@@ -199,9 +205,18 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(520, 10, 0, 0),
+                    Margin = new Thickness(510, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderTime);
+ 
+                if(customerOrder.OrderStatusId == 1 || customerOrder.OrderStatusId == 3)
+                {
+                    marginSpace = 660;
+                }
+                else
+                {
+                    marginSpace = 670;
+                }
 
                 Label lblCustomerOrderStatus = new Label
                 {
@@ -209,7 +224,7 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(700, 10, 0, 0),
+                    Margin = new Thickness(marginSpace, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderStatus);
 
@@ -217,16 +232,6 @@ namespace ItalianPizza.XAMLViews
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
-                    if(customerOrder.OrderStatusId == 1)
-                    {
-                        btnModifyCustomerOrder.IsEnabled = true;
-                        btnModifyCustomerOrder.IsEnabled = true;
-                    }
-                    else
-                    {
-                        btnModifyCustomerOrder.IsEnabled = false;
-                        btnModifyCustomerOrder.IsEnabled = false;
-                    }
                 };
 
                 stackPanelContainer.Children.Add(grdContainer);
@@ -356,9 +361,43 @@ namespace ItalianPizza.XAMLViews
             NavigationService.Navigate(new GUI_CustomerOrderManagementForm(null));
         }
 
-        private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
+        private void GoToModifyOrderVirtualWindow(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
+            if(customerOrderSet.OrderStatusId != 6)
+            {
+                NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
+            }
+            else
+            {
+                new AlertPopup("Pedido Ya Cancelado",
+                    "Lo siento, pero a los pedidos cancelados ya no se pueden modificar",
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+
+        private void UpdateOrderStatus(object sender, MouseButtonEventArgs e)
+        {
+            if(customerOrderSet.OrderStatusId != 6)
+            {
+                GUI_UpdateOrderStatusForm UpdateOrderStatusForm = new GUI_UpdateOrderStatusForm(customerOrderSet)
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(1175, 0, 0, 0)
+                };
+                Grid.SetColumn(UpdateOrderStatusForm, 0);
+                Background.Children.Add(UpdateOrderStatusForm);
+            }
+            else
+            {
+                new AlertPopup("Pedido Ya Cancelado", 
+                    "Lo siento, pero a los pedidos cancelados ya no se pueden modificar estatus", 
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+
+        private void PayOrder(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
@@ -372,11 +411,15 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }

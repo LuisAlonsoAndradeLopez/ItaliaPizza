@@ -17,7 +17,7 @@
             Margin="256,10,0,0" 
             Stroke="#FF0F0B02" 
             VerticalAlignment="Top" 
-            Width="770" 
+            Width="817" 
             Fill="#FF18171C"
             RadiusX="20" 
             RadiusY="20"/>
@@ -64,77 +64,45 @@
 
         <Label Content="Seleciona tus productos" 
            HorizontalAlignment="Left" 
-           Margin="313,225,0,0" 
+           Margin="313,171,0,0" 
            VerticalAlignment="Top" 
            FontFamily="Tahoma"
            Foreground="#EEC864"
            FontSize="19"
            FontWeight="Bold"/>
 
-        <Label Content="Filtrar por tipo:"
-           HorizontalAlignment="Left"
-           Margin="287,166,0,0" 
-           VerticalAlignment="Top"
-           FontFamily="Tahoma" 
-           Foreground="#FFFFFDFD" 
-           FontSize="18
-           "
-           FontWeight="Bold"/>
+        <Image
+            HorizontalAlignment="Left"
+            Height="34" 
+            Margin="561,170,0,0" 
+            VerticalAlignment="Top"
+            Width="34" 
+            Source="/Resources/Pictures/ICON-PurchaseSupplier.png" 
+            RenderTransformOrigin="0.477,0.484"/>
 
-        <Label Content="Filtrar por estado:" 
-           HorizontalAlignment="Left"
-           Margin="638,166,0,0"
-           VerticalAlignment="Top"
-           FontFamily="Tahoma"
-           Foreground="#FFFFFDFD"
-           FontSize="18"
-           FontWeight="Bold"/>
-
-        <ListBox x:Name="lboProductType" 
-              HorizontalAlignment="Left"
-              Margin="440,175,0,0"
-              VerticalAlignment="Top"
-              Width="185" 
-              Height="30" 
-              FontSize="18" 
-              Background="#FF262222" 
-              BorderBrush="#FF262222"
-              Foreground="#FFF0F0F0"/>
-
-        <ListBox x:Name="lboProductStatus"
-              HorizontalAlignment="Left"
-              Margin="816,175,0,0" 
-              VerticalAlignment="Top"
-              Width="185" 
-              Height="30"
-              FontSize="18" 
-              Background="#FF262222" 
-              BorderBrush="#FF262222" 
-              Foreground="#FFF3F3F3"/>
-
-        <WrapPanel x:Name="wpSupplies" 
-               Margin="275,268,732,41"/>
+        <WrapPanel x:Name="wpSupplies" Visibility="Visible" 
+               Margin="272,284,676,41"/>
 
         <Label Content="Contenido del pedido" 
             HorizontalAlignment="Left" 
-            Margin="1261,209,0,0" 
+            Margin="1295,257,0,0" 
             VerticalAlignment="Top" 
             Background="{x:Null}" 
-            Foreground="#FFDB4B2C" 
+            Foreground="#FFDBAB2C" 
             FontFamily="Tahoma" 
             FontSize="20" 
             FontWeight="Bold"/>
 
         <GridSplitter HorizontalAlignment="Left" 
-           Height="667" 
-           Margin="1383,-74,0,0" 
+           Height="618" 
+           Margin="1416,-5,0,0" 
            VerticalAlignment="Top" 
-           Width="1" 
+           Width="2" 
            RenderTransformOrigin="0.5,0.5">
 
             <GridSplitter.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
+                    <ScaleTransform ScaleX="1"/>
                     <SkewTransform/>
                     <RotateTransform Angle="90"/>
                     <TranslateTransform/>
@@ -144,7 +112,7 @@
 
         <Label Content="Nombre Producto" 
             HorizontalAlignment="Left" 
-            Margin="1084,262,0,0" 
+            Margin="1134,304,0,0" 
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
@@ -152,7 +120,7 @@
 
         <Label Content="Cantidad" 
             HorizontalAlignment="Left" 
-            Margin="1355,262,0,0"
+            Margin="1360,304,0,0"
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
@@ -160,21 +128,21 @@
 
         <Label Content="Costo por pieza" 
             HorizontalAlignment="Left" 
-            Margin="1570,262,0,0" 
+            Margin="1579,304,0,0" 
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
             Foreground="White"/>
 
         <GridSplitter HorizontalAlignment="Left" 
-           Height="34" 
-           Margin="1347,260,0,0"
+           Height="33" 
+           Margin="1347,303,0,0"
            VerticalAlignment="Top" 
            Width="1"/>
 
         <GridSplitter HorizontalAlignment="Left" 
-           Height="34" 
-           Margin="1440,260,0,0" 
+           Height="33" 
+           Margin="1449,303,0,0" 
            VerticalAlignment="Top"
            Width="1"/>
 
@@ -196,31 +164,32 @@
             Foreground="White"/>
 
         <WrapPanel x:Name="wpSupplierOrderSupplies" 
-            Margin="1049,299,26,176"/>
+            Margin="1087,349,17,176"/>
 
         <Label Content="Detalles del Pedido" 
             HorizontalAlignment="Left" 
-            Margin="1251,31,0,0" 
+            Margin="1276,25,0,0" 
             VerticalAlignment="Top" 
             Background="{x:Null}" 
             Foreground="#FFDB4B2C" 
             FontFamily="Tahoma" 
             FontSize="26" 
             FontWeight="Bold"/>
+
         <Label Content="Selecione proveedor*" 
             HorizontalAlignment="Left" 
-            Margin="1057,89,0,0" 
+            Margin="1161,86,0,0" 
             VerticalAlignment="Top" 
             FontSize="22" 
             FontFamily="Tahoma" 
-            Foreground="White"/>
+            Foreground="White" FontWeight="Bold"/>
 
         <ListBox x:Name="lboSuppliers"
             HorizontalAlignment="Left"
-            Margin="1049,131,0,0" 
+            Margin="1139,191,0,0" 
             VerticalAlignment="Top"
-            Width="377" 
-            Height="44"
+            Width="552" 
+            Height="45"
             FontSize="24" 
             Background="#FF131313" 
             BorderBrush="#FFF3F3F3" 
@@ -234,21 +203,22 @@
                 </TransformGroup>
             </ListBox.RenderTransform>
         </ListBox>
+
         <Label Content="U. Medida" 
             HorizontalAlignment="Left" 
-            Margin="1455,262,0,0"
+            Margin="1464,304,0,0"
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
             Foreground="White"/>
         <GridSplitter HorizontalAlignment="Left" 
-            Height="34" 
-            Margin="1558,260,0,0" 
+            Height="33" 
+            Margin="1567,303,0,0" 
             VerticalAlignment="Top"
             Width="1"/>
         <GridSplitter HorizontalAlignment="Left" 
-            Height="667" 
-            Margin="1383,-39,0,0" 
+            Height="619" 
+            Margin="1416,27,0,0" 
             VerticalAlignment="Top" 
             Width="1" 
             RenderTransformOrigin="0.5,0.5">
@@ -278,71 +248,155 @@
             </GridSplitter.RenderTransform>
         </GridSplitter>
 
-        <Button x:Name="btnRegisterCustomerOrder" 
-        Content="Registrar Nuevo Pedido" 
-        HorizontalAlignment="Left" 
-        Margin="1406,821,0,0" 
-        VerticalAlignment="Top" 
-        Height="44" 
-        Width="240" 
-        Background="#FFDB4B2C" 
-        Foreground="#FFF8F8F8" 
-        FontFamily="Arial" 
-        FontSize="18"
-        BorderBrush="#FFBC8B21"
-        BorderThickness="0"
-        FontWeight="Thin" Click="RegisterCustomerOrder_Click" 
-        />
+        <Grid x:Name="grdRegisterButtons" Visibility="Hidden">
+            <Button x:Name="btnRegisterCustomerOrder" 
+                Content="Registrar Nuevo Pedido" 
+                HorizontalAlignment="Left" 
+                Margin="1406,821,0,0" 
+                VerticalAlignment="Top" 
+                Height="44" 
+                Width="240" 
+                Background="#FFDB4B2C" 
+                Foreground="#FFF8F8F8" 
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderBrush="#FFBC8B21"
+                BorderThickness="0"
+                FontWeight="Thin" Click="RegisterCustomerOrder_Click" 
+            />
 
-        <Button 
-            Content="Cancelar" 
-            HorizontalAlignment="Left" 
-            Margin="1149,821,0,0" 
-            VerticalAlignment="Top" 
-            Height="44" 
-            Width="240" 
-            Background="#FFDB4B2C" 
-            Foreground="#FFF8F8F8" 
-            FontFamily="Arial" 
-            FontSize="18"
-            BorderBrush="#FFBC8B21"
-            BorderThickness="0"
-            FontWeight="Thin"/>
+            <Button 
+                Content="Cancelar" 
+                HorizontalAlignment="Left" 
+                Margin="1149,821,0,0" 
+                VerticalAlignment="Top" 
+                Height="44" 
+                Width="240" 
+                Background="#FFDB4B2C" 
+                Foreground="#FFF8F8F8" 
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderBrush="#FFBC8B21"
+                BorderThickness="0"
+                FontWeight="Thin"
+            />
 
-        <Button x:Name="btnModifyCustomerOrder" 
-            Content="Modificar Pedido" 
-            HorizontalAlignment="Left" 
-            Margin="1407,821,0,0" 
-            VerticalAlignment="Top" 
-            Height="44" 
-            Width="240" 
-            Background="#FFDB4B2C" 
-            Foreground="#FFF8F8F8" 
-            FontFamily="Arial" 
-            FontSize="18"
-            BorderBrush="#FFBC8B21"
-            BorderThickness="0"
-            FontWeight="Thin" Click="ModifyCustomerOrder_Click"/>
+        </Grid>
 
-        <ListBox x:Name="lboOrderStatus"
+        <Rectangle 
             HorizontalAlignment="Left"
-            Margin="1455,131,0,0" 
-            VerticalAlignment="Top"
-            Width="269" 
-            Height="44"
-            FontSize="24" 
-            Background="#FF131313" 
-            BorderBrush="#FFF3F3F3" 
-            Foreground="#FFF3F3F3"/>
-        <Label Content="Selecione estatus*" 
-            HorizontalAlignment="Left" 
-            Margin="1465,89,0,0" 
+            Height="48" 
+            Margin="266,219,0,0" 
+            Stroke="#FF262222" 
             VerticalAlignment="Top" 
-            FontSize="22" 
-            FontFamily="Tahoma" 
-            Foreground="White"/>
+            Width="797" 
+            Fill="#FF262222"  
+            />
+
+        <Label Content="Nombre Insumo" 
+            HorizontalAlignment="Left" 
+            Margin="302,227,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="Tahoma"
+            Foreground="#EEC864"
+            FontSize="19"
+            FontWeight="Bold"/>
+
+        <Label Content="Medida" 
+            HorizontalAlignment="Left" 
+            Margin="524,227,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="Tahoma"
+            Foreground="#FFE4E4E4"
+            FontSize="19"
+            FontWeight="Bold"/>
+
+        <Label Content="Cantidad " 
+            HorizontalAlignment="Left" 
+            Margin="678,227,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="Tahoma"
+            Foreground="#EEC864"
+            FontSize="19"
+            FontWeight="Bold"/>
+
+        <Label Content="Costo " 
+            HorizontalAlignment="Left" 
+            Margin="879,227,0,0" 
+            VerticalAlignment="Top" 
+            FontFamily="Tahoma"
+            Foreground="#FFF8F8F8"
+            FontSize="19"
+            FontWeight="Bold"/>
+
+        <Rectangle 
+            HorizontalAlignment="Left"
+            Height="49" 
+            Margin="1134,128,0,0" 
+            Stroke="#FF262222" 
+            VerticalAlignment="Top" 
+            Width="560" 
+            Fill="#FF262222" 
+            RadiusX="30" 
+            RadiusY="30"/>
+
+        <TextBox x:Name="txtSupplierSearch"
+            HorizontalAlignment="Left" 
+            Margin="1200,134,0,0"
+            TextWrapping="Wrap"
+            VerticalAlignment="Top" 
+            FontSize="30" 
+            Width="466" 
+            Height="37" 
+            Background="#FF262222"
+            Foreground="#FFECD9D9"
+            BorderBrush="#FF262222"
+            TextChanged="TextBox_SupplierSearch"/>
+
+        <Image
+            HorizontalAlignment="Left"
+            Height="34" 
+            Margin="1157,135,0,0" 
+            VerticalAlignment="Top"
+            Width="34" 
+            Source="/Resources/Pictures/ICON-SearchSupplier.png"/>
+
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
+
+        <Grid>
+            <Image 
+                HorizontalAlignment="Left"
+                Height="66"
+                Margin="1329,819,0,0" 
+                VerticalAlignment="Top"
+                Width="66"
+                Source="\Resources\Pictures\ICON-PayOrder.png"/>
+
+            <Image
+                HorizontalAlignment="Left"
+                Height="66"
+                Margin="1427,819,0,0"
+                VerticalAlignment="Top"
+                Width="70"
+                Source="\Resources\Pictures\ICON-ChangeStatus.png"/>
+
+            <Image
+                HorizontalAlignment="Left"
+                Height="66"
+                Margin="1535,819,0,0"
+                VerticalAlignment="Top" 
+                Width="70"
+                Source="\Resources\Pictures\ICON-Save.png"/>
+            
+            <Image 
+                HorizontalAlignment="Left"
+                Height="66"
+                Margin="1223,819,0,0" 
+                VerticalAlignment="Top"
+                Width="66"
+                Source="/Resources/Pictures/ICON-Back.png"/>
+        </Grid>
 
     </Grid>
 </Page>

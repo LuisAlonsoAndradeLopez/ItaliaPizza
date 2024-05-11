@@ -78,7 +78,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-        public int ModifyCustomerOrder(CustomerOrderSet customerOrder, List<ProductSaleSet> productsOrderCustomer, CustomerSet customer, DeliveryDriverSet deliveryDriver)
+        public int ModifyCustomerOrder(CustomerOrderSet customerOrder, List<ProductSaleSet> productsOrderCustomer)
         {
             int result = 0;
             using (var context = new ItalianPizzaServerBDEntities())
@@ -91,49 +91,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                                         .FirstOrDefault(CustomerOrder => CustomerOrder.Id == customerOrder.Id);
 
                         OriginalCustomerOrder.TotalAmount = customerOrder.TotalAmount;
-                        OriginalCustomerOrder.OrderStatusId = customerOrder.OrderStatusId;
-                        OriginalCustomerOrder.OrderTypeId = customerOrder.OrderTypeId;
-
-                        if (OriginalCustomerOrder.OrderTypeId == 2)
-                        {
-                            CustomerOrderCustomerSet customerOrderCustomerSet = context.CustomerOrderCustomerSet.FirstOrDefault(c => c.CustomerOrderId == customerOrder.Id);
-                            CustomerOrderDeliveryDriverSet customerOrderDeliveryDriverSet = context.CustomerOrderDeliveryDriverSet.FirstOrDefault(c => c.CustomerOrderId == customerOrder.Id);
-
-                            if (customerOrderCustomerSet != null && customerOrderDeliveryDriverSet != null)
-                            {
-                                context.CustomerOrderCustomerSet.Remove(customerOrderCustomerSet);
-                                context.CustomerOrderDeliveryDriverSet.Remove(customerOrderDeliveryDriverSet);
-                            }
-                        }
-                        else
-                        {
-
-                            var customerOrderCustomerSet = OriginalCustomerOrder.CustomerOrderCustomerSet.FirstOrDefault();
-                            var customerOrderDeliveryDriverSet = OriginalCustomerOrder.CustomerOrderDeliveryDriverSet.FirstOrDefault();
-                            if (customerOrderCustomerSet == null && customerOrderDeliveryDriverSet == null)
-                            {
-                                customerOrderCustomerSet = new CustomerOrderCustomerSet
-                                {
-                                    CustomerOrderId = OriginalCustomerOrder.Id,
-                                    CustomerId = customer.Id
-                                };
-                                
-                                customerOrderDeliveryDriverSet = new CustomerOrderDeliveryDriverSet
-                                {
-                                    CustomerOrderId = OriginalCustomerOrder.Id,
-                                    DeliveryDriverId = deliveryDriver.Id
-                                };
-
-                                OriginalCustomerOrder.CustomerOrderCustomerSet.Add(customerOrderCustomerSet);
-                                OriginalCustomerOrder.CustomerOrderDeliveryDriverSet.Add(customerOrderDeliveryDriverSet);
-                            }
-                            else
-                            {
-                                customerOrderCustomerSet.CustomerId = customer.Id;
-                                customerOrderDeliveryDriverSet.DeliveryDriverId = deliveryDriver.Id;
-                            }
-
-                        }
 
                         var productIdsInCustomerOrder = productsOrderCustomer.Select(p => p.Id).ToList();
                         var productsToRemove = OriginalCustomerOrder.CustomerOrderDetailSet
@@ -158,7 +115,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                                 {
                                     CustomerOrderId = OriginalCustomerOrder.Id,
                                     ProductSaleId = product.Id,
-                                    ProductQuantity = product.Quantity
+                                    ProductQuantity = product.Quantity,
+                                    PricePerUnit = product.PricePerUnit
                                 };
                                 OriginalCustomerOrder.CustomerOrderDetailSet.Add(newDetail);
                             }
@@ -318,6 +276,31 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orderTypes;
         }
 
+        public int ModifyOrderStatus(int customerOrderID, int orderStatusID)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    CustomerOrderSet customerOrder = context.CustomerOrderSet.FirstOrDefault(cs => cs.Id == customerOrderID);
+                    if (customerOrder != null)
+                    {
+                        customerOrder.OrderStatusId = orderStatusID;
+                        result = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
 
     }
 }

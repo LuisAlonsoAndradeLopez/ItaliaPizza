@@ -47,6 +47,10 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 supplierProducts = productDAO.GetSupplierProducts(supplier.Id);
                 ShowSupplierSupplyScreen(supplierProducts);
             }
+            else
+            {
+                supplierProducts = new List<SupplySet>();
+            }
         }
 
         public void InitializeListBox()

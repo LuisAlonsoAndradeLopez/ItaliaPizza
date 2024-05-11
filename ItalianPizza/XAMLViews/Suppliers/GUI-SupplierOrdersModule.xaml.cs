@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
 using System;
@@ -21,7 +22,10 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Button = System.Windows.Controls.Button;
 using Label = System.Windows.Controls.Label;
+using Path = System.IO.Path;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace ItalianPizza.XAMLViews.Suppliers
 {
@@ -35,6 +39,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private SupplierOrderSet supplierOrderSet;
         private SupplyDAO supplyDAO;
         private SupplierDAO supplierDAO;
+        private List<SupplierSet> suppliersList;
         private CustomerOrdersDAO customerOrdersDAO;
 
         public GUI_SupplierOrdersModule(SupplierOrderSet supplierOrder)
@@ -105,19 +110,32 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
         private void InitializeListBoxes()
         {
-            lboOrderStatus.ItemsSource = customerOrdersDAO.GetOrderStatuses();
-            lboOrderStatus.DisplayMemberPath = "Status";
-            lboSuppliers.ItemsSource = supplierDAO.GetAllSuppliers();
+            suppliersList = supplierDAO.GetAllSuppliers();
+            lboSuppliers.ItemsSource = suppliersList;
+            lboSuppliers.DisplayMemberPath = "CompanyName";
+        }
+
+        private void TextBox_SupplierSearch(object sender, EventArgs e)
+        {
+            string textSearch = txtSupplierSearch.Text;
+            FilterSuppliers(textSearch);
+        }
+
+        private void FilterSuppliers(string textSearch)
+        {
+            List<SupplierSet> filteredProducts = suppliersList
+                .Where(p => p.CompanyName.ToLower().Contains(textSearch.ToLower())).ToList();
+            lboSuppliers.ItemsSource = filteredProducts;
             lboSuppliers.DisplayMemberPath = "CompanyName";
         }
 
         private void TextBox_ProductSearch(object sender, EventArgs e)
         {
             string textSearch = txtProductSearch.Text;
-            RecoverProducts(textSearch);
+            FilterSupplies(textSearch);
         }
 
-        private void RecoverProducts(string textSearch)
+        private void FilterSupplies(string textSearch)
         {
             List<SupplySet> filteredProducts = supplySetList
                 .Where(p => p.Name.ToLower().Contains(textSearch.ToLower())).ToList();
@@ -140,13 +158,26 @@ namespace ItalianPizza.XAMLViews.Suppliers
             {
                 Grid grdContainer = new Grid();
 
+                Image btnDeleteSupply = new Image
+                {
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Height = 20,
+                    Width = 20,
+                    Margin = new Thickness(15, 7, 0, 0),
+                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Delete.png", UriKind.RelativeOrAbsolute)),
+                };
+
+                btnDeleteSupply.MouseLeftButtonUp += (sender, e) => RemoveSupplyToOrder(product);
+                grdContainer.Children.Add(btnDeleteSupply);
+
                 Label lblName = new Label
                 {
                     Content = product.Name,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(20, 0, 0, 0),
+                    Margin = new Thickness(40, 0, 0, 0),
                 };
                 grdContainer.Children.Add(lblName);
 
@@ -156,7 +187,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(420, 0, 0, 0),
+                    Margin = new Thickness(390, 0, 0, 0),
                 };
                 grdContainer.Children.Add(lblUnitMeasurement);
 
@@ -166,7 +197,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(330, 0, 0, 0),
+                    Margin = new Thickness(305, 0, 0, 0),
                 };
                 grdContainer.Children.Add(lblAmount);
                 stackPanelContainer.Children.Add(grdContainer);
@@ -219,11 +250,12 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 Rectangle rectBackground = new Rectangle
                 {
-                    Height = 145,
-                    Width = 729,
-                    RadiusX = 30,
-                    RadiusY = 30,
-                    Fill = new SolidColorBrush(Color.FromRgb(70, 65, 65)),
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    Height = 48,
+                    Width = 787,
+                    RadiusX = 20,
+                    RadiusY = 20,
+                    Fill = new SolidColorBrush(Color.FromRgb(137, 162, 91)),
                     Margin = new Thickness(0, 0, 0, 0),
                 };
 
@@ -238,91 +270,100 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 rectBackground.Effect = dropShadowEffect;
                 grdContainer.Children.Add(rectBackground);
 
-                Image imgPhotoProduct = new Image
-                {
-                    Height = 120,
-                    Width = 120,
-                    Source = GetBitmapImage(supply.Picture),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(-565, 0, 0, 0),
-                };
-                grdContainer.Children.Add(imgPhotoProduct);
-
                 Label lblTitleSupplyName = new Label
                 {
-                    Content = supply.Name,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
-                    FontWeight = FontWeights.Black,
-                    FontSize = 24,
-                    Margin = new Thickness(165, 16, 0, 0),
+                    FontWeight = FontWeights.Bold,
+                    Width = 206,
+                    FontSize = 20,
+                    Margin = new Thickness(-550, 0, 0, 0),
                 };
+
+                TextBlock txtTitleSupplyName = new TextBlock
+                {
+                    Text = supply.Name,
+                    TextAlignment = TextAlignment.Center
+                };
+
+                lblTitleSupplyName.Content = txtTitleSupplyName;
+
                 grdContainer.Children.Add(lblTitleSupplyName);
-
-                Label lblTitleSupplyCost = new Label
-                {
-                    Content = "Costo: ",
-                    Foreground = new SolidColorBrush(Color.FromRgb(255, 189, 58)),
-                    FontWeight = FontWeights.SemiBold,
-                    FontSize = 20,
-                    Margin = new Thickness(165, 55, 0, 0),
-                };
-                grdContainer.Children.Add(lblTitleSupplyCost);
-
-                Label lblSupplyCost = new Label
-                {
-                    Content = "$ " + supply.PricePerUnit + ".00",
-                    Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
-                    FontWeight = FontWeights.SemiBold,
-                    FontSize = 20,
-                    Margin = new Thickness(230, 55, 0, 0),
-                };
-                grdContainer.Children.Add(lblSupplyCost);
 
                 Label lblTitleSupplyUnit = new Label
                 {
-                    Content = "Unidad de Medida: ",
-                    Foreground = new SolidColorBrush(Color.FromRgb(255, 189, 58)),
-                    FontWeight = FontWeights.SemiBold,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+                    FontWeight = FontWeights.Bold,
+                    Width = 127,
                     FontSize = 20,
-                    Margin = new Thickness(165, 90, 0, 0),
+                    Margin = new Thickness(-205, 0, 0, 0),
                 };
+
+                TextBlock txtTitleSupplyUnit = new TextBlock
+                {
+                    Text = supply.SupplyUnitSet.Unit,
+                    TextAlignment = TextAlignment.Center
+                };
+
+                lblTitleSupplyUnit.Content = txtTitleSupplyUnit;
                 grdContainer.Children.Add(lblTitleSupplyUnit);
 
-                Label lblSupplyUnit = new Label
+                TextBox txtSupplyQuantity = new TextBox
                 {
-                    Content = supply.SupplyUnitSet.Unit,
-                    Foreground = new SolidColorBrush(Color.FromRgb(255, 255, 255)),
+                    Foreground = new SolidColorBrush(Color.FromRgb(24, 25, 26)),
+                    FontWeight = FontWeights.SemiBold,
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 20,
+                    Height = 35,
+                    Width = 161,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(115, 0, 0, 0),
+                };
+                txtSupplyQuantity.PreviewTextInput += TextBox_PreviewTextInput;
+                grdContainer.Children.Add(txtSupplyQuantity);
+
+                TextBox txtSupplyCost = new TextBox
+                {
+                    Foreground = new SolidColorBrush(Color.FromRgb(24, 25, 26)),
                     FontWeight = FontWeights.SemiBold,
                     FontSize = 20,
-                    Margin = new Thickness(345, 90, 0, 0),
+                    Height = 35,
+                    Width = 161,
+                    TextWrapping = TextWrapping.Wrap,
+                    Margin = new Thickness(480, 0, 0, 0),
                 };
-                grdContainer.Children.Add(lblSupplyUnit);
+                txtSupplyCost.PreviewTextInput += TextBox_PreviewTextInput;
+                grdContainer.Children.Add(txtSupplyCost);
 
-                Image imgAddProductIcon = new Image
+                Image btnAddSupply = new Image
                 {
-                    Height = 40,
-                    Width = 40,
+                    HorizontalAlignment = System.Windows.HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                    Height = 34,
+                    Width = 145,
+                    Margin = new Thickness(730, 7, 0, 0),
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Agregar.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(640, 50, 0, 0),
                 };
 
-                imgAddProductIcon.MouseLeftButtonUp += (sender, e) => AddSupplyToOrder(supply);
-
-                grdContainer.Children.Add(imgAddProductIcon);
-
-                Image imgReduceProductIcon = new Image
+                btnAddSupply.MouseLeftButtonUp += (sender, e) =>
                 {
-                    Height = 40,
-                    Width = 40,
-                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Disminuir.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(540, 50, 0, 0),
+                    if (!string.IsNullOrEmpty(txtSupplyCost.Text) && !string.IsNullOrEmpty(txtSupplyQuantity.Text))
+                    {
+                        AddSupplyToOrder(supply, int.Parse(txtSupplyQuantity.Text), int.Parse(txtSupplyCost.Text));
+                    }
+                    else
+                    {
+                        new AlertPopup("Campos Inválidos",
+                            "Los campos de cantidad y costo de insumo no deben estar vacíos. Verifíquelos, por favor.",
+                            AlertPopupTypes.Warning);
+                    }
                 };
 
-                imgReduceProductIcon.MouseLeftButtonUp += (sender, e) => RemoveSupplyToOrder(supply);
-
-                grdContainer.Children.Add(imgReduceProductIcon);
+                grdContainer.Children.Add(btnAddSupply);
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
@@ -330,17 +371,27 @@ namespace ItalianPizza.XAMLViews.Suppliers
             wpSupplies.Children.Add(scrollViewer);
         }
 
-        private void AddSupplyToOrder(SupplySet supplySet)
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void AddSupplyToOrder(SupplySet supplySet, int quantitySupply, int costSupply)
         {
             SupplySet supplyExisting = listSupplySupplierOrder.FirstOrDefault(p => p.Id == supplySet.Id);
             if (supplyExisting == null)
             {
-                supplySet.Quantity = 1;
+                supplySet.Quantity = quantitySupply;
+                supplySet.PricePerUnit = costSupply;
                 listSupplySupplierOrder.Add(supplySet);
             }
             else
             {
-                supplyExisting.Quantity++;
+                supplyExisting.Quantity += quantitySupply;
+                supplyExisting.PricePerUnit += costSupply;
             }
 
             ShowOrderSupplies(listSupplySupplierOrder);
@@ -350,32 +401,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private void RemoveSupplyToOrder(SupplySet supplySet)
         {
             SupplySet supplyExisting = listSupplySupplierOrder.FirstOrDefault(p => p.Name == supplySet.Name);
-            if (supplyExisting != null && supplyExisting.Quantity > 1)
-            {
-                supplyExisting.Quantity--;
-            }
-            else if (supplyExisting != null && supplyExisting.Quantity == 1)
-            {
-                supplySet.Quantity = 0;
-                listSupplySupplierOrder.Remove(supplyExisting);
-            }
+            listSupplySupplierOrder.Remove(supplyExisting);
             ShowOrderSupplies(listSupplySupplierOrder);
             lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
-        }
-
-        private BitmapImage GetBitmapImage(byte[] data)
-        {
-            BitmapImage bitmapImage = new BitmapImage();
-            using (MemoryStream memoryStream = new MemoryStream(data))
-            {
-                memoryStream.Position = 0;
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memoryStream;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-            }
-
-            return bitmapImage;
         }
 
         private SupplierOrderSet ObtainSupplierOrderInformation()
@@ -423,18 +451,25 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private void ListBoxSuppliers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
-            List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
-            List<SupplySet> supplySetListAux = new List<SupplySet>();
-            foreach (int supplyID in SupplierSuppliesID)
+            if(supplierSet != null)
             {
-                SupplySet supply = supplySetList.FirstOrDefault(s => s.Id == supplyID);
-                if(supply != null)
+                List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
+                List<SupplySet> supplySetListAux = new List<SupplySet>();
+                foreach (int supplyID in SupplierSuppliesID)
                 {
-                    supplySetListAux.Add(supply);
+                    SupplySet supply = supplySetList.FirstOrDefault(s => s.Id == supplyID);
+                    if (supply != null)
+                    {
+                        supplySetListAux.Add(supply);
+                    }
                 }
+                AddVisualSuppliesToWindow(supplySetListAux);
             }
-
-            AddVisualSuppliesToWindow(supplySetListAux);
+            else
+            {
+                AddVisualSuppliesToWindow(supplySetList);
+            }
+            
         }
 
         private List<string> CheckSuppliesWithSupplier()
@@ -484,11 +519,6 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private bool AreValidFields()
         {
             bool result = true;
-
-            if(lboOrderStatus.SelectedItem != null)
-            {
-
-            }
 
             if(lboSuppliers.SelectedItem != null)
             {

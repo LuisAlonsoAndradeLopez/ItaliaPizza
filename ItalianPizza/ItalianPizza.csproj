@@ -278,6 +278,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SingletonClasses\CustomerOrderToken.cs" />
     <Compile Include="SingletonClasses\UserToken.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
@@ -294,6 +295,9 @@
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
       <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml.cs">
+      <DependentUpon>GUI-UpdateOrderStatusForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Finances\GUI_Finances.xaml.cs">
       <DependentUpon>GUI_Finances.xaml</DependentUpon>
@@ -358,6 +362,10 @@
     <Page Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Finances\GUI_Finances.xaml">
       <SubType>Designer</SubType>
@@ -543,6 +551,21 @@
     <Resource Include="Resources\Pictures\ICON-Eliminar.png" />
     <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
     <Resource Include="Resources\Pictures\ICON-Supplier.png" />
+    <Resource Include="Resources\Pictures\ICON-ChangeStatus.png" />
+    <Resource Include="Resources\Pictures\ICON-ModifyOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-PayOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderCanceled.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInKitchen.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInProcess.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInShipment.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderReady.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderDelivered.png" />
+    <Resource Include="Resources\Pictures\ICON-Delete.png" />
+    <Resource Include="Resources\Pictures\ICON-PurchaseSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-Save.png" />
+    <Resource Include="Resources\Pictures\ICON-Back.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
