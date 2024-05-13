@@ -159,11 +159,11 @@
                    Foreground="White"
                    FontWeight="Bold" Height="30" Width="77"/>
 
-            <ListBox x:Name="lboCustomers" 
+            <TextBlock x:Name="txtCustomers" 
                       HorizontalAlignment="Left"
                       Margin="1225,153,0,0"
                       VerticalAlignment="Top"
-                      Width="356" 
+                      Width="353" 
                       Height="38"
                       FontSize="20" 
                       Background="#FF131313" 
@@ -195,7 +195,7 @@
                     Height="37" 
                     Margin="1591,151,0,0"
                     VerticalAlignment="Top" 
-                    Width="110"
+                    Width="124"
                     Fill="#FFDDCC4E"
                     RadiusX="18" 
                     RadiusY="30" />
@@ -208,9 +208,9 @@
                     Width="34"
                     Source="/Resources/Pictures/ICON-Cliente.png" IsEnabled="False"/>
 
-                <Label Content="Agregar" 
+                <Label Content="Selecionar" 
                        HorizontalAlignment="Left" 
-                       Margin="1636,156,0,0"
+                       Margin="1638,156,0,0"
                        VerticalAlignment="Top" 
                        Foreground="White" FontWeight="Bold"/>
             </Grid>
@@ -221,7 +221,7 @@
                     Height="37"
                     Margin="1592,220,0,0"
                     VerticalAlignment="Top"
-                    Width="110" 
+                    Width="122" 
                     Fill="#FFDDCC4E"
                     RadiusX="18" 
                     RadiusY="30" />
@@ -237,7 +237,7 @@
                 <Label 
                     Content="Agregar"
                     HorizontalAlignment="Left"
-                    Margin="1635,226,0,0" 
+                    Margin="1642,226,0,0" 
                     VerticalAlignment="Top"
                     Foreground="White" FontWeight="Bold"/>
             </Grid>
@@ -408,8 +408,7 @@
                Margin="1147,360,40,166"/>
 
         </Grid>
-
-        <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Width="244"/>
     </Grid>
 </Page>
 

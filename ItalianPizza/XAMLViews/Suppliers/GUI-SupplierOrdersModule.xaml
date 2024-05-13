@@ -248,7 +248,7 @@
             </GridSplitter.RenderTransform>
         </GridSplitter>
 
-        <Grid x:Name="grdRegisterButtons" Visibility="Hidden">
+        <Grid x:Name="grdRegisterButtons">
             <Button x:Name="btnRegisterCustomerOrder" 
                 Content="Registrar Nuevo Pedido" 
                 HorizontalAlignment="Left" 
@@ -364,7 +364,7 @@
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 
-        <Grid>
+        <Grid x:Name="grdGroupModifyButtons" Visibility="Visible">
             <Image 
                 HorizontalAlignment="Left"
                 Height="66"

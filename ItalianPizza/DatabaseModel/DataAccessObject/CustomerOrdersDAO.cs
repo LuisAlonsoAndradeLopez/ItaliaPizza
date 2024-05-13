@@ -302,5 +302,33 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public int PayCustomerOrder(CustomerOrderSet customerOrder)
+        {
+            int generatedID = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    CustomerOrderSet customerOrderFound = context.CustomerOrderSet.Where(co => co.Id == customerOrder.Id).FirstOrDefault();
+                    if (customerOrderFound != null)
+                    {
+                        customerOrderFound.OrderStatusId = 5;
+                        context.SaveChanges();
+                        generatedID = (int)customerOrderFound.Id;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return generatedID;
+        }
     }
 }

@@ -60,6 +60,8 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 {
                     listSupplySupplierOrder = supplyDAO.GetAllSuppliesBySupplierOrder(supplierOrder);
                     ShowOrderSupplies(listSupplySupplierOrder);
+                    grdGroupModifyButtons.Visibility = Visibility.Visible;
+                    grdRegisterButtons.Visibility = Visibility.Hidden;
                 }
                 catch (EntityException)
                 {
@@ -183,34 +185,62 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 Label lblUnitMeasurement = new Label
                 {
-                    Content = product.SupplyUnitSet.Unit,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(390, 0, 0, 0),
+                    Margin = new Thickness(200, 0, 0, 0),
+                    Width = 105,
                 };
+
+                TextBlock txtUnitMeasurement = new TextBlock
+                {
+                    Text = product.SupplyUnitSet.Unit,
+                    TextAlignment = TextAlignment.Center
+                };
+                lblUnitMeasurement.Content = txtUnitMeasurement;
                 grdContainer.Children.Add(lblUnitMeasurement);
 
                 Label lblAmount = new Label
                 {
-                    Content = product.Quantity,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(305, 0, 0, 0),
+                    Margin = new Thickness(-10, 0, 0, 0),
+                    Width = 105,
                 };
-                grdContainer.Children.Add(lblAmount);
-                stackPanelContainer.Children.Add(grdContainer);
 
+                TextBlock txtAmount = new TextBlock
+                {
+                    Text = product.Quantity.ToString(),
+                    TextAlignment = TextAlignment.Center
+                };
+                lblAmount.Content = txtAmount;
+                grdContainer.Children.Add(lblAmount);
+                
                 Label lblCost = new Label
                 {
-                    Content = "$ " + product.PricePerUnit.ToString() + ".00",
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(520, 0, 0, 0),
+                    Margin = new Thickness(415, 0, 0, 0),
+                    Width = 270,
                 };
+
+                TextBlock txtCost = new TextBlock
+                {
+                    Text = "$ " + product.PricePerUnit.ToString() + ".00",
+                    TextAlignment = TextAlignment.Center
+                };
+                lblCost.Content = txtCost;
                 grdContainer.Children.Add(lblCost);
+
+                stackPanelContainer.Children.Add(grdContainer);
             }
 
             scrollViewer.Content = stackPanelContainer;
@@ -221,9 +251,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             double totalOrderCost = 0;
 
-            foreach (var product in listSupplySupplierOrder)
+            foreach (var supply in listSupplySupplierOrder)
             {
-                totalOrderCost += ((double)product.Quantity * product.PricePerUnit);
+                totalOrderCost += ((double) supply.PricePerUnit);
             }
 
             return totalOrderCost;
@@ -322,6 +352,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(115, 0, 0, 0),
+                    MaxLength = 9,
                 };
                 txtSupplyQuantity.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyQuantity);
@@ -335,6 +366,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(480, 0, 0, 0),
+                    MaxLength = 9,
                 };
                 txtSupplyCost.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyCost);
@@ -354,6 +386,8 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     if (!string.IsNullOrEmpty(txtSupplyCost.Text) && !string.IsNullOrEmpty(txtSupplyQuantity.Text))
                     {
                         AddSupplyToOrder(supply, int.Parse(txtSupplyQuantity.Text), int.Parse(txtSupplyCost.Text));
+                        txtSupplyQuantity.Text = "";
+                        txtSupplyCost.Text = "";
                     }
                     else
                     {
@@ -527,5 +561,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
             return result;
         }
+
+
     }
 }

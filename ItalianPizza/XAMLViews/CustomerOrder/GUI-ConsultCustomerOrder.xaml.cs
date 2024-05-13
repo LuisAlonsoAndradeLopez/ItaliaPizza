@@ -11,8 +11,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CrystalDecisions.CrystalReports.Engine;
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using ItalianPizza.XAMLViews.CustomerOrder;
 using ItalianPizza.XAMLViews.Suppliers;
 using Label = System.Windows.Controls.Label;
@@ -395,9 +397,43 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void PayOrder(object sender, MouseButtonEventArgs e)
+        private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {
+            if(customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
+            {
+                try
+                {
+                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                    {
+                        Type = "Entrada",
+                        Description = "Registro del pago del pedido numero #" + customerOrderSet.Id + "que se registro el: " + customerOrderSet.OrderDate,
+                        FinancialTransactionDate = DateTime.Now,
+                        EmployeeId = UserToken.GetEmployeeID(),
+                        MonetaryValue = customerOrderSet.TotalAmount,
+                        IncomeContextId = 1,
+                        WithDrawContextId = 1
+                    };
 
+                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                    customerOrdersDAO.PayCustomerOrder(customerOrderSet);
+                    customerOrdersDAO.ModifyOrderStatus(customerOrderSet.Id, 5);
+                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+                    NavigationService.Navigate(new GUI_ConsultCustomerOrder());
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                }
+            }
+            else
+            {
+                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos con el estado de cancelado o pagado, no se pueden pagar otra vez!", Auxiliary.AlertPopupTypes.Error);
+            }
+            
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)

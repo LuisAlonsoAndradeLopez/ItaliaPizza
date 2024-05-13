@@ -3,6 +3,8 @@ using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.CustomerOrder;
+using ItalianPizza.XAMLViews.Suppliers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -29,6 +31,7 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_CustomerOrderManagementForm : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
+        private CustomerSet customerSet;
         private List<ProductSaleSet> productSaleSets;
         private List<ProductSaleSet> productsCustomerOrderList;
         private List<ProductSaleSet> listProductsCustomerOrderCopy;
@@ -144,9 +147,7 @@ namespace ItalianPizza.XAMLViews
             {
                 if(customerOrder == null)
                 {
-                    lboCustomers.ItemsSource = userDAO.GetAllCustomers();
                     lboDeliverymen.ItemsSource = userDAO.GetAllDeliveryDriver();
-                    UpdateListBoxItems(lboCustomers);
                     UpdateListBoxItems(lboDeliverymen);
                 }
                 
@@ -199,7 +200,7 @@ namespace ItalianPizza.XAMLViews
             OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
             if (orderType.Type == "Pedido Domicilio")
             {
-                lboCustomers.Visibility = Visibility.Visible;
+                txtCustomers.Visibility = Visibility.Visible;
                 lboDeliverymen.Visibility = Visibility.Visible;
                 grdButtonAddDeliveryMan.Visibility = Visibility.Visible;
                 grdButtonAddCustomer.Visibility = Visibility.Visible;
@@ -208,7 +209,7 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                lboCustomers.Visibility = Visibility.Collapsed;
+                txtCustomers.Visibility = Visibility.Collapsed;
                 lboDeliverymen.Visibility = Visibility.Collapsed;
                 grdButtonAddDeliveryMan.Visibility = Visibility.Collapsed;
                 grdButtonAddCustomer.Visibility = Visibility.Collapsed;
@@ -223,7 +224,21 @@ namespace ItalianPizza.XAMLViews
 
         public void MouseLeftButtonUp_AddCustomer(object sender, MouseButtonEventArgs e)
         {
+            CustomerForm customerForm = new CustomerForm()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(1090, 7, 0, 0)
+            };
+            Grid.SetColumn(customerForm, 0);
+            Background.Children.Add(customerForm);
+            customerForm.SelectCustomerEvent += (s, args) => RecoverSelectedCustomer(sender, e, customerForm);
+        }
 
+        private void RecoverSelectedCustomer(object sender, EventArgs e, CustomerForm customerForm)
+        {
+            customerSet = customerForm.GetSelectCustomer();
+            txtCustomers.Text = " " + customerSet.Names + " " + customerSet.LastName + " " + customerSet.SecondLastName;
+            Background.Children.Remove(customerForm);
         }
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
@@ -231,13 +246,12 @@ namespace ItalianPizza.XAMLViews
             if (ValidateOrderDetails())
             {
                 CustomerOrderSet customerOrder = PrepareCustomerOrder();
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
                 DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
 
                 try
                 {
                     customerOrdersDAO.RegisterCustomerOrder(customerOrder, 
-                        productsCustomerOrderList, customer, deliveryman);
+                        productsCustomerOrderList, customerSet, deliveryman);
                     productsCustomerOrderList.Clear();
                     CleanFields();
                     new AlertPopup("Registro Exitoso", "Se ha registrado " +
@@ -284,10 +298,9 @@ namespace ItalianPizza.XAMLViews
                     return false;
                 }
 
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
                 DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
 
-                if (customerOrder.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrder.OrderStatusId != 15)
+                if (customerOrder.OrderTypeId == 1 && (customerSet == null || deliveryman == null) && customerOrder.OrderStatusId != 15)
                 {
                     ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
                     return false;
@@ -302,10 +315,9 @@ namespace ItalianPizza.XAMLViews
                     return false;
                 }
 
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
                 DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
 
-                if (customerOrderSet.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrderSet.OrderStatusId != 15)
+                if (customerOrderSet.OrderTypeId == 1 && (customerSet == null || deliveryman == null) && customerOrderSet.OrderStatusId != 15)
                 {
                     ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
                     return false;

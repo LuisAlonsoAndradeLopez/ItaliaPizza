@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews" 
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="922.16" 
       d:DesignWidth="1742.8"
@@ -124,7 +125,8 @@
                 FontSize="14" 
                 BorderThickness="3" 
                 FontWeight="Thin" 
-                BorderBrush="#FFDB4B2C"/>
+                BorderBrush="#FFDB4B2C"
+            />
 
             <Button Content="Agregar Nuevo Pedido Hoy"
                 HorizontalAlignment="Left"
@@ -288,6 +290,7 @@
         </Grid>
 
         <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,0,0" Grid.ColumnSpan="2">
+            
             <Label Content="Contenido del pedido" 
                HorizontalAlignment="Left" 
                Margin="1351,284,0,0" 
@@ -400,7 +403,7 @@
                 VerticalAlignment="Top" 
                 Width="67" 
                 Source="\Resources\Pictures\ICON-PayOrder.png" 
-                MouseDown="PayOrder" /> 
+                MouseDown="BtnRealizatePayCustomerOrderOnClick" />
 
             <Image 
                 HorizontalAlignment="Left" 
@@ -419,7 +422,7 @@
                 Width="67" 
                 Source="\Resources\Pictures\ICON-ModifyOrder.png" 
                 MouseDown="GoToModifyOrderVirtualWindow" />
-
+            
         </Grid>
 
         <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible" Grid.ColumnSpan="2">
