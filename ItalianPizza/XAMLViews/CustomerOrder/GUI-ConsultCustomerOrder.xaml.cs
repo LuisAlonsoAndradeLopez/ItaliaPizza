@@ -441,17 +441,16 @@ namespace ItalianPizza.XAMLViews
             {
                 if (PayDescriptionTextBox.Text != "")
                 {
-                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                    IncomeFinancialTransactionSet incomeFinancialTransaction = new IncomeFinancialTransactionSet
                     {
-                        Type = PayTransactionTypeComboBox.SelectedItem.ToString(),
                         Description = PayDescriptionTextBox.Text,
-                        FinancialTransactionDate = DateTime.Now,
+                        RealizationDate = DateTime.Now,
                         EmployeeId = UserToken.GetEmployeeID(),
                         MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
-                        IncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(PayContextComboBox.SelectedItem.ToString()).Id
+                        FinancialTransactionIncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(PayContextComboBox.SelectedItem.ToString()).Id
                     };
 
-                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                    new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
                     new CustomerOrdersDAO().PayCustomerOrder(customerOrderSet);
 
                     new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);

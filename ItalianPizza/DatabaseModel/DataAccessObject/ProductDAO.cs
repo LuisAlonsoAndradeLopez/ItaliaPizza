@@ -251,6 +251,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             ProductTypeSet = p.ProductTypeSet,
                             Observations = p.Observations
                         })
+                        .OrderBy(item => item.Name)
                         .ToList();
 
                     return activeSupplies;

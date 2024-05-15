@@ -214,6 +214,13 @@ namespace ItalianPizza.XAMLViews
                                         }
 
                                         new AlertPopup("¡Muy bien!", "Artículo registrado con éxito", AlertPopupTypes.Success);
+
+                                        ArticleNameTextBox.Text = "";
+                                        QuantityIntegerUpDown.Value = 0;
+                                        PriceDecimalUpDown.Value = 0;
+                                        ArticleImage.Source = null;
+                                        CodeTextBox.Text = "";
+                                        DescriptionTextBox.Text = "";
                                     }
                                     else
                                     {

@@ -137,7 +137,8 @@
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionWithDrawContextDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionIncomeContextDAO.cs" />
-    <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\IncomeFinancialTransactionDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\WithDrawFinancialTransactionDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\OrderSupplierDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\ProductStatusDAO.cs" />
@@ -187,10 +188,10 @@
     <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionIncomeContextSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionSet.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionWithDrawContextSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionWithDrawContextSet.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\IncomeFinancialTransactionSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\InventoryValidationSet.cs">
@@ -260,6 +261,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\UserStatusSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\WithDrawFinancialTransactionSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ItalianPizzaBDArticleReportDataSet.Designer.cs">

@@ -123,6 +123,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             SupplyUnitSet = s.SupplyUnitSet,
                             Observations = s.Observations
                         })
+                        .OrderBy(item => item.Name)
                         .ToList();
 
                     return activeSupplies;
