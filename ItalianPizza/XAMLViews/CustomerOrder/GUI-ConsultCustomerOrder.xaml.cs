@@ -1,18 +1,22 @@
-﻿using ItalianPizza.Auxiliary;
-using ItalianPizza.DatabaseModel.DataAccessObject;
-using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.SingletonClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CrystalDecisions.CrystalReports.Engine;
+using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.CustomerOrder;
+using ItalianPizza.XAMLViews.Suppliers;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -33,7 +37,6 @@ namespace ItalianPizza.XAMLViews
             InitializeDAOConnections();
             ShowAllOrdersToday();
             FillListBoxStatus();
-            FillComboboxes();
         }
 
         private void FillListBoxStatus()
@@ -45,39 +48,17 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
                     "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la base de datos, " +
                     "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
             }
-        }
-
-        private void FillComboboxes()
-        {
-            string[] financialTransactionTypes = { FinancialTransactionTypes.Entrada.ToString(), FinancialTransactionTypes.Salida.ToString() };
-
-            foreach (var financialTransactionType in financialTransactionTypes)
-            {
-                PayTransactionTypeComboBox.Items.Add(financialTransactionType);
-            }
-
-            PayTransactionTypeComboBox.SelectedItem = PayTransactionTypeComboBox.Items[0];
-
-
-            List<FinancialTransactionIncomeContextSet> financialTransactionContexts = new FinancialTransactionIncomeContextDAO().GetAllFinancialTransactionIncomeContexts();
-
-            foreach (var financialTransactionContext in financialTransactionContexts)
-            {
-                PayContextComboBox.Items.Add(financialTransactionContext.Context);
-            }
-
-            PayContextComboBox.SelectedItem = PayContextComboBox.Items[0];
         }
 
         public void InitializeDAOConnections()
@@ -134,8 +115,6 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
-            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
-            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
 
@@ -150,7 +129,7 @@ namespace ItalianPizza.XAMLViews
             };
 
             StackPanel stackPanelContainer = new StackPanel();
-
+            int marginSpace = 0;
             foreach (var customerOrder in customerOrders)
             {
                 Grid grdContainer = new Grid
@@ -181,13 +160,15 @@ namespace ItalianPizza.XAMLViews
 
                 string addressIconOrderTypeCustomer = "";
 
-                if (customerOrder.OrderTypeId == 2)
+                if (customerOrder.OrderTypeId == 1)
                 {
                     addressIconOrderTypeCustomer = Properties.Resources.ICON_CustomerHomeDeliveryOrder;
+                    marginSpace = 90;
                 }
                 else
                 {
                     addressIconOrderTypeCustomer = Properties.Resources.ICON_LocalCustomerOrder;
+                    marginSpace = 100;
                 }
 
                 Image image = new Image
@@ -206,7 +187,7 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(110, 10, 0, 0),
+                    Margin = new Thickness(marginSpace, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblNameCustomerOrder);
 
@@ -216,7 +197,7 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(326, 10, 0, 0),
+                    Margin = new Thickness(316, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderDate);
 
@@ -226,41 +207,36 @@ namespace ItalianPizza.XAMLViews
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(520, 10, 0, 0),
+                    Margin = new Thickness(510, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderTime);
 
                 Label lblCustomerOrderStatus = new Label
                 {
-                    Content = customerOrder.OrderStatusSet.Status,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(700, 10, 0, 0),
+                    Margin = new Thickness(637, 10, 0, 0),
+                    Width = 190,
                 };
+
+                TextBox textBox = new TextBox
+                {
+                    Text = customerOrder.OrderStatusSet.Status,
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
+                    Background = new SolidColorBrush(Color.FromRgb(7, 7, 17)),
+                    BorderThickness = new Thickness(0)
+                };
+                lblCustomerOrderStatus.Content = textBox;
                 grdContainer.Children.Add(lblCustomerOrderStatus);
 
                 grdContainer.PreviewMouseLeftButtonDown += (sender, e) =>
                 {
                     ChangeGridColorCustomerOrder(rectBackground, stackPanelContainer);
                     ViewDetailsOrderCustomer(customerOrder);
-                    if (customerOrder.OrderStatusId == 1)
-                    {
-                        btnModifyCustomerOrder.IsEnabled = true;
-                    }
-                    else
-                    {
-                        btnModifyCustomerOrder.IsEnabled = false;
-                    }
-
-                    if (customerOrder.OrderStatusId == 5)
-                    {
-                        btnPayCustomerOrder.IsEnabled = false;
-                    }
-                    else
-                    {
-                        btnPayCustomerOrder.IsEnabled = true;
-                    }
                 };
 
                 stackPanelContainer.Children.Add(grdContainer);
@@ -289,9 +265,7 @@ namespace ItalianPizza.XAMLViews
             customerOrderSet = customerOrder;
             try
             {
-                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Collapsed;
-                grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
-                grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
+                grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Hidden;
                 lblOrderTypeCustomer.Content = customerOrder.OrderTypeSet.Type;
 
                 if (customerOrder.OrderTypeSet.Type == "Pedido Domicilio")
@@ -299,11 +273,13 @@ namespace ItalianPizza.XAMLViews
                     CustomerSet customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
                     DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
+                    lblCustomerAddress.Content = customer.AddressSet.StreetName + ", #" + customer.AddressSet.StreetNumber + ", " + customer.AddressSet.City + ", " + customer.AddressSet.Colony;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
                 }
                 else
                 {
                     lblNameCompleteDeliveryman.Content = "Sin repartidor Asignado";
+                    lblCustomerAddress.Content = "Sin direccion relacionada";
                     lblFullNameCustomer.Content = "Sin cliente Asignado";
                 }
 
@@ -392,9 +368,77 @@ namespace ItalianPizza.XAMLViews
             NavigationService.Navigate(new GUI_CustomerOrderManagementForm(null));
         }
 
-        private void GoToModifyOrderVirtualWindow(object sender, RoutedEventArgs e)
+        private void GoToModifyOrderVirtualWindow(object sender, MouseButtonEventArgs e)
         {
-            NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
+            if(customerOrderSet.OrderStatusId != 6 && customerOrderSet.OrderStatusId != 5)
+            {
+                NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
+            }
+            else
+            {
+                new AlertPopup("Pedido Ya Cancelado",
+                    "Lo siento, pero a los pedidos cancelados y ya pagados ya no se pueden modificar",
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+
+        private void UpdateOrderStatus(object sender, MouseButtonEventArgs e)
+        {
+            if(customerOrderSet.OrderStatusId != 6)
+            {
+                GUI_UpdateOrderStatusForm UpdateOrderStatusForm = new GUI_UpdateOrderStatusForm(customerOrderSet)
+                {
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    Margin = new Thickness(1175, 0, 0, 0)
+                };
+                Grid.SetColumn(UpdateOrderStatusForm, 0);
+                Background.Children.Add(UpdateOrderStatusForm);
+            }
+            else
+            {
+                new AlertPopup("Pedido Ya Cancelado", 
+                    "Lo siento, pero a los pedidos cancelados ya no se pueden modificar estatus", 
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+
+        private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
+        {
+            /*if(customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
+            {
+                try
+                {
+                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                    {
+                        Type = "Entrada",
+                        Description = "Registro del pago del pedido numero #" + customerOrderSet.Id + "que se registro el: " + customerOrderSet.OrderDate,
+                        FinancialTransactionDate = DateTime.Now,
+                        EmployeeId = UserToken.GetEmployeeID(),
+                        MonetaryValue = customerOrderSet.TotalAmount,
+                        IncomeContextId = 1,
+                        WithDrawContextId = 1
+                    };
+
+                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                    customerOrdersDAO.PayCustomerOrder(customerOrderSet);
+                    customerOrdersDAO.ModifyOrderStatus(customerOrderSet.Id, 5);
+                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+                    NavigationService.Navigate(new GUI_ConsultCustomerOrder());
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                }
+            }
+            else
+            {
+                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos con el estado de cancelado o pagado, no se pueden pagar otra vez!", Auxiliary.AlertPopupTypes.Error);
+            }
+            */
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
@@ -408,72 +452,17 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
-            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
-            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
-        }
-
-        private void BtnPayCustomerOrderOnClick(object sender, RoutedEventArgs e)
-        {
-            PayMonetaryValueDecimalUpDown.Text = lblTotalOrderCost.Content.ToString();
-
-            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Collapsed;
-            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Collapsed;
-            grdVirtualWindowPayDetails.Visibility = Visibility.Visible;
-        }
-
-        private void BtnBackOnClick(object sender, RoutedEventArgs e)
-        {
-            grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
-            grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
-            grdVirtualWindowPayDetails.Visibility = Visibility.Collapsed;
-        }
-
-        private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (PayDescriptionTextBox.Text != "")
-                {
-                    IncomeFinancialTransactionSet incomeFinancialTransaction = new IncomeFinancialTransactionSet
-                    {
-                        Description = PayDescriptionTextBox.Text,
-                        RealizationDate = DateTime.Now,
-                        EmployeeId = UserToken.GetEmployeeID(),
-                        MonetaryValue = (double)PayMonetaryValueDecimalUpDown.Value,
-                        FinancialTransactionIncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(PayContextComboBox.SelectedItem.ToString()).Id
-                    };
-
-                    new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
-                    new CustomerOrdersDAO().PayCustomerOrder(customerOrderSet);
-
-                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
-
-                    ShowAllOrdersToday();
-
-                    grdVirtualWindowCustomerOrderInformation.Visibility = Visibility.Visible;
-                    grdVirtualWindowsCustomerOrderDetails.Visibility = Visibility.Visible;
-                    grdVirtualWindowPayDetails.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    new AlertPopup("¡Falta la descripción!", "Falta que introduzcas la descripción de la transacción financiera a realizar", AlertPopupTypes.Error);
-                }
-            }
-            catch (EntityException)
-            {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-            }
-            catch (InvalidOperationException)
-            {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
-            }
         }
     }
 }

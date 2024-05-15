@@ -111,7 +111,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    activeProducts = context.ProductSaleSet.AsNoTracking().Where(p => p.ProductStatusId == 1).ToList();
+                    activeProducts = context.ProductSaleSet.AsNoTracking().Where(p => p.ProductStatusId == 1).OrderBy(p => p.Name).ToList();
                 }
             }
             catch (EntityException ex)
@@ -175,6 +175,44 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
+        public int DecreaseProductOnSale(ProductSaleSet productSale)
+        {
+            int result = 0;
+            using (var context = new ItalianPizzaServerBDEntities())
+            {
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        ProductSaleSet productSaleSet = context.ProductSaleSet.FirstOrDefault(supplyAux => supplyAux.Id == productSale.Id);
+                        productSaleSet.Quantity--;
+                        if (productSaleSet.Quantity >= 0)
+                        {
+                            result = context.SaveChanges();
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            result = -1;
+                            transaction.Rollback();
+                        }
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public int RestoreSuppliesOnSale(List<RecipeDetailsSet> recipeIngredients)
         {
             int result = 0;
@@ -208,28 +246,34 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return result;
         }
 
-        public BitmapImage GetImageByProductName(string productName)
+        public int RestoreProductOnSale(ProductSaleSet productSale)
         {
+            int result = 0;
             using (var context = new ItalianPizzaServerBDEntities())
             {
-                byte[] imageBytes = context.ProductSaleSet.AsNoTracking().FirstOrDefault(ps => ps.Name == productName).Picture;
-
-                BitmapImage bitmapImage = new BitmapImage();
-
-                if (imageBytes != null)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
+                    try
                     {
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = memoryStream;
-                        bitmapImage.EndInit();
-                        bitmapImage.Freeze(); // Freeze the image for performance benefits
+                        ProductSaleSet productSaleSet = context.ProductSaleSet.FirstOrDefault(supplyAux => supplyAux.Id == productSale.Id);
+                        productSaleSet.Quantity++;
+                        context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch (EntityException ex)
+                    {
+                        transaction.Rollback();
+                        throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        transaction.Rollback();
+                        throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
                     }
                 }
-
-                return bitmapImage;
             }
+
+            return result;
         }
 
         public List<ProductSaleSet> GetProductsForInventoryReport()
@@ -240,6 +284,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     var activeSupplies = context.ProductSaleSet
                         .Where(p => p.ProductStatusSet.Status == ArticleStatus.Activo.ToString())
+                        .OrderBy(p => p.Name)
                         .ToList()
                         .Select(p => new ProductSaleSet
                         {
@@ -330,6 +375,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             s.EmployeeId,
                             s.IdentificationCode
                         })
+                        .OrderBy(s => s.Name)
                         .ToList();
 
                     ProductList = ProductProperties.Select(sp => new ProductSaleSet
@@ -479,7 +525,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             Id = detalle.ProductSaleSet.Id,
                             Name = detalle.ProductSaleSet.Name,
                             Quantity = detalle.ProductQuantity,
-                            PricePerUnit = detalle.PricePerUnit
+                            PricePerUnit = detalle.PricePerUnit,
+                            Recipee = detalle.ProductSaleSet.Recipee,
                         }).ToList();
                 }
             }
@@ -565,6 +612,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             s.EmployeeId,
                             s.IdentificationCode
                         })
+                        .OrderBy(s => s.Name)
                         .ToList();
 
                     supplyList = supplyProperties.Select(sp => new SupplySet

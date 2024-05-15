@@ -57,15 +57,50 @@
     <StartupObject>ItalianPizza.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalDecisions.CrystalReports.Engine.1.0.0\lib\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommLayer, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.CommLayer.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommLayer.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CommonObjectModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.CommonObjectModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CommonObjectModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.Controllers, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.Controllers.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.Controllers.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.CubeDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.CubeDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.CubeDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.DataDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.DataDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.DataDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportAppServer.ReportDefModel, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.ReportAppServer.ReportDefModel.13.0.4003\lib\net40\CrystalDecisions.ReportAppServer.ReportDefModel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalDecisions.ReportSource.1.0.0\lib\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalReports.Shared.13.0.4003\lib\net40\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL">
+      <HintPath>packages\CrystalDecisions.Windows.Forms.1.0.0\lib\CrystalDecisions.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.140.340.80\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -87,6 +122,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
@@ -285,6 +321,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="SingletonClasses\CustomerOrderToken.cs" />
     <Compile Include="SingletonClasses\UserToken.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
@@ -296,11 +333,17 @@
     <Compile Include="XAMLViews\Articles\InventoryReportPreview.xaml.cs">
       <DependentUpon>InventoryReportPreview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\DeliveryDriverForm.xaml.cs">
+      <DependentUpon>DeliveryDriverForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
       <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml.cs">
       <DependentUpon>GUI-CustomerOrderManagementForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml.cs">
+      <DependentUpon>GUI-UpdateOrderStatusForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Finances\GUI_Finances.xaml.cs">
       <DependentUpon>GUI_Finances.xaml</DependentUpon>
@@ -326,7 +369,7 @@
     <Compile Include="XAMLViews\Suppliers\SuppliersForm.xaml.cs">
       <DependentUpon>SuppliersForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\Users\CustomerForm.xaml.cs">
+    <Compile Include="XAMLViews\CustomerOrder\CustomerForm.xaml.cs">
       <DependentUpon>CustomerForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Users\GUI-AddUser.xaml.cs">
@@ -358,6 +401,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="XAMLViews\CustomerOrder\DeliveryDriverForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -365,6 +412,10 @@
     <Page Include="XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Finances\GUI_Finances.xaml">
       <SubType>Designer</SubType>
@@ -422,7 +473,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="XAMLViews\Users\CustomerForm.xaml">
+    <Page Include="XAMLViews\CustomerOrder\CustomerForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -550,6 +601,27 @@
     <Resource Include="Resources\Pictures\ICON-Eliminar.png" />
     <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
     <Resource Include="Resources\Pictures\ICON-Supplier.png" />
+    <Resource Include="Resources\Pictures\ICON-ChangeStatus.png" />
+    <Resource Include="Resources\Pictures\ICON-ModifyOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-PayOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderCanceled.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInKitchen.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInProcess.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInShipment.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderReady.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderDelivered.png" />
+    <Resource Include="Resources\Pictures\ICON-Delete.png" />
+    <Resource Include="Resources\Pictures\ICON-PurchaseSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-Save.png" />
+    <Resource Include="Resources\Pictures\ICON-Back.png" />
+    <Resource Include="Resources\Pictures\ICON-Customer.png" />
+    <Resource Include="Resources\Pictures\ICON-DeleteCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-SelectCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-UpdateCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-AddCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-DeliveryDriver.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
