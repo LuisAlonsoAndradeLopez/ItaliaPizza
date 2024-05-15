@@ -223,10 +223,10 @@
     <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionIncomeContextSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionSet.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionWithDrawContextSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DatabaseModel\DatabaseMapping\FinancialTransactionWithDrawContextSet.cs">
+    <Compile Include="DatabaseModel\DatabaseMapping\IncomeFinancialTransactionSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseModel\DatabaseMapping\InventoryValidationSet.cs">
@@ -298,6 +298,9 @@
     <Compile Include="DatabaseModel\DatabaseMapping\UserStatusSet.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseModel\DatabaseMapping\WithDrawFinancialTransactionSet.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ItalianPizzaBDArticleReportDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -328,6 +331,9 @@
     </Compile>
     <Compile Include="XAMLViews\Articles\InventoryReportPreview.xaml.cs">
       <DependentUpon>InventoryReportPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\CustomerOrder\DeliveryDriverForm.xaml.cs">
+      <DependentUpon>DeliveryDriverForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml.cs">
       <DependentUpon>GUI-ConsultCustomerOrder.xaml</DependentUpon>
@@ -391,6 +397,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="XAMLViews\Articles\InventoryReportPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\CustomerOrder\DeliveryDriverForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -610,6 +620,7 @@
     <Resource Include="Resources\Pictures\ICON-SelectCustomer.png" />
     <Resource Include="Resources\Pictures\ICON-UpdateCustomer.png" />
     <Resource Include="Resources\Pictures\ICON-AddCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-DeliveryDriver.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

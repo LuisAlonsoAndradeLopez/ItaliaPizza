@@ -164,8 +164,8 @@
                       Margin="1225,153,0,0"
                       VerticalAlignment="Top"
                       Width="353" 
-                      Height="38"
-                      FontSize="20" 
+                      Height="55"
+                      FontSize="16" 
                       Background="#FF131313" 
                       Foreground="White"/>
 
@@ -179,7 +179,7 @@
                    Foreground="White"
                    FontWeight="Bold" Width="110"/>
 
-            <ListBox x:Name="lboDeliverymen"
+            <TextBlock x:Name="txtDeliverymen"
                       HorizontalAlignment="Left"
                       Margin="1225,220,0,0"
                       VerticalAlignment="Top"

@@ -257,7 +257,7 @@
 
             <Label Content="Repartidor encargado: " 
                HorizontalAlignment="Left" 
-               Margin="1219,179,0,0" 
+               Margin="1219,229,0,0" 
                VerticalAlignment="Top" 
                Background="{x:Null}" 
                Foreground="#f6be4d" 
@@ -268,7 +268,7 @@
             <Rectangle 
                 HorizontalAlignment="Left" 
                 Height="41" 
-                Margin="1254,216,0,0" 
+                Margin="1254,265,0,0" 
                 Stroke="Black" 
                 RadiusX="30" 
                 RadiusY="30" 
@@ -279,21 +279,43 @@
             <Label x:Name="lblNameCompleteDeliveryman"
                Content="" 
                HorizontalAlignment="Left" 
-               Margin="1280,221,0,0" 
+               Margin="1280,270,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
                Foreground="White" 
                FontWeight="Bold" 
                Width="344"/>
+            
+            <Rectangle 
+                HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="1250,179,0,0" 
+                Stroke="Black" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Top" 
+                Width="403" 
+                Fill="#e4b65c"/>
+
+            <Label x:Name="lblCustomerAddress" 
+                Content="" 
+                HorizontalAlignment="Left" 
+                Margin="1277,184,0,0"
+                VerticalAlignment="Top" 
+                FontSize="16" 
+                FontFamily="Tahoma"
+                Foreground="White" 
+                FontWeight="Bold" 
+                Width="347"/>
 
         </Grid>
 
         <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,0,0" Grid.ColumnSpan="2">
-            
+
             <Label Content="Contenido del pedido" 
                HorizontalAlignment="Left" 
-               Margin="1351,284,0,0" 
+               Margin="1351,325,0,0" 
                VerticalAlignment="Top" 
                Background="{x:Null}" 
                Foreground="#FFDB4B2C" 
@@ -301,7 +323,7 @@
                FontSize="20" 
                FontWeight="Bold"/>
 
-            <GridSplitter HorizontalAlignment="Left" Height="524" Margin="1446,64,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
+            <GridSplitter HorizontalAlignment="Left" Height="524" Margin="1446,105,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
                 <GridSplitter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -314,7 +336,7 @@
 
             <Label Content="Nombre Producto" 
                HorizontalAlignment="Left" 
-               Margin="1208,323,0,0" 
+               Margin="1208,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
@@ -322,7 +344,7 @@
 
             <Label Content="Cantidad" 
                HorizontalAlignment="Left" 
-               Margin="1442,323,0,0" 
+               Margin="1442,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
@@ -330,7 +352,7 @@
 
             <Label Content="Costo por pieza" 
                HorizontalAlignment="Left" 
-               Margin="1554,323,0,0" 
+               Margin="1554,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
@@ -339,21 +361,21 @@
             <GridSplitter 
                 HorizontalAlignment="Left" 
                 Height="26" 
-                Margin="1428,326,0,0" 
+                Margin="1428,367,0,0" 
                 VerticalAlignment="Top" 
                 Width="1"/>
 
             <GridSplitter 
             HorizontalAlignment="Left" 
             Height="26" 
-            Margin="1533,326,0,0" 
+            Margin="1533,367,0,0" 
             VerticalAlignment="Top" 
             Width="1"/>
 
             <GridSplitter 
                 HorizontalAlignment="Left" 
                 Height="526" 
-                Margin="1446,90,0,0" 
+                Margin="1446,131,0,0" 
                 VerticalAlignment="Top" 
                 Width="1" 
                 RenderTransformOrigin="0.5,0.5">
@@ -394,7 +416,7 @@
                     </TransformGroup>
                 </GridSplitter.RenderTransform>
             </GridSplitter>
-            <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,360,23,154"/>
+            <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,401,23,154"/>
 
             <Image 
                 HorizontalAlignment="Left" 
@@ -422,11 +444,11 @@
                 Width="67" 
                 Source="\Resources\Pictures\ICON-ModifyOrder.png" 
                 MouseDown="GoToModifyOrderVirtualWindow" />
-            
+
         </Grid>
 
         <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible" Grid.ColumnSpan="2">
-            
+
             <Rectangle 
                 HorizontalAlignment="Left" 
                 Height="866" 

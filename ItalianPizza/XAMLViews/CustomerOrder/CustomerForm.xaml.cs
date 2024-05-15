@@ -130,12 +130,15 @@ namespace ItalianPizza.XAMLViews
                 };
                 imgDeleteCustomer.PreviewMouseLeftButtonDown += (sender, e) => DeleteCustomer(customer);
                 grdContainer.Children.Add(imgDeleteCustomer);
+
+
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
             scrollViewer.Content = stackPanelContainer;
             wpCustomers.Children.Add(scrollViewer);
         }
+
         private void AddNewCustomerRegistrationbutton(StackPanel stackPanel)
         {
             Grid grdButtonAdd = new Grid
@@ -165,11 +168,11 @@ namespace ItalianPizza.XAMLViews
 
             Label lblTitleButton = new Label
             {
-                Content = "Agregar Cliente",
+                Content = "Agregar nuevo cliente",
                 Foreground = new SolidColorBrush(Color.FromRgb(253, 254, 254)),
                 FontWeight = FontWeights.Bold,
                 FontSize = 19,
-                Margin = new Thickness(240, 10, 0, 0),
+                Margin = new Thickness(195, 10, 0, 0),
             };
             grdButtonAdd.Children.Add(lblTitleButton);
 
@@ -179,7 +182,7 @@ namespace ItalianPizza.XAMLViews
                 Width = 45,
                 Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-AddCustomer.png", UriKind.RelativeOrAbsolute)),
                 Stretch = Stretch.Fill,
-                Margin = new Thickness(-160, 0, 0, 0),
+                Margin = new Thickness(-225, 0, 0, 0),
             };
             grdButtonAdd.Children.Add(iconButton);
             grdButtonAdd.PreviewMouseLeftButtonDown += (sender, e) => ShowCustomerForm(null);
@@ -230,6 +233,7 @@ namespace ItalianPizza.XAMLViews
             string textSearch = txtProductSearch.Text;
             FilterCustomer(textSearch);
         }
+
         private void FilterCustomer(string textSearch)
         {
             List<CustomerSet> filteredCustomers = customerList

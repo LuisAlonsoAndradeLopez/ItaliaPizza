@@ -13,7 +13,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
         public List<SupplierOrderSet> GetSupplierOrdersByDate(DateTime date)
         {
-            List<SupplierOrderSet> supplierOrdersList;
+            List<SupplierOrderSet> supplierOrdersList = new List<SupplierOrderSet>();
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -23,7 +23,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                     supplierOrdersList = context.SupplierOrderSet
                         .Include(supplierOrder => supplierOrder.SupplierSet)
+                        .Include(supplierOrder => supplierOrder.OrderStatusSet)
                         .Where(supplierOrder => supplierOrder.OrderDate >= startDate && supplierOrder.OrderDate <= endDate)
+                        .OrderByDescending(supplierOrder => supplierOrder.OrderDate)
                         .ToList();
                 }
             }
@@ -39,6 +41,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return supplierOrdersList;
         }
 
+
         public List<SupplierOrderSet> GetSupplierOrderbySupplier(int supplierId)
         {
             List<SupplierOrderSet> supplierOrders;
@@ -49,7 +52,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     supplierOrders = context.SupplierOrderSet
                         .Include(supplierOrder => supplierOrder.SupplierSet)
+                        .Include(supplierOrder => supplierOrder.OrderStatusSet)
                         .Where(supplierOrder => supplierOrder.Supplier_Id == supplierId)
+                        .OrderByDescending(supplierOrder => supplierOrder.OrderDate)
                         .ToList();
                 }
             }
@@ -124,6 +129,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                     List<SupplierOrderDetailsSet> inactiveSupplies = context.SupplierOrderDetailsSet.Where(s => s.SupplierOrderId == supplierOrder.Id).ToList();
                     context.SupplierOrderDetailsSet.RemoveRange(inactiveSupplies);
+                    context.SaveChanges();
 
                     List<SupplierOrderDetailsSet> supplierOrderDetails = new List<SupplierOrderDetailsSet>();
                     foreach (SupplySet supply in suppliesList)
@@ -149,6 +155,32 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
             }
 
+            return result;
+        }
+
+        public int ModifyOrderStatus(int supplierOrderID, int orderStatusID)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    SupplierOrderSet supplierOrder = context.SupplierOrderSet.FirstOrDefault(cs => cs.Id == supplierOrderID);
+                    if (supplierOrder != null)
+                    {
+                        supplierOrder.OrderStatusId = orderStatusID;
+                        result = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
             return result;
         }
     }

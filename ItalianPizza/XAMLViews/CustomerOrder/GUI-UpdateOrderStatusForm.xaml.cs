@@ -154,9 +154,26 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
                 {
                     List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrder);
                     customerOrdersDAO.CancelCustomerOrder(customerOrder);
+                    if (customerOrder.OrderStatusId == 1)
+                    {
+                        foreach (var productSale in orderProducts)
+                        {
+                            if ((bool)productSale.Recipee)
+                            {
+                                productDAO.RestoreSuppliesOnSale(GetRecipeIngredientsByProduct(productSale));
+                            }
+                        }
+                    }
+
                     foreach (var productSale in orderProducts)
                     {
-                        productDAO.RestoreSuppliesOnSale(GetRecipeIngredientsByProduct(productSale));
+                        if (!(bool)productSale.Recipee)
+                        {
+                            for (int i = 0; i < productSale.Quantity; i++)
+                            {
+                                productDAO.RestoreProductOnSale(productSale);
+                            }
+                        }
                     }
                 }
                 catch (EntityException)

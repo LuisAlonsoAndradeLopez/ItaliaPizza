@@ -85,7 +85,7 @@
 
         <Label Content="Contenido del pedido" 
             HorizontalAlignment="Left" 
-            Margin="1295,257,0,0" 
+            Margin="1295,301,0,0" 
             VerticalAlignment="Top" 
             Background="{x:Null}" 
             Foreground="#FFDBAB2C" 
@@ -95,7 +95,7 @@
 
         <GridSplitter HorizontalAlignment="Left" 
            Height="618" 
-           Margin="1416,-5,0,0" 
+           Margin="1416,43,0,0" 
            VerticalAlignment="Top" 
            Width="2" 
            RenderTransformOrigin="0.5,0.5">
@@ -112,7 +112,7 @@
 
         <Label Content="Nombre Producto" 
             HorizontalAlignment="Left" 
-            Margin="1134,304,0,0" 
+            Margin="1134,352,0,0" 
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
@@ -120,7 +120,7 @@
 
         <Label Content="Cantidad" 
             HorizontalAlignment="Left" 
-            Margin="1360,304,0,0"
+            Margin="1360,352,0,0"
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
@@ -128,7 +128,7 @@
 
         <Label Content="Costo por pieza" 
             HorizontalAlignment="Left" 
-            Margin="1579,304,0,0" 
+            Margin="1579,352,0,0" 
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
@@ -136,13 +136,13 @@
 
         <GridSplitter HorizontalAlignment="Left" 
            Height="33" 
-           Margin="1347,303,0,0"
+           Margin="1347,351,0,0"
            VerticalAlignment="Top" 
            Width="1"/>
 
         <GridSplitter HorizontalAlignment="Left" 
            Height="33" 
-           Margin="1449,303,0,0" 
+           Margin="1449,351,0,0" 
            VerticalAlignment="Top"
            Width="1"/>
 
@@ -164,7 +164,16 @@
             Foreground="White"/>
 
         <WrapPanel x:Name="wpSupplierOrderSupplies" 
-            Margin="1087,349,17,176"/>
+            Margin="1087,397,17,174" RenderTransformOrigin="0.5,0.5">
+            <WrapPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.289"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.662"/>
+                </TransformGroup>
+            </WrapPanel.RenderTransform>
+        </WrapPanel>
 
         <Label Content="Detalles del Pedido" 
             HorizontalAlignment="Left" 
@@ -206,19 +215,21 @@
 
         <Label Content="U. Medida" 
             HorizontalAlignment="Left" 
-            Margin="1464,304,0,0"
+            Margin="1464,352,0,0"
             VerticalAlignment="Top" 
             FontSize="18" 
             FontFamily="Tahoma" 
             Foreground="White"/>
+
         <GridSplitter HorizontalAlignment="Left" 
             Height="33" 
-            Margin="1567,303,0,0" 
+            Margin="1567,351,0,0" 
             VerticalAlignment="Top"
             Width="1"/>
+
         <GridSplitter HorizontalAlignment="Left" 
             Height="619" 
-            Margin="1416,27,0,0" 
+            Margin="1416,75,0,0" 
             VerticalAlignment="Top" 
             Width="1" 
             RenderTransformOrigin="0.5,0.5">
@@ -232,6 +243,7 @@
                 </TransformGroup>
             </GridSplitter.RenderTransform>
         </GridSplitter>
+
         <GridSplitter 
             Height="861" 
             Margin="0,326,447,0" 
@@ -248,40 +260,7 @@
             </GridSplitter.RenderTransform>
         </GridSplitter>
 
-        <Grid x:Name="grdRegisterButtons">
-            <Button x:Name="btnRegisterCustomerOrder" 
-                Content="Registrar Nuevo Pedido" 
-                HorizontalAlignment="Left" 
-                Margin="1406,821,0,0" 
-                VerticalAlignment="Top" 
-                Height="44" 
-                Width="240" 
-                Background="#FFDB4B2C" 
-                Foreground="#FFF8F8F8" 
-                FontFamily="Arial" 
-                FontSize="18"
-                BorderBrush="#FFBC8B21"
-                BorderThickness="0"
-                FontWeight="Thin" Click="RegisterCustomerOrder_Click" 
-            />
 
-            <Button 
-                Content="Cancelar" 
-                HorizontalAlignment="Left" 
-                Margin="1149,821,0,0" 
-                VerticalAlignment="Top" 
-                Height="44" 
-                Width="240" 
-                Background="#FFDB4B2C" 
-                Foreground="#FFF8F8F8" 
-                FontFamily="Arial" 
-                FontSize="18"
-                BorderBrush="#FFBC8B21"
-                BorderThickness="0"
-                FontWeight="Thin"
-            />
-
-        </Grid>
 
         <Rectangle 
             HorizontalAlignment="Left"
@@ -361,17 +340,53 @@
             Width="34" 
             Source="/Resources/Pictures/ICON-SearchSupplier.png"/>
 
+        <Grid x:Name="grdRegisterButtons">
+
+            <Button x:Name="btnRegisterCustomerOrder" 
+                 Content="Registrar Nuevo Pedido" 
+                 HorizontalAlignment="Left" 
+                 Margin="1406,821,0,0" 
+                 VerticalAlignment="Top" 
+                 Height="44" 
+                 Width="240" 
+                 Background="#FFDB4B2C" 
+                 Foreground="#FFF8F8F8" 
+                 FontFamily="Arial" 
+                 FontSize="18"
+                 BorderBrush="#FFBC8B21"
+                 BorderThickness="0"
+                 FontWeight="Thin" Click="RegisterSupplierOrder_Click" 
+            />
+
+            <Button 
+                 Content="Cancelar" 
+                 HorizontalAlignment="Left" 
+                 Margin="1149,821,0,0" 
+                 VerticalAlignment="Top" 
+                 Height="44" 
+                 Width="240" 
+                 Background="#FFDB4B2C" 
+                 Foreground="#FFF8F8F8" 
+                 FontFamily="Arial" 
+                 FontSize="18"
+                 BorderBrush="#FFBC8B21"
+                 BorderThickness="0"
+                 FontWeight="Thin"
+             />
+
+        </Grid>
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 
-        <Grid x:Name="grdGroupModifyButtons" Visibility="Visible">
+        <Grid x:Name="grdGroupModifyButtons" Visibility="Hidden">
             <Image 
                 HorizontalAlignment="Left"
                 Height="66"
                 Margin="1329,819,0,0" 
                 VerticalAlignment="Top"
                 Width="66"
-                Source="\Resources\Pictures\ICON-PayOrder.png"/>
+                Source="\Resources\Pictures\ICON-PayOrder.png"
+                MouseLeftButtonDown="ShowForm_Click"/>
 
             <Image
                 HorizontalAlignment="Left"
@@ -379,7 +394,8 @@
                 Margin="1427,819,0,0"
                 VerticalAlignment="Top"
                 Width="70"
-                Source="\Resources\Pictures\ICON-ChangeStatus.png"/>
+                Source="\Resources\Pictures\ICON-ChangeStatus.png"
+                MouseLeftButtonDown="ShowForm_Click"/>
 
             <Image
                 HorizontalAlignment="Left"
@@ -387,16 +403,219 @@
                 Margin="1535,819,0,0"
                 VerticalAlignment="Top" 
                 Width="70"
-                Source="\Resources\Pictures\ICON-Save.png"/>
-            
+                Source="\Resources\Pictures\ICON-Save.png"
+                MouseLeftButtonDown="ModifySupplierOrder_Click"/>
+
             <Image 
                 HorizontalAlignment="Left"
                 Height="66"
                 Margin="1223,819,0,0" 
                 VerticalAlignment="Top"
                 Width="66"
-                Source="/Resources/Pictures/ICON-Back.png"/>
+                Source="/Resources/Pictures/ICON-Back.png"
+                MouseLeftButtonDown="BackPage_Click"/>
         </Grid>
 
+        <Grid x:Name="grdChangeStatusForm" Visibility="Hidden">
+            <Rectangle 
+                HorizontalAlignment="Left" 
+                Height="634"
+                VerticalAlignment="Top" 
+                Width="634" 
+                RadiusX="30" 
+                RadiusY="30"
+                Fill="#FF18171C" Margin="1096,260,0,0">
+                <Rectangle.Effect>
+                    <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" Opacity="0.5"/>
+                </Rectangle.Effect>
+            </Rectangle>
+
+            <Label 
+                Content="Cambiar estatus del pedido cliente" 
+                HorizontalAlignment="Left" 
+                Margin="1236,298,0,0" 
+                VerticalAlignment="Top"
+                FontFamily="Arial Black" 
+                Foreground="#EEC864"
+                FontSize="18"/>
+
+            <Label 
+                Content="De doble clic sobre el tipo de estatus para cambiarlo" 
+                HorizontalAlignment="Left" 
+                Margin="1128,351,0,0" 
+                VerticalAlignment="Top" 
+                FontSize="18" 
+                FontFamily="Tahoma" 
+                Foreground="White" RenderTransformOrigin="0.567,0.561"/>
+
+            <Button Content="Salir"
+                HorizontalAlignment="Left"
+                Margin="1352,792,0,0"
+                VerticalAlignment="Top" 
+                Height="42" Width="146" 
+                Background="#FF161618" 
+                Foreground="White" 
+                FontFamily="Arial" 
+                FontSize="18" 
+                BorderBrush="#FFDB4B2C" 
+                FontWeight="Thin" 
+                BorderThickness="3" Click="CloseForm_Click" 
+            />
+
+            <Button 
+                x:Name="btnStandby"
+                HorizontalAlignment="Left"
+                Margin="1198,408,0,0"
+                VerticalAlignment="Top"
+                Height="73"
+                Width="442"
+                Foreground="#FFF8F8F8" 
+                Cursor="Hand"
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderThickness="0"
+                BorderBrush="#FF171721"
+                Tag="1"
+                MouseDoubleClick = "ChangeOrderStatusToStandby"
+                FontWeight="Thin" Background="#FFB5A317">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgCustomerOrderModule"
+                        Height="45" 
+                        VerticalAlignment="Top" 
+                        Width="50" 
+                        RenderTransformOrigin="0.511,0.545" 
+                        Source="/Resources/Pictures/ICON-OrderInProcess.png"/>
+
+                    <Label Content="Pedido en espera" 
+                        Foreground="#FFF1E8E8" 
+                        FontFamily="Arial Black"
+                        Margin="0,10,0,0" Cursor="Hand"/>
+                </StackPanel>
+            </Button>
+
+            <Button 
+                x:Name="btnDeliveryOrderToday"
+                HorizontalAlignment="Left"
+                Margin="1198,495,0,0"
+                VerticalAlignment="Top"
+                Height="72"
+                Width="442"
+                Foreground="#FFF8F8F8" 
+                Cursor="Hand"
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderThickness="0"
+                BorderBrush="#FF171721"
+                Tag="2"
+                MouseDoubleClick = "ChangeOrderStatusToDeliveryOrderToday"
+                FontWeight="Thin" Background="#FF6649E0">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgCustomerOrderModule1" 
+                        HorizontalAlignment="Left"
+                        Height="45" 
+                        VerticalAlignment="Top" 
+                        Width="50" 
+                        RenderTransformOrigin="0.511,0.545" 
+                        Source="/Resources/Pictures/ICON-OrderInShipment.png"/>
+
+                    <Label Content="Pedido Entrega Hoy" 
+                        Foreground="White" 
+                        FontFamily="Arial Black"
+                        Margin="0,10,0,0"/>
+
+                </StackPanel>
+            </Button>
+
+            <Button 
+                x:Name="btnItsReady"
+                HorizontalAlignment="Left"
+                Margin="1198,583,0,0"
+                VerticalAlignment="Top"
+                Height="73"
+                Width="442"
+                Foreground="#FFF8F8F8" 
+                Cursor="Hand"
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderThickness="0"
+                BorderBrush="#FF171721"
+                Tag="3"
+                MouseDoubleClick = "ChangeOrderStatusToReady"
+                FontWeight="Thin" Background="#FF8BBE4D">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgCustomerOrderModule2" 
+                        HorizontalAlignment="Left"
+                        Height="45" 
+                        VerticalAlignment="Top" 
+                        Width="50" 
+                        RenderTransformOrigin="0.511,0.545" 
+                        Source="/Resources/Pictures/ICON-OrderReady.png"/>
+
+                    <Label Content="Pedido Entregado" 
+                        Foreground="White" 
+                        FontFamily="Arial Black"
+                        Margin="0,10,0,0"/>
+                </StackPanel>
+            </Button>
+
+            <Button 
+                x:Name="btnInShipping"
+                HorizontalAlignment="Left"
+                Margin="1200,673,0,0"
+                VerticalAlignment="Top"
+                Height="73"
+                Width="442"
+                Foreground="#FFF8F8F8" 
+                Cursor="Hand"
+                FontFamily="Arial" 
+                FontSize="18"
+                BorderThickness="0"
+                BorderBrush="#FF171721"
+                Tag="4"
+                MouseDoubleClick = "ChangeOrderStatusToInShipping"
+                FontWeight="Thin" Background="#FF9C3E3E">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image x:Name="imgCustomerOrderModule3" 
+                        HorizontalAlignment="Left"
+                        Height="45" 
+                        VerticalAlignment="Top" 
+                        Width="50" 
+                        RenderTransformOrigin="0.511,0.545" 
+                        Source="/Resources/Pictures/ICON-OrderCanceled.png"/>
+
+                    <Label Content="Cancelar Pedido" 
+                        Foreground="White" 
+                        FontFamily="Arial Black"
+                        Margin="0,10,0,0"/>
+                </StackPanel>
+            </Button>
+
+        </Grid>
+
+        <Label Content="¿Desea pagar el pedido ahora?" HorizontalAlignment="Left" Margin="1136,251,0,0" VerticalAlignment="Top" Foreground="#FFFDF5F5" FontSize="18" FontWeight="Bold"/>
+        <CheckBox x:Name="chkPayNow" Content="Si" HorizontalAlignment="Left" Margin="1444,261,0,0" VerticalAlignment="Top" Foreground="White" Height="15" Width="32" Checked="CheckBox_Checked" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox x:Name="chkPayLater" Content="Mas tarde" HorizontalAlignment="Left" Margin="1574,261,0,0" VerticalAlignment="Top" Foreground="White" Height="15" Width="77" Checked="CheckBox_Checked" RenderTransformOrigin="0.5,0.5">
+            <CheckBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="2" ScaleY="2"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </CheckBox.RenderTransform>
+        </CheckBox>
     </Grid>
 </Page>

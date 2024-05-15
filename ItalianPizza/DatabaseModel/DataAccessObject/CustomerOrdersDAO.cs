@@ -189,10 +189,13 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     DateTime endDate = startDate.AddDays(1).AddTicks(-1);
 
                     customerOrders = context.CustomerOrderSet
-                        .Include(customerOrder => customerOrder.OrderTypeSet)
-                        .Include(customerOrder => customerOrder.OrderStatusSet)
-                        .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
-                        .ToList();
+                    .Include(customerOrder => customerOrder.OrderTypeSet)
+                    .Include(customerOrder => customerOrder.OrderStatusSet)
+                    .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
+                    .OrderBy(customerOrder => customerOrder.OrderStatusId == 1 ? 0 :
+                                              customerOrder.OrderStatusId == 3 ? 1 : 3) 
+                    .ThenBy(customerOrder => customerOrder.OrderDate)
+                    .ToList();
                 }
             }
             catch (EntityException ex)
@@ -219,6 +222,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                                             .Include(customerOrder => customerOrder.OrderStatusSet)
                                             .Include(customerOrder => customerOrder.OrderTypeSet)
                                             .Where(customerOrder => customerOrder.OrderStatusSet.Status == status.Status)
+                                            .OrderByDescending(customerOrder => customerOrder.OrderDate)
                                             .ToList();
                 }
             }
@@ -261,7 +265,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    orderTypes = context.OrderTypeSet.ToList();
+                    orderTypes = context.OrderTypeSet.OrderByDescending(st => st.Type).ToList();
                 }
             }
             catch (EntityException ex)
@@ -276,6 +280,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return orderTypes;
         }
 
+        
         public int ModifyOrderStatus(int customerOrderID, int orderStatusID)
         {
             int result = 0;

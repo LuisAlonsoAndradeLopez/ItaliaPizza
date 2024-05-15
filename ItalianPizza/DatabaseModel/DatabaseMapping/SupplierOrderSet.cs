@@ -18,7 +18,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public SupplierOrderSet()
         {
             this.SupplierOrderDetailsSet = new HashSet<SupplierOrderDetailsSet>();
-            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
         }
     
         public int Id { get; set; }
@@ -28,13 +27,12 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int OrderStatusId { get; set; }
         public int EmployeeId { get; set; }
         public int Supplier_Id { get; set; }
+        public Nullable<bool> IsPaid { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual OrderStatusSet OrderStatusSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SupplierOrderDetailsSet> SupplierOrderDetailsSet { get; set; }
         public virtual SupplierSet SupplierSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
     }
 }

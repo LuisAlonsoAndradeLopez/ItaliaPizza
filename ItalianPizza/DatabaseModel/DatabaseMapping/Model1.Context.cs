@@ -35,7 +35,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual DbSet<DeliveryDriverSet> DeliveryDriverSet { get; set; }
         public virtual DbSet<EmployeePositionSet> EmployeePositionSet { get; set; }
         public virtual DbSet<EmployeeSet> EmployeeSet { get; set; }
-        public virtual DbSet<FinancialTransactionSet> FinancialTransactionSet { get; set; }
         public virtual DbSet<InventoryValidationSet> InventoryValidationSet { get; set; }
         public virtual DbSet<OrderStatusSet> OrderStatusSet { get; set; }
         public virtual DbSet<OrderTypeSet> OrderTypeSet { get; set; }
@@ -58,5 +57,7 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
         public virtual DbSet<FinancialTransactionIncomeContextSet> FinancialTransactionIncomeContextSet { get; set; }
         public virtual DbSet<FinancialTransactionWithDrawContextSet> FinancialTransactionWithDrawContextSet { get; set; }
+        public virtual DbSet<IncomeFinancialTransactionSet> IncomeFinancialTransactionSet { get; set; }
+        public virtual DbSet<WithDrawFinancialTransactionSet> WithDrawFinancialTransactionSet { get; set; }
     }
 }

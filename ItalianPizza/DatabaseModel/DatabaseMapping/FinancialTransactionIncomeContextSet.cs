@@ -17,13 +17,13 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public FinancialTransactionIncomeContextSet()
         {
-            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
+            this.IncomeFinancialTransactionSet = new HashSet<IncomeFinancialTransactionSet>();
         }
     
         public int Id { get; set; }
         public string Context { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
+        public virtual ICollection<IncomeFinancialTransactionSet> IncomeFinancialTransactionSet { get; set; }
     }
 }

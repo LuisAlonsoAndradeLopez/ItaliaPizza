@@ -6,6 +6,7 @@ using System.Linq;
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
 {
+    /*
     public class FinancialTransactionDAO
     {
         public int AddFinancialTransaction(FinancialTransactionSet financialTransaction)
@@ -59,4 +60,5 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return specifiedFinancialTransactions;
         }
     }
+    */
 }

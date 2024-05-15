@@ -6,16 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -60,6 +53,16 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 {
                     listSupplySupplierOrder = supplyDAO.GetAllSuppliesBySupplierOrder(supplierOrder);
                     ShowOrderSupplies(listSupplySupplierOrder);
+                    if((bool)supplierOrder.IsPaid)
+                    {
+                        chkPayNow.IsChecked = true;
+                    }
+                    else
+                    {
+                        chkPayLater.IsChecked = true;
+                    }
+                    chkPayLater.IsEnabled = false;
+                    chkPayNow.IsEnabled = false;
                     grdGroupModifyButtons.Visibility = Visibility.Visible;
                     grdRegisterButtons.Visibility = Visibility.Hidden;
                 }
@@ -446,26 +449,34 @@ namespace ItalianPizza.XAMLViews.Suppliers
             SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
             supplierOrder.Supplier_Id = supplierSet.Id;
             supplierOrder.OrderDate = DateTime.Now;
-            supplierOrder.EmployeeId = 2;
-            supplierOrder.OrderStatusId = 4;
+            supplierOrder.EmployeeId = UserToken.GetEmployeeID();
+            supplierOrder.OrderStatusId = 8;
             supplierOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
                 "hh\\:mm\\:ss", CultureInfo.InvariantCulture);
+            if(chkPayNow.IsChecked == true)
+            {
+                supplierOrder.IsPaid = true;
+            }
+            else
+            {
+                supplierOrder.IsPaid= false;
+            }
+
             supplierOrder.TotalAmount = CalculateTotalCost();
 
             return supplierOrder;
         }
 
-        private void RegisterCustomerOrder_Click(object sender, RoutedEventArgs e)
+        private void RegisterSupplierOrder_Click(object sender, RoutedEventArgs e)
         {
-            SupplierOrderSet supplierOrder = ObtainSupplierOrderInformation();
-            List<string> errorMessages = CheckSuppliesWithSupplier();
-
             if (AreValidFields())
             {
+                SupplierOrderSet supplierOrder = ObtainSupplierOrderInformation();
+                List<string> errorMessages = CheckSuppliesWithSupplier();
                 if (errorMessages.Count == 0)
                 {
                     OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
-                    orderSupplierDAO.AddSupplierOrder(supplierOrder, supplySetList);
+                    orderSupplierDAO.AddSupplierOrder(supplierOrder, listSupplySupplierOrder);
                     new AlertPopup("Registro Completado",
                         "Se ha registrado el Pedido a proveedor corectamente",
                         Auxiliary.AlertPopupTypes.Success);
@@ -479,6 +490,13 @@ namespace ItalianPizza.XAMLViews.Suppliers
                         + " no estan asociados con el proveedor que selecionaste",
                         Auxiliary.AlertPopupTypes.Warning);
                 }
+            }
+            else
+            {
+                new AlertPopup("Datos faltantes",
+                        "Por favor verifique el pedido ya tenga selecionado un proveedor y" +
+                        "que el tipo de pago ya halla sido selecionado",
+                        Auxiliary.AlertPopupTypes.Warning);
             }
         }
 
@@ -523,29 +541,42 @@ namespace ItalianPizza.XAMLViews.Suppliers
             return errorMessages;
         }
 
-        private void ModifyCustomerOrder_Click(object sender, RoutedEventArgs e)
+        private void ModifySupplierOrder_Click(object sender, MouseButtonEventArgs e)
         {
-            SupplierOrderSet supplierOrder = ObtainSupplierOrderInformation();
-            List<string> errorMessages = CheckSuppliesWithSupplier();
-
-            if (AreValidFields())
+            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
             {
-                if (errorMessages.Count == 0)
+                if (lboSuppliers.SelectedItem != null)
                 {
-                    OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
-                    orderSupplierDAO.ModifySupplierOrder(supplierOrder, listSupplySupplierOrder);
-                    new AlertPopup("Modificación Completada",
-                        "Se ha modificado correctamente el Pedido a proveedor",
-                        Auxiliary.AlertPopupTypes.Success);
-                    NavigationService.Navigate(new GUI_SuppliersModule());
+                    List<string> errorMessages = CheckSuppliesWithSupplier();
+                    if (errorMessages.Count == 0)
+                    {
+                        OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
+                        orderSupplierDAO.ModifySupplierOrder(supplierOrderSet, listSupplySupplierOrder);
+                        new AlertPopup("Modificación Completada",
+                            "Se ha modificado correctamente el Pedido a proveedor",
+                            Auxiliary.AlertPopupTypes.Success);
+                        NavigationService.Navigate(new GUI_SuppliersModule());
+                    }
+                    else
+                    {
+                        string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
+                        new AlertPopup("Insumos no validos", "Los insumos " + WrongFields
+                            + " no estan asociados con el proveedor que selecionaste",
+                            Auxiliary.AlertPopupTypes.Warning);
+                    }
                 }
                 else
                 {
-                    string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
-                    new AlertPopup("Insumos no validos", "Los insumos " + WrongFields
-                        + " no estan asociados con el proveedor que selecionaste",
-                        Auxiliary.AlertPopupTypes.Warning);
+                    new AlertPopup("Datos faltantes",
+                            "Por favor verifique el pedido ya tenga selecionado un proveedor",
+                            Auxiliary.AlertPopupTypes.Warning);
                 }
+            }
+            else
+            {
+                new AlertPopup("Modificacion no valida",
+                            "Los pedidos cancelados o ya entregados, no se pueden modificar",
+                            Auxiliary.AlertPopupTypes.Warning);
             }
             
         }
@@ -554,14 +585,112 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             bool result = true;
 
-            if(lboSuppliers.SelectedItem != null)
+            if(lboSuppliers.SelectedItem == null || chkPayNow.IsChecked == false && chkPayLater.IsChecked == false)
             {
-
+                result = false;
             }
 
             return result;
         }
 
+        private void ShowForm_Click(object sender, MouseButtonEventArgs e)
+        {
+            grdChangeStatusForm.Visibility = Visibility.Visible;
+        }
 
+        private void CloseForm_Click(object sender, RoutedEventArgs e)
+        {
+            grdChangeStatusForm.Visibility = Visibility.Hidden;
+        }
+
+        private void ChangeOrderStatusToReady(object sender, MouseButtonEventArgs e)
+        {
+            if(supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            {
+                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 7);
+                new SupplyDAO().UpdateSupplyInInventory(listSupplySupplierOrder);
+                new AlertPopup("Actualización del estado del pedido",
+                    "Se actualizó correctamente el estado del pedido",
+                    Auxiliary.AlertPopupTypes.Success);
+                grdChangeStatusForm.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                new AlertPopup("Cambio no Valido",
+                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                        Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
+        private void ChangeOrderStatusToDeliveryOrderToday(object sender, MouseButtonEventArgs e)
+        {
+            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            {
+                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 9);
+                new AlertPopup("Actualización del estado del pedido",
+                    "Se actualizó correctamente el estado del pedido",
+                    Auxiliary.AlertPopupTypes.Success);
+                grdChangeStatusForm.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                new AlertPopup("Cambio no Valido",
+                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                        Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
+        private void ChangeOrderStatusToStandby(object sender, MouseButtonEventArgs e)
+        {
+            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            {
+                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 8);
+                new AlertPopup("Actualización del estado del pedido",
+                    "Se actualizó correctamente el estado del pedido",
+                    Auxiliary.AlertPopupTypes.Success);
+                grdChangeStatusForm.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                new AlertPopup("Cambio no Valido",
+                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                        Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
+        private void ChangeOrderStatusToInShipping(object sender, MouseButtonEventArgs e)
+        {
+            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            {
+                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 6);
+                new AlertPopup("Actualización del estado del pedido",
+                    "Se actualizó correctamente el estado del pedido",
+                    Auxiliary.AlertPopupTypes.Success);
+                grdChangeStatusForm.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                new AlertPopup("Cambio no Valido",
+                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                        Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
+        private void BackPage_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new GUI_SuppliersModule());
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender == chkPayLater)
+            {
+                chkPayNow.IsChecked = false;
+            }
+            else if (sender == chkPayNow)
+            {
+                chkPayLater.IsChecked = false;
+            }
+        }
     }
 }

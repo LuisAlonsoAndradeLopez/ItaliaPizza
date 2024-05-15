@@ -70,14 +70,6 @@
           <Property Name="UserStatusId" Type="int" Nullable="false" />
           <Property Name="Address_Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="DailyClosingFinancialTransaction">
-          <Key>
-            <PropertyRef Name="DailyClosingSet_Id" />
-            <PropertyRef Name="FinancialTransactionSet_Id" />
-          </Key>
-          <Property Name="DailyClosingSet_Id" Type="int" Nullable="false" />
-          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="DailyClosingSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -132,14 +124,6 @@
           <Property Name="Address_Id" Type="int" Nullable="false" />
           <Property Name="UserAccount_Id" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="FinancialTransactionCustomerOrder">
-          <Key>
-            <PropertyRef Name="CustomerOrderSet_Id" />
-            <PropertyRef Name="FinancialTransactionSet_Id" />
-          </Key>
-          <Property Name="CustomerOrderSet_Id" Type="int" Nullable="false" />
-          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="FinancialTransactionIncomeContextSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -147,33 +131,24 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Context" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <EntityType Name="FinancialTransactionSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
-          <Property Name="FinancialTransactionDate" Type="datetime" Nullable="false" />
-          <Property Name="EmployeeId" Type="int" Nullable="false" />
-          <Property Name="MonetaryValue" Type="float" />
-          <Property Name="IncomeContextId" Type="int" />
-          <Property Name="WithDrawContextId" Type="int" />
-        </EntityType>
-        <EntityType Name="FinancialTransactionSupplierOrder">
-          <Key>
-            <PropertyRef Name="FinancialTransactionSet_Id" />
-            <PropertyRef Name="SupplierOrderSet_Id" />
-          </Key>
-          <Property Name="FinancialTransactionSet_Id" Type="int" Nullable="false" />
-          <Property Name="SupplierOrderSet_Id" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="FinancialTransactionWithDrawContextSet">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Context" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="IncomeFinancialTransactionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
+          <Property Name="RealizationDate" Type="datetime" Nullable="false" />
+          <Property Name="MonetaryValue" Type="float" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FinancialTransactionIncomeContextId" Type="int" />
         </EntityType>
         <EntityType Name="InventoryValidationSet">
           <Key>
@@ -221,6 +196,7 @@
           <Property Name="IdentificationCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Observations" Type="nvarchar(max)" />
+          <Property Name="Recipee" Type="bit" />
         </EntityType>
         <EntityType Name="ProductStatusSet">
           <Key>
@@ -277,6 +253,7 @@
           <Property Name="OrderStatusId" Type="int" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="Supplier_Id" Type="int" Nullable="false" />
+          <Property Name="IsPaid" Type="bit" />
         </EntityType>
         <EntityType Name="SupplierSet">
           <Key>
@@ -353,6 +330,18 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="WithDrawFinancialTransactionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
+          <Property Name="RealizationDate" Type="datetime" Nullable="false" />
+          <Property Name="MonetaryValue" Type="float" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="FinancialTransactionWithDrawContextId" Type="int" />
+        </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="database_firewall_rules">
@@ -371,18 +360,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FinancialTransactionSet_FinancialTransactionWithDrawContextSet">
-          <End Role="FinancialTransactionWithDrawContextSet" Type="Self.FinancialTransactionWithDrawContextSet" Multiplicity="0..1" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialTransactionWithDrawContextSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionSet">
-              <PropertyRef Name="WithDrawContextId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__EmployeeP__Emplo__56E8E7AB">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="EmployeePictureSet" Type="Self.EmployeePictureSet" Multiplicity="*" />
@@ -392,6 +369,18 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Principal>
             <Dependent Role="EmployeePictureSet">
               <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__IncomeFin__Emplo__1B9317B3">
+          <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
+          <End Role="IncomeFinancialTransactionSet" Type="Self.IncomeFinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomeFinancialTransactionSet">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -416,6 +405,18 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Principal>
             <Dependent Role="SupplyPictureSet">
               <PropertyRef Name="Supply_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WithDrawF__Emplo__1E6F845E">
+          <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
+          <End Role="WithDrawFinancialTransactionSet" Type="Self.WithDrawFinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WithDrawFinancialTransactionSet">
+              <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -476,30 +477,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Principal>
             <Dependent Role="CustomerOrderDetailSet">
               <PropertyRef Name="CustomerOrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DailyClosingFinancialTransaction_DailyClosingSet">
-          <End Role="DailyClosingSet" Type="Self.DailyClosingSet" Multiplicity="1" />
-          <End Role="DailyClosingFinancialTransaction" Type="Self.DailyClosingFinancialTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DailyClosingSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DailyClosingFinancialTransaction">
-              <PropertyRef Name="DailyClosingSet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DailyClosingFinancialTransaction_FinancialTransactionSet">
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
-          <End Role="DailyClosingFinancialTransaction" Type="Self.DailyClosingFinancialTransaction" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialTransactionSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DailyClosingFinancialTransaction">
-              <PropertyRef Name="FinancialTransactionSet_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -571,18 +548,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DeliveryDriverSet">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_EmployeeFinancialTransaction">
-          <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionSet">
               <PropertyRef Name="EmployeeId" />
             </Dependent>
           </ReferentialConstraint>
@@ -683,63 +648,15 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_FinancialTransactionCustomerOrder_CustomerOrderSet">
-          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="1" />
-          <End Role="FinancialTransactionCustomerOrder" Type="Self.FinancialTransactionCustomerOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CustomerOrderSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionCustomerOrder">
-              <PropertyRef Name="CustomerOrderSet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialTransactionCustomerOrder_FinancialTransactionSet">
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
-          <End Role="FinancialTransactionCustomerOrder" Type="Self.FinancialTransactionCustomerOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialTransactionSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionCustomerOrder">
-              <PropertyRef Name="FinancialTransactionSet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet">
+        <Association Name="FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet">
           <End Role="FinancialTransactionIncomeContextSet" Type="Self.FinancialTransactionIncomeContextSet" Multiplicity="0..1" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
+          <End Role="IncomeFinancialTransactionSet" Type="Self.IncomeFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FinancialTransactionIncomeContextSet">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FinancialTransactionSet">
-              <PropertyRef Name="IncomeContextId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="1" />
-          <End Role="FinancialTransactionSupplierOrder" Type="Self.FinancialTransactionSupplierOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="FinancialTransactionSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionSupplierOrder">
-              <PropertyRef Name="FinancialTransactionSet_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_FinancialTransactionSupplierOrder_SupplierOrderSet">
-          <End Role="SupplierOrderSet" Type="Self.SupplierOrderSet" Multiplicity="1" />
-          <End Role="FinancialTransactionSupplierOrder" Type="Self.FinancialTransactionSupplierOrder" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="SupplierOrderSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionSupplierOrder">
-              <PropertyRef Name="SupplierOrderSet_Id" />
+            <Dependent Role="IncomeFinancialTransactionSet">
+              <PropertyRef Name="FinancialTransactionIncomeContextId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -995,6 +912,18 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet">
+          <End Role="FinancialTransactionWithDrawContextSet" Type="Self.FinancialTransactionWithDrawContextSet" Multiplicity="0..1" />
+          <End Role="WithDrawFinancialTransactionSet" Type="Self.WithDrawFinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FinancialTransactionWithDrawContextSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WithDrawFinancialTransactionSet">
+              <PropertyRef Name="FinancialTransactionWithDrawContextId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ItalianPizzaServerBDModelStoreContainer">
           <EntitySet Name="AddressSet" EntityType="Self.AddressSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerOrderCustomerSet" EntityType="Self.CustomerOrderCustomerSet" Schema="dbo" store:Type="Tables" />
@@ -1002,17 +931,14 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <EntitySet Name="CustomerOrderDetailSet" EntityType="Self.CustomerOrderDetailSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerOrderSet" EntityType="Self.CustomerOrderSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerSet" EntityType="Self.CustomerSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DailyClosingFinancialTransaction" EntityType="Self.DailyClosingFinancialTransaction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DailyClosingSet" EntityType="Self.DailyClosingSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DeliveryDriverSet" EntityType="Self.DeliveryDriverSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePictureSet" EntityType="Self.EmployeePictureSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeePositionSet" EntityType="Self.EmployeePositionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeSet" EntityType="Self.EmployeeSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialTransactionCustomerOrder" EntityType="Self.FinancialTransactionCustomerOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionIncomeContextSet" EntityType="Self.FinancialTransactionIncomeContextSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialTransactionSet" EntityType="Self.FinancialTransactionSet" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FinancialTransactionSupplierOrder" EntityType="Self.FinancialTransactionSupplierOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialTransactionWithDrawContextSet" EntityType="Self.FinancialTransactionWithDrawContextSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomeFinancialTransactionSet" EntityType="Self.IncomeFinancialTransactionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryValidationSet" EntityType="Self.InventoryValidationSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatusSet" EntityType="Self.OrderStatusSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderTypeSet" EntityType="Self.OrderTypeSet" Schema="dbo" store:Type="Tables" />
@@ -1032,6 +958,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <EntitySet Name="SupplyUnitSet" EntityType="Self.SupplyUnitSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccountSet" EntityType="Self.UserAccountSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserStatusSet" EntityType="Self.UserStatusSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WithDrawFinancialTransactionSet" EntityType="Self.WithDrawFinancialTransactionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
             <DefiningQuery>SELECT 
     [database_firewall_rules].[id] AS [id], 
@@ -1042,13 +969,13 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FinancialTransactionSet_FinancialTransactionWithDrawContextSet" Association="Self.FinancialTransactionSet_FinancialTransactionWithDrawContextSet">
-            <End Role="FinancialTransactionWithDrawContextSet" EntitySet="FinancialTransactionWithDrawContextSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-          </AssociationSet>
           <AssociationSet Name="FK__EmployeeP__Emplo__56E8E7AB" Association="Self.FK__EmployeeP__Emplo__56E8E7AB">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="EmployeePictureSet" EntitySet="EmployeePictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__IncomeFin__Emplo__1B9317B3" Association="Self.FK__IncomeFin__Emplo__1B9317B3">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK__ProductPi__Produ__51300E55" Association="Self.FK__ProductPi__Produ__51300E55">
             <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
@@ -1057,6 +984,10 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <AssociationSet Name="FK__SupplyPic__Suppl__540C7B00" Association="Self.FK__SupplyPic__Suppl__540C7B00">
             <End Role="SupplySet" EntitySet="SupplySet" />
             <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WithDrawF__Emplo__1E6F845E" Association="Self.FK__WithDrawF__Emplo__1E6F845E">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK_CustomerAddress" Association="Self.FK_CustomerAddress">
             <End Role="AddressSet" EntitySet="AddressSet" />
@@ -1077,14 +1008,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <AssociationSet Name="FK_CustomerOrderCustomerOrderDetail" Association="Self.FK_CustomerOrderCustomerOrderDetail">
             <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
             <End Role="CustomerOrderDetailSet" EntitySet="CustomerOrderDetailSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DailyClosingFinancialTransaction_DailyClosingSet" Association="Self.FK_DailyClosingFinancialTransaction_DailyClosingSet">
-            <End Role="DailyClosingSet" EntitySet="DailyClosingSet" />
-            <End Role="DailyClosingFinancialTransaction" EntitySet="DailyClosingFinancialTransaction" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DailyClosingFinancialTransaction_FinancialTransactionSet" Association="Self.FK_DailyClosingFinancialTransaction_FinancialTransactionSet">
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-            <End Role="DailyClosingFinancialTransaction" EntitySet="DailyClosingFinancialTransaction" />
           </AssociationSet>
           <AssociationSet Name="FK_DeliveryDriverCustomerOrderDeliveryDriver" Association="Self.FK_DeliveryDriverCustomerOrderDeliveryDriver">
             <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
@@ -1109,10 +1032,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <AssociationSet Name="FK_EmployeeDeliveryDriver" Association="Self.FK_EmployeeDeliveryDriver">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="DeliveryDriverSet" EntitySet="DeliveryDriverSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeFinancialTransaction" Association="Self.FK_EmployeeFinancialTransaction">
-            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeInventoryValidation" Association="Self.FK_EmployeeInventoryValidation">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
@@ -1146,25 +1065,9 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="UserAccountSet" EntitySet="UserAccountSet" />
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
           </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_CustomerOrderSet" Association="Self.FK_FinancialTransactionCustomerOrder_CustomerOrderSet">
-            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-            <End Role="FinancialTransactionCustomerOrder" EntitySet="FinancialTransactionCustomerOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionCustomerOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionCustomerOrder_FinancialTransactionSet">
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-            <End Role="FinancialTransactionCustomerOrder" EntitySet="FinancialTransactionCustomerOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" Association="Self.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet">
+          <AssociationSet Name="FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet" Association="Self.FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet">
             <End Role="FinancialTransactionIncomeContextSet" EntitySet="FinancialTransactionIncomeContextSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_FinancialTransactionSet" Association="Self.FK_FinancialTransactionSupplierOrder_FinancialTransactionSet">
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-            <End Role="FinancialTransactionSupplierOrder" EntitySet="FinancialTransactionSupplierOrder" />
-          </AssociationSet>
-          <AssociationSet Name="FK_FinancialTransactionSupplierOrder_SupplierOrderSet" Association="Self.FK_FinancialTransactionSupplierOrder_SupplierOrderSet">
-            <End Role="SupplierOrderSet" EntitySet="SupplierOrderSet" />
-            <End Role="FinancialTransactionSupplierOrder" EntitySet="FinancialTransactionSupplierOrder" />
+            <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderStatusCustomerOrder" Association="Self.FK_OrderStatusCustomerOrder">
             <End Role="OrderStatusSet" EntitySet="OrderStatusSet" />
@@ -1250,6 +1153,10 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="UserStatusSet" EntitySet="UserStatusSet" />
             <End Role="SupplierSet" EntitySet="SupplierSet" />
           </AssociationSet>
+          <AssociationSet Name="FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet" Association="Self.FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet">
+            <End Role="FinancialTransactionWithDrawContextSet" EntitySet="FinancialTransactionWithDrawContextSet" />
+            <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -1319,7 +1226,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeCustomerOrder" FromRole="CustomerOrderSet" ToRole="EmployeeSet" />
           <NavigationProperty Name="OrderStatusSet" Relationship="Self.FK_OrderStatusCustomerOrder" FromRole="CustomerOrderSet" ToRole="OrderStatusSet" />
           <NavigationProperty Name="OrderTypeSet" Relationship="Self.FK_OrderTypeCustomerOrder" FromRole="CustomerOrderSet" ToRole="OrderTypeSet" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="Self.FinancialTransactionCustomerOrder" FromRole="CustomerOrderSet" ToRole="FinancialTransactionSet" />
         </EntityType>
         <EntityType Name="CustomerSet">
           <Key>
@@ -1349,7 +1255,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <Property Name="TotalAmount" Type="Double" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeDailyClosing" FromRole="DailyClosingSet" ToRole="EmployeeSet" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="Self.DailyClosingFinancialTransaction" FromRole="DailyClosingSet" ToRole="FinancialTransactionSet" />
         </EntityType>
         <EntityType Name="DeliveryDriverSet">
           <Key>
@@ -1396,7 +1301,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="DailyClosingSet" Relationship="Self.FK_EmployeeDailyClosing" FromRole="EmployeeSet" ToRole="DailyClosingSet" />
           <NavigationProperty Name="DeliveryDriverSet" Relationship="Self.FK_EmployeeDeliveryDriver" FromRole="EmployeeSet" ToRole="DeliveryDriverSet" />
           <NavigationProperty Name="EmployeePositionSet" Relationship="Self.FK_EmployeePositionEmployee" FromRole="EmployeeSet" ToRole="EmployeePositionSet" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="Self.FK_EmployeeFinancialTransaction" FromRole="EmployeeSet" ToRole="FinancialTransactionSet" />
           <NavigationProperty Name="InventoryValidationSet" Relationship="Self.FK_EmployeeInventoryValidation" FromRole="EmployeeSet" ToRole="InventoryValidationSet" />
           <NavigationProperty Name="ProductSaleSet" Relationship="Self.FK_EmployeeProductSale" FromRole="EmployeeSet" ToRole="ProductSaleSet" />
           <NavigationProperty Name="RecipeSet" Relationship="Self.FK_EmployeeRecipe" FromRole="EmployeeSet" ToRole="RecipeSet" />
@@ -1406,25 +1310,8 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="UserAccountSet" Relationship="Self.FK_EmployeeUserAccount" FromRole="EmployeeSet" ToRole="UserAccountSet" />
           <NavigationProperty Name="UserStatusSet" Relationship="Self.FK_UserStatusEmployee" FromRole="EmployeeSet" ToRole="UserStatusSet" />
           <NavigationProperty Name="EmployeePictureSet" Relationship="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB" FromRole="EmployeeSet" ToRole="EmployeePictureSet" />
-        </EntityType>
-        <EntityType Name="FinancialTransactionSet">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="225" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FinancialTransactionDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeFinancialTransaction" FromRole="FinancialTransactionSet" ToRole="EmployeeSet" />
-          <NavigationProperty Name="DailyClosingSet" Relationship="Self.DailyClosingFinancialTransaction" FromRole="FinancialTransactionSet" ToRole="DailyClosingSet" />
-          <NavigationProperty Name="CustomerOrderSet" Relationship="Self.FinancialTransactionCustomerOrder" FromRole="FinancialTransactionSet" ToRole="CustomerOrderSet" />
-          <NavigationProperty Name="SupplierOrderSet" Relationship="Self.FinancialTransactionSupplierOrder" FromRole="FinancialTransactionSet" ToRole="SupplierOrderSet" />
-          <Property Name="MonetaryValue" Type="Double" />
-          <Property Name="IncomeContextId" Type="Int32" />
-          <Property Name="WithDrawContextId" Type="Int32" />
-          <NavigationProperty Name="FinancialTransactionIncomeContextSet" Relationship="ItalianPizzaServerBDModel.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" FromRole="FinancialTransactionSet" ToRole="FinancialTransactionIncomeContextSet" />
-          <NavigationProperty Name="FinancialTransactionWithDrawContextSet" Relationship="ItalianPizzaServerBDModel.FinancialTransactionSet_FinancialTransactionWithDrawContextSet" FromRole="FinancialTransactionSet" ToRole="FinancialTransactionWithDrawContextSet" />
+          <NavigationProperty Name="IncomeFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK__IncomeFin__Emplo__1B9317B3" FromRole="EmployeeSet" ToRole="IncomeFinancialTransactionSet" />
+          <NavigationProperty Name="WithDrawFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK__WithDrawF__Emplo__1E6F845E" FromRole="EmployeeSet" ToRole="WithDrawFinancialTransactionSet" />
         </EntityType>
         <EntityType Name="InventoryValidationSet">
           <Key>
@@ -1474,6 +1361,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="ProductTypeSet" Relationship="Self.FK_ProductTypeProductSale" FromRole="ProductSaleSet" ToRole="ProductTypeSet" />
           <Property Name="Observations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductPictureSet" Relationship="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55" FromRole="ProductSaleSet" ToRole="ProductPictureSet" />
+          <Property Name="Recipee" Type="Boolean" />
         </EntityType>
         <EntityType Name="ProductStatusSet">
           <Key>
@@ -1544,7 +1432,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <NavigationProperty Name="OrderStatusSet" Relationship="Self.FK_OrderStatusSupplierOrder" FromRole="SupplierOrderSet" ToRole="OrderStatusSet" />
           <NavigationProperty Name="SupplierOrderDetailsSet" Relationship="Self.FK_SupplierOrderSupplierOrderDetails" FromRole="SupplierOrderSet" ToRole="SupplierOrderDetailsSet" />
           <NavigationProperty Name="SupplierSet" Relationship="Self.FK_SupplierOrderSupplier" FromRole="SupplierOrderSet" ToRole="SupplierSet" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="Self.FinancialTransactionSupplierOrder" FromRole="SupplierOrderSet" ToRole="FinancialTransactionSet" />
+          <Property Name="IsPaid" Type="Boolean" />
         </EntityType>
         <EntityType Name="SupplierSet">
           <Key>
@@ -1828,18 +1716,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_EmployeeFinancialTransaction">
-          <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="EmployeeSet">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="FinancialTransactionSet">
-              <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_EmployeeInventoryValidation">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="InventoryValidationSet" Type="Self.InventoryValidationSet" Multiplicity="*" />
@@ -2092,18 +1968,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DailyClosingFinancialTransaction">
-          <End Role="DailyClosingSet" Type="Self.DailyClosingSet" Multiplicity="*" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-        </Association>
-        <Association Name="FinancialTransactionCustomerOrder">
-          <End Role="CustomerOrderSet" Type="Self.CustomerOrderSet" Multiplicity="*" />
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-        </Association>
-        <Association Name="FinancialTransactionSupplierOrder">
-          <End Role="FinancialTransactionSet" Type="Self.FinancialTransactionSet" Multiplicity="*" />
-          <End Role="SupplierOrderSet" Type="Self.SupplierOrderSet" Multiplicity="*" />
-        </Association>
         <Association Name="SupplierSupply">
           <End Role="SupplierSet" Type="Self.SupplierSet" Multiplicity="*" />
           <End Role="SupplySet" Type="Self.SupplySet" Multiplicity="*" />
@@ -2119,7 +1983,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <EntitySet Name="DeliveryDriverSet" EntityType="Self.DeliveryDriverSet" />
           <EntitySet Name="EmployeePositionSet" EntityType="Self.EmployeePositionSet" />
           <EntitySet Name="EmployeeSet" EntityType="Self.EmployeeSet" />
-          <EntitySet Name="FinancialTransactionSet" EntityType="Self.FinancialTransactionSet" />
           <EntitySet Name="InventoryValidationSet" EntityType="Self.InventoryValidationSet" />
           <EntitySet Name="OrderStatusSet" EntityType="Self.OrderStatusSet" />
           <EntitySet Name="OrderTypeSet" EntityType="Self.OrderTypeSet" />
@@ -2203,10 +2066,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <AssociationSet Name="FK_EmployeePositionEmployee" Association="Self.FK_EmployeePositionEmployee">
             <End Role="EmployeePositionSet" EntitySet="EmployeePositionSet" />
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
-          </AssociationSet>
-          <AssociationSet Name="FK_EmployeeFinancialTransaction" Association="Self.FK_EmployeeFinancialTransaction">
-            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
           </AssociationSet>
           <AssociationSet Name="FK_EmployeeInventoryValidation" Association="Self.FK_EmployeeInventoryValidation">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
@@ -2292,18 +2151,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="SupplyUnitSet" EntitySet="SupplyUnitSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
           </AssociationSet>
-          <AssociationSet Name="DailyClosingFinancialTransaction" Association="Self.DailyClosingFinancialTransaction">
-            <End Role="DailyClosingSet" EntitySet="DailyClosingSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-          </AssociationSet>
-          <AssociationSet Name="FinancialTransactionCustomerOrder" Association="Self.FinancialTransactionCustomerOrder">
-            <End Role="CustomerOrderSet" EntitySet="CustomerOrderSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-          </AssociationSet>
-          <AssociationSet Name="FinancialTransactionSupplierOrder" Association="Self.FinancialTransactionSupplierOrder">
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
-            <End Role="SupplierOrderSet" EntitySet="SupplierOrderSet" />
-          </AssociationSet>
           <AssociationSet Name="SupplierSupply" Association="Self.SupplierSupply">
             <End Role="SupplierSet" EntitySet="SupplierSet" />
             <End Role="SupplySet" EntitySet="SupplySet" />
@@ -2326,13 +2173,23 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           </AssociationSet>
           <EntitySet Name="FinancialTransactionIncomeContextSet" EntityType="ItalianPizzaServerBDModel.FinancialTransactionIncomeContextSet" />
           <EntitySet Name="FinancialTransactionWithDrawContextSet" EntityType="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet" />
-          <AssociationSet Name="FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" Association="ItalianPizzaServerBDModel.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet">
-            <End Role="FinancialTransactionIncomeContextSet" EntitySet="FinancialTransactionIncomeContextSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
+          <EntitySet Name="IncomeFinancialTransactionSet" EntityType="ItalianPizzaServerBDModel.IncomeFinancialTransactionSet" />
+          <EntitySet Name="WithDrawFinancialTransactionSet" EntityType="ItalianPizzaServerBDModel.WithDrawFinancialTransactionSet" />
+          <AssociationSet Name="FK__IncomeFin__Emplo__1B9317B3" Association="ItalianPizzaServerBDModel.FK__IncomeFin__Emplo__1B9317B3">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
           </AssociationSet>
-          <AssociationSet Name="FinancialTransactionSet_FinancialTransactionWithDrawContextSet" Association="ItalianPizzaServerBDModel.FinancialTransactionSet_FinancialTransactionWithDrawContextSet">
+          <AssociationSet Name="FK__WithDrawF__Emplo__1E6F845E" Association="ItalianPizzaServerBDModel.FK__WithDrawF__Emplo__1E6F845E">
+            <End Role="EmployeeSet" EntitySet="EmployeeSet" />
+            <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet" Association="ItalianPizzaServerBDModel.FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet">
+            <End Role="FinancialTransactionIncomeContextSet" EntitySet="FinancialTransactionIncomeContextSet" />
+            <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet" Association="ItalianPizzaServerBDModel.FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet">
             <End Role="FinancialTransactionWithDrawContextSet" EntitySet="FinancialTransactionWithDrawContextSet" />
-            <End Role="FinancialTransactionSet" EntitySet="FinancialTransactionSet" />
+            <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="EmployeePictureSet">
@@ -2420,7 +2277,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Context" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" FromRole="FinancialTransactionIncomeContextSet" ToRole="FinancialTransactionSet" />
+          <NavigationProperty Name="IncomeFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet" FromRole="FinancialTransactionIncomeContextSet" ToRole="IncomeFinancialTransactionSet" />
         </EntityType>
         <EntityType Name="FinancialTransactionWithDrawContextSet">
           <Key>
@@ -2428,29 +2285,81 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Context" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="FinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FinancialTransactionSet_FinancialTransactionWithDrawContextSet" FromRole="FinancialTransactionWithDrawContextSet" ToRole="FinancialTransactionSet" />
+          <NavigationProperty Name="WithDrawFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet" FromRole="FinancialTransactionWithDrawContextSet" ToRole="WithDrawFinancialTransactionSet" />
         </EntityType>
-        <Association Name="FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet">
+        <EntityType Name="IncomeFinancialTransactionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="RealizationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MonetaryValue" Type="Double" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="FinancialTransactionIncomeContextId" Type="Int32" />
+          <NavigationProperty Name="EmployeeSet" Relationship="ItalianPizzaServerBDModel.FK__IncomeFin__Emplo__1B9317B3" FromRole="IncomeFinancialTransactionSet" ToRole="EmployeeSet" />
+          <NavigationProperty Name="FinancialTransactionIncomeContextSet" Relationship="ItalianPizzaServerBDModel.FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet" FromRole="IncomeFinancialTransactionSet" ToRole="FinancialTransactionIncomeContextSet" />
+        </EntityType>
+        <EntityType Name="WithDrawFinancialTransactionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="225" FixedLength="false" Unicode="true" />
+          <Property Name="RealizationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MonetaryValue" Type="Double" Nullable="false" />
+          <Property Name="EmployeeId" Type="Int32" Nullable="false" />
+          <Property Name="FinancialTransactionWithDrawContextId" Type="Int32" />
+          <NavigationProperty Name="EmployeeSet" Relationship="ItalianPizzaServerBDModel.FK__WithDrawF__Emplo__1E6F845E" FromRole="WithDrawFinancialTransactionSet" ToRole="EmployeeSet" />
+          <NavigationProperty Name="FinancialTransactionWithDrawContextSet" Relationship="ItalianPizzaServerBDModel.FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet" FromRole="WithDrawFinancialTransactionSet" ToRole="FinancialTransactionWithDrawContextSet" />
+        </EntityType>
+        <Association Name="FK__IncomeFin__Emplo__1B9317B3">
+          <End Type="ItalianPizzaServerBDModel.EmployeeSet" Role="EmployeeSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.IncomeFinancialTransactionSet" Role="IncomeFinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomeFinancialTransactionSet">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WithDrawF__Emplo__1E6F845E">
+          <End Type="ItalianPizzaServerBDModel.EmployeeSet" Role="EmployeeSet" Multiplicity="1" />
+          <End Type="ItalianPizzaServerBDModel.WithDrawFinancialTransactionSet" Role="WithDrawFinancialTransactionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WithDrawFinancialTransactionSet">
+              <PropertyRef Name="EmployeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet">
           <End Type="ItalianPizzaServerBDModel.FinancialTransactionIncomeContextSet" Role="FinancialTransactionIncomeContextSet" Multiplicity="0..1" />
-          <End Type="ItalianPizzaServerBDModel.FinancialTransactionSet" Role="FinancialTransactionSet" Multiplicity="*" />
+          <End Type="ItalianPizzaServerBDModel.IncomeFinancialTransactionSet" Role="IncomeFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FinancialTransactionIncomeContextSet">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FinancialTransactionSet">
-              <PropertyRef Name="IncomeContextId" />
+            <Dependent Role="IncomeFinancialTransactionSet">
+              <PropertyRef Name="FinancialTransactionIncomeContextId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FinancialTransactionSet_FinancialTransactionWithDrawContextSet">
+        <Association Name="FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet">
           <End Type="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet" Role="FinancialTransactionWithDrawContextSet" Multiplicity="0..1" />
-          <End Type="ItalianPizzaServerBDModel.FinancialTransactionSet" Role="FinancialTransactionSet" Multiplicity="*" />
+          <End Type="ItalianPizzaServerBDModel.WithDrawFinancialTransactionSet" Role="WithDrawFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="FinancialTransactionWithDrawContextSet">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="FinancialTransactionSet">
-              <PropertyRef Name="WithDrawContextId" />
+            <Dependent Role="WithDrawFinancialTransactionSet">
+              <PropertyRef Name="FinancialTransactionWithDrawContextId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2581,20 +2490,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="FinancialTransactionSet">
-      <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.FinancialTransactionSet)">
-        <MappingFragment StoreEntitySet="FinancialTransactionSet">
-                <ScalarProperty Name="WithDrawContextId" ColumnName="WithDrawContextId" />
-                <ScalarProperty Name="IncomeContextId" ColumnName="IncomeContextId" />
-                <ScalarProperty Name="MonetaryValue" ColumnName="MonetaryValue" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Type" ColumnName="Type" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="FinancialTransactionDate" ColumnName="FinancialTransactionDate" />
-          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="InventoryValidationSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.InventoryValidationSet)">
         <MappingFragment StoreEntitySet="InventoryValidationSet">
@@ -2624,7 +2519,8 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     <EntitySetMapping Name="ProductSaleSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.ProductSaleSet)">
         <MappingFragment StoreEntitySet="ProductSaleSet">
-          <ScalarProperty Name="Observations" ColumnName="Observations" />
+          <ScalarProperty Name="Recipee" ColumnName="Recipee" />
+                <ScalarProperty Name="Observations" ColumnName="Observations" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
@@ -2690,7 +2586,8 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     <EntitySetMapping Name="SupplierOrderSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.SupplierOrderSet)">
         <MappingFragment StoreEntitySet="SupplierOrderSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
           <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
           <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
@@ -2765,30 +2662,6 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="DailyClosingFinancialTransaction" TypeName="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" StoreEntitySet="DailyClosingFinancialTransaction">
-      <EndProperty Name="DailyClosingSet">
-        <ScalarProperty Name="Id" ColumnName="DailyClosingSet_Id" />
-      </EndProperty>
-      <EndProperty Name="FinancialTransactionSet">
-        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FinancialTransactionCustomerOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionCustomerOrder" StoreEntitySet="FinancialTransactionCustomerOrder">
-      <EndProperty Name="CustomerOrderSet">
-        <ScalarProperty Name="Id" ColumnName="CustomerOrderSet_Id" />
-      </EndProperty>
-      <EndProperty Name="FinancialTransactionSet">
-        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="FinancialTransactionSupplierOrder" TypeName="ItalianPizzaServerBDModel.FinancialTransactionSupplierOrder" StoreEntitySet="FinancialTransactionSupplierOrder">
-      <EndProperty Name="FinancialTransactionSet">
-        <ScalarProperty Name="Id" ColumnName="FinancialTransactionSet_Id" />
-      </EndProperty>
-      <EndProperty Name="SupplierOrderSet">
-        <ScalarProperty Name="Id" ColumnName="SupplierOrderSet_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
     <AssociationSetMapping Name="SupplierSupply" TypeName="ItalianPizzaServerBDModel.SupplierSupply" StoreEntitySet="SupplierSupply">
       <EndProperty Name="SupplierSet">
         <ScalarProperty Name="Id" ColumnName="SupplierSet_Id" />
@@ -2848,6 +2721,32 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet">
               <MappingFragment StoreEntitySet="FinancialTransactionWithDrawContextSet">
                 <ScalarProperty Name="Context" ColumnName="Context" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeFinancialTransactionSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.IncomeFinancialTransactionSet">
+              <MappingFragment StoreEntitySet="IncomeFinancialTransactionSet">
+                <ScalarProperty Name="FinancialTransactionIncomeContextId" ColumnName="FinancialTransactionIncomeContextId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="MonetaryValue" ColumnName="MonetaryValue" />
+                <ScalarProperty Name="RealizationDate" ColumnName="RealizationDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WithDrawFinancialTransactionSet">
+            <EntityTypeMapping TypeName="ItalianPizzaServerBDModel.WithDrawFinancialTransactionSet">
+              <MappingFragment StoreEntitySet="WithDrawFinancialTransactionSet">
+                <ScalarProperty Name="FinancialTransactionWithDrawContextId" ColumnName="FinancialTransactionWithDrawContextId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="MonetaryValue" ColumnName="MonetaryValue" />
+                <ScalarProperty Name="RealizationDate" ColumnName="RealizationDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

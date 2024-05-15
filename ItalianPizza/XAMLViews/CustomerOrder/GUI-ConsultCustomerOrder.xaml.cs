@@ -210,24 +210,27 @@ namespace ItalianPizza.XAMLViews
                     Margin = new Thickness(510, 10, 0, 0),
                 };
                 grdContainer.Children.Add(lblCustomerOrderTime);
- 
-                if(customerOrder.OrderStatusId == 1 || customerOrder.OrderStatusId == 3)
-                {
-                    marginSpace = 660;
-                }
-                else
-                {
-                    marginSpace = 670;
-                }
 
                 Label lblCustomerOrderStatus = new Label
                 {
-                    Content = customerOrder.OrderStatusSet.Status,
+                    HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 19,
-                    Margin = new Thickness(marginSpace, 10, 0, 0),
+                    Margin = new Thickness(637, 10, 0, 0),
+                    Width = 190,
                 };
+
+                TextBox textBox = new TextBox
+                {
+                    Text = customerOrder.OrderStatusSet.Status,
+                    TextAlignment = TextAlignment.Center,
+                    Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
+                    Background = new SolidColorBrush(Color.FromRgb(7, 7, 17)),
+                    BorderThickness = new Thickness(0)
+                };
+                lblCustomerOrderStatus.Content = textBox;
                 grdContainer.Children.Add(lblCustomerOrderStatus);
 
                 grdContainer.PreviewMouseLeftButtonDown += (sender, e) =>
@@ -270,11 +273,13 @@ namespace ItalianPizza.XAMLViews
                     CustomerSet customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
                     DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
                     lblFullNameCustomer.Content = customer.Names + " " + customer.LastName + " " + customer.SecondLastName;
+                    lblCustomerAddress.Content = customer.AddressSet.StreetName + ", #" + customer.AddressSet.StreetNumber + ", " + customer.AddressSet.City + ", " + customer.AddressSet.Colony;
                     lblNameCompleteDeliveryman.Content = deliveryman.Names + " " + deliveryman.LastName + " " + deliveryman.SecondLastName;
                 }
                 else
                 {
                     lblNameCompleteDeliveryman.Content = "Sin repartidor Asignado";
+                    lblCustomerAddress.Content = "Sin direccion relacionada";
                     lblFullNameCustomer.Content = "Sin cliente Asignado";
                 }
 
@@ -365,14 +370,14 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToModifyOrderVirtualWindow(object sender, MouseButtonEventArgs e)
         {
-            if(customerOrderSet.OrderStatusId != 6)
+            if(customerOrderSet.OrderStatusId != 6 && customerOrderSet.OrderStatusId != 5)
             {
                 NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
             }
             else
             {
                 new AlertPopup("Pedido Ya Cancelado",
-                    "Lo siento, pero a los pedidos cancelados ya no se pueden modificar",
+                    "Lo siento, pero a los pedidos cancelados y ya pagados ya no se pueden modificar",
                     Auxiliary.AlertPopupTypes.Warning);
             }
         }
@@ -399,7 +404,7 @@ namespace ItalianPizza.XAMLViews
 
         private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {
-            if(customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
+            /*if(customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
             {
                 try
                 {
@@ -433,7 +438,7 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos con el estado de cancelado o pagado, no se pueden pagar otra vez!", Auxiliary.AlertPopupTypes.Error);
             }
-            
+            */
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
