@@ -119,93 +119,71 @@
                        Margin="275,284,690,25"/>
         </Grid>
 
+        <Label Content="Detalles Producto" 
+           HorizontalAlignment="Left" 
+           Margin="1300,34,0,0" 
+           VerticalAlignment="Top" 
+           Foreground="#FFBC8B21" 
+           FontFamily="Tahoma" 
+           FontSize="20" 
+           FontWeight="Bold"/>
+
+        <Label Content="Tipo de pedido" 
+           HorizontalAlignment="Left" 
+           Margin="1140,90,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Arial" 
+           Foreground="White" 
+           FontWeight="Bold"/>
+
+        <ListBox x:Name="lboOrderTypeCustomer" 
+          HorizontalAlignment="Left" 
+          Margin="1291,89,0,0" 
+          VerticalAlignment="Top" 
+          Width="376" 
+          Height="40" 
+          FontSize="20" 
+          SelectionChanged="ListBox_CustomerOrderTypeSelection" 
+          Background="#FF131313" 
+          Foreground="White"/>
+        
         <Grid x:Name="grdVirtualWindowOrderDataForm">
-            <Label Content="Detalles Producto" 
-                   HorizontalAlignment="Left" 
-                   Margin="1300,34,0,0" 
-                   VerticalAlignment="Top" 
-                   Foreground="#FFBC8B21" 
-                   FontFamily="Tahoma" 
-                   FontSize="20" 
-                   FontWeight="Bold"/>
-
-            <Label Content="Tipo de pedido" 
-                   HorizontalAlignment="Left" 
-                   Margin="1182,74,0,0" 
-                   VerticalAlignment="Top" 
-                   FontSize="18" 
-                   FontFamily="Arial" 
-                   Foreground="White" 
-                   FontWeight="Bold"/>
-
-            <ListBox x:Name="lboOrderTypeCustomer" 
-                      HorizontalAlignment="Left" 
-                      Margin="1135,113,0,0" 
-                      VerticalAlignment="Top" 
-                      Width="234" 
-                      Height="35" 
-                      FontSize="20" 
-                      SelectionChanged="ListBox_CustomerOrderTypeSelection" 
-                      Background="#FF131313" 
-                      Foreground="White"/>
-
-            <Label x:Name="lblOrderStatusCustomer" 
-                   Content="Estado del pedido" 
-                   HorizontalAlignment="Left" 
-                   Margin="1465,74,0,0" 
-                   VerticalAlignment="Top" 
-                   FontSize="18"
-                   FontFamily="Tahoma" 
-                   Foreground="White"
-                   FontWeight="Bold"
-                   RenderTransformOrigin="0.43,0.621" />
-
-            <ListBox x:Name="lboOrderStatusCustomer" 
-                      HorizontalAlignment="Left" 
-                      Margin="1434,113,0,0"
-                      VerticalAlignment="Top"
-                      Width="234" 
-                      Height="35" 
-                      FontSize="20" 
-                      Visibility="Visible" 
-                      Background="#FF131313" 
-                      Foreground="White"/>
-
             <Label x:Name="lblCustomers"
                    Content="Cliente:" 
                    HorizontalAlignment="Left"
-                   Margin="1137,167,0,0" 
+                   Margin="1141,154,0,0" 
                    VerticalAlignment="Top"
                    FontSize="18"
                    FontFamily="Tahoma"
                    Foreground="White"
-                   FontWeight="Bold"/>
+                   FontWeight="Bold" Height="30" Width="77"/>
 
-            <ListBox x:Name="lboCustomers" 
+            <TextBlock x:Name="txtCustomers" 
                       HorizontalAlignment="Left"
-                      Margin="1220,169,0,0"
+                      Margin="1225,153,0,0"
                       VerticalAlignment="Top"
-                      Width="358" 
-                      Height="38"
-                      FontSize="20" 
+                      Width="353" 
+                      Height="55"
+                      FontSize="16" 
                       Background="#FF131313" 
                       Foreground="White"/>
 
             <Label x:Name="lblDeliverymen"
                    Content="Repartidor: " 
                    HorizontalAlignment="Left"
-                   Margin="1137,227,0,0"
+                   Margin="1108,220,0,0"
                    VerticalAlignment="Top" 
                    FontSize="18"
                    FontFamily="Tahoma" 
                    Foreground="White"
-                   FontWeight="Bold"/>
+                   FontWeight="Bold" Width="110"/>
 
-            <ListBox x:Name="lboDeliverymen"
+            <TextBlock x:Name="txtDeliverymen"
                       HorizontalAlignment="Left"
-                      Margin="1254,233,0,0"
+                      Margin="1225,220,0,0"
                       VerticalAlignment="Top"
-                      Width="324"
+                      Width="353"
                       Height="37"
                       FontSize="20" 
                       Background="#FF131313" 
@@ -215,9 +193,9 @@
                 <Rectangle 
                     HorizontalAlignment="Left" 
                     Height="37" 
-                    Margin="1588,168,0,0"
+                    Margin="1591,151,0,0"
                     VerticalAlignment="Top" 
-                    Width="110"
+                    Width="124"
                     Fill="#FFDDCC4E"
                     RadiusX="18" 
                     RadiusY="30" />
@@ -225,14 +203,14 @@
                 <Image 
                     HorizontalAlignment="Left"
                     Height="38" 
-                    Margin="1600,169,0,0" 
+                    Margin="1603,152,0,0" 
                     VerticalAlignment="Top"
                     Width="34"
                     Source="/Resources/Pictures/ICON-Cliente.png" IsEnabled="False"/>
 
-                <Label Content="Agregar" 
+                <Label Content="Selecionar" 
                        HorizontalAlignment="Left" 
-                       Margin="1633,173,0,0"
+                       Margin="1638,156,0,0"
                        VerticalAlignment="Top" 
                        Foreground="White" FontWeight="Bold"/>
             </Grid>
@@ -241,9 +219,9 @@
                 <Rectangle 
                     HorizontalAlignment="Left" 
                     Height="37"
-                    Margin="1588,230,0,0"
+                    Margin="1592,220,0,0"
                     VerticalAlignment="Top"
-                    Width="110" 
+                    Width="122" 
                     Fill="#FFDDCC4E"
                     RadiusX="18" 
                     RadiusY="30" />
@@ -251,7 +229,7 @@
                 <Image 
                     HorizontalAlignment="Left"
                     Height="35" 
-                    Margin="1597,232,0,0" 
+                    Margin="1601,222,0,0" 
                     VerticalAlignment="Top" 
                     Width="33" 
                     Source="/Resources/Pictures/ICON-Repartidor.png"/>
@@ -259,7 +237,7 @@
                 <Label 
                     Content="Agregar"
                     HorizontalAlignment="Left"
-                    Margin="1631,236,0,0" 
+                    Margin="1642,226,0,0" 
                     VerticalAlignment="Top"
                     Foreground="White" FontWeight="Bold"/>
             </Grid>
@@ -430,8 +408,7 @@
                Margin="1147,360,40,166"/>
 
         </Grid>
-
-        <local:NavigationBar  Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Width="244"/>
     </Grid>
 </Page>
 

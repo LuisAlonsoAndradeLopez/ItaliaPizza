@@ -4,30 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a08b7d57e0b846dca3a9c0cbc6a70a89" Name="Diagram1" ZoomLevel="124">
+      <Diagram DiagramId="a08b7d57e0b846dca3a9c0cbc6a70a89" Name="Diagram1" ZoomLevel="97">
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.AddressSet" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderCustomerSet" Width="2.25" PointX="10.5" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriverSet" Width="1.5" PointX="11.25" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderDetailSet" Width="2" PointX="10.5" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderDeliveryDriverSet" Width="2.875" PointX="11.25" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderDetailSet" Width="2" PointX="12.875" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerOrderSet" Width="1.75" PointX="5" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.CustomerSet" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.DailyClosingSet" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.DeliveryDriverSet" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.EmployeePositionSet" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.EmployeePositionSet" Width="1.75" PointX="0.5" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.EmployeeSet" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionSet" Width="2.25" PointX="7.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.InventoryValidationSet" Width="2.25" PointX="5.375" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrderStatusSet" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrderStatusSet" Width="1.5" PointX="2" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.OrderTypeSet" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductSaleSet" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductStatusSet" Width="1.5" PointX="11.25" PointY="18" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductTypeSet" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeDetailsSet" Width="1.5" PointX="15.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeSet" Width="1.5" PointX="13.5" PointY="10" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderDetailsSet" Width="1.5" PointX="15.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderSet" Width="2.25" PointX="13.5" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductTypeSet" Width="1.5" PointX="6" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeDetailsSet" Width="2.125" PointX="18.875" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.RecipeSet" Width="1.5" PointX="17.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderDetailsSet" Width="2.5" PointX="21.625" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierOrderSet" Width="2.25" PointX="26.125" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplierSet" Width="1.5" PointX="8.25" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplySet" Width="1.5" PointX="13.5" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplySet" Width="1.5" PointX="15.25" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplyTypeSet" Width="1.5" PointX="11.25" PointY="20.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplyUnitSet" Width="1.5" PointX="11.25" PointY="22.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.UserAccountSet" Width="1.5" PointX="0.75" PointY="13.5" IsExpanded="true" />
@@ -45,11 +43,9 @@
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_OrderTypeCustomerOrder" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeCustomer" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_UserStatusCustomer" ManuallyRouted="false" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeDailyClosing" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeDeliveryDriver" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_UserStatusDeliveryDriver" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeePositionEmployee" ManuallyRouted="false" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeFinancialTransaction" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeInventoryValidation" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeProductSale" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_EmployeeRecipe" ManuallyRouted="false" />
@@ -71,21 +67,25 @@
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_UserStatusSupplier" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_SupplyTypeSupply" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK_SupplyUnitSupply" ManuallyRouted="false" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.DailyClosingFinancialTransaction" ManuallyRouted="false" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FinancialTransactionCustomerOrder" ManuallyRouted="false" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FinancialTransactionSupplierOrder" ManuallyRouted="false" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.SupplierSupply" ManuallyRouted="false" />
         <EntityTypeShape EntityType="ItalianPizzaServerBDModel.EmployeePictureSet" Width="1.875" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductPictureSet" Width="2" PointX="10.5" PointY="6.875" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplyPictureSet" Width="2.125" PointX="15.75" PointY="17.75" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.database_firewall_rules" Width="2.25" PointX="8.375" PointY="1.875" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.ProductPictureSet" Width="2" PointX="23.375" PointY="15.125" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.SupplyPictureSet" Width="2.125" PointX="18.75" PointY="18.625" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.database_firewall_rules" Width="2.25" PointX="9.5" PointY="1.25" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__EmployeeP__Emplo__56E8E7AB" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__ProductPi__Produ__51300E55" />
         <AssociationConnector Association="ItalianPizzaServerBDModel.FK__SupplyPic__Suppl__540C7B00" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionIncomeContextSet" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet" Width="3" PointX="13.375" PointY="0.875" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_FinancialTransactionSet_FinancialTransactionIncomeContextSet" />
-        <AssociationConnector Association="ItalianPizzaServerBDModel.FinancialTransactionSet_FinancialTransactionWithDrawContextSet" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionIncomeContextSet" Width="1.5" PointX="3" PointY="20.875" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.FinancialTransactionWithDrawContextSet" Width="1.5" PointX="6" PointY="23.875" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.IncomeFinancialTransactionSet" Width="1.5" PointX="5.25" PointY="12.25" />
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.WithDrawFinancialTransactionSet" Width="1.5" PointX="8.25" PointY="5.25" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK__IncomeFin__Emplo__1B9317B3" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK__WithDrawF__Emplo__1E6F845E" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_IncomeFinancialTransactionSet_FinancialTransactionIncomeContextSet" />
+        <AssociationConnector Association="ItalianPizzaServerBDModel.FK_WithDrawFinancialTransactionSet_FinancialTransactionWithDrawContextSet" />
+      </Diagram>
+      <Diagram DiagramId="0e4b45ce17d8427aba47c918b4559ced" Name="Diagram2" >
+        <EntityTypeShape EntityType="ItalianPizzaServerBDModel.DailyClosingSet" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

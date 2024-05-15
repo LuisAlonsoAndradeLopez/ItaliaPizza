@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+      xmlns:local="clr-namespace:ItalianPizza.XAMLViews" 
       xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="922.16" 
@@ -30,15 +30,9 @@
             </Setter>
         </Style>
 
-
     </Page.Resources>
 
     <Grid x:Name="Background" Background="#FF131313">
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <Rectangle 
             HorizontalAlignment="Left"
@@ -131,7 +125,8 @@
                 FontSize="14" 
                 BorderThickness="3" 
                 FontWeight="Thin" 
-                BorderBrush="#FFDB4B2C"/>
+                BorderBrush="#FFDB4B2C"
+            />
 
             <Button Content="Agregar Nuevo Pedido Hoy"
                 HorizontalAlignment="Left"
@@ -207,7 +202,7 @@
                Visibility="Collapsed"/>
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowCustomerOrderInformation" Visibility="Collapsed">
+        <Grid x:Name="grdVirtualWindowCustomerOrderInformation" Visibility="Visible" Grid.ColumnSpan="2">
             <Label Content="Detalles del pedido: " 
                HorizontalAlignment="Left" 
                Margin="1192,39,0,0" 
@@ -239,15 +234,15 @@
 
 
             <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="41" 
-            Margin="1250,130,0,0" 
-            Stroke="Black" 
-            RadiusX="30" 
-            RadiusY="30" 
-            VerticalAlignment="Top" 
-            Width="403" 
-            Fill="#e4b65c"/>
+                HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="1250,130,0,0" 
+                Stroke="Black" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Top" 
+                Width="403" 
+                Fill="#e4b65c"/>
 
             <Label x:Name="lblFullNameCustomer" 
                Content="" 
@@ -262,7 +257,7 @@
 
             <Label Content="Repartidor encargado: " 
                HorizontalAlignment="Left" 
-               Margin="1219,179,0,0" 
+               Margin="1219,229,0,0" 
                VerticalAlignment="Top" 
                Background="{x:Null}" 
                Foreground="#f6be4d" 
@@ -271,62 +266,56 @@
                FontWeight="Bold"/>
 
             <Rectangle 
-            HorizontalAlignment="Left" 
-            Height="41" 
-            Margin="1254,216,0,0" 
-            Stroke="Black" 
-            RadiusX="30" 
-            RadiusY="30" 
-            VerticalAlignment="Top" 
-            Width="399" 
-            Fill="#e4b65c"/>
+                HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="1254,265,0,0" 
+                Stroke="Black" 
+                RadiusX="30" 
+                RadiusY="30" 
+                VerticalAlignment="Top" 
+                Width="399" 
+                Fill="#e4b65c"/>
 
             <Label x:Name="lblNameCompleteDeliveryman"
                Content="" 
                HorizontalAlignment="Left" 
-               Margin="1280,221,0,0" 
+               Margin="1280,270,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
                Foreground="White" 
                FontWeight="Bold" 
                Width="344"/>
-
-            <Button x:Name="btnPayCustomerOrder"
-                Content="Pagar Pedido" 
+            
+            <Rectangle 
                 HorizontalAlignment="Left" 
-                Margin="1208,823,0,0" 
+                Height="41" 
+                Margin="1250,179,0,0" 
+                Stroke="Black" 
+                RadiusX="30" 
+                RadiusY="30" 
                 VerticalAlignment="Top" 
-                Height="44" 
-                Width="206" 
-                Background="#FFDB4B2C" 
-                Foreground="#FFF8F8F8" 
-                FontFamily="Arial" 
-                FontSize="18" 
-                BorderThickness="0" 
-                FontWeight="Thin"
-                Click="BtnPayCustomerOrderOnClick"/>
+                Width="403" 
+                Fill="#e4b65c"/>
 
-            <Button x:Name="btnModifyCustomerOrder" Content="Modificar Pedido" 
+            <Label x:Name="lblCustomerAddress" 
+                Content="" 
                 HorizontalAlignment="Left" 
-                Margin="1438,823,0,0" 
-                VerticalAlignment="Top"
-                Height="44"
-                Width="206"
-                Background="#FFDB4B2C"
-                Foreground="#FFF8F8F8"
-                FontFamily="Arial" 
-                FontSize="18" 
-                BorderBrush="#FFBC8B21" 
-                BorderThickness="0"
-                FontWeight="Thin" 
-                Click="GoToModifyOrderVirtualWindow"/>
+                Margin="1277,184,0,0"
+                VerticalAlignment="Top" 
+                FontSize="16" 
+                FontFamily="Tahoma"
+                Foreground="White" 
+                FontWeight="Bold" 
+                Width="347"/>
+
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,2,0" Visibility="Collapsed">
+        <Grid x:Name="grdVirtualWindowsCustomerOrderDetails" Margin="-2,0,0,0" Grid.ColumnSpan="2">
+
             <Label Content="Contenido del pedido" 
                HorizontalAlignment="Left" 
-               Margin="1351,284,0,0" 
+               Margin="1351,325,0,0" 
                VerticalAlignment="Top" 
                Background="{x:Null}" 
                Foreground="#FFDB4B2C" 
@@ -334,7 +323,7 @@
                FontSize="20" 
                FontWeight="Bold"/>
 
-            <GridSplitter HorizontalAlignment="Left" Height="524" Margin="1446,64,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
+            <GridSplitter HorizontalAlignment="Left" Height="524" Margin="1446,105,0,0" VerticalAlignment="Top" Width="1" RenderTransformOrigin="0.5,0.5">
                 <GridSplitter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -347,7 +336,7 @@
 
             <Label Content="Nombre Producto" 
                HorizontalAlignment="Left" 
-               Margin="1208,323,0,0" 
+               Margin="1208,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
@@ -355,7 +344,7 @@
 
             <Label Content="Cantidad" 
                HorizontalAlignment="Left" 
-               Margin="1442,323,0,0" 
+               Margin="1442,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
@@ -363,33 +352,33 @@
 
             <Label Content="Costo por pieza" 
                HorizontalAlignment="Left" 
-               Margin="1554,323,0,0" 
+               Margin="1554,364,0,0" 
                VerticalAlignment="Top" 
                FontSize="18" 
                FontFamily="Tahoma" 
                Foreground="White"/>
 
             <GridSplitter 
-            HorizontalAlignment="Left" 
-            Height="26" 
-            Margin="1428,326,0,0" 
-            VerticalAlignment="Top" 
-            Width="1"/>
+                HorizontalAlignment="Left" 
+                Height="26" 
+                Margin="1428,367,0,0" 
+                VerticalAlignment="Top" 
+                Width="1"/>
 
             <GridSplitter 
             HorizontalAlignment="Left" 
             Height="26" 
-            Margin="1533,326,0,0" 
+            Margin="1533,367,0,0" 
             VerticalAlignment="Top" 
             Width="1"/>
 
             <GridSplitter 
-            HorizontalAlignment="Left" 
-            Height="526" 
-            Margin="1446,90,0,0" 
-            VerticalAlignment="Top" 
-            Width="1" 
-            RenderTransformOrigin="0.5,0.5">
+                HorizontalAlignment="Left" 
+                Height="526" 
+                Margin="1446,131,0,0" 
+                VerticalAlignment="Top" 
+                Width="1" 
+                RenderTransformOrigin="0.5,0.5">
                 <GridSplitter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -417,7 +406,7 @@
                FontFamily="Calibri" 
                Foreground="White"/>
 
-            <GridSplitter Height="751" Margin="0,383,379,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
+            <GridSplitter Height="751" Margin="0,383,406,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="1">
                 <GridSplitter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -427,10 +416,39 @@
                     </TransformGroup>
                 </GridSplitter.RenderTransform>
             </GridSplitter>
-            <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,360,23,154"/>
+            <WrapPanel x:Name="wpCustomerOrderProducts" Margin="1164,401,23,154"/>
+
+            <Image 
+                HorizontalAlignment="Left" 
+                Height="66" 
+                Margin="1322,813,0,0" 
+                VerticalAlignment="Top" 
+                Width="67" 
+                Source="\Resources\Pictures\ICON-PayOrder.png" 
+                MouseDown="BtnRealizatePayCustomerOrderOnClick" />
+
+            <Image 
+                HorizontalAlignment="Left" 
+                Height="66" 
+                Margin="1405,809,0,0" 
+                VerticalAlignment="Top" 
+                Width="67" 
+                Source="\Resources\Pictures\ICON-ChangeStatus.png" 
+                MouseDown="UpdateOrderStatus" />
+
+            <Image 
+                HorizontalAlignment="Left" 
+                Height="66" 
+                Margin="1496,813,0,0"
+                VerticalAlignment="Top"
+                Width="67" 
+                Source="\Resources\Pictures\ICON-ModifyOrder.png" 
+                MouseDown="GoToModifyOrderVirtualWindow" />
+
         </Grid>
 
-        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible">
+        <Grid x:Name="grdVirtualWindowSelectOrderAlert" Visibility="Visible" Grid.ColumnSpan="2">
+
             <Rectangle 
                 HorizontalAlignment="Left" 
                 Height="866" 
@@ -453,48 +471,7 @@
 
         </Grid>
 
-        <Grid Name="grdVirtualWindowPayDetails" Visibility="Collapsed">
-            <TextBlock Text="Datos del Pago: " TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1321,170,0,0" VerticalAlignment="Top" Foreground="White" FontSize="30" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="265"/>
-            <TextBlock Text="Tipo de Transacción: " TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1207,247,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="221"/>
-            <ComboBox Name="PayTransactionTypeComboBox" HorizontalAlignment="Left" Margin="1169,309,0,0" VerticalAlignment="Top" Height="51" Width="279" FontSize="24" Background="#FF131313" BorderBrush="#FF6C6969" IsEnabled="False"/>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1540,274,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="130"><Run Language="es-mx" Text="Cantidad: "/></TextBlock>
-            <xctk:DecimalUpDown Name="PayMonetaryValueDecimalUpDown" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" MaxLength="10" HorizontalAlignment="Left" Margin="1476,309,0,0" VerticalAlignment="Top" Height="51" Width="246" FontSize="24" IsEnabled="False"/>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1343,392,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="222"><Run Language="es-mx" Text="Contexto:"/></TextBlock>
-            <ComboBox Name="PayContextComboBox" HorizontalAlignment="Left" Margin="1308,428,0,0" VerticalAlignment="Top" Height="51" Width="280" FontSize="24" Background="#FF131313" BorderBrush="#FF6C6969" IsEnabled="False"/>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1343,519,0,0" VerticalAlignment="Top" Foreground="White" FontSize="24" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="222"><Run Language="es-mx" Text="Descripción:"/></TextBlock>
-            <TextBox Style="{StaticResource RoundCornerTextBoxStyle}" Name="PayDescriptionTextBox" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" Margin="1169,556,0,248" TextWrapping="Wrap" AcceptsReturn="True" Width="553" FontSize="24" MaxLength="300" Background="#FF131313" Foreground="White"/>
-            <Button x:Name="btnBack" Content="Atrás" 
-                HorizontalAlignment="Left" 
-                Margin="1213,698,0,0" 
-                VerticalAlignment="Top"
-                Height="44"
-                Width="206"
-                Background="#000000"
-                Foreground="#FFF8F8F8"
-                FontFamily="Arial" 
-                FontSize="18" 
-                BorderBrush="#FFBC8B21" 
-                BorderThickness="0"
-                FontWeight="Thin" 
-                Click="BtnBackOnClick"/>
-
-            <Button x:Name="btnRealizatePayCustomerOrder"
-                Content="Pagar Pedido" 
-                HorizontalAlignment="Left" 
-                Margin="1484,697,0,0" 
-                VerticalAlignment="Top" 
-                Height="44" 
-                Width="206" 
-                Background="#FFDB4B2C" 
-                Foreground="#FFF8F8F8" 
-                FontFamily="Arial" 
-                FontSize="18" 
-                BorderThickness="0" 
-                FontWeight="Thin"
-                Click="BtnRealizatePayCustomerOrderOnClick"/>
-        </Grid>
-
-        <local:NavigationBar HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Width="244"/>
 
     </Grid>
 

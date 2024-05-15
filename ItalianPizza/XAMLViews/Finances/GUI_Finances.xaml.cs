@@ -19,11 +19,12 @@ namespace ItalianPizza.XAMLViews.Finances
     /// </summary>
     public partial class GUI_Finances : Page
     {
-        List<FinancialTransactionSet> financialTransactions;
+
+        //List<FinancialTransactionSet> financialTransactions;
 
         public GUI_Finances()
         {
-            financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
+            //financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
 
             InitializeComponent();
 
@@ -123,7 +124,7 @@ namespace ItalianPizza.XAMLViews.Finances
 
         private void SaveTransactionButtonOnClick(object sender, RoutedEventArgs e)
         {
-            try
+           /* try
             {
                 if (FinancialTransactionContextComboBox.Items.Count > 0)
                 {
@@ -223,6 +224,7 @@ namespace ItalianPizza.XAMLViews.Finances
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+           */
         }
 
         private void CancelButtonOnClick(object sender, RoutedEventArgs e)
@@ -233,7 +235,7 @@ namespace ItalianPizza.XAMLViews.Finances
 
         private void ShowFinancialTransactions(string financialTransactionType, DateTime realizationDate)
         {
-            DateTime startDate = realizationDate.Date;
+            /*DateTime startDate = realizationDate.Date;
             DateTime endDate = startDate.AddDays(1);
 
             List<FinancialTransactionSet> selectedFinancialTransactions = financialTransactions
@@ -339,6 +341,7 @@ namespace ItalianPizza.XAMLViews.Finances
                 int indexToInsert = FinancialTransactionsStackPanel.Children.Count - 1;
                 FinancialTransactionsStackPanel.Children.Insert(indexToInsert, financialTransactionBorder);
             }
+            */
         }
 
         private void InitializeComboboxes()

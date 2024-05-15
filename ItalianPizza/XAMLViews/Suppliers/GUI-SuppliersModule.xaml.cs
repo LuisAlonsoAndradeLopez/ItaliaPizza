@@ -89,7 +89,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 Rectangle rectBackground = new Rectangle
                 {
-                    Height = 80,
+                    Height = 100,
                     Width = 560,
                     RadiusX = 30,
                     RadiusY = 30,
@@ -109,8 +109,8 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 Image image = new Image
                 {
-                    Height = 45,
-                    Width = 45,
+                    Height = 50,
+                    Width = 50,
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-PedidoProveedor.png", UriKind.RelativeOrAbsolute)),
                     Stretch = Stretch.Fill,
                     Margin = new Thickness(-450, 0, 0, 0),
@@ -136,6 +136,16 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Margin = new Thickness(110, 30, 0, 0),
                 };
                 grdContainer.Children.Add(lblCompanyName);
+
+                Label lblStatus = new Label
+                {
+                    Content = supplierOrder.OrderStatusSet.Status,
+                    Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
+                    FontWeight = FontWeights.Bold,
+                    FontSize = 17,
+                    Margin = new Thickness(110, 50, 0, 0),
+                };
+                grdContainer.Children.Add(lblStatus);
 
                 Button btnViewDetails = new Button
                 {

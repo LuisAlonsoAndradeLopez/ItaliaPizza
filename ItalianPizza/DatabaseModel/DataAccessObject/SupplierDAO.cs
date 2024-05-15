@@ -21,6 +21,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     suppliers = context.SupplierSet
                         .Include(supplier => supplier.UserStatusSet)
+                        .OrderBy(s => s.Names)
                         .ToList();
                 }
             }
@@ -47,6 +48,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     suppliers = context.SupplierSet
                         .Include(supplier => supplier.UserStatusSet)
                         .Where(supplier => supplier.SupplySet.Any(supply => supply.Name == supplyName))
+                        .OrderBy(s => s.Names)
                         .ToList();
                 }
             }

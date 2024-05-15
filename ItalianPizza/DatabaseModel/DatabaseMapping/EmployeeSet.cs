@@ -21,7 +21,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
             this.CustomerSet = new HashSet<CustomerSet>();
             this.DailyClosingSet = new HashSet<DailyClosingSet>();
             this.DeliveryDriverSet = new HashSet<DeliveryDriverSet>();
-            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
             this.InventoryValidationSet = new HashSet<InventoryValidationSet>();
             this.ProductSaleSet = new HashSet<ProductSaleSet>();
             this.RecipeSet = new HashSet<RecipeSet>();
@@ -29,6 +28,8 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
             this.SupplierOrderSet = new HashSet<SupplierOrderSet>();
             this.SupplySet = new HashSet<SupplySet>();
             this.EmployeePictureSet = new HashSet<EmployeePictureSet>();
+            this.IncomeFinancialTransactionSet = new HashSet<IncomeFinancialTransactionSet>();
+            this.WithDrawFinancialTransactionSet = new HashSet<WithDrawFinancialTransactionSet>();
         }
     
         public int Id { get; set; }
@@ -54,8 +55,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual ICollection<DeliveryDriverSet> DeliveryDriverSet { get; set; }
         public virtual EmployeePositionSet EmployeePositionSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InventoryValidationSet> InventoryValidationSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSaleSet> ProductSaleSet { get; set; }
@@ -71,5 +70,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual UserStatusSet UserStatusSet { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EmployeePictureSet> EmployeePictureSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IncomeFinancialTransactionSet> IncomeFinancialTransactionSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WithDrawFinancialTransactionSet> WithDrawFinancialTransactionSet { get; set; }
     }
 }

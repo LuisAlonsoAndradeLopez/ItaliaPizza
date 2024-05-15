@@ -20,7 +20,6 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
             this.CustomerOrderCustomerSet = new HashSet<CustomerOrderCustomerSet>();
             this.CustomerOrderDeliveryDriverSet = new HashSet<CustomerOrderDeliveryDriverSet>();
             this.CustomerOrderDetailSet = new HashSet<CustomerOrderDetailSet>();
-            this.FinancialTransactionSet = new HashSet<FinancialTransactionSet>();
         }
     
         public int Id { get; set; }
@@ -40,7 +39,5 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual OrderStatusSet OrderStatusSet { get; set; }
         public virtual OrderTypeSet OrderTypeSet { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FinancialTransactionSet> FinancialTransactionSet { get; set; }
     }
 }
