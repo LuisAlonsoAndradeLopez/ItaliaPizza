@@ -386,7 +386,7 @@
                 VerticalAlignment="Top"
                 Width="66"
                 Source="\Resources\Pictures\ICON-PayOrder.png"
-                MouseLeftButtonDown="ShowForm_Click"/>
+                MouseLeftButtonDown="PaySupplierOrder_Click"/>
 
             <Image
                 HorizontalAlignment="Left"

@@ -593,6 +593,41 @@ namespace ItalianPizza.XAMLViews.Suppliers
             return result;
         }
 
+        private void PaySupplierOrder_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (supplierOrderSet.OrderStatusId == 7)
+            {
+                try
+                {
+                    WithDrawFinancialTransactionSet withDrawFinancialTransaction = new WithDrawFinancialTransactionSet
+                    {
+                        Description = "Registro del pago de proveedor numero #" + supplierOrderSet.Id + " que se registro el: " + supplierOrderSet.OrderDate,
+                        RealizationDate = DateTime.Now,
+                        EmployeeId = UserToken.GetEmployeeID(),
+                        MonetaryValue = supplierOrderSet.TotalAmount,
+                        FinancialTransactionWithDrawContextId = 1
+                    };
+
+                    new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
+                    new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 5);
+
+                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                }
+            }
+            else
+            {
+                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos solamente se pueden pagar si tienen de estado: Entregado.", Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
         private void ShowForm_Click(object sender, MouseButtonEventArgs e)
         {
             grdChangeStatusForm.Visibility = Visibility.Visible;

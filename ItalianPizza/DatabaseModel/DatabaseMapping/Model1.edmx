@@ -142,7 +142,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="RealizationDate" Type="datetime" Nullable="false" />
           <Property Name="MonetaryValue" Type="float" Nullable="false" />
@@ -334,7 +334,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="225" Nullable="false" />
           <Property Name="RealizationDate" Type="datetime" Nullable="false" />
           <Property Name="MonetaryValue" Type="float" Nullable="false" />
@@ -372,7 +372,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__IncomeFin__Emplo__1B9317B3">
+        <Association Name="FK__IncomeFin__Emplo__345EC57D">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="IncomeFinancialTransactionSet" Type="Self.IncomeFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +408,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WithDrawF__Emplo__1E6F845E">
+        <Association Name="FK__WithDrawF__Emplo__373B3228">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="WithDrawFinancialTransactionSet" Type="Self.WithDrawFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -997,7 +997,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="EmployeePictureSet" EntitySet="EmployeePictureSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__IncomeFin__Emplo__1B9317B3" Association="Self.FK__IncomeFin__Emplo__1B9317B3">
+          <AssociationSet Name="FK__IncomeFin__Emplo__345EC57D" Association="Self.FK__IncomeFin__Emplo__345EC57D">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
           </AssociationSet>
@@ -1009,7 +1009,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             <End Role="SupplySet" EntitySet="SupplySet" />
             <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__WithDrawF__Emplo__1E6F845E" Association="Self.FK__WithDrawF__Emplo__1E6F845E">
+          <AssociationSet Name="FK__WithDrawF__Emplo__373B3228" Association="Self.FK__WithDrawF__Emplo__373B3228">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
           </AssociationSet>

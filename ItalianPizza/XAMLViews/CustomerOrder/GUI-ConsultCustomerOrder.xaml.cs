@@ -404,24 +404,22 @@ namespace ItalianPizza.XAMLViews
 
         private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {
-            /*if(customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
+            if (customerOrderSet.OrderStatusId == 4)
             {
                 try
                 {
-                    FinancialTransactionSet financialTransaction = new FinancialTransactionSet
+                    IncomeFinancialTransactionSet incomeFinancialTransaction = new IncomeFinancialTransactionSet
                     {
-                        Type = "Entrada",
-                        Description = "Registro del pago del pedido numero #" + customerOrderSet.Id + "que se registro el: " + customerOrderSet.OrderDate,
-                        FinancialTransactionDate = DateTime.Now,
+                        Description = "Registro del pago del pedido numero #" + customerOrderSet.Id + " que se registro el: " + customerOrderSet.OrderDate,
+                        RealizationDate = DateTime.Now,
                         EmployeeId = UserToken.GetEmployeeID(),
                         MonetaryValue = customerOrderSet.TotalAmount,
-                        IncomeContextId = 1,
-                        WithDrawContextId = 1
+                        FinancialTransactionIncomeContextId = 1
                     };
 
-                    new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
-                    customerOrdersDAO.PayCustomerOrder(customerOrderSet);
+                    new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
                     customerOrdersDAO.ModifyOrderStatus(customerOrderSet.Id, 5);
+
                     new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
                     NavigationService.Navigate(new GUI_ConsultCustomerOrder());
                 }
@@ -436,9 +434,8 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos con el estado de cancelado o pagado, no se pueden pagar otra vez!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos solo se pueden pagar si se encuentran en estado: Enviado.", Auxiliary.AlertPopupTypes.Error);
             }
-            */
         }
 
         private void ListBox_OrderStatusSelection(object sender, SelectionChangedEventArgs e)
