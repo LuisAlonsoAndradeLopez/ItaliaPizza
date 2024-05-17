@@ -404,7 +404,7 @@ namespace ItalianPizza.XAMLViews
 
         private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {
-            if (customerOrderSet.OrderStatusId == 4)
+            if (customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
             {
                 try
                 {

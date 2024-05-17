@@ -379,15 +379,6 @@
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 
         <Grid x:Name="grdGroupModifyButtons" Visibility="Hidden">
-            <Image 
-                HorizontalAlignment="Left"
-                Height="66"
-                Margin="1329,819,0,0" 
-                VerticalAlignment="Top"
-                Width="66"
-                Source="\Resources\Pictures\ICON-PayOrder.png"
-                MouseLeftButtonDown="PaySupplierOrder_Click"/>
-
             <Image
                 HorizontalAlignment="Left"
                 Height="66"

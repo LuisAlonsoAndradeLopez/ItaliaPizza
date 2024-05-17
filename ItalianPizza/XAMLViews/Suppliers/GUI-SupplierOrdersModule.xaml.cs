@@ -477,6 +477,10 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 {
                     OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
                     orderSupplierDAO.AddSupplierOrder(supplierOrder, listSupplySupplierOrder);
+                    if((bool)supplierOrder.IsPaid)
+                    {
+                        PaySupplierOrder_Click(supplierOrder);
+                    }
                     new AlertPopup("Registro Completado",
                         "Se ha registrado el Pedido a proveedor corectamente",
                         Auxiliary.AlertPopupTypes.Success);
@@ -593,38 +597,31 @@ namespace ItalianPizza.XAMLViews.Suppliers
             return result;
         }
 
-        private void PaySupplierOrder_Click(object sender, MouseButtonEventArgs e)
+        private void PaySupplierOrder_Click(SupplierOrderSet supplierOrderSetAux)
         {
-            if (supplierOrderSet.OrderStatusId == 7)
+            try
             {
-                try
+                WithDrawFinancialTransactionSet withDrawFinancialTransaction = new WithDrawFinancialTransactionSet
                 {
-                    WithDrawFinancialTransactionSet withDrawFinancialTransaction = new WithDrawFinancialTransactionSet
-                    {
-                        Description = "Registro del pago de proveedor numero #" + supplierOrderSet.Id + " que se registro el: " + supplierOrderSet.OrderDate,
-                        RealizationDate = DateTime.Now,
-                        EmployeeId = UserToken.GetEmployeeID(),
-                        MonetaryValue = supplierOrderSet.TotalAmount,
-                        FinancialTransactionWithDrawContextId = 1
-                    };
+                    Description = "Registro del pago de proveedor numero #" + supplierOrderSetAux.Id + " que se registro el: " + supplierOrderSetAux.OrderDate,
+                    RealizationDate = DateTime.Now,
+                    EmployeeId = UserToken.GetEmployeeID(),
+                    MonetaryValue = supplierOrderSetAux.TotalAmount,
+                    FinancialTransactionWithDrawContextId = 1
+                };
 
-                    new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
-                    new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 5);
+                new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
+                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSetAux.Id, 5);
 
-                    new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
-                }
-                catch (EntityException)
-                {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-                }
-                catch (InvalidOperationException)
-                {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
-                }
+                new AlertPopup("¡Pago exitoso!", "Pago realizado con éxito.", AlertPopupTypes.Success);
             }
-            else
+            catch (EntityException)
             {
-                new AlertPopup("Error al pagar pedido", "Lo siento, pero los pedidos solamente se pueden pagar si tienen de estado: Entregado.", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (InvalidOperationException)
+            {
+                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -643,6 +640,10 @@ namespace ItalianPizza.XAMLViews.Suppliers
             if(supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
             {
                 new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 7);
+                if((bool)supplierOrderSet.IsPaid)
+                {
+                    PaySupplierOrder_Click(supplierOrderSet);
+                }
                 new SupplyDAO().UpdateSupplyInInventory(listSupplySupplierOrder);
                 new AlertPopup("Actualización del estado del pedido",
                     "Se actualizó correctamente el estado del pedido",
