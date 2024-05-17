@@ -85,7 +85,7 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             {
                 try
                 {
-                    customerOrdersDAO.ModifyOrderStatus(customerOrder.Id, 4);
+                    customerOrdersDAO.ModifyOrderStatus(customerOrder.Id, 7);
                     new AlertPopup("Actualización del estado del pedido",
                         "Se actualizó correctamente el estado del pedido",
                         Auxiliary.AlertPopupTypes.Success);
@@ -332,6 +332,11 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             {
                 parent.Children.Remove(this);
             }
+        }
+
+        private void btnOrderDelivered_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
