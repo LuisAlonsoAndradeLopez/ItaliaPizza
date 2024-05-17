@@ -14,6 +14,13 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     
     public partial class DailyClosingSet
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DailyClosingSet()
+        {
+            this.IncomeFinancialTransactionSet = new HashSet<IncomeFinancialTransactionSet>();
+            this.WithDrawFinancialTransactionSet = new HashSet<WithDrawFinancialTransactionSet>();
+        }
+    
         public int Id { get; set; }
         public System.DateTime ClosingDate { get; set; }
         public string Description { get; set; }
@@ -21,5 +28,9 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
         public int EmployeeId { get; set; }
     
         public virtual EmployeeSet EmployeeSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<IncomeFinancialTransactionSet> IncomeFinancialTransactionSet { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WithDrawFinancialTransactionSet> WithDrawFinancialTransactionSet { get; set; }
     }
 }

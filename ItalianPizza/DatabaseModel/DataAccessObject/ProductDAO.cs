@@ -296,6 +296,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             ProductTypeSet = p.ProductTypeSet,
                             Observations = p.Observations
                         })
+                        .OrderBy(item => item.Name)
                         .ToList();
 
                     return activeSupplies;
@@ -406,13 +407,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             int generatedID = 0;
 
-            ProductPictureSet pictureSet = new ProductPictureSet
-            {
-                ProductImage = modifiedProduct.Picture
-            };
-
-            modifiedProduct.Picture = null;
-
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -423,16 +417,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         productFound.Name = modifiedProduct.Name;
                         productFound.Quantity = modifiedProduct.Quantity;
                         productFound.PricePerUnit = modifiedProduct.PricePerUnit;
-                        productFound.Picture = modifiedProduct.Picture;
                         productFound.ProductTypeId = modifiedProduct.ProductTypeId;
                         productFound.EmployeeId = modifiedProduct.EmployeeId;
                         productFound.IdentificationCode = modifiedProduct.IdentificationCode;
                         productFound.Description = modifiedProduct.Description;
                         context.SaveChanges();
+                        generatedID = (int)productFound.Id;
+                    }
+
+                    ProductPictureSet productPictureFound = context.ProductPictureSet.Where(pp => pp.Product_Id == originalProduct.Id).FirstOrDefault();
+                    if(productPictureFound != null)
+                    {
+                        productPictureFound.ProductImage = modifiedProduct.Picture;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        ProductPictureSet pictureSet = new ProductPictureSet
+                        {
+                            ProductImage = modifiedProduct.Picture
+                        };
+
                         pictureSet.Product_Id = originalProduct.Id;
                         context.ProductPictureSet.Add(pictureSet);
                         context.SaveChanges();
-                        generatedID = (int)productFound.Id;
                     }
                 }
             }

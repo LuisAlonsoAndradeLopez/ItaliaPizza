@@ -166,7 +166,16 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            new AlertPopup("¡No disponible!", "En desarrollo de software.", AlertPopupTypes.Error);
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_Finances());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)

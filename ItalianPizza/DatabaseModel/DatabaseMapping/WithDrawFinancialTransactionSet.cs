@@ -15,13 +15,14 @@ namespace ItalianPizza.DatabaseModel.DatabaseMapping
     public partial class WithDrawFinancialTransactionSet
     {
         public int Id { get; set; }
-        public string Type { get; set; }
         public string Description { get; set; }
         public System.DateTime RealizationDate { get; set; }
         public double MonetaryValue { get; set; }
         public int EmployeeId { get; set; }
         public Nullable<int> FinancialTransactionWithDrawContextId { get; set; }
+        public Nullable<int> DailyClosingId { get; set; }
     
+        public virtual DailyClosingSet DailyClosingSet { get; set; }
         public virtual EmployeeSet EmployeeSet { get; set; }
         public virtual FinancialTransactionWithDrawContextSet FinancialTransactionWithDrawContextSet { get; set; }
     }

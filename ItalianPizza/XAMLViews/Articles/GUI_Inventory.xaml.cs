@@ -159,23 +159,26 @@ namespace ItalianPizza.XAMLViews
 
         private void SelectImageButtonOnClick(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                Filter = "Image Files (*.png)|*.png",
-                Title = "Selecciona una imágen"
-            };
+                openFileDialog.Filter = "Image Files (*.png)|*.png";
+                openFileDialog.Title = "Selecciona una imágen";
 
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                BitmapImage imageSource = new BitmapImage(new Uri(openFileDialog.FileName));
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WriteableBitmap imageSource = new WriteableBitmap(new BitmapImage(new Uri(openFileDialog.FileName)));
 
-                if (new ImageManager().GetBitmapImageBytes(imageSource).Length <= 10 * 1024 * 1024)
-                {
-                    ModifySelectedArticleImage.Source = imageSource;
-                }
-                else
-                {
-                    new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 2MB", AlertPopupTypes.Error);
+                    if (new ImageManager().GetWriteableBitmapBytes(imageSource).Length <= 10 * 1024 * 1024)
+                    {
+                        ModifySelectedArticleImage.Source = imageSource;
+                    }
+                    else
+                    {
+                        new AlertPopup("¡Tamaño de imágen excedido!", "La imágen no debe pesar más de 2MB", AlertPopupTypes.Error);
+                    }
+
+                    imageSource.Freeze();
+                    imageSource = null;
                 }
             }
         }
@@ -300,7 +303,7 @@ namespace ItalianPizza.XAMLViews
                                         Name = ModifySelectedArticleNameTextBox.Text,
                                         Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
                                         PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                        Picture = new ImageManager().GetWriteableBitmapBytes((WriteableBitmap)ModifySelectedArticleImage.Source),
                                         SupplyUnitId = new SupplyUnitDAO().GetSupplyUnitByName(ModifySelectedArticleUnitComboBox.SelectedItem?.ToString()).Id,
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
                                         SupplyTypeId = new SupplyTypeDAO().GetSupplyTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
@@ -309,7 +312,7 @@ namespace ItalianPizza.XAMLViews
                                     };
 
                                     new SupplyDAO().ModifySupply(originalSupply, modifiedSupply);
-                                    //new ImageManager().OverwriteSupplyImagePath(originalSupply.Id);
+                                    new ImageManager().OverwriteSupplyImagePath(originalSupply.Id);
                                 }
 
                                 if (SelectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
@@ -321,7 +324,7 @@ namespace ItalianPizza.XAMLViews
                                         Name = ModifySelectedArticleNameTextBox.Text,
                                         Quantity = ModifySelectedArticleQuantityIntegerUpDown.Value ?? 0,
                                         PricePerUnit = (double)ModifySelectedArticlePriceDecimalUpDown.Value,
-                                        Picture = new ImageManager().GetBitmapImageBytes((BitmapImage)ModifySelectedArticleImage.Source),
+                                        Picture = new ImageManager().GetWriteableBitmapBytes((WriteableBitmap)ModifySelectedArticleImage.Source),
                                         ProductStatusId = new ProductStatusDAO().GetProductStatusByName(SelectedArticleStatusTextBlock.Text.ToString()).Id,
                                         ProductTypeId = new ProductTypeDAO().GetProductTypeByName(ModifySelectedArticleCategoryComboBox.SelectedItem?.ToString()).Id,
                                         EmployeeId = UserToken.GetEmployeeID(),
@@ -330,25 +333,13 @@ namespace ItalianPizza.XAMLViews
                                     };
 
                                     new ProductDAO().ModifyProduct(originalProduct, modifiedProduct);
-                                    //new ImageManager().OverwriteProductImagePath(originalProduct.Id);
+                                    new ImageManager().OverwriteProductImagePath(originalProduct.Id);
                                 }
 
                                 new AlertPopup("¡Muy bien!", "Artículo modificado con éxito", AlertPopupTypes.Success);
 
-                                UpdateSelectedArticleDetailsStackPanel(ModifySelectedArticleNameTextBox.Text, SelectedArticleTypeTextBlock.Text);
-                                UpdateModifySelectedArticleDetailsStackPanel();
-                                InitializeComboboxesForModifySomeSelectedArticleData();
-                                supplies = new SupplyDAO().GetAllSupplyWithoutPhoto().OrderBy(item => item.Name).ToList();
-                                products = new ProductDAO().GetAllProductsWithoutPhoto().OrderBy(item => item.Name).ToList();
-                                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
-
-                                ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
-                                ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
-                                ModifySelectedArticleButtonsStackPanel.Visibility = Visibility.Collapsed;
-
-                                SelectedArticleImageStackPanel.Visibility = Visibility.Visible;
-                                SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
-                                SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
+                                NavigationService navigationService = NavigationService.GetNavigationService(this);
+                                navigationService.Navigate(new GUI_Inventory());
                             }
                             else
                             {
@@ -518,7 +509,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    articleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -562,7 +557,7 @@ namespace ItalianPizza.XAMLViews
                 articleStackPanel.Children.Add(articleTypeTextBlock);
                 articleStackPanel.Children.Add(articleStatusTextBlock);
 
-                articleBorder.Child = articleStackPanel;
+                articleBorder.Child = articleStackPanel; 
 
                 ArticlesStackPanel.Children.Add(articleBorder);
             }
@@ -597,7 +592,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    articleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    articleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 TextBlock articleNameTextBlock = new TextBlock
@@ -679,7 +678,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    SelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    SelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 SelectedArticleNameTextBlock.Text = supply.Name;
@@ -699,7 +702,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    SelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    SelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 SelectedArticleNameTextBlock.Text = product.Name;
@@ -747,7 +754,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Supplies\\{supply.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    ModifySelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    ModifySelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 ModifySelectedArticleNameTextBox.Text = supply.Name;
@@ -771,7 +782,11 @@ namespace ItalianPizza.XAMLViews
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
 
-                    ModifySelectedArticleImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                    WriteableBitmap writeableBitmap = new WriteableBitmap(new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute)));
+                    ModifySelectedArticleImage.Source = writeableBitmap;
+
+                    writeableBitmap.Freeze();
+                    writeableBitmap = null;
                 }
 
                 ModifySelectedArticleNameTextBox.Text = product.Name;

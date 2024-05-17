@@ -9,7 +9,6 @@
       d:DesignWidth="1742.8"
       Title="GUI_SupplierOrdersModule">
 
-    
     <Grid x:Name="Background" Background="#FF131313">
 
         <Rectangle 
@@ -341,7 +340,7 @@
             Width="34" 
             Source="/Resources/Pictures/ICON-SearchSupplier.png"/>
 
-        <Grid x:Name="grdRegisterButtons" Visibility="Visible">
+        <Grid x:Name="grdRegisterButtons">
 
             <Button x:Name="btnRegisterCustomerOrder" 
                  Content="Registrar Nuevo Pedido" 
@@ -380,11 +379,10 @@
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 
         <Grid x:Name="grdGroupModifyButtons" Visibility="Hidden">
-
             <Image
                 HorizontalAlignment="Left"
                 Height="66"
-                Margin="1373,817,0,0"
+                Margin="1427,819,0,0"
                 VerticalAlignment="Top"
                 Width="70"
                 Source="\Resources\Pictures\ICON-ChangeStatus.png"
@@ -393,7 +391,7 @@
             <Image
                 HorizontalAlignment="Left"
                 Height="66"
-                Margin="1485,817,0,0"
+                Margin="1535,819,0,0"
                 VerticalAlignment="Top" 
                 Width="70"
                 Source="\Resources\Pictures\ICON-Save.png"
@@ -402,7 +400,7 @@
             <Image 
                 HorizontalAlignment="Left"
                 Height="66"
-                Margin="1255,817,0,0" 
+                Margin="1223,819,0,0" 
                 VerticalAlignment="Top"
                 Width="66"
                 Source="/Resources/Pictures/ICON-Back.png"
@@ -611,5 +609,4 @@
             </CheckBox.RenderTransform>
         </CheckBox>
     </Grid>
-    
 </Page>

@@ -186,13 +186,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             int generatedID = 0;
 
-            SupplyPictureSet pictureSet = new SupplyPictureSet
-            {
-                SupplyImage = modifiedSupply.Picture
-            };
-
-            modifiedSupply.Picture = null;
-
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -203,16 +196,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         supplyFound.Name = modifiedSupply.Name;
                         supplyFound.Quantity = modifiedSupply.Quantity;
                         supplyFound.PricePerUnit = modifiedSupply.PricePerUnit;
-                        supplyFound.Picture = modifiedSupply.Picture;
                         supplyFound.SupplyUnitId = modifiedSupply.SupplyUnitId;
                         supplyFound.SupplyTypeId = modifiedSupply.SupplyTypeId;
                         supplyFound.EmployeeId = modifiedSupply.EmployeeId;
                         supplyFound.IdentificationCode = modifiedSupply.IdentificationCode;
                         context.SaveChanges();
+                        generatedID = (int)supplyFound.Id;
+                    }
+
+                    SupplyPictureSet supplyPictureFound = context.SupplyPictureSet.Where(sp => sp.Supply_Id == originalSupply.Id).FirstOrDefault();
+                    if (supplyPictureFound != null)
+                    {
+                        supplyPictureFound.SupplyImage = modifiedSupply.Picture;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        SupplyPictureSet pictureSet = new SupplyPictureSet
+                        {
+                            SupplyImage = modifiedSupply.Picture
+                        };
+
                         pictureSet.Supply_Id = originalSupply.Id;
                         context.SupplyPictureSet.Add(pictureSet);
                         context.SaveChanges();
-                        generatedID = (int)supplyFound.Id;
                     }
                 }
             }
