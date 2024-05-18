@@ -224,7 +224,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
                         bitmapImage.StreamSource = memoryStream;
                         bitmapImage.EndInit();
-                        bitmapImage.Freeze(); // Freeze the image for performance benefits
+                        bitmapImage.Freeze();
                     }
                 }
 

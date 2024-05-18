@@ -139,6 +139,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     context.UserAccountSet.Add(account);
                     employee.UserAccount_Id = account.Id;
                     context.EmployeeSet.Add(employee);
+                    context.EmployeePictureSet.Add(new EmployeePictureSet { Employee_Id = employee.Id, EmployeeImage = employee.ProfilePhoto });
                     result = context.SaveChanges();
                 }
 
@@ -241,6 +242,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     UserAccountSet userAccountToModify = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
                     EmployeeSet employeeToModify = context.EmployeeSet.Where(e => e.Email == employee.Email).FirstOrDefault();
+                    EmployeePictureSet employeePicture = context.EmployeePictureSet.Where(p => p.Employee_Id == employee.Id).FirstOrDefault();
 
                     if (userAccountToModify != null && employeeToModify != null)
                     {
@@ -255,6 +257,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         employeeToModify.UserStatusId = employee.UserStatusId;
                         employeeToModify.EmployeePositionId = employee.EmployeePositionId;
                         employeeToModify.Address_Id = employee.Address_Id;
+                        employeePicture.EmployeeImage = employee.ProfilePhoto;
                         result = context.SaveChanges();
                     }
                 }
@@ -280,6 +283,15 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     UserAccountSet userAccountToModify = context.UserAccountSet.Where(u => u.UserName == account.UserName).FirstOrDefault();
                     EmployeeSet employeeToModify = context.EmployeeSet.Where(e => e.Email == employee.Email).FirstOrDefault();
+                    EmployeePictureSet employeePicture = context.EmployeePictureSet.Where(p => p.Employee_Id == employee.Id).FirstOrDefault();
+
+                    if(employeePicture == null)
+                    {
+                        employeePicture = new EmployeePictureSet();
+                        employeePicture.Employee_Id = employeeToModify.Id;
+                        employeePicture.EmployeeImage = employee.ProfilePhoto;
+                        context.EmployeePictureSet.Add(employeePicture);
+                    }
 
                     if (userAccountToModify != null && employeeToModify != null)
                     {

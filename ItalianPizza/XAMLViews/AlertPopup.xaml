@@ -27,8 +27,8 @@
                     <Button Style="{StaticResource AlertPopupRedButtonStyle}" Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="128" Margin="0,14,0,0" Click="AcceptButtonOnClick"/>
                 </StackPanel>
                 <StackPanel Name="DecisionAlertPopupButtonsPane" Orientation="Horizontal" Visibility="Collapsed" Height="80">
-                    <Button Style="{StaticResource AlertPopupRedButtonStyle}" Content="Si" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="128" Margin="100,3,0,0" Click="YesButtonOnClick"/>
-                    <Button Style="{StaticResource AlertPopupBlackButtonStyle}" Content="No" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="128" Margin="120,3,0,0" Click="NoButtonOnClick"/>
+                    <Button Style="{StaticResource AlertPopupBlackButtonStyle}" Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="128" Margin="120,3,0,0" Click="NoButtonOnClick"/>
+                    <Button Style="{StaticResource AlertPopupRedButtonStyle}" Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Width="128" Margin="100,3,0,0" Click="YesButtonOnClick"/>
                 </StackPanel>
             </StackPanel>
         </Border>
