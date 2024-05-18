@@ -126,6 +126,7 @@
     <Compile Include="DAOsTests\ProductDAOTest.cs" />
     <Compile Include="DAOsTests\ProductStatusDAOTest.cs" />
     <Compile Include="DAOsTests\ProductTypeDAOTest.cs" />
+    <Compile Include="DAOsTests\RecipeDAOTest.cs" />
     <Compile Include="DAOsTests\SupplyDAOTest.cs" />
     <Compile Include="DAOsTests\SupplyTypeDAOTest.cs" />
     <Compile Include="DAOsTests\FinancialTransactionIncomeContextDAOTest.cs" />

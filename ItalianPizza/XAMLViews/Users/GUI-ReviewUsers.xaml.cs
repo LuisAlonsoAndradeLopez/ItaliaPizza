@@ -1,12 +1,15 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -85,6 +88,9 @@ namespace ItalianPizza.XAMLViews
         {
             wpUsersRegistered.Children.Clear();
 
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string relativePath;
+            string imagePath;
 
             foreach (var employee in employees)
             {
@@ -112,8 +118,15 @@ namespace ItalianPizza.XAMLViews
                     Width = 74,
                     Height = 100,
                     Margin = new Thickness(40, 0, 0, 0),
-                    Source = new UserDAO().GetUserImage(employee.ProfilePhoto),
                 };
+
+                if (new ImageManager().CheckUserImagePath(employee.Id))
+                {
+                    relativePath = $"..\\TempCache\\Users\\{employee.Id}.png";
+                    imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
+
+                    userImage.Source = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+                }
 
                 TextBlock lblFullName = new TextBlock
                 {
