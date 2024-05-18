@@ -1,7 +1,8 @@
 ﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
-using ItalianPizza.XAMLViews.Finances;
 using ItalianPizza.XAMLViews.Suppliers;
+using ItalianPizza.Auxiliary;
+using ItalianPizza.XAMLViews.Finances;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -19,7 +20,6 @@ namespace ItalianPizza.XAMLViews
     public partial class NavigationBar : UserControl
     {
         Dictionary<string, Button> ButtonsNavegationBar = new Dictionary<string, Button>();
-
         public NavigationBar()
         {
             InitializeComponent();
@@ -72,8 +72,8 @@ namespace ItalianPizza.XAMLViews
             catch (System.Exception)
             {
             }
-
-            if (employeePosition != null)
+            
+            if(employeePosition != null)
             {
                 switch (employeePosition.Position)
                 {
@@ -102,12 +102,12 @@ namespace ItalianPizza.XAMLViews
         {
             double distanciaEntreElementos = 10;
 
-            for (int i = 1; i < ButtonsNavegationBar.Count; i++)
+            for (int i = 1; i < ButtonsNavegationBar.Count; i++) 
             {
                 Button button = ButtonsNavegationBar.ElementAt(i).Value;
 
                 Button buttonAnterior = ButtonsNavegationBar.ElementAt(i - 1).Value;
-                double desplazamientoY = 0;
+                double desplazamientoY = 0; 
 
                 if (buttonAnterior.Visibility == Visibility.Hidden)
                 {
@@ -124,32 +124,86 @@ namespace ItalianPizza.XAMLViews
 
         public void BtnUsersModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_ReviewUsers());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_ReviewUsers());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!", 
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas", 
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnInventoryModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_Inventory());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_Inventory());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnCustomerOrderModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_ConsultCustomerOrder());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_ConsultCustomerOrder());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnFinanceModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_Finances());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_Finances());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnSupplierModule_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_SuppliersModule());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_SuppliersModule());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         public void BtnLogOut_Click(object sender, RoutedEventArgs e)
         {
-            ChangePage(new GUI_Login());
+            if (!CustomerOrderToken.InProcess)
+            {
+                ChangePage(new GUI_Login());
+            }
+            else
+            {
+                new AlertPopup("¡Pedido En Proceso!",
+                    "Tienes que cancelar primero el pedido, para poder moverte entre las otras ventanas",
+                    AlertPopupTypes.Error);
+            }
         }
 
         private void ChangePage(Page page)

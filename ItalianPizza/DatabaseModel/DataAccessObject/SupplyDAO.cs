@@ -123,6 +123,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             SupplyUnitSet = s.SupplyUnitSet,
                             Observations = s.Observations
                         })
+                        .OrderBy(s => s.Name)
                         .ToList();
 
                     return activeSupplies;
@@ -136,30 +137,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             catch (InvalidOperationException ex)
             {
                 throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
-            }
-        }
-
-        public BitmapImage GetImageBySupplyName(string supplyName)
-        {
-            using (var context = new ItalianPizzaServerBDEntities())
-            {
-                byte[] imageBytes = context.SupplySet.AsNoTracking().FirstOrDefault(s => s.Name == supplyName).Picture;
-
-                BitmapImage bitmapImage = new BitmapImage();
-
-                if (imageBytes != null)
-                {
-                    using (MemoryStream memoryStream = new MemoryStream(imageBytes))
-                    {
-                        bitmapImage.BeginInit();
-                        bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                        bitmapImage.StreamSource = memoryStream;
-                        bitmapImage.EndInit();
-                        bitmapImage.Freeze(); // Freeze the image for performance benefits
-                    }
-                }
-
-                return bitmapImage;
             }
         }
 
@@ -209,13 +186,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         {
             int generatedID = 0;
 
-            SupplyPictureSet pictureSet = new SupplyPictureSet
-            {
-                SupplyImage = modifiedSupply.Picture
-            };
-
-            modifiedSupply.Picture = null;
-
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
@@ -226,16 +196,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         supplyFound.Name = modifiedSupply.Name;
                         supplyFound.Quantity = modifiedSupply.Quantity;
                         supplyFound.PricePerUnit = modifiedSupply.PricePerUnit;
-                        supplyFound.Picture = modifiedSupply.Picture;
                         supplyFound.SupplyUnitId = modifiedSupply.SupplyUnitId;
                         supplyFound.SupplyTypeId = modifiedSupply.SupplyTypeId;
                         supplyFound.EmployeeId = modifiedSupply.EmployeeId;
                         supplyFound.IdentificationCode = modifiedSupply.IdentificationCode;
                         context.SaveChanges();
+                        generatedID = (int)supplyFound.Id;
+                    }
+
+                    SupplyPictureSet supplyPictureFound = context.SupplyPictureSet.Where(sp => sp.Supply_Id == originalSupply.Id).FirstOrDefault();
+                    if (supplyPictureFound != null)
+                    {
+                        supplyPictureFound.SupplyImage = modifiedSupply.Picture;
+                        context.SaveChanges();
+                    }
+                    else
+                    {
+                        SupplyPictureSet pictureSet = new SupplyPictureSet
+                        {
+                            SupplyImage = modifiedSupply.Picture
+                        };
+
                         pictureSet.Supply_Id = originalSupply.Id;
                         context.SupplyPictureSet.Add(pictureSet);
                         context.SaveChanges();
-                        generatedID = (int)supplyFound.Id;
                     }
                 }
             }
@@ -322,6 +306,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             s.EmployeeId,
                             s.IdentificationCode
                         })
+                        .OrderBy(s => s.Name)
                         .ToList();
 
                     supplyList = supplyProperties.Select(sp => new SupplySet
@@ -518,6 +503,37 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return supplyPicture;
+        }
+
+        public int UpdateSupplyInInventory(List<SupplySet> supplySets)
+        {
+            int result = 0;
+
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    foreach (var supplySet in supplySets)
+                    {
+                        SupplySet supplyExisting = context.SupplySet.FirstOrDefault(s => s.Id == supplySet.Id);
+                        if (supplyExisting != null)
+                        {
+                            supplyExisting.Quantity = supplyExisting.Quantity + supplySet.Quantity;
+                        }
+                    }
+                    result = context.SaveChanges();
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
         }
     }
 }

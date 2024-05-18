@@ -19,11 +19,13 @@ namespace ItalianPizza.XAMLViews.Finances
     /// </summary>
     public partial class GUI_Finances : Page
     {
-        List<FinancialTransactionSet> financialTransactions;
+        List<IncomeFinancialTransactionSet> incomeFinancialTransactions;
+        List<WithDrawFinancialTransactionSet> withDrawFinancialTransactions;
 
         public GUI_Finances()
         {
-            financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
+            incomeFinancialTransactions = new IncomeFinancialTransactionDAO().GetIncomeFinancialTransactions();
+            withDrawFinancialTransactions = new WithDrawFinancialTransactionDAO().GetWithDrawFinancialTransactions();
 
             InitializeComponent();
 
@@ -160,33 +162,41 @@ namespace ItalianPizza.XAMLViews.Finances
                             financialTransactionMonetaryValue = 0;
                         }
 
-                        FinancialTransactionSet financialTransaction = new FinancialTransactionSet
-                        {
-                            Type = financialTransactionType,
-                            Description = FinancialTransactionDescriptionTextBox.Text,
-                            FinancialTransactionDate = DateTime.Now,
-                            EmployeeId = UserToken.GetEmployeeID(),
-                            MonetaryValue = financialTransactionMonetaryValue
-                        };
-
                         if (financialTransactionType == FinancialTransactionTypes.Entrada.ToString())
                         {
-                            financialTransaction.IncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(financialTransactionContext).Id;
+                            IncomeFinancialTransactionSet incomeFinancialTransaction = new IncomeFinancialTransactionSet
+                            {
+                                Description = FinancialTransactionDescriptionTextBox.Text,
+                                RealizationDate = DateTime.Now,
+                                EmployeeId = UserToken.GetEmployeeID(),
+                                MonetaryValue = financialTransactionMonetaryValue,
+                                FinancialTransactionIncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(financialTransactionContext).Id
+                            };
+
+                            new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
+                            incomeFinancialTransactions = new IncomeFinancialTransactionDAO().GetIncomeFinancialTransactions();
                         }
 
                         if (financialTransactionType == FinancialTransactionTypes.Salida.ToString())
-                        {
-                            financialTransaction.WithDrawContextId = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextByName(financialTransactionContext).Id;
-                        }
+                        {                            
+                            WithDrawFinancialTransactionSet withDrawFinancialTransaction = new WithDrawFinancialTransactionSet
+                            {
+                                Description = FinancialTransactionDescriptionTextBox.Text,
+                                RealizationDate = DateTime.Now,
+                                EmployeeId = UserToken.GetEmployeeID(),
+                                MonetaryValue = financialTransactionMonetaryValue,
+                                FinancialTransactionWithDrawContextId = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextByName(financialTransactionContext).Id
+                            };
 
-                        new FinancialTransactionDAO().AddFinancialTransaction(financialTransaction);
+                            new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
+                            withDrawFinancialTransactions = new WithDrawFinancialTransactionDAO().GetWithDrawFinancialTransactions();
+                        }
 
                         new AlertPopup("¡Transacción exitosa!", "Transacción financiera registrada con éxito.", AlertPopupTypes.Success);
 
                         AddFinancialTransactionBorder.Visibility = Visibility.Collapsed;
                         AddFinancialTransactionButton.IsEnabled = true;
 
-                        financialTransactions = new FinancialTransactionDAO().GetFinancialTransactions();
                         ShowFinancialTransactions(TransactionTypeComboBox.SelectedItem?.ToString(), RealizationDatePicker.SelectedDate.Value);
                     }
                     else
@@ -236,108 +246,193 @@ namespace ItalianPizza.XAMLViews.Finances
             DateTime startDate = realizationDate.Date;
             DateTime endDate = startDate.AddDays(1);
 
-            List<FinancialTransactionSet> selectedFinancialTransactions = financialTransactions
-                .Where(ft => ft.Type == financialTransactionType &&
-                             ft.FinancialTransactionDate >= startDate && ft.FinancialTransactionDate <= endDate)
-                .ToList();
-
             while (FinancialTransactionsStackPanel.Children.Count > 1)
             {
                 FinancialTransactionsStackPanel.Children.RemoveAt(0);
             }
 
-            foreach (var financialTransaction in selectedFinancialTransactions)
+            if (financialTransactionType == FinancialTransactionTypes.Entrada.ToString())
             {
-                Border financialTransactionBorder = new Border
-                {
-                    Height = 73.7,
-                    Margin = new Thickness(5, 4, 5, 0),
-                    Background = new SolidColorBrush(Color.FromRgb(0x7E, 0x16, 0x16))
-                };
+                List<IncomeFinancialTransactionSet> selectedIncomeFinancialTransactions = incomeFinancialTransactions
+                    .Where(ft => ft.RealizationDate >= startDate && ft.RealizationDate <= endDate)
+                    .ToList();
 
-                StackPanel financialTransactionStackPanel = new StackPanel
+                foreach (var incomeFinancialTransaction in selectedIncomeFinancialTransactions)
                 {
-                    Orientation = Orientation.Horizontal
-                };
+                    Border financialTransactionBorder = new Border
+                    {
+                        Height = 73.7,
+                        Margin = new Thickness(5, 4, 5, 0),
+                        Background = new SolidColorBrush(Color.FromRgb(0x7E, 0x16, 0x16))
+                    };
 
-                TextBlock financialTransactionTypeTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(0),
-                    Width = 146,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 18,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = financialTransaction.Type
-                };
+                    StackPanel financialTransactionStackPanel = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal
+                    };
 
-                TextBlock financialTransactionContextTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(0),
-                    Width = 126,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 18,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                    TextBlock financialTransactionTypeTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 146,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = FinancialTransactionTypes.Entrada.ToString()
+                    };
 
-                if (financialTransaction.Type == FinancialTransactionTypes.Entrada.ToString())
+                    TextBlock financialTransactionContextTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 126,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextById(incomeFinancialTransaction.FinancialTransactionIncomeContextId ?? 0).Context
+                    };
+
+                    TextBlock financialTransactionRealizationDateTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 138,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = incomeFinancialTransaction.RealizationDate.ToString()
+                    };
+
+                    TextBlock financialTransactionPriceTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 152,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = "$" + incomeFinancialTransaction.MonetaryValue.ToString()
+                    };
+
+                    TextBlock financialTransactionDescriptionTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 821,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = incomeFinancialTransaction.Description
+                    };
+
+                    financialTransactionStackPanel.Children.Add(financialTransactionTypeTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionContextTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionRealizationDateTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionPriceTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionDescriptionTextBlock);
+                    financialTransactionBorder.Child = financialTransactionStackPanel;
+
+                    int indexToInsert = FinancialTransactionsStackPanel.Children.Count - 1;
+                    FinancialTransactionsStackPanel.Children.Insert(indexToInsert, financialTransactionBorder);
+                }            
+            }
+
+            if (financialTransactionType == FinancialTransactionTypes.Salida.ToString())
+            {
+                List<WithDrawFinancialTransactionSet> selectedWithDrawFinancialTransactions = withDrawFinancialTransactions
+                    .Where(ft => ft.RealizationDate >= startDate && ft.RealizationDate <= endDate)
+                    .ToList();
+
+                foreach (var withDrawFinancialTransaction in selectedWithDrawFinancialTransactions)
                 {
-                    financialTransactionContextTextBlock.Text = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextById(financialTransaction.IncomeContextId ?? 0).Context;
+                    Border financialTransactionBorder = new Border
+                    {
+                        Height = 73.7,
+                        Margin = new Thickness(5, 4, 5, 0),
+                        Background = new SolidColorBrush(Color.FromRgb(0x7E, 0x16, 0x16))
+                    };
+
+                    StackPanel financialTransactionStackPanel = new StackPanel
+                    {
+                        Orientation = Orientation.Horizontal
+                    };
+
+                    TextBlock financialTransactionTypeTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 146,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = FinancialTransactionTypes.Salida.ToString()
+                    };
+
+                    TextBlock financialTransactionContextTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 126,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextById(withDrawFinancialTransaction.FinancialTransactionWithDrawContextId ?? 0).Context
+                    };
+
+                    TextBlock financialTransactionRealizationDateTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 138,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = withDrawFinancialTransaction.RealizationDate.ToString()
+                    };
+
+                    TextBlock financialTransactionPriceTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 152,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = "$" + withDrawFinancialTransaction.MonetaryValue.ToString()
+                    };
+
+                    TextBlock financialTransactionDescriptionTextBlock = new TextBlock
+                    {
+                        Foreground = Brushes.White,
+                        Margin = new Thickness(0),
+                        Width = 821,
+                        TextWrapping = TextWrapping.Wrap,
+                        FontSize = 18,
+                        TextAlignment = TextAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        Text = withDrawFinancialTransaction.Description
+                    };
+
+                    financialTransactionStackPanel.Children.Add(financialTransactionTypeTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionContextTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionRealizationDateTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionPriceTextBlock);
+                    financialTransactionStackPanel.Children.Add(financialTransactionDescriptionTextBlock);
+                    financialTransactionBorder.Child = financialTransactionStackPanel;
+
+                    int indexToInsert = FinancialTransactionsStackPanel.Children.Count - 1;
+                    FinancialTransactionsStackPanel.Children.Insert(indexToInsert, financialTransactionBorder);
                 }
-
-                if (financialTransaction.Type == FinancialTransactionTypes.Salida.ToString())
-                {
-                    financialTransactionContextTextBlock.Text = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextById(financialTransaction.WithDrawContextId ?? 0).Context;
-                }
-
-                TextBlock financialTransactionRealizationDateTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(0),
-                    Width = 138,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 18,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = financialTransaction.FinancialTransactionDate.ToString()
-                };
-
-                TextBlock financialTransactionPriceTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(0),
-                    Width = 152,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 18,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = "$" + financialTransaction.MonetaryValue.ToString()
-                };
-
-                TextBlock financialTransactionDescriptionTextBlock = new TextBlock
-                {
-                    Foreground = Brushes.White,
-                    Margin = new Thickness(0),
-                    Width = 821,
-                    TextWrapping = TextWrapping.Wrap,
-                    FontSize = 18,
-                    TextAlignment = TextAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    Text = financialTransaction.Description
-                };
-
-                financialTransactionStackPanel.Children.Add(financialTransactionTypeTextBlock);
-                financialTransactionStackPanel.Children.Add(financialTransactionContextTextBlock);
-                financialTransactionStackPanel.Children.Add(financialTransactionRealizationDateTextBlock);
-                financialTransactionStackPanel.Children.Add(financialTransactionPriceTextBlock);
-                financialTransactionStackPanel.Children.Add(financialTransactionDescriptionTextBlock);
-                financialTransactionBorder.Child = financialTransactionStackPanel;
-
-                int indexToInsert = FinancialTransactionsStackPanel.Children.Count - 1;
-                FinancialTransactionsStackPanel.Children.Insert(indexToInsert, financialTransactionBorder);
             }
         }
 

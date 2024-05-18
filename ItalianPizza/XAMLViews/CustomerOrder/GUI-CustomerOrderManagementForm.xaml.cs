@@ -3,13 +3,17 @@ using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.CustomerOrder;
+using ItalianPizza.XAMLViews.Suppliers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.VisualStyles;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
@@ -28,21 +32,25 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_CustomerOrderManagementForm : Page
     {
         private CustomerOrdersDAO customerOrdersDAO;
+        private CustomerSet customerSet;
+        private DeliveryDriverSet deliveryDriverSet;
         private List<ProductSaleSet> productSaleSets;
-        private List<ProductSaleSet> listProductsCustomerOrder;
+        private List<ProductSaleSet> productsCustomerOrderList;
         private List<ProductSaleSet> listProductsCustomerOrderCopy;
         private CustomerOrderSet customerOrderSet;
         private ProductDAO productDAO;
         private UserDAO userDAO;
         private ImageManager imageManager;
+
         public GUI_CustomerOrderManagementForm(CustomerOrderSet customerOrder)
         {
             InitializeComponent();
+            CustomerOrderToken.ActivateTransaction();
             customerOrderSet = customerOrder;
             imageManager = new ImageManager();
             InitializeDAOConnections();
             ShowActiveProducts();
-            InitializeListBoxes();
+            InitializeListBoxes(customerOrder);
             GetCustomerOrderInformation(customerOrder);
         }
 
@@ -65,7 +73,7 @@ namespace ItalianPizza.XAMLViews
         private void TextBox_ProductSearch(object sender, EventArgs e)
         {
             string textSearch = txtProductSearch.Text;
-            RecoverProducts(textSearch);
+            RecoverProducts(textSearch); 
         }
 
         private void RecoverProducts(string textSearch)
@@ -75,36 +83,31 @@ namespace ItalianPizza.XAMLViews
             AddVisualProductsToWindow(filteredProducts);
         }
 
-
         private void GetCustomerOrderInformation(CustomerOrderSet customerOrder)
         {
             try
             {
                 if (customerOrderSet != null)
                 {
-                    CustomerSet customer = userDAO.GetCustomerByCustomerOrder(customerOrder.Id);
-                    DeliveryDriverSet deliveryman = userDAO.GetDeliveryDriverByCustomerOrder(customerOrder.Id);
-                    lboCustomers.SelectedItem = customer;
-                    lboDeliverymen.SelectedItem = deliveryman;
-                    lboOrderStatusCustomer.SelectedItem = customerOrderSet.OrderStatusSet;
+                    grdVirtualWindowOrderDataForm.Visibility = Visibility.Hidden;
                     lboOrderTypeCustomer.SelectedItem = customerOrderSet.OrderTypeSet;
                     GetOrderProductsActually(customerOrder);
                 }
                 else
                 {
-                    listProductsCustomerOrder = new List<ProductSaleSet>();
+                    productsCustomerOrderList = new List<ProductSaleSet>();
                     listProductsCustomerOrderCopy = new List<ProductSaleSet>();
                 }
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
                     " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la base de datos, verifique que " +
                     "los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
@@ -112,9 +115,9 @@ namespace ItalianPizza.XAMLViews
 
         private void GetOrderProductsActually(CustomerOrderSet customerOrder)
         {
-            listProductsCustomerOrder = productDAO.GetOrderProducts(customerOrder);
+            productsCustomerOrderList = productDAO.GetOrderProducts(customerOrder);
             listProductsCustomerOrderCopy = new List<ProductSaleSet>();
-            foreach (ProductSaleSet product in listProductsCustomerOrder)
+            foreach (ProductSaleSet product in productsCustomerOrderList)
             {
                 ProductSaleSet productSaleSet = new ProductSaleSet
                 {
@@ -124,11 +127,12 @@ namespace ItalianPizza.XAMLViews
                     PricePerUnit = product.PricePerUnit,
                     ProductStatusId = product.ProductStatusId,
                     EmployeeId = product.EmployeeId,
-                    Quantity = product.Quantity
+                    Quantity = product.Quantity,
+                    Recipee = product.Recipee,
                 };
                 listProductsCustomerOrderCopy.Add(productSaleSet);
             }
-            ShowOrderProducts(listProductsCustomerOrder);
+            ShowOrderProducts(productsCustomerOrderList);
             btnModifyCustomerOrder.Visibility = Visibility.Visible;
             btnRegisterCustomerOrder.Visibility = Visibility.Hidden;
         }
@@ -140,34 +144,41 @@ namespace ItalianPizza.XAMLViews
             userDAO = new UserDAO();
         }
 
-        private void InitializeListBoxes()
+        private void InitializeListBoxes(CustomerOrderSet customerOrder)
         {
             try
             {
-                lboCustomers.ItemsSource = userDAO.GetAllCustomers();
-                lboDeliverymen.ItemsSource = userDAO.GetAllDeliveryDriver();
-                lboOrderStatusCustomer.ItemsSource = customerOrdersDAO.GetOrderStatuses();
+                EmployeePositionSet employeePosition = UserToken.GetEmployeePosition();
+
+                if(employeePosition.Position == "Mesero")
+                {
+                    txtCustomers.Visibility = Visibility.Collapsed;
+                    txtDeliverymen.Visibility = Visibility.Collapsed;
+                    grdButtonAddDeliveryMan.Visibility = Visibility.Collapsed;
+                    grdButtonAddCustomer.Visibility = Visibility.Collapsed;
+                    lblDeliverymen.Visibility = Visibility.Collapsed;
+                    lblCustomers.Visibility = Visibility.Collapsed;
+                    lboOrderTypeCustomer.IsEnabled = false;
+                }
+
                 lboOrderTypeCustomer.ItemsSource = customerOrdersDAO.GetOrderTypes();
                 lboProductStatus.ItemsSource = productDAO.GetAllProductStatuses();
                 lboProductType.ItemsSource = productDAO.GetAllProductTypes();
-                UpdateListBoxItems(lboCustomers);
-                UpdateListBoxItems(lboDeliverymen);
-                lboOrderStatusCustomer.DisplayMemberPath = "Status";
                 lboOrderTypeCustomer.DisplayMemberPath = "Type";
                 lboProductStatus.DisplayMemberPath = "Status";
                 lboProductType.DisplayMemberPath = "Type";
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
                     " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos",
+                new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la base de datos, " +
-                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    "verifique que los datos que usted ingresa no esten corrompidos!", 
                     Auxiliary.AlertPopupTypes.Error);
             }
         }
@@ -199,8 +210,8 @@ namespace ItalianPizza.XAMLViews
             OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
             if (orderType.Type == "Pedido Domicilio")
             {
-                lboCustomers.Visibility = Visibility.Visible;
-                lboDeliverymen.Visibility = Visibility.Visible;
+                txtCustomers.Visibility = Visibility.Visible;
+                txtDeliverymen.Visibility = Visibility.Visible;
                 grdButtonAddDeliveryMan.Visibility = Visibility.Visible;
                 grdButtonAddCustomer.Visibility = Visibility.Visible;
                 lblDeliverymen.Visibility = Visibility.Visible;
@@ -208,8 +219,8 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                lboCustomers.Visibility = Visibility.Collapsed;
-                lboDeliverymen.Visibility = Visibility.Collapsed;
+                txtCustomers.Visibility = Visibility.Collapsed;
+                txtDeliverymen.Visibility = Visibility.Collapsed;
                 grdButtonAddDeliveryMan.Visibility = Visibility.Collapsed;
                 grdButtonAddCustomer.Visibility = Visibility.Collapsed;
                 lblDeliverymen.Visibility = Visibility.Collapsed;
@@ -219,11 +230,42 @@ namespace ItalianPizza.XAMLViews
 
         public void MouseLeftButtonUp_AddDeliveryMan(object sender, MouseButtonEventArgs e)
         {
+            DeliveryDriverForm deliveryDriverForm = new DeliveryDriverForm()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(1090, 7, 0, 0)
+            };
+            Grid.SetColumn(deliveryDriverForm, 0);
+            Background.Children.Add(deliveryDriverForm);
+            deliveryDriverForm.SelectDeliveryDriverEvent += (s, args) => RecoverSelectedDeliveryDriver(sender, e, deliveryDriverForm);
+        }
+
+        private void RecoverSelectedDeliveryDriver(object sender, EventArgs e, DeliveryDriverForm deliveryDriverForm)
+        {
+            deliveryDriverSet = deliveryDriverForm.GetSelectDeliveryDriver();
+            txtDeliverymen.Text = " " + deliveryDriverSet.Names + " " + deliveryDriverSet.LastName + " " + deliveryDriverSet.SecondLastName;
+            Background.Children.Remove(deliveryDriverForm);
         }
 
         public void MouseLeftButtonUp_AddCustomer(object sender, MouseButtonEventArgs e)
         {
+            CustomerForm customerForm = new CustomerForm()
+            {
+                HorizontalAlignment = HorizontalAlignment.Left,
+                Margin = new Thickness(1090, 7, 0, 0)
+            };
+            Grid.SetColumn(customerForm, 0);
+            Background.Children.Add(customerForm);
+            customerForm.SelectCustomerEvent += (s, args) => RecoverSelectedCustomer(sender, e, customerForm);
+        }
 
+        private void RecoverSelectedCustomer(object sender, EventArgs e, CustomerForm customerForm)
+        {
+            customerSet = customerForm.GetSelectCustomer();
+            txtCustomers.Text = " " + customerSet.Names + " " + customerSet.LastName + " " + customerSet.SecondLastName
+                + Environment.NewLine + " " +customerSet.AddressSet.StreetName + ", #" + customerSet.AddressSet.StreetNumber 
+                + ", " + customerSet.AddressSet.City + ", " + customerSet.AddressSet.Colony;
+            Background.Children.Remove(customerForm);
         }
 
         private void Button_RegisterOrderClient(object sender, RoutedEventArgs e)
@@ -231,14 +273,11 @@ namespace ItalianPizza.XAMLViews
             if (ValidateOrderDetails())
             {
                 CustomerOrderSet customerOrder = PrepareCustomerOrder();
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
-                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
-
                 try
                 {
-                    customerOrdersDAO.RegisterCustomerOrder(customerOrder,
-                        listProductsCustomerOrder, customer, deliveryman);
-                    listProductsCustomerOrder.Clear();
+                    customerOrdersDAO.RegisterCustomerOrder(customerOrder, 
+                        productsCustomerOrderList, customerSet, deliveryDriverSet);
+                    productsCustomerOrderList.Clear();
                     CleanFields();
                     new AlertPopup("Registro Exitoso", "Se ha registrado " +
                         "correctamente el pedido a la base de datos", Auxiliary.AlertPopupTypes.Success);
@@ -246,7 +285,7 @@ namespace ItalianPizza.XAMLViews
                 }
                 catch (EntityException)
                 {
-                    new AlertPopup("Error con la base de datos",
+                    new AlertPopup("Error con la base de datos", 
                         "Lo siento, pero a ocurrido un error con la conexion a la base de datos," +
                         " intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
                 }
@@ -261,10 +300,22 @@ namespace ItalianPizza.XAMLViews
 
         private bool ValidateOrderDetails()
         {
-            if (listProductsCustomerOrder.Count == 0)
+            if (productsCustomerOrderList.Count == 0)
             {
                 ShowAlert("Informacion incompleta", "El pedido del cliente debe tener al" +
                     " menos un pedido registrado, verifique si el pedido cumple con esto e inténtelo de nuevo!");
+                return false;
+            }
+
+            EmployeePositionSet employeePosition = UserToken.GetEmployeePosition();
+            if (employeePosition.Position == "Mesero")
+            {
+                return true;
+            }
+
+            if (lboOrderTypeCustomer.SelectedIndex == -1) 
+            {
+                ShowAlert("Sin tipo de pedido", "Por favor verifique que se haya selecionado el tipo de pedido");
                 return false;
             }
 
@@ -278,10 +329,7 @@ namespace ItalianPizza.XAMLViews
                     return false;
                 }
 
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
-                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
-
-                if (customerOrder.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrder.OrderStatusId != 15)
+                if (customerOrder.OrderTypeId == 1 && (customerSet == null || deliveryDriverSet == null) && customerOrder.OrderStatusId != 15)
                 {
                     ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
                     return false;
@@ -296,10 +344,7 @@ namespace ItalianPizza.XAMLViews
                     return false;
                 }
 
-                CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
-                DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
-
-                if (customerOrderSet.OrderTypeId == 1 && (customer == null || deliveryman == null) && customerOrderSet.OrderStatusId != 15)
+                if (customerOrderSet.OrderTypeId == 1 && (customerSet == null || deliveryDriverSet == null) && customerOrderSet.OrderStatusId != 15)
                 {
                     ShowAlert("Informacion incompleta", "Verifique que el cliente y el repartido del pedido haya sido seleccionado, gracias!");
                     return false;
@@ -316,8 +361,8 @@ namespace ItalianPizza.XAMLViews
 
         private void CleanFields()
         {
-            listProductsCustomerOrder.Clear();
-            ShowOrderProducts(listProductsCustomerOrder);
+            productsCustomerOrderList.Clear();
+            ShowOrderProducts(productsCustomerOrderList);
             lblTotalOrderCost.Content = "$ 0.00";
             ShowActiveProducts();
         }
@@ -325,8 +370,16 @@ namespace ItalianPizza.XAMLViews
         private CustomerOrderSet PrepareCustomerOrder()
         {
             CustomerOrderSet customerOrder = new CustomerOrderSet();
-            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
-            customerOrder.OrderTypeId = orderType.Id;
+            EmployeePositionSet employeePosition = UserToken.GetEmployeePosition();
+            if (employeePosition.Position != "Mesero")
+            {
+                OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
+                customerOrder.OrderTypeId = orderType.Id;
+            }
+            else
+            {
+                customerOrder.OrderTypeId = 2;
+            } 
             customerOrder.OrderStatusId = 1;
             customerOrder.OrderDate = DateTime.Now;
             customerOrder.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
@@ -336,15 +389,6 @@ namespace ItalianPizza.XAMLViews
 
             return customerOrder;
         }
-
-        private void PrepareModifyCustomerOrder()
-        {
-            OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
-            OrderTypeSet orderType = (OrderTypeSet)lboOrderTypeCustomer.SelectedItem;
-            customerOrderSet.OrderStatusId = orderStatus.Id;
-            customerOrderSet.OrderTypeId = orderType.Id;
-        }
-
 
         public void ShowOrderProducts(List<ProductSaleSet> orderProducts)
         {
@@ -402,7 +446,7 @@ namespace ItalianPizza.XAMLViews
         {
             double totalOrderCost = 0;
 
-            foreach (var product in listProductsCustomerOrder)
+            foreach (var product in productsCustomerOrderList)
             {
                 totalOrderCost += ((double)product.Quantity * product.PricePerUnit);
             }
@@ -479,7 +523,7 @@ namespace ItalianPizza.XAMLViews
                 rectBackground.Effect = dropShadowEffect;
                 grdContainer.Children.Add(rectBackground);
 
-                if (imageManager.CheckProductImagePath(product.Id))
+                if(imageManager.CheckProductImagePath(product.Id))
                 {
                     relativePath = $"..\\TempCache\\Products\\{product.Id}.png";
                     imagePath = Path.GetFullPath(Path.Combine(baseDirectory, relativePath));
@@ -551,62 +595,67 @@ namespace ItalianPizza.XAMLViews
             RecipeDAO recipeDAO = new RecipeDAO();
             List<RecipeDetailsSet> ingredients = recipeDAO.GetRecipeDetailsByProductSale(productSale);
 
-            if (productDAO.DecreaseSuppliesOnSale(ingredients) != -1)
+            bool isRecipee = (bool)productSale.Recipee;
+            int decreaseResult = isRecipee ? productDAO.DecreaseSuppliesOnSale(ingredients) : productDAO.DecreaseProductOnSale(productSale);
+
+            if (decreaseResult != -1)
             {
-                ProductSaleSet productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Id == productSale.Id);
+                ProductSaleSet productExisting = productsCustomerOrderList.FirstOrDefault(p => p.Id == productSale.Id);
                 if (productExisting == null)
                 {
                     productSale.Quantity = 1;
-                    listProductsCustomerOrder.Add(productSale);
+                    productsCustomerOrderList.Add(productSale);
                 }
                 else
                 {
                     productExisting.Quantity++;
                 }
 
-                ShowOrderProducts(listProductsCustomerOrder);
+                ShowOrderProducts(productsCustomerOrderList);
                 lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
             }
             else
             {
-                new AlertPopup("Faltan ingredientes", "Lo siento, pero no nos alcanza " +
-                    "los ingredientes para otro producto mas de este tipo",
-                    Auxiliary.AlertPopupTypes.Warning);
+                string alertTitle = isRecipee ? "Faltan ingredientes" : "Faltan Productos";
+                string alertMessage = isRecipee ? "Lo siento, pero no nos alcanza los ingredientes para otro producto más de este tipo" : "Lo siento, pero no nos alcanza la cantidad de productos de este tipo";
+                new AlertPopup(alertTitle, alertMessage, Auxiliary.AlertPopupTypes.Warning);
             }
         }
 
         private void RemoveProductSaleToOrder(ProductSaleSet productSale)
         {
             RecipeDAO recipeDAO = new RecipeDAO();
+            List<RecipeDetailsSet> ingredients = recipeDAO.GetRecipeDetailsByProductSale(productSale);
+            ProductSaleSet productExisting = productsCustomerOrderList.FirstOrDefault(p => p.Name == productSale.Name);
 
-            try
+            if (productExisting != null)
             {
-                List<RecipeDetailsSet> ingredients = recipeDAO.GetRecipeDetailsByProductSale(productSale);
-
-                ProductSaleSet productExisting = listProductsCustomerOrder.FirstOrDefault(p => p.Name == productSale.Name);
-                if (productExisting != null && productExisting.Quantity > 1)
+                if (productExisting.Quantity > 1)
                 {
                     productExisting.Quantity--;
-                    productDAO.RestoreSuppliesOnSale(ingredients);
                 }
-                else if (productExisting != null && productExisting.Quantity == 1)
+                else
                 {
                     productSale.Quantity = 0;
-                    listProductsCustomerOrder.Remove(productExisting);
+                    productsCustomerOrderList.Remove(productExisting);
+                }
+
+                if ((bool)productExisting.Recipee)
+                {
                     productDAO.RestoreSuppliesOnSale(ingredients);
                 }
-                ShowOrderProducts(listProductsCustomerOrder);
-                lblTotalOrderCost.Content = "$ " + CalculateTotalCost() + ".00";
+                else
+                {
+                    productDAO.RestoreProductOnSale(productSale);
+                }
+
+                ShowOrderProducts(productsCustomerOrderList);
+                lblTotalOrderCost.Content = $"$ {CalculateTotalCost()}.00";
             }
-            catch (EntityException)
+            else
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con" +
-                    " la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-            }
-            catch (InvalidOperationException)
-            {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con" +
-                    " la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                string errorMessage = productExisting != null ? "verifique que los datos que usted ingresa no estén corrompidos" : "inténtelo más tarde por favor, gracias";
+                new AlertPopup("Error con la base de datos", $"Lo siento, pero ha ocurrido un error con la conexión a la base de datos, {errorMessage}!", Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -641,124 +690,63 @@ namespace ItalianPizza.XAMLViews
         private void GoToConsultCustomerOrdersVirtualWindow(object sender, RoutedEventArgs e)
         {
             VerifyUnconfirmedProducts();
+            CustomerOrderToken.DeactivateTransaction();
             NavigationService.Navigate(new GUI_ConsultCustomerOrder());
-        }
-
-        private void Button_AddCustomer(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void Button_ModifyCustomerOrder(object sender, RoutedEventArgs e)
         {
-            if (ValidateOrderDetails())
+            if (productsCustomerOrderList.Count > 0)
             {
-                OrderStatusSet orderStatus = (OrderStatusSet)lboOrderStatusCustomer.SelectedItem;
-                if (orderStatus.Id != 6)
-                {
-                    PrepareModifyCustomerOrder();
-                    CustomerSet customer = (CustomerSet)lboCustomers.SelectedItem;
-                    DeliveryDriverSet deliveryman = (DeliveryDriverSet)lboDeliverymen.SelectedItem;
-
-                    try
-                    {
-                        customerOrdersDAO.ModifyCustomerOrder(customerOrderSet, listProductsCustomerOrder, customer, deliveryman);
-                        new AlertPopup("Modificación exitosa", "Se han registrado correctamente la modificacion del pedido", Auxiliary.AlertPopupTypes.Success);
-                        NavigationService.Navigate(new GUI_ConsultCustomerOrder());
-                    }
-                    catch (EntityException)
-                    {
-                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error " +
-                            "con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
-                            "la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
-                    }
-                }
-                else
-                {
-                    CancelOrder();
-                }
-            }
-        }
-
-        private void CancelOrder()
-        {
-            if (customerOrderSet.OrderStatusId == 2)
-            {
-                customerOrderSet.OrderStatusId = 6;
-
                 try
                 {
-                    List<ProductSaleSet> orderProducts = productDAO.GetOrderProducts(customerOrderSet);
-                    customerOrdersDAO.CancelCustomerOrder(customerOrderSet);
-                    foreach (var productSale in orderProducts)
-                    {
-                        productDAO.RestoreSuppliesOnSale(GetRecipeIngredientsByProduct(productSale));
-                    }
-                    new AlertPopup("Cancelacion de pedio completada", "Se a cancelado correctamente el pedido",
-                        Auxiliary.AlertPopupTypes.Success);
+                    customerOrdersDAO.ModifyCustomerOrder(customerOrderSet, productsCustomerOrderList);
+                    new AlertPopup("Modificación exitosa", "Se han registrado correctamente la modificacion del pedido", Auxiliary.AlertPopupTypes.Success);
                     NavigationService.Navigate(new GUI_ConsultCustomerOrder());
                 }
                 catch (EntityException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la " +
-                        "conexion a la base de datos, intentelo mas tarde por favor, gracias!",
-                        Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error " +
+                        "con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
                 }
                 catch (InvalidOperationException)
                 {
-                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la" +
-                        " base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
-                        Auxiliary.AlertPopupTypes.Error);
+                    new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
+                        "la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
                 }
             }
-            else
-            {
-                new AlertPopup("No se puede cancelar este pedio", "Una vez que entra a cocina un pedido, " +
-                    "no se puede modificar", Auxiliary.AlertPopupTypes.Warning);
-            }
-
         }
 
         private void VerifyUnconfirmedProducts()
         {
             try
             {
-                foreach (ProductSaleSet product in listProductsCustomerOrder)
+                foreach (ProductSaleSet product in productsCustomerOrderList)
                 {
-                    ProductSaleSet correspondingProductInCopy = listProductsCustomerOrderCopy.
-                        FirstOrDefault(p => p.Id == product.Id);
-                    if (correspondingProductInCopy == null)
-                    {
-                        List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
-                        productDAO.RestoreSuppliesOnSale(ingredients);
-                    }
-                    else
-                    {
-                        int differenceInAmount = product.Quantity - correspondingProductInCopy.Quantity;
-                        if (differenceInAmount != 0)
-                        {
-                            ProductSaleSet adjustedProduct = new ProductSaleSet
-                            {
-                                Id = product.Id,
-                                Name = product.Name,
-                                Description = product.Description,
-                                Quantity = differenceInAmount
-                            };
+                    ProductSaleSet correspondingProductInCopy = listProductsCustomerOrderCopy.FirstOrDefault(p => p.Id == product.Id);
+                    int differenceInAmount = product.Quantity - (correspondingProductInCopy?.Quantity ?? 0);
 
-                            if (differenceInAmount > 0)
+                    if (differenceInAmount != 0)
+                    {
+                        ProductSaleSet adjustedProduct = new ProductSaleSet
+                        {
+                            Id = product.Id,
+                            Name = product.Name,
+                            Description = product.Description,
+                            Quantity = differenceInAmount
+                        };
+
+                        if ((bool)product.Recipee)
+                        {
+                            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
+                            productDAO.RestoreSuppliesOnSale(ingredients);
+                        }
+                        else
+                        {
+                            int step = differenceInAmount > 0 ? 1 : -1;
+                            for (int i = 0; i != differenceInAmount; i += step)
                             {
-                                List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
-                                productDAO.RestoreSuppliesOnSale(ingredients);
-                            }
-                            else
-                            {
-                                adjustedProduct.Quantity *= -1;
-                                List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(adjustedProduct);
-                                productDAO.DecreaseSuppliesOnSale(ingredients);
+                                productDAO.RestoreProductOnSale(product);
                             }
                         }
                     }
@@ -766,23 +754,37 @@ namespace ItalianPizza.XAMLViews
 
                 foreach (ProductSaleSet product in listProductsCustomerOrderCopy)
                 {
-                    if (!listProductsCustomerOrder.Any(p => p.Id == product.Id))
+                    if (!productsCustomerOrderList.Any(p => p.Id == product.Id))
                     {
-                        List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
-                        productDAO.DecreaseSuppliesOnSale(ingredients);
+                        if ((bool)product.Recipee)
+                        {
+                            List<RecipeDetailsSet> ingredients = GetRecipeIngredientsByProduct(product);
+                            productDAO.DecreaseSuppliesOnSale(ingredients);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < product.Quantity; i++)
+                            {
+                                productDAO.RestoreProductOnSale(product);
+                            }
+                        }
                     }
                 }
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la" +
-                    " conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                ShowDatabaseErrorAlert("conexion a la base de datos");
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con " +
-                    "la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                ShowDatabaseErrorAlert("verifique que los datos que usted ingresa no estén corrompidos");
             }
         }
+
+        private void ShowDatabaseErrorAlert(string errorMessage)
+        {
+            new AlertPopup("Error con la base de datos", $"Lo siento, pero ha ocurrido un error con la {errorMessage}, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+        }
+
     }
 }

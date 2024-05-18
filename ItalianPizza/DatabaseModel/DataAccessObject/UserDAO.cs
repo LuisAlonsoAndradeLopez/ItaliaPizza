@@ -408,6 +408,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         .Include(customer => customer.AddressSet)
                         .Include(customer => customer.EmployeeSet)
                         .Include(customer => customer.UserStatusSet)
+                        .OrderBy(c => c.Names)
                         .ToList();
                 }
 
@@ -484,6 +485,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     var customerOrderDetail = context.CustomerOrderCustomerSet
                         .Include(customerOrderDetailAux => customerOrderDetailAux.CustomerSet)
+                        .Include(customerOrderDetailAux => customerOrderDetailAux.CustomerSet.AddressSet)
                         .FirstOrDefault(customerOrderDetailAux => customerOrderDetailAux.CustomerOrderId == customerOrderID);
 
                     if (customerOrderDetail != null)

@@ -1,0 +1,323 @@
+﻿<UserControl x:Class="ItalianPizza.XAMLViews.CustomerOrder.GUI_UpdateOrderStatusForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItalianPizza.XAMLViews.CustomerOrder"
+             mc:Ignorable="d" 
+             d:DesignHeight="866" d:DesignWidth="547">
+    <Grid>
+        <Rectangle 
+        HorizontalAlignment="Left" 
+        Height="866" 
+        RadiusX="30" 
+        RadiusY="30" 
+        VerticalAlignment="Center" 
+        Width="547" 
+        Fill="#FF131313"/>
+
+        <Label Content="Detalles del pedido: " 
+           HorizontalAlignment="Left" 
+           Margin="40,36,0,0" 
+           VerticalAlignment="Top" 
+           Background="{x:Null}" 
+           Foreground="#FFDB4B2C" 
+           FontFamily="Tahoma" 
+           FontSize="20" 
+           FontWeight="Bold"/>
+
+        <Label x:Name="lblOrderCustomerName" 
+           Content="fdfsf" 
+           HorizontalAlignment="Left" 
+           Margin="256,36,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="20" 
+           FontFamily="Tahoma" 
+           Foreground="White"/>
+
+        <Label Content="Cliente Relacionado:" 
+           HorizontalAlignment="Left" 
+           Margin="48,87,0,0" 
+           VerticalAlignment="Top" 
+           Background="{x:Null}" 
+           Foreground="#f6be4d" 
+           FontFamily="Tahoma" 
+           FontSize="18" 
+           FontWeight="Bold"/>
+
+
+        <Rectangle 
+            HorizontalAlignment="Center" 
+            Height="41" 
+            Margin="0,131,0,0" 
+            Stroke="Black" 
+            RadiusX="30" 
+            RadiusY="30" 
+            VerticalAlignment="Top" 
+            Width="402" 
+            Fill="#e4b65c"/>
+
+        <Label x:Name="lblFullNameCustomer" 
+           Content="ffffff" 
+           HorizontalAlignment="Center" 
+           Margin="0,136,0,0"
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Tahoma"
+           Foreground="White" 
+           FontWeight="Bold" 
+           Width="358"/>
+
+        <Label Content="Repartidor encargado: " 
+           HorizontalAlignment="Left" 
+           Margin="48,179,0,0" 
+           VerticalAlignment="Top" 
+           Background="{x:Null}" 
+           Foreground="#f6be4d" 
+           FontFamily="Tahoma" 
+           FontSize="18" 
+           FontWeight="Bold"/>
+
+        <Rectangle 
+            HorizontalAlignment="Left" 
+            Height="41" 
+            Margin="72,216,0,0" 
+            Stroke="Black" 
+            RadiusX="30" 
+            RadiusY="30" 
+            VerticalAlignment="Top" 
+            Width="398" 
+            Fill="#e4b65c"/>
+
+        <Label x:Name="lblNameCompleteDeliveryman"
+           Content="dsds" 
+           HorizontalAlignment="Center" 
+           Margin="0,221,0,0" 
+           VerticalAlignment="Top" 
+           FontSize="18" 
+           FontFamily="Tahoma" 
+           Foreground="White" 
+           FontWeight="Bold" 
+           Width="358"/>
+        <Label x:Name="lblOrderTypeCustomer_Copiar" 
+            Content="De doble clic sobre el tipo de estatus para cambiarlo" 
+            HorizontalAlignment="Left" 
+            Margin="41,278,0,0" 
+            VerticalAlignment="Top" 
+            FontSize="20" 
+            FontFamily="Tahoma" 
+            Foreground="White" RenderTransformOrigin="0.567,0.561"/>
+
+        <Button 
+             x:Name="btnStandby"
+             HorizontalAlignment="Left"
+             Margin="56,327,0,0"
+             VerticalAlignment="Top"
+             Height="73"
+             Width="442"
+             Foreground="#FFF8F8F8" 
+             Cursor="Hand"
+             FontFamily="Arial" 
+             FontSize="18"
+             BorderThickness="0"
+             BorderBrush="#FF171721"
+             Tag="1"
+             MouseDoubleClick = "ChangeOrderStatusToOnHold"
+             FontWeight="Thin" Background="#FF7D969A">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgCustomerOrderModule"
+                 Height="45" 
+                 VerticalAlignment="Top" 
+                 Width="50" 
+                 RenderTransformOrigin="0.511,0.545" 
+                 Source="/Resources/Pictures/ICON-OrderInProcess.png"/>
+
+                <Label Content="Pedido en espera cocina" 
+                Foreground="White" 
+                FontFamily="Arial Black"
+                Margin="0,10,0,0">
+                </Label>
+            </StackPanel>
+        </Button>
+
+        <Button 
+            x:Name="btnInkitchen"
+            HorizontalAlignment="Left"
+            Margin="56,407,0,0"
+            VerticalAlignment="Top"
+            Height="72"
+            Width="442"
+            Foreground="#FFF8F8F8" 
+            Cursor="Hand"
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderThickness="0"
+            BorderBrush="#FF171721"
+            Tag="2"
+            MouseDoubleClick = "ChangeOrderStatusToInKitchen"
+            FontWeight="Thin" Background="#FFCDC281">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgCustomerOrderModule1" 
+                    HorizontalAlignment="Left"
+                    Height="45" 
+                    VerticalAlignment="Top" 
+                    Width="50" 
+                    RenderTransformOrigin="0.511,0.545" 
+                    Source="/Resources/Pictures/ICON-OrderInKitchen.png"/>
+
+                <Label Content="Pedido en preparación" 
+                    Foreground="White" 
+                    FontFamily="Arial Black"
+                    Margin="0,10,0,0"/>
+
+            </StackPanel>
+        </Button>
+
+        <Button 
+            x:Name="btnItsReady"
+            HorizontalAlignment="Left"
+            Margin="56,487,0,0"
+            VerticalAlignment="Top"
+            Height="73"
+            Width="442"
+            Foreground="#FFF8F8F8" 
+            Cursor="Hand"
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderThickness="0"
+            BorderBrush="#FF171721"
+            Tag="3"
+            MouseDoubleClick = "ChangeOrderStatusToReady"
+            FontWeight="Thin" Background="#FF8BBE4D">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgCustomerOrderModule2" 
+                    HorizontalAlignment="Left"
+                    Height="45" 
+                    VerticalAlignment="Top" 
+                    Width="50" 
+                    RenderTransformOrigin="0.511,0.545" 
+                    Source="/Resources/Pictures/ICON-OrderReady.png"/>
+
+                <Label Content="Pedido listo para entrega" 
+                    Foreground="White" 
+                    FontFamily="Arial Black"
+                    Margin="0,10,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button 
+            x:Name="btnInShipping"
+            HorizontalAlignment="Left"
+            Margin="56,567,0,0"
+            VerticalAlignment="Top"
+            Height="73"
+            Width="442"
+            Foreground="#FFF8F8F8" 
+            Cursor="Hand"
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderThickness="0"
+            BorderBrush="#FF171721"
+            Tag="4"
+            MouseDoubleClick = "ChangeOrderStatusToSent"
+            FontWeight="Thin" Background="#FF3E6D9C">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgCustomerOrderModule3" 
+                    HorizontalAlignment="Left"
+                    Height="45" 
+                    VerticalAlignment="Top" 
+                    Width="50" 
+                    RenderTransformOrigin="0.511,0.545" 
+                    Source="/Resources/Pictures/ICON-OrderInShipment.png"/>
+
+                <Label Content="En pedido en envio" 
+                    Foreground="White" 
+                    FontFamily="Arial Black"
+                    Margin="0,10,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button  
+            Name="btnItsCanceled"
+            HorizontalAlignment="Left"
+            Margin="56,729,0,0"
+            VerticalAlignment="Top"
+            Height="73"
+            Width="442"
+            Foreground="#FFF8F8F8" 
+            Cursor="Hand"
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderThickness="0"
+            BorderBrush="#FF171721"
+            Tag="6"
+            MouseDoubleClick = "ChangeOrderStatusToCanceled"
+            FontWeight="Thin" Background="#FFAB4343">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgCustomerOrderModule5"
+                    Height="46" 
+                    VerticalAlignment="Top" 
+                    Width="42" 
+                    RenderTransformOrigin="0.511,0.545" 
+                    Source="/Resources/Pictures/ICON-OrderCanceled.png"/>
+
+                <Label Content="Cancelar Pedido" 
+                    Foreground="White" 
+                    FontFamily="Arial Black"
+                    Margin="0,10,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button Content="Salir"
+            HorizontalAlignment="Left"
+            Margin="204,821,0,0"
+            VerticalAlignment="Top" 
+            Height="42" Width="146" 
+            Background="#FF161618" 
+            Foreground="White" 
+            FontFamily="Arial" 
+            FontSize="18" 
+            BorderBrush="#FFDB4B2C" 
+            FontWeight="Thin" 
+            BorderThickness="3" 
+            Click="ReturnWindow"/>
+        <Button 
+            x:Name="btnOrderDelivered"
+            HorizontalAlignment="Left"
+            Margin="56,648,0,0"
+            VerticalAlignment="Top"
+            Height="73"
+            Width="442"
+            Foreground="#FFF8F8F8" 
+            Cursor="Hand"
+            FontFamily="Arial" 
+            FontSize="18"
+            BorderThickness="0"
+            BorderBrush="#FF171721"
+            Tag="4"
+            MouseDoubleClick = "ChangeOrderStatusToSent"
+            FontWeight="Thin" Background="#FF9C3E7E">
+
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="imgOrderDelivered" 
+                    HorizontalAlignment="Left"
+                    Height="45" 
+                    VerticalAlignment="Top" 
+                    Width="50" 
+                    RenderTransformOrigin="0.511,0.545" 
+                    Source="/Resources/Pictures/ICON-OrderDelivered.png"/>
+
+                <Label Content="Pedido entregado" 
+                    Foreground="White" 
+                    FontFamily="Arial Black"
+                    Margin="0,10,0,0"/>
+            </StackPanel>
+        </Button>
+
+    </Grid>
+</UserControl>

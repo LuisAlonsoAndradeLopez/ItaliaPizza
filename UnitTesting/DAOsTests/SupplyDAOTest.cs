@@ -29,7 +29,7 @@ namespace DAOsTests
                 SupplyUnitId = 1,
                 ProductStatusId = 1,
                 SupplyTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "99999999"
             };
 
@@ -43,7 +43,7 @@ namespace DAOsTests
                 SupplyUnitId = 1,
                 ProductStatusId = 1,
                 SupplyTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "9999999"
             };
 
@@ -57,7 +57,7 @@ namespace DAOsTests
                 SupplyUnitId = 1,
                 ProductStatusId = 1,
                 SupplyTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "99999"
             };
 
@@ -70,7 +70,7 @@ namespace DAOsTests
                 Picture = new byte[4],
                 ProductStatusId = 1,
                 SupplyTypeId = 1,
-                EmployeeId = 1,
+                EmployeeId = 2,
                 IdentificationCode = "9999"
             };
         }

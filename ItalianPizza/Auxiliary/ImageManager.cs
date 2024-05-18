@@ -1,9 +1,7 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.XAMLViews;
 using System;
 using System.Data.Entity.Core;
-using System.Diagnostics;
 using System.IO;
 using System.Windows.Media.Imaging;
 
@@ -23,6 +21,29 @@ namespace ItalianPizza.Auxiliary
 
                 bytes = stream.ToArray();
             }
+
+            imageSource.Freeze();
+            imageSource = null;
+
+            return bytes;
+        }
+
+        public byte[] GetWriteableBitmapBytes(WriteableBitmap imageSource)
+        {
+            byte[] bytes;
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                BitmapSource bitmapSource = imageSource;
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+                encoder.Save(stream);
+
+                bytes = stream.ToArray();
+            }
+
+            imageSource.Freeze();
+            imageSource = null;
 
             return bytes;
         }
@@ -189,6 +210,7 @@ namespace ItalianPizza.Auxiliary
                 ProductPictureSet productPicture = productDAO.GetProductPicturebyID(productId);
                 if (productPicture != null)
                 {                  
+                    File.Delete(imagePath);
                     File.WriteAllBytes(imagePath, productPicture.ProductImage);
                 }
                 else
@@ -222,13 +244,14 @@ namespace ItalianPizza.Auxiliary
             {
                 Directory.CreateDirectory(directoryPath);
             }
-
+            
             SupplyDAO supplyDAO = new SupplyDAO();
             try
             {
                 SupplyPictureSet supplyPicture = supplyDAO.GetSupplyPicturebyID(supplyID);
                 if (supplyPicture != null)
                 {
+                    File.Delete(imagePath);
                     File.WriteAllBytes(imagePath, supplyPicture.SupplyImage);
                 }
                 else
