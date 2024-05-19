@@ -61,11 +61,29 @@ namespace ItalianPizza.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a \Resources\Pictures\ICON-Agregar.png.
+        /// </summary>
+        internal static string ICON_AddImage {
+            get {
+                return ResourceManager.GetString("ICON-AddImage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a \Resources\Pictures\ICON-Domicilio.png.
         /// </summary>
         internal static string ICON_CustomerHomeDeliveryOrder {
             get {
                 return ResourceManager.GetString("ICON-CustomerHomeDeliveryOrder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a \Resources\Pictures\ICON-Eliminar.png.
+        /// </summary>
+        internal static string ICON_DeleteImage {
+            get {
+                return ResourceManager.GetString("ICON-DeleteImage", resourceCulture);
             }
         }
         

@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ICON-AddImage" xml:space="preserve">
+    <value>\Resources\Pictures\ICON-Agregar.png</value>
+  </data>
   <data name="ICON-CustomerHomeDeliveryOrder" xml:space="preserve">
     <value>\Resources\Pictures\ICON-Domicilio.png</value>
+  </data>
+  <data name="ICON-DeleteImage" xml:space="preserve">
+    <value>\Resources\Pictures\ICON-Eliminar.png</value>
   </data>
   <data name="ICON-LocalCustomerOrder" xml:space="preserve">
     <value>\Resources\Pictures\ICON-PedidoLocal.png</value>

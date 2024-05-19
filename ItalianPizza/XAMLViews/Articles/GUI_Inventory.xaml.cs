@@ -2,6 +2,8 @@
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.Recipes;
+using ItalianPizza.XAMLViews.Suppliers;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -219,8 +221,7 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                new AlertPopup("¡No disponible!", "En desarrollo de software con el Álvaro", AlertPopupTypes.Error);
-                //Este método lo hace el Álvaro
+                AddRecipeToAProduct();
 
             }
             catch (EntityException ex)
@@ -717,6 +718,29 @@ namespace ItalianPizza.XAMLViews
                 SelectedArticleCodeTextBlock.Text = product.IdentificationCode;
                 SelectedArticlePriceTextBlock.Text = product.PricePerUnit.ToString();
                 SelectedArticleDescriptionTextBlock.Text = product.Description;
+            }
+        }
+
+        private void AddRecipeToAProduct()
+        {
+            ProductSaleSet product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
+            RecipeSet recipe = new RecipeDAO().GetRecipeByProduct(product.Name);
+
+            if (product != null)
+            {
+                if (recipe != null)
+                {
+                    NavigationService.Navigate(new GUI_RecipeDetails(recipe, product)); 
+                }
+                else
+                {
+                    if (new AlertPopup("¡No hay receta!", "Este producto no tiene receta, ¿Deseas agregar una nueva?", AlertPopupTypes.Decision).GetDecisionOfDecisionPopup())
+                    {
+                        NavigationService navigationService = NavigationService.GetNavigationService(this);
+                        navigationService.Navigate(new GUI_AddRecipe(product));
+                    }
+                    
+                }
             }
         }
 
