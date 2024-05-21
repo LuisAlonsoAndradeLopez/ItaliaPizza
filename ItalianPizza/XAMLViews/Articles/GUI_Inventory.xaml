@@ -32,12 +32,12 @@
         <Rectangle HorizontalAlignment="Left" Height="880" Margin="256,13,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="892" Fill="#FF18171C" RadiusX="20" RadiusY="20" Grid.ColumnSpan="2"/>
 
         <Grid x:Name="VirtualWindowConsultCustomerOrders" Margin="-2,0,2,0" Grid.ColumnSpan="2">
-            <Label Name="ArticleNameOrCodeLabel" Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="277,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" Width="173"/>
-            <TextBox Style="{StaticResource FinderTextBoxStyle}" Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="450,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="40" Width="420" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
-            <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="277,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial"/>
-            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="352,95,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="518" SelectionChanged="ShowComboBoxSelectionChanged" Background="#FF171717"/>
-            <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="277,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
-            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="492" Height="40" SelectionChanged="FindByComboBoxSelectionChanged">
+            <Label Name="ArticleNameOrCodeLabel" Content="Nombre del artículo: " HorizontalAlignment="Left" Margin="269,39,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" Width="173"/>
+            <TextBox Style="{StaticResource FinderTextBoxStyle}" Name="TextForFindingArticleTextBox" HorizontalAlignment="Left" Margin="442,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="20" Height="40" Width="456" TextChanged="TextForFindingArticleTextBoxTextChanged"/>
+            <Label Content="Mostrar: " HorizontalAlignment="Left" Margin="269,100,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial"/>
+            <ComboBox x:Name="ShowComboBox" HorizontalAlignment="Left" Margin="344,95,0,0" VerticalAlignment="Top" FontSize="20" Height="40" Width="554" SelectionChanged="ShowComboBoxSelectionChanged" Background="#FF171717"/>
+            <Label Content="Buscar Por: " HorizontalAlignment="Left" Margin="269,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
+            <ComboBox x:Name="FindByComboBox" HorizontalAlignment="Left" Margin="378,157,0,0" VerticalAlignment="Top" FontSize="20" Width="156" Height="40" SelectionChanged="FindByComboBoxSelectionChanged">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1">
                         <GradientStop Color="#FFF0F0F0"/>
@@ -45,8 +45,10 @@
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Artículo" HorizontalAlignment="Left" Margin="894,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
-            <Button Style="{StaticResource RedButtonStyle}" Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="894,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
+            <Label x:Name="FindProductTypeText"  Content="Productos a mostrar: " HorizontalAlignment="Left" Margin="539,161,0,0" VerticalAlignment="Top" Foreground="White" FontSize="18" FontFamily="Arial" RenderTransformOrigin="0.54,0.632"/>
+            <ComboBox x:Name="FindProductTypeComboBox" HorizontalAlignment="Left" Margin="715,157,0,0" VerticalAlignment="Top" FontSize="20" Width="183" Height="40" SelectionChanged="FindProductTypeComboBoxSelectionChanged" />
+            <Button Style="{StaticResource RedButtonStyle}" Content="Agregar Artículo" HorizontalAlignment="Left" Margin="910,62,0,0" VerticalAlignment="Top" Height="49" Width="230" FontSize="14" Click="AddArticleButtonOnClick"/>
+            <Button Style="{StaticResource RedButtonStyle}" Content="Generar Reporte de Inventario" HorizontalAlignment="Left" Margin="910,130,0,0" VerticalAlignment="Top" Height="47" Width="230" FontSize="14" Click="GenerateInventoryReportOnClick"/>
 
             <Rectangle HorizontalAlignment="Left" Height="48" Margin="274,222,0,0" Stroke="Black" VerticalAlignment="Top" Width="861" Fill="#000000"/>
             <Label Content="Imágen" HorizontalAlignment="Left" Margin="341,232,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
