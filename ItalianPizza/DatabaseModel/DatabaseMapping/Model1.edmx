@@ -343,7 +343,7 @@
           <Property Name="DailyClosingId" Type="int" />
         </EntityType>
         <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+advertencia 6002: La tabla o vista 'ItalianPizza.sys.database_firewall_rules' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="database_firewall_rules">
           <Key>
             <PropertyRef Name="id" />
@@ -360,7 +360,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
           <Property Name="create_date" Type="datetime" Nullable="false" />
           <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__EmployeeP__Emplo__56E8E7AB">
+        <Association Name="FK__EmployeeP__Emplo__2B0A656D">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="EmployeePictureSet" Type="Self.EmployeePictureSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -372,7 +372,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__IncomeFin__Emplo__345EC57D">
+        <Association Name="FK__IncomeFin__Emplo__2FCF1A8A">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="IncomeFinancialTransactionSet" Type="Self.IncomeFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -384,7 +384,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__ProductPi__Produ__51300E55">
+        <Association Name="FK__ProductPi__Produ__339FAB6E">
           <End Role="ProductSaleSet" Type="Self.ProductSaleSet" Multiplicity="1" />
           <End Role="ProductPictureSet" Type="Self.ProductPictureSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -396,7 +396,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__SupplyPic__Suppl__540C7B00">
+        <Association Name="FK__SupplyPic__Suppl__43D61337">
           <End Role="SupplySet" Type="Self.SupplySet" Multiplicity="1" />
           <End Role="SupplyPictureSet" Type="Self.SupplyPictureSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -408,7 +408,7 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__WithDrawF__Emplo__373B3228">
+        <Association Name="FK__WithDrawF__Emplo__489AC854">
           <End Role="EmployeeSet" Type="Self.EmployeeSet" Multiplicity="1" />
           <End Role="WithDrawFinancialTransactionSet" Type="Self.WithDrawFinancialTransactionSet" Multiplicity="*" />
           <ReferentialConstraint>
@@ -993,23 +993,23 @@ advertencia 6002: La tabla o vista 'ItalianPizzaBD.sys.database_firewall_rules' 
     [database_firewall_rules].[modify_date] AS [modify_date]
     FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__EmployeeP__Emplo__56E8E7AB" Association="Self.FK__EmployeeP__Emplo__56E8E7AB">
+          <AssociationSet Name="FK__EmployeeP__Emplo__2B0A656D" Association="Self.FK__EmployeeP__Emplo__2B0A656D">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="EmployeePictureSet" EntitySet="EmployeePictureSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__IncomeFin__Emplo__345EC57D" Association="Self.FK__IncomeFin__Emplo__345EC57D">
+          <AssociationSet Name="FK__IncomeFin__Emplo__2FCF1A8A" Association="Self.FK__IncomeFin__Emplo__2FCF1A8A">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="IncomeFinancialTransactionSet" EntitySet="IncomeFinancialTransactionSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__ProductPi__Produ__51300E55" Association="Self.FK__ProductPi__Produ__51300E55">
+          <AssociationSet Name="FK__ProductPi__Produ__339FAB6E" Association="Self.FK__ProductPi__Produ__339FAB6E">
             <End Role="ProductSaleSet" EntitySet="ProductSaleSet" />
             <End Role="ProductPictureSet" EntitySet="ProductPictureSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__SupplyPic__Suppl__540C7B00" Association="Self.FK__SupplyPic__Suppl__540C7B00">
+          <AssociationSet Name="FK__SupplyPic__Suppl__43D61337" Association="Self.FK__SupplyPic__Suppl__43D61337">
             <End Role="SupplySet" EntitySet="SupplySet" />
             <End Role="SupplyPictureSet" EntitySet="SupplyPictureSet" />
           </AssociationSet>
-          <AssociationSet Name="FK__WithDrawF__Emplo__373B3228" Association="Self.FK__WithDrawF__Emplo__373B3228">
+          <AssociationSet Name="FK__WithDrawF__Emplo__489AC854" Association="Self.FK__WithDrawF__Emplo__489AC854">
             <End Role="EmployeeSet" EntitySet="EmployeeSet" />
             <End Role="WithDrawFinancialTransactionSet" EntitySet="WithDrawFinancialTransactionSet" />
           </AssociationSet>
