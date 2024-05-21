@@ -373,7 +373,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             s.ProductStatusId,
                             s.ProductTypeId,
                             s.EmployeeId,
-                            s.IdentificationCode
+                            s.IdentificationCode,
+                            s.Recipee
                         })
                         .OrderBy(s => s.Name)
                         .ToList();
@@ -387,7 +388,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         ProductStatusId = sp.ProductStatusId,
                         ProductTypeId = sp.ProductTypeId,
                         EmployeeId = sp.EmployeeId,
-                        IdentificationCode = sp.IdentificationCode
+                        IdentificationCode = sp.IdentificationCode,
+                        Recipee = sp.Recipee
                     }).ToList();
                 }
             }

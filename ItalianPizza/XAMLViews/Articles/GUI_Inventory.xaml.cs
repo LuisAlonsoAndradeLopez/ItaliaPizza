@@ -45,7 +45,7 @@ namespace ItalianPizza.XAMLViews
             {
                 if (ShowComboBox != null)
                 {
-                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString(), FindProductTypeComboBox.SelectedItem?.ToString());
                 }
             }
             catch (EntityException ex)
@@ -59,7 +59,23 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                if (ShowComboBox.SelectedItem?.ToString() == ArticleTypes.Insumo.ToString())
+                {
+                    FindByComboBox.Width = 520;
+                    FindProductTypeText.Visibility = Visibility.Collapsed;
+                    FindProductTypeComboBox.Visibility = Visibility.Collapsed;
+
+                    FindProductTypeComboBox.SelectedItem = "Todos";
+                }
+
+                if (ShowComboBox.SelectedItem?.ToString() == ArticleTypes.Producto.ToString())
+                {
+                    FindByComboBox.Width = 156;
+                    FindProductTypeText.Visibility = Visibility.Visible;
+                    FindProductTypeComboBox.Visibility = Visibility.Visible;
+                }
+                
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString(), FindProductTypeComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
             {
@@ -82,7 +98,20 @@ namespace ItalianPizza.XAMLViews
                     ArticleNameOrCodeLabel.Content = "Código del artículo: ";
                 }
 
-                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString(), FindProductTypeComboBox.SelectedItem?.ToString());
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                new ExceptionLogger().LogException(ex);
+            }
+        }
+
+        private void FindProductTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString(), FindProductTypeComboBox.SelectedItem?.ToString());
             }
             catch (EntityException ex)
             {
@@ -261,7 +290,7 @@ namespace ItalianPizza.XAMLViews
                     new AlertPopup("¡Muy bien!", "Artículo desactivado con éxito", AlertPopupTypes.Success);
 
                     UpdateSelectedArticleDetailsStackPanel(SelectedArticleNameTextBlock.Text, SelectedArticleTypeTextBlock.Text);
-                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString());
+                    ShowArticles(TextForFindingArticleTextBox.Text, ShowComboBox.SelectedItem?.ToString(), FindByComboBox.SelectedItem?.ToString(), FindProductTypeComboBox.SelectedItem?.ToString());
 
                     ModifySelectedArticleImageStackPanel.Visibility = Visibility.Collapsed;
                     ModifySelectedArticleDetailsStackPanel.Visibility = Visibility.Collapsed;
@@ -408,6 +437,16 @@ namespace ItalianPizza.XAMLViews
             }
 
             FindByComboBox.SelectedItem = FindByComboBox.Items[0];
+
+
+            string[] productTypes = { "Todos", "Con Receta", "Sin Receta" };
+
+            foreach (var productType in productTypes)
+            {
+                FindProductTypeComboBox.Items.Add(productType);
+            }
+
+            FindProductTypeComboBox.SelectedItem = FindProductTypeComboBox.Items[0];
         }
 
         private void InitializeComboboxesForModifySomeSelectedArticleData()
@@ -443,7 +482,7 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void ShowArticles(string textForFindingArticle, string showType, string findByType)
+        private void ShowArticles(string textForFindingArticle, string showType, string findByType, string productType)
         {
             List<SupplySet> selectedSupplies = new List<SupplySet>();
             List<ProductSaleSet> selectedProducts = new List<ProductSaleSet>();
@@ -469,12 +508,38 @@ namespace ItalianPizza.XAMLViews
             {
                 if (findByType == "Nombre")
                 {
-                    selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                    switch (productType)
+                    {
+                        case "Todos":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                            break;
+
+                        case "Con Receta":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle) && p.Recipee == true).ToList();
+                            break;
+
+                        case "Sin Receta":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle) && p.Recipee == false).ToList();
+                            break;
+                    }
                 }
 
                 if (findByType == "Código")
                 {
-                    selectedProducts = products.Where(p => p.IdentificationCode.StartsWith(textForFindingArticle)).ToList();
+                    switch (productType)
+                    {
+                        case "Todos":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle)).ToList();
+                            break;
+
+                        case "Con Receta":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle) && p.Recipee == true).ToList();
+                            break;
+
+                        case "Sin Receta":
+                            selectedProducts = products.Where(p => p.Name.StartsWith(textForFindingArticle) && p.Recipee == false).ToList();
+                            break;
+                    }
                 }
             }
 
