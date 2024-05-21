@@ -110,12 +110,12 @@ namespace ItalianPizza.XAMLViews
                         Address_Id = 1
                     };
                     int result = userDAO.RegisterUser(account, employee);
-                    if (result == 2)
+                    if (result == 3)
                     {
                         new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
                         NavigationService.GoBack();
                     }
-                    else
+                    else if(result == -1)
                     {
                         new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
                     }
