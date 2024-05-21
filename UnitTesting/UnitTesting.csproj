@@ -86,6 +86,7 @@
     <Reference Include="NuGet.Frameworks, Version=5.11.3.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\ItalianPizza\packages\NuGet.Frameworks.5.11.3\lib\net472\NuGet.Frameworks.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\ItalianPizza\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -131,8 +132,10 @@
     <Compile Include="DAOsTests\SupplyTypeDAOTest.cs" />
     <Compile Include="DAOsTests\FinancialTransactionIncomeContextDAOTest.cs" />
     <Compile Include="DAOsTests\SupplyUnitDAOTest.cs" />
-    <Compile Include="DAOsTests\CustomerOrderDAO.cs" />
+    <Compile Include="CustomerOrderDAOTest\CustomerOrderDAO.cs" />
     <Compile Include="DAOsTests\UserDAOTest.cs" />
+    <Compile Include="SupplierOrderDAOTest\OrderSupplierDAOTests.cs" />
+    <Compile Include="DAOsTests\SupplierDAOTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
