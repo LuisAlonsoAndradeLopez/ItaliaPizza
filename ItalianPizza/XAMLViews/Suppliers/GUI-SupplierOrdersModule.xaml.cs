@@ -353,7 +353,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(115, 0, 0, 0),
-                    MaxLength = 9,
+                    MaxLength = 5,
                 };
                 txtSupplyQuantity.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyQuantity);
@@ -367,7 +367,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(480, 0, 0, 0),
-                    MaxLength = 9,
+                    MaxLength = 6,
                 };
                 txtSupplyCost.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyCost);
@@ -467,7 +467,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
         private void RegisterSupplierOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (AreValidFields())
+            if (AreValidFields() && listSupplySupplierOrder.Count > 0)
             {
                 SupplierOrderSet supplierOrder = ObtainSupplierOrderInformation();
                 List<string> errorMessages = CheckSuppliesWithSupplier();
@@ -496,8 +496,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
             else
             {
                 new AlertPopup("Datos faltantes",
-                        "Por favor verifique el pedido ya tenga selecionado un proveedor y" +
-                        "que el tipo de pago ya halla sido selecionado",
+                        "Por favor verifique el pedido ya tenga selecionado un proveedor, " +
+                        "que el tipo de pago ya halla sido selecionado " + 
+                        "y que el pedido tenga al menos un insumo agregado",
                         Auxiliary.AlertPopupTypes.Warning);
             }
         }
@@ -547,7 +548,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
             {
-                if (lboSuppliers.SelectedItem != null)
+                if (lboSuppliers.SelectedItem != null && listSupplySupplierOrder.Count > 0)
                 {
                     List<string> errorMessages = CheckSuppliesWithSupplier();
                     if (errorMessages.Count == 0)
@@ -570,7 +571,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 else
                 {
                     new AlertPopup("Datos faltantes",
-                            "Por favor verifique el pedido ya tenga selecionado un proveedor",
+                            "Por favor verifique el pedido ya tenga selecionado un proveedor y al menos un insumo",
                             Auxiliary.AlertPopupTypes.Warning);
                 }
             }
@@ -711,6 +712,11 @@ namespace ItalianPizza.XAMLViews.Suppliers
         }
 
         private void BackPage_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new GUI_SuppliersModule());
+        }
+
+        private void BackPage_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new GUI_SuppliersModule());
         }

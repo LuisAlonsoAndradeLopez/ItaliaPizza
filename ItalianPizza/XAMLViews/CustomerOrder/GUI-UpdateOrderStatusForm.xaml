@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ItalianPizza.XAMLViews.CustomerOrder"
              mc:Ignorable="d" 
-             d:DesignHeight="866" d:DesignWidth="547">
+             d:DesignHeight="866" d:DesignWidth="567">
     <Grid>
         <Rectangle 
         HorizontalAlignment="Left" 
@@ -13,7 +13,7 @@
         RadiusX="30" 
         RadiusY="30" 
         VerticalAlignment="Center" 
-        Width="547" 
+        Width="567" 
         Fill="#FF131313"/>
 
         <Label Content="Detalles del pedido: " 

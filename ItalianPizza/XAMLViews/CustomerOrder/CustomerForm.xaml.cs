@@ -1,4 +1,5 @@
-﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.Auxiliary;
+using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
 using System;
@@ -36,6 +37,7 @@ namespace ItalianPizza.XAMLViews
             cboStatus.Items.Add("Activo");
             cboStatus.Items.Add("Inactivo");
         }
+
         private void ShowCustomers()
         {
             customerList = userDAO.GetAllCustomers();
@@ -327,31 +329,31 @@ namespace ItalianPizza.XAMLViews
         {
             List<string> errorMessages = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(txtNames.Text.Trim()))
+            if (!RegexChecker.CheckName(txtNames.Text))
             {
                 txtNames.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Nombres'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtLastName.Text.Trim()))
+            if (!RegexChecker.CheckName(txtLastName.Text))
             {
                 txtSecondLastName.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Apellido Paterno'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtSecondLastName.Text.Trim()))
+            if (!RegexChecker.CheckName(txtSecondLastName.Text))
             {
                 txtSecondLastName.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Apellido Materno'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtPhoneNumber.Text.Trim()))
+            if (string.IsNullOrWhiteSpace(txtPhoneNumber.Text.Trim()) && txtPhoneNumber.Text.Length == 10)
             {
                 txtPhoneNumber.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Numero Telefonico'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtEmail.Text.Trim()))
+            if (!RegexChecker.CheckEmail(txtEmail.Text))
             {
                 txtEmail.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Correo'");
@@ -381,7 +383,6 @@ namespace ItalianPizza.XAMLViews
             txtZipCode.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
             txtStreet.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
         }
-
         private void CleanFields()
         {
             txtNames.Text = string.Empty;
@@ -465,7 +466,6 @@ namespace ItalianPizza.XAMLViews
 
             AddVisualCustomersToWindow(filteredCustomers);
         }
-
         private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
