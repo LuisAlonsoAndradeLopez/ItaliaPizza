@@ -378,7 +378,7 @@
 
         <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0"/>
 
-        <Grid x:Name="grdGroupModifyButtons" Visibility="Hidden">
+        <Grid x:Name="grdGroupModifyButtons" Visibility="Visible">
             <Image
                 HorizontalAlignment="Left"
                 Height="66"

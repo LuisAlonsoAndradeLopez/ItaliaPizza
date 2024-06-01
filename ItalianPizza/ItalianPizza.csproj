@@ -671,6 +671,27 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resources\Pictures\ICON-SearchCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-Save.png" />
+    <Resource Include="Resources\Pictures\ICON-PurchaseSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-SelectCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-UpdateCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-PayOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderReady.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInShipment.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInProcess.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInKitchen.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderDelivered.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderCanceled.png" />
+    <Resource Include="Resources\Pictures\ICON-ModifyOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-DeliveryDriver.png" />
+    <Resource Include="Resources\Pictures\ICON-Delete.png" />
+    <Resource Include="Resources\Pictures\ICON-DeleteCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-Customer.png" />
+    <Resource Include="Resources\Pictures\ICON-ChangeStatus.png" />
+    <Resource Include="Resources\Pictures\ICON-Back.png" />
+    <Resource Include="Resources\Pictures\ICON-AddCustomer.png" />
     <Resource Include="Resources\Pictures\ICON-Eliminar.png" />
     <Resource Include="Resources\Pictures\ICON-PedidoProveedor.png" />
     <Resource Include="Resources\Pictures\ICON-Supplier.png" />

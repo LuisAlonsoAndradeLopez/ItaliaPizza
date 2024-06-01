@@ -21,8 +21,8 @@
               <xs:element name="UnitOfMeasurement" msprop:Generator_ColumnPropNameInTable="UnitOfMeasurementColumn" msprop:Generator_ColumnPropNameInRow="UnitOfMeasurement" msprop:Generator_UserColumnName="UnitOfMeasurement" msprop:Generator_ColumnVarNameInTable="columnUnitOfMeasurement" type="xs:string" minOccurs="0" />
               <xs:element name="IdentificationCode" msprop:Generator_ColumnPropNameInTable="IdentificationCodeColumn" msprop:Generator_ColumnPropNameInRow="IdentificationCode" msprop:Generator_UserColumnName="IdentificationCode" msprop:Generator_ColumnVarNameInTable="columnIdentificationCode" type="xs:string" minOccurs="0" />
               <xs:element name="PricePerUnit" msprop:Generator_ColumnPropNameInTable="PricePerUnitColumn" msprop:Generator_ColumnPropNameInRow="PricePerUnit" msprop:Generator_UserColumnName="PricePerUnit" msprop:Generator_ColumnVarNameInTable="columnPricePerUnit" type="xs:string" minOccurs="0" />
-              <xs:element name="Quantity" msprop:Generator_UserColumnName="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" type="xs:string" minOccurs="0" />
-              <xs:element name="Observation" msprop:Generator_ColumnPropNameInRow="Observation" msprop:Generator_ColumnPropNameInTable="ObservationColumn" msprop:Generator_ColumnVarNameInTable="columnObservation" msprop:Generator_UserColumnName="Observation" type="xs:string" minOccurs="0" />
+              <xs:element name="Quantity" msprop:Generator_ColumnPropNameInTable="QuantityColumn" msprop:Generator_ColumnPropNameInRow="Quantity" msprop:Generator_UserColumnName="Quantity" msprop:Generator_ColumnVarNameInTable="columnQuantity" type="xs:string" minOccurs="0" />
+              <xs:element name="Observation" msprop:Generator_UserColumnName="Observation" msprop:Generator_ColumnPropNameInTable="ObservationColumn" msprop:Generator_ColumnPropNameInRow="Observation" msprop:Generator_ColumnVarNameInTable="columnObservation" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
