@@ -39,7 +39,6 @@ namespace ItalianPizza.XAMLViews
         private List<ProductSaleSet> listProductsCustomerOrderCopy;
         private CustomerOrderSet customerOrderSet;
         private ProductDAO productDAO;
-        private UserDAO userDAO;
         private ImageManager imageManager;
 
         public GUI_CustomerOrderManagementForm(CustomerOrderSet customerOrder)
@@ -141,7 +140,6 @@ namespace ItalianPizza.XAMLViews
         {
             customerOrdersDAO = new CustomerOrdersDAO();
             productDAO = new ProductDAO();
-            userDAO = new UserDAO();
         }
 
         private void InitializeListBoxes(CustomerOrderSet customerOrder)
@@ -181,28 +179,6 @@ namespace ItalianPizza.XAMLViews
                     "verifique que los datos que usted ingresa no esten corrompidos!", 
                     Auxiliary.AlertPopupTypes.Error);
             }
-        }
-
-        private void UpdateListBoxItems(ListBox listBox)
-        {
-            listBox.ItemContainerGenerator.StatusChanged += (sender, e) =>
-            {
-                if (listBox.ItemContainerGenerator.Status == System.Windows.Controls.Primitives.GeneratorStatus.ContainersGenerated)
-                {
-                    foreach (var item in listBox.Items)
-                    {
-                        var container = listBox.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
-                        if (container != null)
-                        {
-                            var names = item.GetType().GetProperty("Names").GetValue(item, null);
-                            var lastName = item.GetType().GetProperty("LastName").GetValue(item, null);
-                            var secondLastName = item.GetType().GetProperty("SecondLastName").GetValue(item, null);
-                            var fullName = $"{names} {lastName} {secondLastName}";
-                            container.Content = fullName.Trim();
-                        }
-                    }
-                }
-            };
         }
 
         private void ListBox_CustomerOrderTypeSelection(object sender, SelectionChangedEventArgs e)

@@ -1,20 +1,20 @@
-﻿using ItalianPizza.DatabaseModel.DatabaseMapping;
-using System.Collections.Generic;
-using System.Windows;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
+using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
-using System.Windows.Media;
-using ItalianPizza.DatabaseModel.DataAccessObject;
 using System.Windows.Shapes;
-using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
-using System.Windows.Input;
-using System.Windows.Forms;
-using Panel = System.Windows.Controls.Panel;
 using Label = System.Windows.Controls.Label;
+using Panel = System.Windows.Controls.Panel;
 using UserControl = System.Windows.Controls.UserControl;
-using System.Linq;
 
 namespace ItalianPizza.XAMLViews
 {
@@ -27,11 +27,14 @@ namespace ItalianPizza.XAMLViews
         private List<CustomerSet> customerList;
         private CustomerSet customerSet;
         public event EventHandler SelectCustomerEvent;
+
         public CustomerForm()
         {
             InitializeComponent();
             userDAO = new UserDAO();
             ShowCustomers();
+            cboStatus.Items.Add("Activo");
+            cboStatus.Items.Add("Inactivo");
         }
         private void ShowCustomers()
         {
@@ -104,7 +107,7 @@ namespace ItalianPizza.XAMLViews
                     Width = 35,
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-SelectCustomer.png", UriKind.RelativeOrAbsolute)),
                     Stretch = Stretch.Fill,
-                    Margin = new Thickness(300, 0, 0, 0),
+                    Margin = new Thickness(400, 0, 0, 0),
                 };
                 imgSelectCustomer.PreviewMouseLeftButtonDown += (sender, e) => SelectCustomer_Click(sender, e, customer);
                 grdContainer.Children.Add(imgSelectCustomer);
@@ -115,30 +118,16 @@ namespace ItalianPizza.XAMLViews
                     Width = 30,
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-UpdateCustomer.png", UriKind.RelativeOrAbsolute)),
                     Stretch = Stretch.Fill,
-                    Margin = new Thickness(400, 0, 0, 0),
+                    Margin = new Thickness(500, 0, 0, 0),
                 };
                 imgEditCustomer.PreviewMouseLeftButtonDown += (sender, e) => ShowCustomerForm(customer);
                 grdContainer.Children.Add(imgEditCustomer);
-
-                Image imgDeleteCustomer = new Image
-                {
-                    Height = 30,
-                    Width = 30,
-                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-DeleteCustomer.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(500, 0, 0, 0),
-                };
-                imgDeleteCustomer.PreviewMouseLeftButtonDown += (sender, e) => DeleteCustomer(customer);
-                grdContainer.Children.Add(imgDeleteCustomer);
-
-
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
             scrollViewer.Content = stackPanelContainer;
             wpCustomers.Children.Add(scrollViewer);
         }
-
         private void AddNewCustomerRegistrationbutton(StackPanel stackPanel)
         {
             Grid grdButtonAdd = new Grid
@@ -201,14 +190,29 @@ namespace ItalianPizza.XAMLViews
         {
             grdCustomerModule.Visibility = Visibility.Hidden;
             grdCustomerForm.Visibility = Visibility.Visible;
-            if(customer != null)
+            customerSet = customer;
+            if (customer != null)
             {
+                txtNames.Text = customer.Names;
+                txtLastName.Text = customer.LastName;
+                txtSecondLastName.Text = customer.SecondLastName;
+                txtPhoneNumber.Text = customer.Phone;
+                txtEmail.Text = customer.Email;
+                txtCity.Text = customer.AddressSet.City;
+                txtStreet.Text = customer.AddressSet.StreetName;
+                txtStreetNumber.Text = customer.AddressSet.StreetNumber.ToString();
+                txtZipCode.Text = customer.AddressSet.ZipCode.ToString();
+                txtColony.Text = customer.AddressSet.Colony;
+                txtState.Text = customer.AddressSet.State;
 
+                btnRegisterCustomer.Visibility = Visibility.Hidden;
+                btnUpdateCustomer.Visibility = Visibility.Visible;
             }
-        }
-        private void DeleteCustomer(CustomerSet customer)
-        {
-
+            else
+            {
+                btnRegisterCustomer.Visibility = Visibility.Visible;
+                btnUpdateCustomer.Visibility = Visibility.Hidden;
+            }
         }
         protected void SelectCustomer_Click(object sender, EventArgs e, CustomerSet customer)
         {
@@ -221,19 +225,234 @@ namespace ItalianPizza.XAMLViews
         }
         private void RegisterCustomer_Click(object sender, RoutedEventArgs e)
         {
-            
+            List<string> errorMessages = CheckCustomerFields();
+            errorMessages.AddRange(CheckAddressFields());
+
+            if(errorMessages.Count == 0)
+            {
+                CustomerSet customerSet = GetDataCustomer();
+                AddressSet customerAddress = GetClientAddress();
+                userDAO.AddCustomer(customerSet, customerAddress);
+                new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
+                    Auxiliary.AlertPopupTypes.Success);
+                ResetColorFields();
+                CleanFields();
+                grdCustomerModule.Visibility = Visibility.Visible;
+                grdCustomerForm.Visibility = Visibility.Hidden;
+                ShowCustomers();
+            }
+            else
+            {
+                string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
+                new AlertPopup("Campos invalidos", "Los campos " + WrongFields
+                    + " no deben ser nulos, ni debe tener caracteres especiales",
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+        private void ModifyCustomer_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> errorMessages = CheckCustomerFields();
+            errorMessages.AddRange(CheckAddressFields());
+
+            if (errorMessages.Count == 0)
+            {
+                CustomerSet customerSet = GetDataCustomer();
+                AddressSet customerAddress = GetClientAddress();
+                userDAO.UpdateCustomer(customerSet, customerAddress);
+                new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
+                    Auxiliary.AlertPopupTypes.Success);
+                ResetColorFields();
+                CleanFields();
+                grdCustomerModule.Visibility = Visibility.Visible;
+                grdCustomerForm.Visibility = Visibility.Hidden;
+                ShowCustomers();
+            }
+            else
+            {
+                string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
+                new AlertPopup("Campos invalidos", "Los campos " + WrongFields
+                    + " no deben ser nulos, ni debe tener caracteres especiales",
+                    Auxiliary.AlertPopupTypes.Warning);
+            }
+        }
+        private CustomerSet GetDataCustomer()
+        {
+            CustomerSet customer = new CustomerSet
+            {
+                Names = txtNames.Text,
+                LastName = txtLastName.Text,
+                SecondLastName = txtSecondLastName.Text,
+                Email = txtEmail.Text,
+                Phone = txtPhoneNumber.Text,
+                EmployeeId = UserToken.GetEmployeeID(),
+            };
+
+            if(customerSet != null)
+            {
+                customer.Id = customerSet.Id;
+            }
+
+            if(cboStatus.SelectedItem != "Activo")
+            {
+                customer.UserStatusId = 1;
+            }
+            else
+            {
+                customer.UserStatusId = 2;
+            }
+
+            return customer;
+        }
+        private AddressSet GetClientAddress()
+        {
+            AddressSet addressSet = new AddressSet
+            {
+                City = txtCity.Text,
+                StreetNumber = int.Parse(txtStreetNumber.Text),
+                StreetName = txtStreet.Text,
+                State = txtState.Text,
+                Colony = txtColony.Text,
+                ZipCode = int.Parse(txtZipCode.Text),
+                Township = txtColony.Text
+            };
+
+            if(customerSet != null)
+            {
+                addressSet.Id = customerSet.Address_Id;
+            }
+
+            return addressSet;
+        }
+        private List<string> CheckCustomerFields()
+        {
+            List<string> errorMessages = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(txtNames.Text.Trim()))
+            {
+                txtNames.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Nombres'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtLastName.Text.Trim()))
+            {
+                txtSecondLastName.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Apellido Paterno'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtSecondLastName.Text.Trim()))
+            {
+                txtSecondLastName.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Apellido Materno'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPhoneNumber.Text.Trim()))
+            {
+                txtPhoneNumber.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Numero Telefonico'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtEmail.Text.Trim()))
+            {
+                txtEmail.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Correo'");
+            }
+
+            if (cboStatus.SelectedItem == null)
+            {
+                cboStatus.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Estatus'");
+            }
+
+            return errorMessages;
+        }
+        private void ResetColorFields()
+        {
+            txtNames.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969")); ;
+            txtSecondLastName.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtLastName.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            cboStatus.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtPhoneNumber.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtState.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtEmail.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtCity.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtColony.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtState.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtStreetNumber.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtZipCode.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+            txtStreet.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C6969"));
+        }
+
+        private void CleanFields()
+        {
+            txtNames.Text = string.Empty;
+            txtSecondLastName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+            cboStatus.SelectedIndex = -1;
+            txtPhoneNumber.Text = string.Empty;
+            txtState.Text = string.Empty;
+            txtEmail.Text = string.Empty;
+            txtCity.Text = string.Empty;
+            txtColony.Text = string.Empty;
+            txtState.Text = string.Empty;
+            txtStreetNumber.Text = string.Empty;
+            txtZipCode.Text = string.Empty;
+            txtStreet.Text = string.Empty;
+        }
+        private List<string> CheckAddressFields()
+        {
+            List<string> errorMessages = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(txtCity.Text.Trim()))
+            {
+                txtCity.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Ciudad'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtColony.Text.Trim()))
+            {
+                txtColony.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Colonia'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtState.Text.Trim()))
+            {
+                txtState.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Estado'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtStreet.Text.Trim()))
+            {
+                txtStreet.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Calle'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtStreetNumber.Text.Trim()))
+            {
+                txtStreetNumber.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Numero de Calle'");
+            }
+
+            if (string.IsNullOrWhiteSpace(txtZipCode.Text.Trim()))
+            {
+                txtZipCode.BorderBrush = Brushes.Red;
+                errorMessages.Add("'Codigo Postal'");
+            }
+
+            return errorMessages;
         }
         private void CancelRegistration_Click(object sender, RoutedEventArgs e)
         {
             grdCustomerForm.Visibility = Visibility.Hidden;
             grdCustomerModule.Visibility = Visibility.Visible;
+            ResetColorFields();
+            CleanFields();
+            ShowCustomers();
         }
         private void TextBox_CustomerSearch(object sender, EventArgs e)
         {
             string textSearch = txtProductSearch.Text;
             FilterCustomer(textSearch);
         }
-
         private void FilterCustomer(string textSearch)
         {
             List<CustomerSet> filteredCustomers = customerList
@@ -246,5 +465,12 @@ namespace ItalianPizza.XAMLViews
 
             AddVisualCustomersToWindow(filteredCustomers);
         }
+
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
     }
 }

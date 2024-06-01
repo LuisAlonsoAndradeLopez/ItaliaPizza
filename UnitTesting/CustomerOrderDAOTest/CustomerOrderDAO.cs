@@ -100,7 +100,7 @@ namespace DAOsTests
             CustomerOrdersDAO customerOrdersDAO = new CustomerOrdersDAO();
 
             CustomerOrderSet customerOrder = new CustomerOrderSet();
-            customerOrder.Id = 64;
+            customerOrder.Id = 60;
             customerOrder.OrderStatusId = 1;
             customerOrder.OrderTypeId = 1;
             customerOrder.OrderDate = DateTime.Now;
@@ -125,7 +125,7 @@ namespace DAOsTests
             CustomerOrdersDAO customerOrdersDAO = new CustomerOrdersDAO();
 
             CustomerOrderSet customerOrder = new CustomerOrderSet();
-            customerOrder.Id = 65;
+            customerOrder.Id = 58;
             customerOrder.OrderStatusId = 1;
             customerOrder.OrderTypeId = 2;
             customerOrder.OrderDate = DateTime.Now;
@@ -160,7 +160,7 @@ namespace DAOsTests
             CustomerOrdersDAO customerOrdersDAO = new CustomerOrdersDAO();
 
             CustomerOrderSet customerOrder = new CustomerOrderSet();
-            customerOrder.Id = 65;
+            customerOrder.Id = 60;
             customerOrder.OrderStatusId = 6;
             customerOrder.OrderTypeId = 2;
             customerOrder.OrderDate = DateTime.Now;
@@ -198,7 +198,7 @@ namespace DAOsTests
             CustomerOrdersDAO customerOrdersDAO = new CustomerOrdersDAO();
             OrderStatusSet orderStatus = new OrderStatusSet()
             {
-                Id = 15,
+                Id = 6,
                 Status = "Pedido Cancelado"
             };
 

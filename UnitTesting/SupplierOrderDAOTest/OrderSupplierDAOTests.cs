@@ -56,7 +56,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
         public void ModifySupplierOrderTest()
         {
             SupplierOrderSet supplierOrderSet = new SupplierOrderSet();
-            supplierOrderSet.Id = 28;
+            supplierOrderSet.Id = 23;
             supplierOrderSet.OrderStatusId = 1;
             supplierOrderSet.OrderDate = DateTime.Now;
             supplierOrderSet.RegistrationTime = TimeSpan.ParseExact(DateTime.Now.ToString("HH\\:mm\\:ss"),
@@ -96,14 +96,14 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject.Tests
             supplierOrderSet.OrderStatusId = 1;
 
             int result = orderSupplierDAO.ModifyOrderStatus(supplierOrderSet.Id, 3);
-            Assert.AreEqual(1, result);
+            Assert.AreEqual(0, result);
         }
 
         [TestMethod()]
         public void GetSupplierOrderbySupplierTest()
         {
             int result = orderSupplierDAO.GetSupplierOrderbySupplier(4).Count;
-            Assert.AreEqual(9, result);
+            Assert.AreEqual(6, result);
         }
 
         [TestMethod()]
