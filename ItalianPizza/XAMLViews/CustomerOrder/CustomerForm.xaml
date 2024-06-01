@@ -29,7 +29,7 @@
            FontFamily="Arial Black" 
            FontSize="24" FontWeight="Bold"/>
 
-        <Grid x:Name="grdCustomerForm" Visibility="Visible">
+        <Grid x:Name="grdCustomerForm" Visibility="Hidden">
 
             <Label Content="Nombre(s)*" 
                HorizontalAlignment="Left" 
@@ -409,7 +409,7 @@
 
         </Grid>
 
-        <Grid x:Name="grdCustomerModule" Visibility="Hidden">
+        <Grid x:Name="grdCustomerModule" Visibility="Visible">
 
             <Label Content="Encuentre al cliente utilizando su nombre" 
                 HorizontalAlignment="Left" 

@@ -372,6 +372,7 @@
                  BorderBrush="#FFBC8B21"
                  BorderThickness="0"
                  FontWeight="Thin"
+                Click="BackPage_Click"
              />
 
         </Grid>

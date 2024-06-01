@@ -417,7 +417,7 @@ namespace ItalianPizza.XAMLViews
                 GUI_UpdateOrderStatusForm UpdateOrderStatusForm = new GUI_UpdateOrderStatusForm(customerOrderSet)
                 {
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(1175, 0, 0, 0)
+                    Margin = new Thickness(1165, 0, 0, 0)
                 };
                 Grid.SetColumn(UpdateOrderStatusForm, 0);
                 Background.Children.Add(UpdateOrderStatusForm);
