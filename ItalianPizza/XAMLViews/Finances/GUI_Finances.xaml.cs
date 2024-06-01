@@ -162,6 +162,8 @@ namespace ItalianPizza.XAMLViews.Finances
                             financialTransactionMonetaryValue = 0;
                         }
 
+                        int recentDailyClosingID = new DailyClosingDAO().GetMaximumDailyClosingID();
+
                         if (financialTransactionType == FinancialTransactionTypes.Entrada.ToString())
                         {
                             IncomeFinancialTransactionSet incomeFinancialTransaction = new IncomeFinancialTransactionSet
@@ -172,6 +174,11 @@ namespace ItalianPizza.XAMLViews.Finances
                                 MonetaryValue = financialTransactionMonetaryValue,
                                 FinancialTransactionIncomeContextId = new FinancialTransactionIncomeContextDAO().GetFinancialTransactionIncomeContextByName(financialTransactionContext).Id
                             };
+
+                            if (recentDailyClosingID > 0)
+                            {
+                                incomeFinancialTransaction.DailyClosingId = recentDailyClosingID;
+                            }
 
                             new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
                             incomeFinancialTransactions = new IncomeFinancialTransactionDAO().GetIncomeFinancialTransactions();
@@ -187,6 +194,11 @@ namespace ItalianPizza.XAMLViews.Finances
                                 MonetaryValue = financialTransactionMonetaryValue,
                                 FinancialTransactionWithDrawContextId = new FinancialTransactionWithDrawContextDAO().GetFinancialTransactionWithDrawContextByName(financialTransactionContext).Id
                             };
+
+                            if (recentDailyClosingID > 0)
+                            {
+                                withDrawFinancialTransaction.DailyClosingId = recentDailyClosingID;
+                            }
 
                             new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
                             withDrawFinancialTransactions = new WithDrawFinancialTransactionDAO().GetWithDrawFinancialTransactions();
