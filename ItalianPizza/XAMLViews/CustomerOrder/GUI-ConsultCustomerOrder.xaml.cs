@@ -17,7 +17,6 @@ using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
 using ItalianPizza.XAMLViews.CustomerOrder;
 using ItalianPizza.XAMLViews.Recipes;
-using ItalianPizza.XAMLViews.Suppliers;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -444,6 +443,12 @@ namespace ItalianPizza.XAMLViews
                         MonetaryValue = customerOrderSet.TotalAmount,
                         FinancialTransactionIncomeContextId = 1
                     };
+
+                    int recentDailyClosingID = new DailyClosingDAO().GetMaximumDailyClosingID();
+                    if (recentDailyClosingID > 0)
+                    {
+                        incomeFinancialTransaction.DailyClosingId = recentDailyClosingID;
+                    }
 
                     new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
                     customerOrdersDAO.ModifyOrderStatus(customerOrderSet.Id, 5);

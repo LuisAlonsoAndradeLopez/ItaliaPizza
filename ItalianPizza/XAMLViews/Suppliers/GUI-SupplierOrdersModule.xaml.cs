@@ -609,6 +609,12 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     FinancialTransactionWithDrawContextId = 1
                 };
 
+                int recentDailyClosingID = new DailyClosingDAO().GetMaximumDailyClosingID();
+                if (recentDailyClosingID > 0)
+                {
+                    withDrawFinancialTransaction.DailyClosingId = recentDailyClosingID;
+                }
+
                 new WithDrawFinancialTransactionDAO().AddWithDrawFinancialTransaction(withDrawFinancialTransaction);
                 new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSetAux.Id, 5);
 

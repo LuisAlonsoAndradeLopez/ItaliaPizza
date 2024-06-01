@@ -1,4 +1,5 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Windows.Forms;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.Resources;
 using System.IO;
@@ -79,7 +80,7 @@ namespace ItalianPizza.XAMLViews.Articles
 
             reportDocument.SetDataSource(inventoryReportDataSet);
 
-            windowsFormsHost.Child = new CrystalDecisions.Windows.Forms.CrystalReportViewer { ReportSource = reportDocument };
+            windowsFormsHost.Child = new CrystalReportViewer { ReportSource = reportDocument };
         }
 
         private void ExitButtonOnClick(object sender, RoutedEventArgs e)

@@ -1,17 +1,12 @@
-﻿using CrystalDecisions.CrystalReports.Engine;
-using ItalianPizza.DatabaseModel.DataAccessObject;
+﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
-using ItalianPizza.XAMLViews.Suppliers;
 using System.Data.Entity.Core;
 using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Button = System.Windows.Forms.Button;
 using Window = System.Windows.Window;
 using System.Collections.Generic;
-using System.Windows.Navigation;
 
 
 namespace ItalianPizza.XAMLViews.CustomerOrder
