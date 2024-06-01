@@ -122,7 +122,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             }
                         }
 
-                        result = context.SaveChanges();
+                        result = 1;
+                        context.SaveChanges();
                         transaction.Commit();
                     }
                     catch (EntityException ex)

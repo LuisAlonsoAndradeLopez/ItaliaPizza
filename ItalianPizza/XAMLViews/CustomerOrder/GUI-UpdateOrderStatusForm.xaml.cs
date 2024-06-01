@@ -333,5 +333,10 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
                 parent.Children.Remove(this);
             }
         }
+
+        private void btnOrderDelivered_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

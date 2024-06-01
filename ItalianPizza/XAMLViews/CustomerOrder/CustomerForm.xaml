@@ -33,15 +33,17 @@
 
             <Label Content="Nombre(s)*" 
                HorizontalAlignment="Left" 
-               Margin="101,187,0,0" 
+               Margin="103,152,0,0" 
                VerticalAlignment="Top" 
                FontFamily="Arial" 
                FontSize="18" 
                Foreground="#FFF8F8F8"/>
 
             <TextBox 
+                x:Name="txtNames"
+                MaxLength="30"
                 HorizontalAlignment="Left" 
-                Margin="48,227,0,0" 
+                Margin="50,192,0,0" 
                 TextWrapping="Wrap" 
                 Text="" 
                 VerticalAlignment="Top"
@@ -52,14 +54,17 @@
 
             <Label Content="Apellido Paterno*" 
                HorizontalAlignment="Left" 
-               Margin="402,187,0,0"
+               Margin="404,152,0,0"
                VerticalAlignment="Top"
                FontFamily="Arial"
                FontSize="18"
                Foreground="#FFF8F8F8"/>
 
-            <TextBox HorizontalAlignment="Left" 
-                 Margin="344,227,0,0"
+            <TextBox 
+                x:Name="txtLastName" 
+                MaxLength="30"
+                HorizontalAlignment="Left" 
+                 Margin="346,192,0,0"
                  TextWrapping="Wrap" 
                  Text="" VerticalAlignment="Top" 
                  Width="252" 
@@ -70,15 +75,18 @@
 
             <Label Content="Apellido Materno*"
                HorizontalAlignment="Left"
-               Margin="106,305,0,0" 
+               Margin="108,260,0,0" 
                VerticalAlignment="Top" 
                FontFamily="Arial" 
                FontSize="18" 
                Foreground="White"/>
 
 
-            <TextBox HorizontalAlignment="Left" 
-                 Margin="47,349,0,0" 
+            <TextBox 
+                x:Name="txtSecondLastName"
+                HorizontalAlignment="Left" 
+                MaxLength="30"
+                 Margin="49,304,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  VerticalAlignment="Top"
@@ -89,14 +97,18 @@
 
             <Label Content="Numero Telefonico"
                HorizontalAlignment="Left" 
-               Margin="391,305,0,0"
+               Margin="393,260,0,0"
                VerticalAlignment="Top"
                FontFamily="Arial"
                FontSize="18"
                Foreground="#FFF8F8F8"/>
 
-            <TextBox HorizontalAlignment="Left"
-                 Margin="344,349,0,0"
+            <TextBox
+                x:Name="txtPhoneNumber"
+                MaxLength="10" 
+                PreviewTextInput="NumericTextBox_PreviewTextInput"
+                HorizontalAlignment="Left"
+                 Margin="346,304,0,0"
                  TextWrapping="Wrap"
                  Text="" 
                  VerticalAlignment="Top" 
@@ -107,7 +119,7 @@
 
             <Image HorizontalAlignment="Left" 
                Height="44" 
-               Margin="47,177,0,0"
+               Margin="49,142,0,0"
                VerticalAlignment="Top"
                Width="49" 
                Source="\Resources\Pictures\ICON-ID.png" 
@@ -115,7 +127,7 @@
 
             <Image HorizontalAlignment="Left" 
                Height="44" 
-               Margin="344,177,0,0" 
+               Margin="346,142,0,0" 
                VerticalAlignment="Top"
                Width="49" 
                Source="\Resources\Pictures\ICON-ID.png" 
@@ -123,7 +135,7 @@
 
             <Image HorizontalAlignment="Left" 
                Height="44" 
-               Margin="47,297,0,0" 
+               Margin="49,252,0,0" 
                VerticalAlignment="Top" 
                Width="49" 
                Source="\Resources\Pictures\ICON-ID.png" 
@@ -131,7 +143,7 @@
 
             <Image HorizontalAlignment="Left" 
                Height="40" 
-               Margin="344,297,0,0" 
+               Margin="346,252,0,0" 
                VerticalAlignment="Top" 
                Width="40" 
                Source="\Resources\Pictures\ICON-Numero.png" 
@@ -139,22 +151,26 @@
 
             <Label Content="Calle*" 
                HorizontalAlignment="Left" 
-               Margin="391,419,0,0" 
+               Margin="393,374,0,0" 
                VerticalAlignment="Top"
                FontFamily="Arial" 
                FontSize="18"
                Foreground="#FFF8F8F8"/>
 
-            <Label Content="Ciudad:" 
+            <Label Content="Ciudad*" 
                 HorizontalAlignment="Left" 
-                Margin="95,539,0,0"
+                Margin="96,482,0,0"
                 VerticalAlignment="Top"
                 FontFamily="Arial"
                 FontSize="18"
                 Foreground="White"/>
 
-            <TextBox HorizontalAlignment="Left" 
-                 Margin="48,457,0,0" 
+            <TextBox 
+                x:Name="txtZipCode"
+                MaxLength="10" 
+                PreviewTextInput="NumericTextBox_PreviewTextInput"
+                HorizontalAlignment="Left" 
+                 Margin="50,412,0,0" 
                  TextWrapping="Wrap" 
                  Text="" 
                  VerticalAlignment="Top"
@@ -163,16 +179,19 @@
                  FontSize="23"
                  Height="44"/>
 
-            <Label Content="Numero de calle" 
+            <Label Content="Numero de calle*" 
                 HorizontalAlignment="Left"
-                Margin="391,539,0,0"
+                Margin="392,482,0,0"
                 VerticalAlignment="Top"
                 FontFamily="Arial" 
                 FontSize="18" 
                 Foreground="#FFF8F8F8"/>
 
-            <TextBox HorizontalAlignment="Left" 
-                 Margin="48,577,0,0"
+            <TextBox 
+                x:Name="txtCity"
+                HorizontalAlignment="Left" 
+                MaxLength="30"
+                 Margin="50,520,0,0"
                  TextWrapping="Wrap"
                  Text="" 
                  VerticalAlignment="Top"
@@ -183,25 +202,29 @@
 
             <Label Content="Codigo Postal*" 
                HorizontalAlignment="Left"
-               Margin="102,419,0,0"
+               Margin="104,374,0,0"
                VerticalAlignment="Top"
                FontFamily="Arial"
                FontSize="18"
                Foreground="#FFF8F8F8"/>
 
-            <TextBox HorizontalAlignment="Left"
-                 Margin="343,575,0,0"
+            <TextBox 
+                x:Name="txtStreetNumber"
+                HorizontalAlignment="Left"
+                MaxLength="5" 
+                PreviewTextInput="NumericTextBox_PreviewTextInput"
+                 Margin="344,518,0,0"
                  TextWrapping="Wrap"
                  Text=""
                  VerticalAlignment="Top"
-                 Width="253"
+                 Width="254"
                  FontFamily="Arial"
                  FontSize="23"
                  Height="46"/>
 
             <Image HorizontalAlignment="Left" 
                Height="30"
-               Margin="346,419,0,0"
+               Margin="348,374,0,0"
                VerticalAlignment="Top"
                Width="37"
                Source="\Resources\Pictures\ICON-Calle.png"
@@ -209,39 +232,40 @@
 
             <Image HorizontalAlignment="Left" 
                Height="30" 
-               Margin="53,535,0,0" 
+               Margin="54,478,0,0" 
                VerticalAlignment="Top" 
-               Width="37" 
+               Width="38" 
                Source="\Resources\Pictures\ICON-Ciudad.png" 
                Stretch="UniformToFill"/>
 
             <Image HorizontalAlignment="Left"
                Height="30" 
-               Margin="349,539,0,0" 
+               Margin="350,482,0,0" 
                VerticalAlignment="Top"
-               Width="31" 
+               Width="32" 
                Source="\Resources\Pictures\ICON-NumeroCalle.png" 
                Stretch="UniformToFill"/>
 
             <Image HorizontalAlignment="Left" 
                Height="30" 
-               Margin="53,415,0,0"
+               Margin="55,370,0,0"
                VerticalAlignment="Top" 
                Width="37"
                Source="\Resources\Pictures\ICON-CodigoPostal.png"
                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
 
             <ComboBox 
+                Name="cboStatus"
                HorizontalAlignment="Left" 
-               Margin="343,457,0,0" 
+               Margin="345,734,0,0" 
                VerticalAlignment="Top" 
                Width="253"
                Height="44"/>
 
 
             <Label Content="Por favor, complete todos los campos para registrar al nuevo cliente" 
-                HorizontalAlignment="Left" 
-                Margin="47,102,0,0" 
+                HorizontalAlignment="Center" 
+                Margin="0,90,0,0" 
                 VerticalAlignment="Top" 
                 FontFamily="Arial" 
                 FontSize="18" 
@@ -250,25 +274,142 @@
             <Button 
                 Content="Cancelar" 
                 HorizontalAlignment="Left" 
-                Margin="73,716,0,0" 
+                Margin="71,811,0,0" 
                 VerticalAlignment="Top"
                 Height="54" 
                 Width="227" 
                 BorderBrush="#FFCC3824" 
                 BorderThickness="4" Click="CancelRegistration_Click"/>
             <Button 
+                x:Name="btnRegisterCustomer"
                 Content="Registrar cliente" 
                 HorizontalAlignment="Left" 
-                Margin="343,716,0,0" 
+                Margin="341,811,0,0" 
                 VerticalAlignment="Top"
                 Height="54" 
                 Width="227" 
                 BorderBrush="#FFCC3824" 
                 BorderThickness="4" Click="RegisterCustomer_Click"/>
+            <Label Content="Email*" 
+                HorizontalAlignment="Left" 
+                Margin="97,696,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="White"/>
+            <Label Content="Estatus*" 
+                HorizontalAlignment="Left"
+                Margin="393,696,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial" 
+                FontSize="18" 
+                Foreground="#FFF8F8F8"/>
+
+            <TextBox 
+                x:Name="txtEmail"
+                HorizontalAlignment="Left" 
+                MaxLength="30"
+                Margin="50,734,0,0"
+                TextWrapping="Wrap"
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial"
+                FontSize="23"
+                Height="44"/>
+            <TextBox 
+                x:Name="txtStreet"
+                HorizontalAlignment="Left"
+                MaxLength="30"
+                Margin="344,411,0,0"
+                TextWrapping="Wrap"
+                Text=""
+                VerticalAlignment="Top"
+                Width="254"
+                FontFamily="Arial"
+                FontSize="23"
+                Height="46"/>
+            <Image HorizontalAlignment="Left" 
+                Height="38" 
+                Margin="55,687,0,0" 
+                VerticalAlignment="Top" 
+                Width="38" 
+                Source="/Resources/Pictures/ICON-Emaiil.png" 
+                Stretch="UniformToFill"/>
+            <Image HorizontalAlignment="Left"
+                Height="30" 
+                Margin="351,696,0,0" 
+                VerticalAlignment="Top"
+                Width="32" 
+                Source="/Resources/Pictures/ICON-UserStatus.png" 
+                Stretch="UniformToFill"/>
+            <Label Content="Estado*" 
+                HorizontalAlignment="Left" 
+                Margin="97,589,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="White"/>
+            <Label Content="Colonia*" 
+                HorizontalAlignment="Left"
+                Margin="393,589,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial" 
+                FontSize="18" 
+                Foreground="#FFF8F8F8"/>
+            <TextBox 
+                x:Name="txtState"
+                HorizontalAlignment="Left" 
+                Margin="51,627,0,0"
+                MaxLength="30"
+                TextWrapping="Wrap"
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial"
+                FontSize="23"
+                Height="44"/>
+            <TextBox 
+                x:Name="txtColony"
+                HorizontalAlignment="Left"
+                MaxLength="30"
+                Margin="345,625,0,0"
+                TextWrapping="Wrap"
+                Text=""
+                VerticalAlignment="Top"
+                Width="254"
+                FontFamily="Arial"
+                FontSize="23"
+                Height="46"/>
+            <Image HorizontalAlignment="Left" 
+                Height="30" 
+                Margin="55,588,0,0" 
+                VerticalAlignment="Top" 
+                Width="38" 
+                Source="/Resources/Pictures/ICON-Town.png" 
+                Stretch="UniformToFill"/>
+            <Image HorizontalAlignment="Left"
+                Height="30" 
+                Margin="351,589,0,0" 
+                VerticalAlignment="Top"
+                Width="32" 
+                Source="/Resources/Pictures/ICON-Colony.png" 
+                Stretch="UniformToFill"/>
+            <Button 
+                x:Name="btnUpdateCustomer"
+                Content="Modificar cliente" 
+                HorizontalAlignment="Left" 
+                Margin="340,811,0,0" 
+                VerticalAlignment="Top"
+                Height="54" 
+                Width="228" 
+                BorderBrush="#FFCC3824" 
+                Visibility="Hidden"
+                BorderThickness="4" Click="ModifyCustomer_Click"/>
 
         </Grid>
 
-        <Grid x:Name="grdCustomerModule">
+        <Grid x:Name="grdCustomerModule" Visibility="Visible">
 
             <Label Content="Encuentre al cliente utilizando su nombre" 
                 HorizontalAlignment="Left" 

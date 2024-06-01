@@ -1,5 +1,6 @@
 ﻿using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,10 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             ShowDeliveryDrivers();
         }
 
+        public DeliveryDriverSet GetSelectDeliveryDriver()
+        {
+            return deliveryDriverSet;
+        }
         private void ShowDeliveryDrivers()
         {
             deliveryDriverList = userDAO.GetAllDeliveryDriver();
@@ -105,32 +110,11 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
                     Width = 35,
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-SelectCustomer.png", UriKind.RelativeOrAbsolute)),
                     Stretch = Stretch.Fill,
-                    Margin = new Thickness(300, 0, 0, 0),
+                    Margin = new Thickness(500, 0, 0, 0),
                 };
                 imgSelectDeliveryDriver.PreviewMouseLeftButtonDown += (sender, e) => SelectDeliveryDriver_Click(sender, e, deliveryDriver);
                 grdContainer.Children.Add(imgSelectDeliveryDriver);
 
-                Image imgEditDeliveryDriver = new Image
-                {
-                    Height = 30,
-                    Width = 30,
-                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-UpdateCustomer.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(400, 0, 0, 0),
-                };
-                imgEditDeliveryDriver.PreviewMouseLeftButtonDown += (sender, e) => ShowDeliveryDriverForm(deliveryDriver);
-                grdContainer.Children.Add(imgEditDeliveryDriver);
-
-                Image imgDeleteDeliveryDriver = new Image
-                {
-                    Height = 30,
-                    Width = 30,
-                    Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-DeleteCustomer.png", UriKind.RelativeOrAbsolute)),
-                    Stretch = Stretch.Fill,
-                    Margin = new Thickness(500, 0, 0, 0),
-                };
-                imgDeleteDeliveryDriver.PreviewMouseLeftButtonDown += (sender, e) => DeleteDeliveryDriver(deliveryDriver);
-                grdContainer.Children.Add(imgDeleteDeliveryDriver);
                 stackPanelContainer.Children.Add(grdContainer);
             }
 
@@ -208,19 +192,25 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
         {
 
         }
+        private DeliveryDriverSet GetDataDelivery()
+        {
+            DeliveryDriverSet deliveryDriver = new DeliveryDriverSet
+            {
+                Names = txtNames.Text,
+                LastName = txtLastName.Text,
+                SecondLastName = txtLastSecondName.Text,
+                Email = txtEmail.Text,
+                Phone = txtPhoneNumber.Text,
+                EmployeeId = UserToken.GetEmployeeID(),
+                UserStatusId = 1
+            };
 
+            return deliveryDriver;
+        }
         protected void SelectDeliveryDriver_Click(object sender, EventArgs e, DeliveryDriverSet deliveryDriver)
         {
             deliveryDriverSet = deliveryDriver;
             SelectDeliveryDriverEvent?.Invoke(this, EventArgs.Empty);
-        }
-        public DeliveryDriverSet GetSelectDeliveryDriver()
-        {
-            return deliveryDriverSet;
-        }
-        private void RegisterDeliveryDriver_Click(object sender, RoutedEventArgs e)
-        {
-
         }
         private void CancelRegistration_Click(object sender, RoutedEventArgs e)
         {
@@ -232,7 +222,6 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             string textSearch = txtProductSearch.Text;
             FilterDeliveryDriver(textSearch);
         }
-
         private void FilterDeliveryDriver(string textSearch)
         {
             List<DeliveryDriverSet> filteredDeliveryDriver = deliveryDriverList

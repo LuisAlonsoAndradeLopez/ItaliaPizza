@@ -33,7 +33,6 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private SupplyDAO supplyDAO;
         private SupplierDAO supplierDAO;
         private List<SupplierSet> suppliersList;
-        private CustomerOrdersDAO customerOrdersDAO;
 
         public GUI_SupplierOrdersModule(SupplierOrderSet supplierOrder)
         {
@@ -89,7 +88,6 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             supplyDAO = new SupplyDAO();
             supplierDAO = new SupplierDAO();
-            customerOrdersDAO = new CustomerOrdersDAO();
         }
 
         private void InitializeSupplies()
@@ -159,7 +157,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
             StackPanel stackPanelContainer = new StackPanel();
 
-            foreach (var product in orderSupplies)
+            foreach (var supply in orderSupplies)
             {
                 Grid grdContainer = new Grid();
 
@@ -173,12 +171,12 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Delete.png", UriKind.RelativeOrAbsolute)),
                 };
 
-                btnDeleteSupply.MouseLeftButtonUp += (sender, e) => RemoveSupplyToOrder(product);
+                btnDeleteSupply.MouseLeftButtonUp += (sender, e) => RemoveSupplyToOrder(supply);
                 grdContainer.Children.Add(btnDeleteSupply);
 
                 Label lblName = new Label
                 {
-                    Content = product.Name,
+                    Content = supply.Name,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
@@ -199,7 +197,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 TextBlock txtUnitMeasurement = new TextBlock
                 {
-                    Text = product.SupplyUnitSet.Unit,
+                    Text = supply.SupplyUnitSet.Unit,
                     TextAlignment = TextAlignment.Center
                 };
                 lblUnitMeasurement.Content = txtUnitMeasurement;
@@ -218,7 +216,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 TextBlock txtAmount = new TextBlock
                 {
-                    Text = product.Quantity.ToString(),
+                    Text = supply.Quantity.ToString(),
                     TextAlignment = TextAlignment.Center
                 };
                 lblAmount.Content = txtAmount;
@@ -237,7 +235,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
                 TextBlock txtCost = new TextBlock
                 {
-                    Text = "$ " + product.PricePerUnit.ToString() + ".00",
+                    Text = "$ " + supply.PricePerUnit.ToString() + ".00",
                     TextAlignment = TextAlignment.Center
                 };
                 lblCost.Content = txtCost;
@@ -355,7 +353,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(115, 0, 0, 0),
-                    MaxLength = 9,
+                    MaxLength = 5,
                 };
                 txtSupplyQuantity.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyQuantity);
@@ -369,7 +367,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     Width = 161,
                     TextWrapping = TextWrapping.Wrap,
                     Margin = new Thickness(480, 0, 0, 0),
-                    MaxLength = 9,
+                    MaxLength = 6,
                 };
                 txtSupplyCost.PreviewTextInput += TextBox_PreviewTextInput;
                 grdContainer.Children.Add(txtSupplyCost);
@@ -469,7 +467,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
         private void RegisterSupplierOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (AreValidFields())
+            if (AreValidFields() && listSupplySupplierOrder.Count > 0)
             {
                 SupplierOrderSet supplierOrder = ObtainSupplierOrderInformation();
                 List<string> errorMessages = CheckSuppliesWithSupplier();
@@ -498,8 +496,9 @@ namespace ItalianPizza.XAMLViews.Suppliers
             else
             {
                 new AlertPopup("Datos faltantes",
-                        "Por favor verifique el pedido ya tenga selecionado un proveedor y" +
-                        "que el tipo de pago ya halla sido selecionado",
+                        "Por favor verifique el pedido ya tenga selecionado un proveedor, " +
+                        "que el tipo de pago ya halla sido selecionado " + 
+                        "y que el pedido tenga al menos un insumo agregado",
                         Auxiliary.AlertPopupTypes.Warning);
             }
         }
@@ -549,7 +548,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
         {
             if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
             {
-                if (lboSuppliers.SelectedItem != null)
+                if (lboSuppliers.SelectedItem != null && listSupplySupplierOrder.Count > 0)
                 {
                     List<string> errorMessages = CheckSuppliesWithSupplier();
                     if (errorMessages.Count == 0)
@@ -572,7 +571,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 else
                 {
                     new AlertPopup("Datos faltantes",
-                            "Por favor verifique el pedido ya tenga selecionado un proveedor",
+                            "Por favor verifique el pedido ya tenga selecionado un proveedor y al menos un insumo",
                             Auxiliary.AlertPopupTypes.Warning);
                 }
             }
@@ -713,6 +712,11 @@ namespace ItalianPizza.XAMLViews.Suppliers
         }
 
         private void BackPage_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new GUI_SuppliersModule());
+        }
+
+        private void BackPage_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new GUI_SuppliersModule());
         }
