@@ -435,6 +435,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                 {
                     customer = context.CustomerSet
                         .Where(customerAux => customerAux.Id == customerID)
+                        .Include(customerAux => customerAux.AddressSet)
                         .First();
                 }
             }
@@ -569,6 +570,148 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             }
 
             return userPicture;
+        }
+
+        public int AddCustomer(CustomerSet customer, AddressSet customerAddress)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.CustomerSet.Add(customer);
+                    context.AddressSet.Add(customerAddress);
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int UpdateCustomer(CustomerSet customerSet, AddressSet customerAddress)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+
+                    CustomerSet customer = context.CustomerSet.FirstOrDefault(dD => dD.Id == customerSet.Id);
+                    customer.Names = customerSet.Names;
+                    customer.LastName = customerSet.LastName;
+                    customer.SecondLastName = customerSet.SecondLastName;
+                    customer.Email = customerSet.Email;
+                    customer.Phone = customerSet.Phone;
+
+                    AddressSet address = context.AddressSet.FirstOrDefault(a => a.Id == customerAddress.Id);
+                    address.StreetNumber = customerAddress.StreetNumber;
+                    address.City = customerAddress.City;
+                    address.State = customerAddress.State;
+                    address.StreetName = customerAddress.StreetName;
+                    address.Colony = customerAddress.Colony;
+                    address.ZipCode = customerAddress.ZipCode;
+
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int AddDeliveryDriver(DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.DeliveryDriverSet.Add(deliveryDriver);
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int UpdateDeliveryDriver(DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+
+                    DeliveryDriverSet deliveryDriverSet = context.DeliveryDriverSet.FirstOrDefault(dD => dD.Id == deliveryDriver.Id);
+                    deliveryDriverSet.Names = deliveryDriver.Names;
+                    deliveryDriverSet.LastName = deliveryDriver.LastName;
+                    deliveryDriverSet.SecondLastName = deliveryDriver.SecondLastName;
+                    deliveryDriverSet.Email = deliveryDriver.Email;
+                    deliveryDriverSet.Phone = deliveryDriver.Phone;
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int DeleteDeliveryDriver(DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.DeliveryDriverSet.Remove(deliveryDriver);
+                    context.SaveChanges();
+                    result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
         }
 
     }
