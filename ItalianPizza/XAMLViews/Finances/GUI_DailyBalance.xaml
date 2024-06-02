@@ -1,0 +1,82 @@
+﻿<Page x:Class="ItalianPizza.XAMLViews.Finances.GUI_DailyBalance"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:ItalianPizza.XAMLViews"
+        mc:Ignorable="d" 
+        d:DesignHeight="922.16"
+        d:DesignWidth="1742.8"
+        Title="GUI_DailyBalance">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#000000">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="754*"/>
+            <ColumnDefinition Width="989*"/>
+        </Grid.ColumnDefinitions>
+
+        <local:NavigationBar Grid.Column="0" HorizontalAlignment="Left" Margin="0,0,0,0" Width="244"/>
+
+        <Grid x:Name="VirtualWindowConsultDailyBalance" Margin="-2,0,2,0" Grid.ColumnSpan="2">
+            <Rectangle HorizontalAlignment="Left" Height="128" Margin="270,26,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="1450" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
+            <Rectangle HorizontalAlignment="Left" Height="372" Margin="272,526,0,0" Stroke="#FF1C1C1C" VerticalAlignment="Top" Width="1448" Fill="#FF18171C" RadiusX="20" RadiusY="20"/>
+
+            <Grid>
+                <Rectangle HorizontalAlignment="Left" Height="48" Margin="278,472,0,0" Stroke="Black" VerticalAlignment="Top" Width="1404" Fill="#000000"/>
+                <TextBlock Text="Tipo de Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="310,477,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="114"/>
+                <TextBlock Text="Contexto de la Transacción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="441,478,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="129"/>
+                <TextBlock Text="Fecha de Realización" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="585,478,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632" Width="110"/>
+                <TextBlock Text="Cantidad" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="743,488,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+                <TextBlock Text="Descripción" TextAlignment="Center" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="1220,487,0,0" VerticalAlignment="Top" Foreground="White" FontSize="16" FontFamily="Arial Black" RenderTransformOrigin="0.54,0.632"/>
+            </Grid>
+
+            <ScrollViewer x:Name="FinancialTransactionsScrollViewer" Margin="290,536,41,43">
+                <StackPanel Name="FinancialTransactionsStackPanel">
+                    <Border Height="73.7" Margin="5,4,5,0" Background="#7E1616">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="146" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Entrada"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="126" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="Pago de pedido de proveedor"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="138" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="21/06/2023"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="152" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="$213.00"/>
+                            <TextBlock Foreground="White" Margin="0, 0, 0, 0" Width="821" TextWrapping="Wrap" FontSize="18" TextAlignment="Center" VerticalAlignment="Center" Text="2"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Name="AddFinancialTransactionBorder" Height="99" Margin="5,4,5,0" Background="#7E1616" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Width="346">
+                                <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                                    <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="165" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Tipo de Transacción:"/>
+                                    <ComboBox Name="FinancialTransactionTypeComboBox" Width="171" Height="34" SelectionChanged="FinancialTransactionTypeComboBoxSelectionChanged"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 0">
+                                    <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Cantidad: "/>
+                                    <xctk:DecimalUpDown Name="FinancialTransactionPriceDecimalUpDown" MaxLength="30" FormatString="C" Value="0" Increment="0.01" Maximum="100000" Minimum="0" FontSize="18" Margin="0,0,0,0" TextAlignment="Left" Width="256" Height="34"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="10, 6, 0, 0">
+                                <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="80" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Contexto: "/>
+                                <ComboBox Name="FinancialTransactionContextComboBox" FontSize="18" Margin="0,0,0,0" Width="256" Height="58" />
+                            </StackPanel>
+                            <TextBlock Foreground="White" Margin="10, 0, 0, 0" Width="101" TextWrapping="Wrap" FontSize="18" TextAlignment="Left" VerticalAlignment="Center" Text="Descripción: "/>
+                            <TextBox Style="{StaticResource ModifyArticleTextBoxStyle}" Name="FinancialTransactionDescriptionTextBox" TextWrapping="Wrap" Width="357" Height="76" MaxLength="100"/>
+                            <Button Style="{StaticResource RedButtonStyle}" Margin="10, 0, 0, 0" Height="44" Width="174" Content="Guardar Transacción" Click="SaveTransactionButtonOnClick"/>
+                            <Button Style="{StaticResource BlackButtonStyle}" Margin="10, 0, 0, 0" Height="44" Width="100" Content="Cancelar" Click="CancelButtonOnClick"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

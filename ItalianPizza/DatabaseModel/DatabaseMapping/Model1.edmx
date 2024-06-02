@@ -227,7 +227,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Instructions" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Instructions" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="ProductSale_Id" Type="int" Nullable="false" />
@@ -1431,7 +1431,7 @@ advertencia 6002: La tabla o vista 'ItalianPizza.sys.database_firewall_rules' no
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Instructions" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="ProductSale_Id" Type="Int32" Nullable="false" />

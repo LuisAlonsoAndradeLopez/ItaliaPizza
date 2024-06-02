@@ -1,6 +1,7 @@
 ﻿using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
+using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -33,7 +34,8 @@ namespace ItalianPizza.XAMLViews
                 "Gerente",
                 "Recepcionista",
                 "Mesero",
-                "Personal Cocina"
+                "Personal Cocina",
+                "Repartidor"
             };
             cboUserRol.ItemsSource = types; ;
             cboUserRol.SelectedIndex = 0;
@@ -71,6 +73,10 @@ namespace ItalianPizza.XAMLViews
 
         private void RegisterButton_Clic(object sender, RoutedEventArgs e)
         {
+            userDAO = new UserDAO();
+            int recepcionistID = 5;
+            int result;
+
             if (pnlForm.Visibility == Visibility.Visible)
             {
                 btnRegister.Content = "Registrar";
@@ -81,7 +87,33 @@ namespace ItalianPizza.XAMLViews
             {
                 btnRegister.Content = "Siguiente";
 
-                if (!ValidateInputs())
+                if (userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id == recepcionistID)
+                {
+                    if (!ValidateInputsForDeliveryDriver())
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        DeliveryDriverSet deliveryDriver = new DeliveryDriverSet()
+                        {
+                            Names = txtName.Text,
+                            LastName = txtLastName.Text,
+                            SecondLastName = txtSecondLastName.Text,
+                            Email = txtEmail.Text,
+                            Phone = txtPhoneNumber.Text,
+                            UserStatusId = 1,
+                            EmployeeId = UserToken.GetEmployeeID(),
+                        };
+                        result = userDAO.RegisterDeliveryDriver(deliveryDriver);
+                    }
+                    if (result != -1)
+                    {
+                        new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
+                        NavigationService.GoBack();
+                    }
+                }
+                else if (!ValidateInputsForEmployee())
                 {
                     return;
                 }
@@ -91,31 +123,30 @@ namespace ItalianPizza.XAMLViews
                 }
                 else
                 {
-                    userDAO = new UserDAO();
-                    UserAccountSet account = new UserAccountSet()
-                    {
-                        UserName = txtEmail.Text,
-                        Password = txtPassword.Text
-                    };
-                    EmployeeSet employee = new EmployeeSet()
-                    {
-                        Names = txtName.Text,
-                        LastName = txtLastName.Text,
-                        SecondLastName = txtSecondLastName.Text,
-                        Email = txtEmail.Text,
-                        Phone = txtPhoneNumber.Text,
-                        ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
-                        UserStatusId = 1,
-                        EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
-                        Address_Id = 1
-                    };
-                    int result = userDAO.RegisterUser(account, employee);
+                        UserAccountSet account = new UserAccountSet()
+                        {
+                            UserName = txtEmail.Text,
+                            Password = txtPassword.Text
+                        };
+                        EmployeeSet employee = new EmployeeSet()
+                        {
+                            Names = txtName.Text,
+                            LastName = txtLastName.Text,
+                            SecondLastName = txtSecondLastName.Text,
+                            Email = txtEmail.Text,
+                            Phone = txtPhoneNumber.Text,
+                            ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
+                            UserStatusId = 1,
+                            EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
+                            Address_Id = 1
+                        };
+                         result = userDAO.RegisterUser(account, employee);
                     if (result == 3)
                     {
                         new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
                         NavigationService.GoBack();
                     }
-                    else if(result == -1)
+                    else if (result == -1)
                     {
                         new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
                     }
@@ -123,7 +154,42 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private bool ValidateInputs()
+        private bool ValidateInputsForDeliveryDriver()
+        {
+            if (!RegexChecker.CheckEmail(txtEmail.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un correo electrónico válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckName(txtName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un nombre válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckLastName(txtLastName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un apellido válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckSecondLastName(txtSecondLastName.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un segundo apellido válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (!RegexChecker.CheckPhoneNumber(txtPhoneNumber.Text))
+            {
+                new AlertPopup("¡Error!", "Ingrese un número de teléfono válido", AlertPopupTypes.Error);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool ValidateInputsForEmployee()
         {
 
             if (txtPassword.Text != txtPasswordConfirmation.Text)
@@ -198,6 +264,35 @@ namespace ItalianPizza.XAMLViews
                 {
                     NavigationService.GoBack();
                 }
+            }
+        }
+
+        private void cmbRolSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            System.Windows.Controls.ComboBox userCmbBox = (System.Windows.Controls.ComboBox)sender;
+            string selectedOption = userCmbBox.SelectedItem?.ToString();
+
+            if(selectedOption == "Repartidor")
+            {
+                txtPassword.Visibility = Visibility.Hidden;
+                txtPasswordConfirmation.Visibility = Visibility.Hidden;
+                lblUser.Visibility = Visibility.Hidden;
+                txtUser.Visibility = Visibility.Hidden;
+                lblPassword.Visibility = Visibility.Hidden;
+                txtPassword.Visibility = Visibility.Hidden;
+                lblConfirmPassword.Visibility = Visibility.Hidden;
+                txtPasswordConfirmation.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                txtPassword.Visibility = Visibility.Visible;
+                txtPasswordConfirmation.Visibility = Visibility.Visible;
+                lblUser.Visibility = Visibility.Visible;
+                txtUser.Visibility = Visibility.Visible;
+                lblPassword.Visibility = Visibility.Visible;
+                txtPassword.Visibility = Visibility.Visible;
+                lblConfirmPassword.Visibility = Visibility.Visible;
+                txtPasswordConfirmation.Visibility = Visibility.Visible;
             }
         }
     }

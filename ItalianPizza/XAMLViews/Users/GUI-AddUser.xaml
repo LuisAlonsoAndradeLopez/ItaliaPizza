@@ -50,7 +50,7 @@
             <TextBox x:Name="txtPhoneNumber" Width="364" Text="Ingresa el teléfono" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="10"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
             <Label Content="Rol: *" Width="100" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
-            <ComboBox x:Name="cboUserRol" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711"/>
+            <ComboBox x:Name="cboUserRol" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711" SelectionChanged="cmbRolSelectionChanged"/>
         </StackPanel>
 
         <StackPanel x:Name="pnlUser" Visibility="Collapsed" Margin="470,153,58,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1">
@@ -58,13 +58,13 @@
             <Label Content="Correo: *" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtEmail" Width="364" Text="Ingresa el correo" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="75"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
-            <Label Content="Usuario: *" Width="300" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <Label x:Name="lblUser" Content="Usuario: *" Width="300" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtUser" Width="364" Text="Ingresa el usuario" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="15"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
-            <Label Content="Contraseña: *" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <Label x:Name="lblPassword" Content="Contraseña: *" Width="325" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtPassword" Width="364" Text="Ingresa la contraseña" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="15"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
-            <Label Content="Confirmar contraseña: *" Width="397" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <Label x:Name="lblConfirmPassword" Content="Confirmar contraseña: *" Width="397" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtPasswordConfirmation" Width="364" Text="Ingresa la contraseña" Foreground="Gray" VerticalContentAlignment="Center" FontSize="22" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3"  HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="15"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
 

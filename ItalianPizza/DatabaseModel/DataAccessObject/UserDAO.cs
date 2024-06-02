@@ -571,6 +571,24 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return userPicture;
         }
 
+        internal int RegisterDeliveryDriver(DeliveryDriverSet deliveryDriver)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.DeliveryDriverSet.Add(deliveryDriver);
+                    result = context.SaveChanges();
+                }
+
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
     }
 
 }
