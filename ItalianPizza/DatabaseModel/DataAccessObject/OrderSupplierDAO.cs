@@ -94,7 +94,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         };
                         context.SupplierOrderDetailsSet.Add(supplierOrderDetailsSet);
                     }
-                    result = context.SaveChanges();
+                    context.SaveChanges();
+                    result = 1;
                 }
             }
             catch (EntityException ex)
@@ -123,6 +124,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         supplierOrderSetAux.Supplier_Id = supplierOrder.Supplier_Id;
                         supplierOrderSetAux.OrderStatusId = supplierOrder.OrderStatusId;
                         supplierOrderSetAux.TotalAmount = supplierOrder.TotalAmount;
+                        result = 1;
                     }
 
                     context.SaveChanges();
@@ -142,8 +144,9 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                             SupplierOrderId = supplierOrder.Id
                         };
                         context.SupplierOrderDetailsSet.Add(supplierOrderDetailsSet);
+                        result = 1;
                     }
-                    result = context.SaveChanges();
+                    context.SaveChanges();
                 }
             }
             catch (EntityException ex)

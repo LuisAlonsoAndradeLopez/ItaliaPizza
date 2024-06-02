@@ -16,7 +16,7 @@ using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
 using ItalianPizza.XAMLViews.CustomerOrder;
-using ItalianPizza.XAMLViews.Suppliers;
+using ItalianPizza.XAMLViews.Recipes;
 using Label = System.Windows.Controls.Label;
 
 namespace ItalianPizza.XAMLViews
@@ -313,13 +313,27 @@ namespace ItalianPizza.XAMLViews
             {
                 Grid grdContainer = new Grid();
 
+                if ((bool)product.Recipee)
+                {
+                    Image image = new Image
+                    {
+                        Height = 25,
+                        Width = 25,
+                        Source = new BitmapImage(new Uri("\\Resources\\Pictures\\ICON-Recipe.png", UriKind.RelativeOrAbsolute)),
+                        Stretch = Stretch.Fill,
+                        Margin = new Thickness(-430, 0, 0, 0),
+                    };
+                    image.PreviewMouseLeftButtonDown += (sender, e) => ShowRecipe(product);
+                    grdContainer.Children.Add(image);
+                }
+                
                 Label lblNameProduct = new Label
                 {
                     Content = product.Name,
                     Foreground = new SolidColorBrush(Color.FromRgb(255, 252, 252)),
                     FontWeight = FontWeights.Bold,
                     FontSize = 18,
-                    Margin = new Thickness(20, 0, 0, 0),
+                    Margin = new Thickness(30, 0, 0, 0),
                 };
                 grdContainer.Children.Add(lblNameProduct);
 
@@ -349,6 +363,19 @@ namespace ItalianPizza.XAMLViews
 
             scrollViewer.Content = stackPanelContainer;
             wpCustomerOrderProducts.Children.Add(scrollViewer);
+        }
+
+        private void ShowRecipe(ProductSaleSet productSale)
+        {
+            RecipeSet recipe = new RecipeDAO().GetRecipeByProduct(productSale.Name);
+            if(recipe != null)
+            {
+                NavigationService.Navigate(new GUI_RecipeDetails(recipe, productSale));
+            }
+            else
+            {
+                new AlertPopup("Producto Sin receta", "Lo siento pero este articulo no tiene receta", AlertPopupTypes.Warning);
+            }
         }
 
         private double CalculateTotalCost(List<ProductSaleSet> productsOrderCustomer)
@@ -389,7 +416,7 @@ namespace ItalianPizza.XAMLViews
                 GUI_UpdateOrderStatusForm UpdateOrderStatusForm = new GUI_UpdateOrderStatusForm(customerOrderSet)
                 {
                     HorizontalAlignment = HorizontalAlignment.Left,
-                    Margin = new Thickness(1175, 0, 0, 0)
+                    Margin = new Thickness(1165, 0, 0, 0)
                 };
                 Grid.SetColumn(UpdateOrderStatusForm, 0);
                 Background.Children.Add(UpdateOrderStatusForm);
@@ -416,6 +443,12 @@ namespace ItalianPizza.XAMLViews
                         MonetaryValue = customerOrderSet.TotalAmount,
                         FinancialTransactionIncomeContextId = 1
                     };
+
+                    int recentDailyClosingID = new DailyClosingDAO().GetMaximumDailyClosingID();
+                    if (recentDailyClosingID > 0)
+                    {
+                        incomeFinancialTransaction.DailyClosingId = recentDailyClosingID;
+                    }
 
                     new IncomeFinancialTransactionDAO().AddIncomeFinancialTransaction(incomeFinancialTransaction);
                     customerOrdersDAO.ModifyOrderStatus(customerOrderSet.Id, 5);

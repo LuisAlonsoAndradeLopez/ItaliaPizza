@@ -123,7 +123,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                         supplier.SupplySet.Add(supplyAux);
                     }
 
-                    result = context.SaveChanges();
+                    context.SaveChanges();
+                    result = 1;
                 }
             }
             catch (EntityException ex)
