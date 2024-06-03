@@ -121,6 +121,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAOsTests\DailyClosingDAOTest.cs" />
     <Compile Include="DAOsTests\IncomeFinancialTransactionDAOTest.cs" />
     <Compile Include="DAOsTests\FinancialTransactionWithDrawContextDAOTest.cs" />
     <Compile Include="DAOsTests\WithDrawFinancialTransactionDAOTest.cs" />

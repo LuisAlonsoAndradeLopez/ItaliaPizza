@@ -105,7 +105,7 @@ namespace ItalianPizza.XAMLViews
                             UserStatusId = 1,
                             EmployeeId = UserToken.GetEmployeeID(),
                         };
-                        result = userDAO.RegisterDeliveryDriver(deliveryDriver);
+                        result = userDAO.AddDeliveryDriver(deliveryDriver);
                     }
                     if (result != -1)
                     {

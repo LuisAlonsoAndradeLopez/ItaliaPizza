@@ -112,8 +112,7 @@ namespace ItalianPizza.XAMLViews.Finances
         {
             try
             {
-                new AlertPopup("¡No disponible!", "En desarrollo de software con el Álvaro.", AlertPopupTypes.Error);
-                //Método que hace el Álvaro
+                NavigationService?.Navigate(new GUI_DailyBalance());
 
             }
             catch (EntityException ex)

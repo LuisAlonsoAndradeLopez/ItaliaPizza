@@ -222,6 +222,7 @@
     <Compile Include="Auxiliary\ImageManager.cs" />
     <Compile Include="Auxiliary\RegexChecker.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\CustomerOrdersDAO.cs" />
+    <Compile Include="DatabaseModel\DataAccessObject\DailyClosingDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionWithDrawContextDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\FinancialTransactionIncomeContextDAO.cs" />
     <Compile Include="DatabaseModel\DataAccessObject\IncomeFinancialTransactionDAO.cs" />
@@ -360,12 +361,6 @@
     </Compile>
     <Compile Include="ItalianPizzaBDArticlesReportDataSet.Designer.cs" />
     <Compile Include="packages\Microsoft.SqlServer.Types.14.0.314.76\content\SqlServerTypes\Loader.cs" />
-    <Compile Include="Resources\CrystalReport1.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Resources\CrystalReport2.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Resources\InventoryReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -411,6 +406,12 @@
     </Compile>
     <Compile Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml.cs">
       <DependentUpon>GUI-UpdateOrderStatusForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Finances\CashBalanceForm.xaml.cs">
+      <DependentUpon>CashBalanceForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLViews\Finances\DailyBalanceJustification.xaml.cs">
+      <DependentUpon>DailyBalanceJustification.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLViews\Finances\GUI_DailyBalance.xaml.cs">
       <DependentUpon>GUI_DailyBalance.xaml</DependentUpon>
@@ -496,6 +497,14 @@
     <Page Include="XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="XAMLViews\Finances\CashBalanceForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Finances\DailyBalanceJustification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Finances\GUI_DailyBalance.xaml">
       <SubType>Designer</SubType>
@@ -936,8 +945,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Resources\CrystalReport1.rpt" />
-    <None Include="Resources\CrystalReport2.rpt" />
     <None Include="Resources\InventoryReportDataSet.xsc">
       <DependentUpon>InventoryReportDataSet.xsd</DependentUpon>
     </None>
@@ -1002,6 +1009,43 @@
     <Content Include="packages\CrystalDecisions.Shared.1.0.0\lib\CrystalDecisions.Shared.dll" />
     <Content Include="packages\CrystalDecisions.Web.1.0.1\lib\CrystalDecisions.Web.dll" />
     <Content Include="packages\CrystalDecisions.Windows.Forms.1.0.0\lib\CrystalDecisions.Windows.Forms.dll" />
+    <Resource Include="Resources\Pictures\CashDenominations\100bill.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\10coin.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\1coin.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\200bill.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\20bill.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\2coin.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\500bill.jpg" />
+    <Resource Include="Resources\Pictures\CashDenominations\50bill.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\50centscoin.png" />
+    <Resource Include="Resources\Pictures\CashDenominations\5coin.png" />
+    <Resource Include="Resources\Pictures\ICON-PurchaseSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-Recipe.png" />
+    <Resource Include="Resources\Pictures\ICON-Save.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-SearchSupplier.png" />
+    <Resource Include="Resources\Pictures\ICON-SelectCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-Town.png" />
+    <Resource Include="Resources\Pictures\ICON-UpdateCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-Emaiil.png" />
+    <Resource Include="Resources\Pictures\ICON-ModifyOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderCanceled.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderDelivered.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInKitchen.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInProcess.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderInShipment.png" />
+    <Resource Include="Resources\Pictures\ICON-OrderReady.png" />
+    <Resource Include="Resources\Pictures\ICON-PayOrder.png" />
+    <Resource Include="Resources\Pictures\ICON-ChangeStatus.png" />
+    <Resource Include="Resources\Pictures\ICON-Colony.png" />
+    <Resource Include="Resources\Pictures\ICON-Customer.png" />
+    <Resource Include="Resources\Pictures\ICON-Delete.png" />
+    <Resource Include="Resources\Pictures\ICON-DeleteCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-DeliveryDriver.png" />
+    <Resource Include="Resources\Pictures\ICON-AddCustomer.png" />
+    <Resource Include="Resources\Pictures\ICON-Back.png" />
+    <Resource Include="Resources\Pictures\ICON-Money.png" />
+    <Resource Include="Resources\Pictures\ICON-UserStatus.png" />
     <Resource Include="packages\CrystalReports.AxShockwaveFlashObjects.13.0.4003\.editoricon.png" />
     <Content Include="packages\CrystalReports.AxShockwaveFlashObjects.13.0.4003\lib\net40\AxShockwaveFlashObjects.dll" />
     <Resource Include="packages\CrystalReports.Engine.13.0.4003\.editoricon.png" />
