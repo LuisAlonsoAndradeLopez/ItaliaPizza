@@ -250,7 +250,7 @@ namespace ItalianPizza.XAMLViews
         {
             try
             {
-                AddRecipeToAProduct();
+                VerifyProductRecipe();
 
             }
             catch (EntityException ex)
@@ -786,7 +786,7 @@ namespace ItalianPizza.XAMLViews
             }
         }
 
-        private void AddRecipeToAProduct()
+        private void VerifyProductRecipe()
         {
             ProductSaleSet product = new ProductDAO().GetProductByName(SelectedArticleNameTextBlock.Text);
             RecipeSet recipe = new RecipeDAO().GetRecipeByProduct(product.Name);

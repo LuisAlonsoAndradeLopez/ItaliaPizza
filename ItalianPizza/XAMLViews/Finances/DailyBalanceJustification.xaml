@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ItalianPizza.XAMLViews.Finances.DailyBalanceJustification"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItalianPizza.XAMLViews.Finances"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ButtonsStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ComboBoxesStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/ScrollViewersStyles.xaml" />
+                <ResourceDictionary Source="/ItalianPizza;component/XAMLViews/GUIComponentsStyles/TextBoxStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Rectangle 
+                HorizontalAlignment="Center" 
+                Height="451"
+                VerticalAlignment="Center" 
+                Width="799" 
+                RadiusX="30" 
+                RadiusY="30"
+                Fill="#FF18171C">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" Opacity="0.5"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Label Content="Balance diario" FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold" FontSize="65" Foreground="White"  VerticalAlignment="Top" Margin="188,14,188,0" Height="97"/>
+
+        <TextBox Style="{StaticResource GUI_AddArticleTextBoxStyle}" Name="txtJustification" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto" TextWrapping="Wrap" AcceptsReturn="True" Width="707" FontSize="24" MaxLength="300" Margin="48,128,0,94" />
+        <Button Style="{StaticResource RedButtonStyle}" Content="Cancelar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="138" FontSize="15"  Click="CancelDailyBalanceRegistration_Clic" Margin="147,381,0,0"/>
+        <Button  Content="Aceptar" HorizontalAlignment="Left" VerticalAlignment="Top" Height="43" Width="138" FontSize="15"  Click="RegisterDailyBalance_Clic" Margin="490,382,0,0" Background="Green"/>
+
+
+    </Grid>
+</UserControl>

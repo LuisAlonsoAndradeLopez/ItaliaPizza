@@ -77,8 +77,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClosingDate" Type="datetime" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="TotalAmount" Type="float" Nullable="false" />
+          <Property Name="FinalBalance" Type="float" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
+          <Property Name="BalanceIncome" Type="float" />
+          <Property Name="BalanceWithdrawal" Type="float" />
+          <Property Name="InitialBalance" Type="float" />
         </EntityType>
         <EntityType Name="DeliveryDriverSet">
           <Key>
@@ -227,7 +230,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Instructions" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Instructions" Type="nvarchar(max)" />
           <Property Name="Status" Type="nvarchar(max)" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="ProductSale_Id" Type="int" Nullable="false" />
@@ -1284,11 +1287,14 @@ advertencia 6002: La tabla o vista 'ItalianPizza.sys.database_firewall_rules' no
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClosingDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TotalAmount" Type="Double" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EmployeeSet" Relationship="Self.FK_EmployeeDailyClosing" FromRole="DailyClosingSet" ToRole="EmployeeSet" />
           <NavigationProperty Name="IncomeFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK_IncomeFinancialTransactionSet_DailyClosingSet" FromRole="DailyClosingSet" ToRole="IncomeFinancialTransactionSet" />
           <NavigationProperty Name="WithDrawFinancialTransactionSet" Relationship="ItalianPizzaServerBDModel.FK_WithDrawFinancialTransactionSet_DailyClosingSet" FromRole="DailyClosingSet" ToRole="WithDrawFinancialTransactionSet" />
+          <Property Name="FinalBalance" Type="Double" Nullable="false" />
+          <Property Name="BalanceIncome" Type="Double" />
+          <Property Name="BalanceWithdrawal" Type="Double" />
+          <Property Name="InitialBalance" Type="Double" />
         </EntityType>
         <EntityType Name="DeliveryDriverSet">
           <Key>
@@ -1431,7 +1437,7 @@ advertencia 6002: La tabla o vista 'ItalianPizza.sys.database_firewall_rules' no
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Instructions" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="EmployeeId" Type="Int32" Nullable="false" />
           <Property Name="ProductSale_Id" Type="Int32" Nullable="false" />
@@ -2511,10 +2517,13 @@ advertencia 6002: La tabla o vista 'ItalianPizza.sys.database_firewall_rules' no
     <EntitySetMapping Name="DailyClosingSet">
       <EntityTypeMapping TypeName="IsTypeOf(ItalianPizzaServerBDModel.DailyClosingSet)">
         <MappingFragment StoreEntitySet="DailyClosingSet">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="InitialBalance" ColumnName="InitialBalance" />
+                <ScalarProperty Name="BalanceWithdrawal" ColumnName="BalanceWithdrawal" />
+                <ScalarProperty Name="BalanceIncome" ColumnName="BalanceIncome" />
+                <ScalarProperty Name="FinalBalance" ColumnName="FinalBalance" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ClosingDate" ColumnName="ClosingDate" />
           <ScalarProperty Name="Description" ColumnName="Description" />
-          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
           <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
         </MappingFragment>
       </EntityTypeMapping>

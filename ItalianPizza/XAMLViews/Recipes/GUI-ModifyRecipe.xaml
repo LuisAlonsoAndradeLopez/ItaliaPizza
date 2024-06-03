@@ -91,7 +91,7 @@
             <Label Content="Instrucciones" FontFamily="Segoe UI Variable Display Semibold" FontWeight="Bold" FontSize="38" Foreground="White"/>
             <Border CornerRadius="5" Margin="0,25,0,0"  BorderBrush="Gray" BorderThickness="3" Background="Transparent" Width="516" Height="648">
                 <Grid>
-                    <TextBox x:Name="txtInstructions" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Background="Transparent" TextWrapping="Wrap" AcceptsReturn="True" TextChanged="TextBox_TextChanged" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
+                    <TextBox x:Name="txtInstructions" FontFamily="Segoe UI Semibold" FontSize="20" Foreground="White" Background="Transparent" TextWrapping="Wrap" MaxLength="10000" AcceptsReturn="True" TextChanged="TextBox_TextChanged" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" />
                     <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" x:Name="Placeholder" Text="Ingrese aquí la receta..." Foreground="Gray" Visibility="Visible" Margin="5,0,0,0" />
                 </Grid>
             </Border>

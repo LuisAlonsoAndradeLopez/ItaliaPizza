@@ -1,0 +1,365 @@
+﻿<UserControl x:Class="ItalianPizza.XAMLViews.Finances.CashBalanceForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ItalianPizza.XAMLViews.CustomerOrder"
+             mc:Ignorable="d" 
+             d:DesignHeight="889" d:DesignWidth="644">
+
+
+    <Grid>
+
+        <Rectangle 
+            HorizontalAlignment="Left" 
+            Height="889"
+            VerticalAlignment="Top" 
+            Width="644" 
+            RadiusX="30" 
+            RadiusY="30"
+            Fill="#FF18171C">
+            <Rectangle.Effect>
+                <DropShadowEffect Color="Black" Direction="270" ShadowDepth="5" Opacity="0.5"/>
+            </Rectangle.Effect>
+        </Rectangle>
+
+        <Label Content="Conteo de efectivo" 
+           HorizontalAlignment="Center" 
+           Margin="0,67,0,0" 
+           VerticalAlignment="Top"
+           Foreground="#FFCF9122" 
+           FontFamily="Arial Black" 
+           FontSize="24" FontWeight="Bold"/>
+
+        <Grid x:Name="grdDeliverymanForm" Visibility="Visible">
+
+            <Label Content="Billetes de 500" 
+               HorizontalAlignment="Left" 
+               Margin="138,189,0,0" 
+               VerticalAlignment="Top" 
+               FontFamily="Arial" 
+               FontSize="18" 
+               Foreground="#FFF8F8F8"/>
+
+            <TextBox x:Name="txt500bill" 
+                HorizontalAlignment="Left" 
+                Margin="48,227,0,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial" 
+                FontSize="23"
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="42"/>
+
+            <Label Content="Billetes de 200" 
+               HorizontalAlignment="Left" 
+               Margin="427,188,0,0"
+               VerticalAlignment="Top"
+               FontFamily="Arial"
+               FontSize="18"
+               Foreground="#FFF8F8F8"/>
+
+            <TextBox x:Name="txt200bill" 
+                 HorizontalAlignment="Left" 
+                 Margin="344,227,0,0"
+                 TextWrapping="Wrap" 
+                 Text="" VerticalAlignment="Top" 
+                 Width="252" 
+                 FontFamily="Arial"
+                 FontSize="23"
+                 PreviewTextInput="TextBox_PreviewTextInput"    
+                 Height="42"/>
+
+
+            <Label Content="Billetes de 100"
+               HorizontalAlignment="Left"
+               Margin="133,307,0,0" 
+               VerticalAlignment="Top" 
+               FontFamily="Arial" 
+               FontSize="18" 
+               Foreground="White"/>
+
+
+            <TextBox x:Name="txt100bill" 
+                HorizontalAlignment="Left" 
+                 Margin="47,349,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top"
+                 Width="253" 
+                 FontFamily="Arial"
+                 FontSize="23"
+                     PreviewTextInput="TextBox_PreviewTextInput"
+                 Height="42"/>
+
+            <Label Content="Billetes de 50"
+               HorizontalAlignment="Left" 
+               Margin="438,304,0,0"
+               VerticalAlignment="Top"
+               FontFamily="Arial"
+               FontSize="18"
+               Foreground="#FFF8F8F8"/>
+
+            <TextBox x:Name="txt50bill" 
+                 HorizontalAlignment="Left"
+                 Margin="344,349,0,0"
+                 TextWrapping="Wrap"
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="252" 
+                 FontFamily="Arial" 
+                 FontSize="23" 
+                     PreviewTextInput="TextBox_PreviewTextInput"
+                 Height="42"/>
+
+            <Label Content="Monedas de 10"
+               HorizontalAlignment="Left" 
+               Margin="431,418,0,0"
+               VerticalAlignment="Top"
+               FontFamily="Arial"
+               FontSize="18"
+               Foreground="#FFF8F8F8"/>
+
+            <TextBox x:Name="txt10coin" 
+                 HorizontalAlignment="Left"
+                 Margin="342,459,0,0"
+                 TextWrapping="Wrap"
+                 Text="" 
+                 VerticalAlignment="Top" 
+                 Width="252" 
+                 FontFamily="Arial" 
+                 FontSize="23" 
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="42"/>
+
+            <Image HorizontalAlignment="Left" 
+               Height="27" 
+               Margin="51,189,0,0"
+               VerticalAlignment="Top"
+               Width="69" 
+               Source="\Resources\Pictures\CashDenominations\500bill.jpg" 
+               Stretch="UniformToFill"/>
+
+            <Image HorizontalAlignment="Left" 
+               Height="32" 
+               Margin="350,185,0,0" 
+               VerticalAlignment="Top"
+               Width="66" 
+               Source="\Resources\Pictures\CashDenominations\200bill.png" 
+               Stretch="UniformToFill"/>
+
+            <Image HorizontalAlignment="Left" 
+               Height="70" 
+               Margin="71,285,0,0" 
+               VerticalAlignment="Top" 
+               Width="32" 
+               Source="\Resources\Pictures\CashDenominations\100bill.png" 
+               Stretch="UniformToFill" RenderTransformOrigin="0.5,0.5">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+            <Image HorizontalAlignment="Left" 
+               Height="62" 
+               Margin="341,638,0,0" 
+               VerticalAlignment="Top" 
+               Width="33" 
+               Source="\Resources\Pictures\CashDenominations\50bill.png" 
+               Stretch="UniformToFill" RenderTransformOrigin="6.054,-2.098">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+
+            <TextBox x:Name="txt20bill" 
+                HorizontalAlignment="Left" 
+                 Margin="48,457,0,0" 
+                 TextWrapping="Wrap" 
+                 Text="" 
+                 VerticalAlignment="Top"
+                 Width="252"
+                 FontFamily="Arial" 
+                 FontSize="23"
+                        PreviewTextInput="TextBox_PreviewTextInput"
+                 Height="44"/>
+
+            <Label Content="Billetes de 20" 
+               HorizontalAlignment="Left"
+               Margin="135,418,0,0"
+               VerticalAlignment="Top"
+               FontFamily="Arial"
+               FontSize="18"
+               Foreground="#FFF8F8F8"/>
+
+            <Image HorizontalAlignment="Left" 
+               Height="33" 
+               Margin="56,416,0,0"
+               VerticalAlignment="Top" 
+               Width="64"
+               Source="\Resources\Pictures\CashDenominations\20bill.png" 
+               Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+
+            <Label Content="Ingrese el efectivo del corte de caja" 
+                HorizontalAlignment="Center" 
+                Margin="0,121,0,0" 
+                VerticalAlignment="Top" 
+                FontFamily="Arial" 
+                FontSize="18" 
+                Foreground="#FFF8F8F8"/>
+
+            <Button 
+                Content="Cancelar" 
+                HorizontalAlignment="Left" 
+                Margin="65,797,0,0" 
+                VerticalAlignment="Top"
+                Height="54" 
+                Width="227" 
+                BorderBrush="#FFCC3824" 
+                BorderThickness="4" Click="CancelRegistration_Click"/>
+
+            <Button 
+                Content="Aceptar" 
+                HorizontalAlignment="Left" 
+                Margin="346,798,0,0" 
+                VerticalAlignment="Top"
+                Height="54" 
+                Width="227" 
+                Background="Green"
+                BorderThickness="4" Click="Accept_Click"/>
+
+            <Label Content="Monedas de 5"
+                HorizontalAlignment="Left" 
+                Margin="131,539,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="#FFF8F8F8"/>
+            <TextBox x:Name="txt5coin" 
+                HorizontalAlignment="Left" 
+                Margin="48,583,0,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial" 
+                FontSize="23"
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="44"/>
+
+            <Label Content="Monedas de 2"
+                HorizontalAlignment="Left" 
+                Margin="428,538,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="#FFF8F8F8"/>
+            <TextBox x:Name="txt2coin" 
+                HorizontalAlignment="Left" 
+                Margin="345,582,0,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial" 
+                FontSize="23"
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="44"/>
+
+            <Label Content="Monedas de 1"
+                HorizontalAlignment="Left" 
+                Margin="130,652,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="#FFF8F8F8"/>
+            <TextBox x:Name="txt1coin" 
+                HorizontalAlignment="Left" 
+                Margin="47,696,0,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial" 
+                FontSize="23"
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="44"/>
+
+            <Label Content="Monedas de 0.50"
+                HorizontalAlignment="Left" 
+                Margin="411,655,0,0"
+                VerticalAlignment="Top"
+                FontFamily="Arial"
+                FontSize="18"
+                Foreground="#FFF8F8F8"/>
+            <TextBox x:Name="txt50centscoin" 
+                HorizontalAlignment="Left" 
+                Margin="345,699,0,0" 
+                TextWrapping="Wrap" 
+                Text="" 
+                VerticalAlignment="Top"
+                Width="252"
+                FontFamily="Arial" 
+                FontSize="23"
+                PreviewTextInput="TextBox_PreviewTextInput"
+                Height="44"/>
+
+
+            <Image HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="359,409,0,0"
+                VerticalAlignment="Top" 
+                Width="41"
+                Source="/Resources/Pictures/CashDenominations/10coin.png" 
+                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+            <Image HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="356,645,0,0"
+                VerticalAlignment="Top" 
+                Width="41"
+                Source="/Resources/Pictures/CashDenominations/50centscoin.png" 
+                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+            <Image HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="57,647,0,0"
+                VerticalAlignment="Top" 
+                Width="41"
+                Source="/Resources/Pictures/CashDenominations/1coin.png" 
+                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+            <Image HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="356,525,0,0"
+                VerticalAlignment="Top" 
+                Width="41"
+                Source="/Resources/Pictures/CashDenominations/2coin.png" 
+                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+            <Image HorizontalAlignment="Left" 
+                Height="41" 
+                Margin="57,531,0,0"
+                VerticalAlignment="Top" 
+                Width="41"
+                Source="/Resources/Pictures/CashDenominations/5coin.png" 
+                Stretch="UniformToFill" RenderTransformOrigin="-0.138,-0.6"/>
+
+        </Grid>
+
+    </Grid>
+</UserControl>
+
