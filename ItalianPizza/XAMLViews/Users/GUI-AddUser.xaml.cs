@@ -2,6 +2,7 @@
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
+using ItalianPizza.XAMLViews.Users;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,13 +19,14 @@ namespace ItalianPizza.XAMLViews
     /// </summary>
     public partial class GUI_AddUser : Page
     {
-        private string route;
         private UserDAO userDAO;
+        private AddressSet address;
 
         public GUI_AddUser()
         {
             InitializeComponent();
             InitalizeComboBox();
+            userDAO = new UserDAO();
         }
 
         private void InitalizeComboBox()
@@ -73,7 +75,6 @@ namespace ItalianPizza.XAMLViews
 
         private void RegisterButton_Clic(object sender, RoutedEventArgs e)
         {
-            userDAO = new UserDAO();
             int recepcionistID = 5;
             int result;
 
@@ -87,60 +88,70 @@ namespace ItalianPizza.XAMLViews
             {
                 btnRegister.Content = "Siguiente";
 
-                if (userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id == recepcionistID)
+                int employeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id;
+
+                if (employeePositionId == recepcionistID)
                 {
                     if (!ValidateInputsForDeliveryDriver())
                     {
                         return;
                     }
-                    else
+
+                    DeliveryDriverSet deliveryDriver = new DeliveryDriverSet()
                     {
-                        DeliveryDriverSet deliveryDriver = new DeliveryDriverSet()
-                        {
-                            Names = txtName.Text,
-                            LastName = txtLastName.Text,
-                            SecondLastName = txtSecondLastName.Text,
-                            Email = txtEmail.Text,
-                            Phone = txtPhoneNumber.Text,
-                            UserStatusId = 1,
-                            EmployeeId = UserToken.GetEmployeeID(),
-                        };
-                        result = userDAO.AddDeliveryDriver(deliveryDriver);
-                    }
+                        Names = txtName.Text,
+                        LastName = txtLastName.Text,
+                        SecondLastName = txtSecondLastName.Text,
+                        Email = txtEmail.Text,
+                        Phone = txtPhoneNumber.Text,
+                        UserStatusId = 1,
+                        EmployeeId = UserToken.GetEmployeeID(),
+                    };
+
+                    result = userDAO.AddDeliveryDriver(deliveryDriver);
+
                     if (result != -1)
                     {
                         new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
                         NavigationService.GoBack();
                     }
                 }
-                else if (!ValidateInputsForEmployee())
-                {
-                    return;
-                }
-                else if (userImage.Source == null)
-                {
-                    new AlertPopup("¡Error!", "Necesita seleccionar una imagen para poder continuar", AlertPopupTypes.Error);
-                }
                 else
                 {
-                        UserAccountSet account = new UserAccountSet()
-                        {
-                            UserName = txtEmail.Text,
-                            Password = txtPassword.Text
-                        };
-                        EmployeeSet employee = new EmployeeSet()
-                        {
-                            Names = txtName.Text,
-                            LastName = txtLastName.Text,
-                            SecondLastName = txtSecondLastName.Text,
-                            Email = txtEmail.Text,
-                            Phone = txtPhoneNumber.Text,
-                            ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
-                            UserStatusId = 1,
-                            EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
-                            Address_Id = 1
-                        };
-                         result = userDAO.RegisterUser(account, employee);
+                    if (!ValidateInputsForEmployee())
+                    {
+                        return;
+                    }
+
+                    if (userImage.Source == null)
+                    {
+                        new AlertPopup("¡Error!", "Necesita seleccionar una imagen para poder continuar", AlertPopupTypes.Error);
+                        return;
+                    }
+
+                    int addressId = userDAO.RegisterAddress(address);
+
+                    UserAccountSet account = new UserAccountSet()
+                    {
+                        UserName = txtUser.Text,
+                        Password = txtPassword.Text
+                    };
+
+                    EmployeeSet employee = new EmployeeSet()
+                    {
+                        Names = txtName.Text,
+                        LastName = txtLastName.Text,
+                        SecondLastName = txtSecondLastName.Text,
+                        Email = txtEmail.Text,
+                        Phone = txtPhoneNumber.Text,
+                        ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
+                        UserStatusId = 1,
+                        EmployeePositionId = employeePositionId,
+                        Address_Id = addressId
+                    };
+
+                    result = userDAO.RegisterUser(account, employee);
+
                     if (result == 3)
                     {
                         new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
@@ -152,6 +163,7 @@ namespace ItalianPizza.XAMLViews
                     }
                 }
             }
+
         }
 
         private bool ValidateInputsForDeliveryDriver()
@@ -191,7 +203,7 @@ namespace ItalianPizza.XAMLViews
 
         private bool ValidateInputsForEmployee()
         {
-
+            
             if (txtPassword.Text != txtPasswordConfirmation.Text)
             {
                 new AlertPopup("¡Error!", "Las contraseñas no coinciden", AlertPopupTypes.Error);
@@ -246,6 +258,36 @@ namespace ItalianPizza.XAMLViews
                 return false;
             }
 
+            if (address == null)
+            {
+                new AlertPopup("¡Error!", "Tienes que ingresar una dirección para poder continuar", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if (userDAO.CheckUserExistence(new UserAccountSet()
+            {
+                UserName = txtEmail.Text
+            }))
+            {
+                new AlertPopup("¡Error!", "El correo electrónico ya está registrado", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if(userDAO.CheckEmployeeExistence(new EmployeeSet {Names = txtName.Text,
+                        LastName = txtLastName.Text,
+                        SecondLastName = txtSecondLastName.Text,
+            }))
+            {
+                new AlertPopup("¡Error!", "Ya existe un empleado registrado con esos nombres y apellidos", AlertPopupTypes.Error);
+                return false;
+            }
+
+            if(userDAO.CheckEmployeeEmailExistence(new EmployeeSet { Email = txtEmail.Text }))
+            {
+                new AlertPopup("¡Error!", "Ya existe un empleado registrado con ese correo electrónico", AlertPopupTypes.Error);
+                return false;
+            }
+
             return true;
         }
 
@@ -294,6 +336,28 @@ namespace ItalianPizza.XAMLViews
                 lblConfirmPassword.Visibility = Visibility.Visible;
                 txtPasswordConfirmation.Visibility = Visibility.Visible;
             }
+        }
+
+        private void AddAddress_Clic(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            UserAddress userAddress = new UserAddress();
+            userAddress.RegisterAddress += UserAddress_RegisterAddress;
+            userAddress.Cancelled += UserAddress_Cancelled;
+            DynamicFormContainer.Children.Clear();
+            DynamicFormContainer.Children.Add(userAddress);
+            DynamicFormContainer.Visibility = Visibility.Visible;
+        }
+
+        private void UserAddress_Cancelled(object sender, EventArgs e)
+        {
+            DynamicFormContainer.Visibility = Visibility.Collapsed;
+        }
+
+        private void UserAddress_RegisterAddress(object sender, AddressSet address)
+        {
+            this.address = address;
+            txtAddress.Text = address.StreetName + " " + address.StreetNumber + "...";
+            DynamicFormContainer.Visibility = Visibility.Collapsed;
         }
     }
 }

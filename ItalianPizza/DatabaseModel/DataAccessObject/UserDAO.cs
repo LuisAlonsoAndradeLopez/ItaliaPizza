@@ -179,7 +179,28 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
-                    EmployeeSet employeeToCheck = context.EmployeeSet.Where(e => e.Names == employee.Names && e.LastName == employee.LastName && e.SecondLastName == employee.SecondLastName && e.Email == employee.Email).FirstOrDefault();
+                    EmployeeSet employeeToCheck = context.EmployeeSet.Where(e => e.Names == employee.Names && e.LastName == employee.LastName && e.SecondLastName == employee.SecondLastName).FirstOrDefault();
+                    if (employeeToCheck != null)
+                    {
+                        result = true;
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            return result;
+        }
+
+        public bool CheckEmployeeEmailExistence(EmployeeSet employee)
+        {
+            bool result = false;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    EmployeeSet employeeToCheck = context.EmployeeSet.Where(e => e.Email == employee.Email).FirstOrDefault();
                     if (employeeToCheck != null)
                     {
                         result = true;
@@ -700,6 +721,30 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     context.DeliveryDriverSet.Remove(deliveryDriver);
                     context.SaveChanges();
                     result = 1;
+                }
+            }
+            catch (EntityException ex)
+            {
+                throw new EntityException("Operación no válida al acceder a la base de datos.", ex);
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Operación no válida al acceder a la base de datos.", ex);
+            }
+
+            return result;
+        }
+
+        public int RegisterAddress(AddressSet address)
+        {
+            int result = 0;
+            try
+            {
+                using (var context = new ItalianPizzaServerBDEntities())
+                {
+                    context.AddressSet.Add(address);
+                    context.SaveChanges();
+                    result = address.Id;
                 }
             }
             catch (EntityException ex)

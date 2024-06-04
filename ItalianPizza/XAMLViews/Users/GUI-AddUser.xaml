@@ -53,8 +53,12 @@
             <ComboBox x:Name="cboUserRol" HorizontalAlignment="Left" FontSize="20" Width="364" Height="48" Background="#FF070711" SelectionChanged="cmbRolSelectionChanged"/>
         </StackPanel>
 
-        <StackPanel x:Name="pnlUser" Visibility="Collapsed" Margin="470,153,58,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1">
-
+        <StackPanel x:Name="pnlUser" Visibility="Collapsed" Margin="475,124,53,0" Background="#FF131313" Orientation="Vertical" VerticalAlignment="Top" Width="513" Grid.Column="1">
+            <Label Content="Dirección: *" Width="208" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBox x:Name="txtAddress" Width="392" Text="Clic en el ícono para añadir dirección" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" IsReadOnly="True" MaxLength="75"/>
+                <Image Height="60" Width="60" Margin="10,0,0,0" Source="\Resources\Pictures\ICON-Agregar.png" Stretch="UniformToFill" RenderTransformOrigin="-0.212,-1.572" MouseLeftButtonDown="AddAddress_Clic"/>
+            </StackPanel>
             <Label Content="Correo: *" Width="184" Foreground="White" FontSize="36" HorizontalAlignment="Left"/>
             <TextBox x:Name="txtEmail" Width="364" Text="Ingresa el correo" Foreground="Gray" FontSize="22"  VerticalContentAlignment="Center" Background="#FF131313" Height="48" BorderBrush="#666666" BorderThickness="3" HorizontalAlignment="Left" GotFocus="TextBox_GotFocus" MaxLength="75"/>
             <Separator Height="20" Margin="0,0,0,0" Background="#FF131313" Width="20"/>
@@ -70,6 +74,8 @@
 
         </StackPanel>
 
+        <Grid Name="DynamicFormContainer" Height="889" Width="644"  Margin="390,22,7,11" Background="#80000000" Visibility="Collapsed" Grid.Column="1">
+        </Grid>
 
     </Grid>
 </Page>
