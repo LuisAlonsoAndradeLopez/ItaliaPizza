@@ -37,6 +37,7 @@ namespace ItalianPizza.XAMLViews
             InitializeDAOConnections();
             ShowAllOrdersToday();
             FillListBoxStatus();
+            dpOrderDateFilter.SelectedDate = DateTime.Now;
         }
 
         private void FillListBoxStatus()
@@ -77,18 +78,63 @@ namespace ItalianPizza.XAMLViews
             try
             {
                 orders = customerOrdersDAO.GetCustomerOrdersByDate(dateToday);
+                GetOrderedCustomerOrders(ref orders);
                 ShowOrders(orders);
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", 
+                    Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos", 
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
 
         }
+
+        public void GetOrderedCustomerOrders(ref List<CustomerOrderSet> customerOrders)
+        {
+            EmployeePositionSet employeePosition = UserToken.GetEmployeePosition();
+            List<CustomerOrderSet> prioritizedOrders;
+            List<CustomerOrderSet> remainingOrders;
+
+            switch (employeePosition.Position)
+            {
+                case "Mesero":
+                    prioritizedOrders = customerOrders
+                        .Where(order => order.OrderStatusId == 3 && order.OrderTypeId == 2)
+                        .OrderBy(order => order.OrderDate)
+                        .ToList();
+                    break;
+                case "Recepcionista":
+                case "Gerente":
+                    prioritizedOrders = customerOrders
+                        .Where(order => order.OrderStatusId == 3 && order.OrderTypeId == 1)
+                        .OrderBy(order => order.OrderDate)
+                        .ToList();
+                    break;
+                case "Personal Cocina":
+                    prioritizedOrders = customerOrders
+                        .Where(order => order.OrderStatusId == 1)
+                        .OrderBy(order => order.OrderDate)
+                        .ToList();
+                    break;
+                default:
+                    throw new Exception("Tipo de posición de empleado no reconocido");
+            }
+
+            remainingOrders = customerOrders
+                .Where(order => !prioritizedOrders.Contains(order))
+                .OrderBy(order => order.OrderDate)
+                .ToList();
+
+            customerOrders = prioritizedOrders.Concat(remainingOrders).ToList();
+        }
+
 
         public void UpdateDatePickerField(DateTime date)
         {
@@ -109,11 +155,15 @@ namespace ItalianPizza.XAMLViews
             }
             catch (EntityException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
             catch (InvalidOperationException)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
         }
@@ -397,21 +447,21 @@ namespace ItalianPizza.XAMLViews
 
         private void GoToModifyOrderVirtualWindow(object sender, MouseButtonEventArgs e)
         {
-            if(customerOrderSet.OrderStatusId != 6 && customerOrderSet.OrderStatusId != 5)
+            if(customerOrderSet.OrderStatusId == 1)
             {
                 NavigationService.Navigate(new GUI_CustomerOrderManagementForm(customerOrderSet));
             }
             else
             {
-                new AlertPopup("Pedido Ya Cancelado",
-                    "Lo siento, pero a los pedidos cancelados y ya pagados ya no se pueden modificar",
+                new AlertPopup("Modificación no valido",
+                    "Lo siento, pero a los pedidos que ya se prepararon ya no se puede modificar",
                     Auxiliary.AlertPopupTypes.Warning);
             }
         }
 
         private void UpdateOrderStatus(object sender, MouseButtonEventArgs e)
         {
-            if(customerOrderSet.OrderStatusId != 6)
+            if(customerOrderSet.OrderStatusId != 6 && customerOrderSet.OrderStatusId != 5)
             {
                 GUI_UpdateOrderStatusForm UpdateOrderStatusForm = new GUI_UpdateOrderStatusForm(customerOrderSet)
                 {
@@ -423,15 +473,15 @@ namespace ItalianPizza.XAMLViews
             }
             else
             {
-                new AlertPopup("Pedido Ya Cancelado", 
-                    "Lo siento, pero a los pedidos cancelados ya no se pueden modificar estatus", 
+                new AlertPopup("Modificacion no valida", 
+                    "Lo siento, pero no se puede modificar el estatus de este pedido", 
                     Auxiliary.AlertPopupTypes.Warning);
             }
         }
 
         private void BtnRealizatePayCustomerOrderOnClick(object sender, RoutedEventArgs e)
         {
-            if (customerOrderSet.OrderStatusId != 5 && customerOrderSet.OrderStatusId != 6)
+            if (customerOrderSet.OrderStatusId == 7)
             {
                 try
                 {
@@ -477,7 +527,8 @@ namespace ItalianPizza.XAMLViews
 
             try
             {
-                customerOrders = customerOrdersDAO.GetCustomerOrdersByStatus((OrderStatusSet)lboStatusCustomerOrders.SelectedItem);
+                DateTime selectedDate = dpOrderDateFilter.SelectedDate.Value;
+                customerOrders = customerOrdersDAO.GetCustomerOrdersByStatus((OrderStatusSet)lboStatusCustomerOrders.SelectedItem, selectedDate);
                 ShowOrders(customerOrders);
             }
             catch (EntityException)

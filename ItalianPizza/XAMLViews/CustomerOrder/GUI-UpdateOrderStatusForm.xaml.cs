@@ -28,6 +28,15 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             customerOrdersDAO = new CustomerOrdersDAO();
             InitializeFieldFill(customerOrderSet);
             customerOrder = customerOrderSet;
+            checkButtons();
+        }
+
+        public void checkButtons()
+        {
+            if(customerOrder.OrderTypeId == 2)
+            {
+                btnInShipping.IsEnabled = false;
+            }
         }
 
         private bool CheckStatusChange(CustomerOrderSet customerOrder, int orderStatusID)
@@ -76,7 +85,40 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
 
         private void ChangeOrderStatusToSent(object sender, MouseButtonEventArgs e)
         {
-            if (CheckStatusChange(customerOrder, 4))
+            if (customerOrder.OrderStatusId == 3)
+            {
+                try
+                {
+                    customerOrdersDAO.ModifyOrderStatus(customerOrder.Id, 4);
+                    new AlertPopup("Actualización del estado del pedido",
+                        "Se actualizó correctamente el estado del pedido",
+                        Auxiliary.AlertPopupTypes.Success);
+                    CloseForm();
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                        "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (InvalidOperationException)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la base de datos, verifique que los " +
+                        "datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                }
+            }
+            else
+            {
+                new AlertPopup("Cambio no Valido",
+                        "Lo siento pero ese cambio no se puede realizar",
+                        Auxiliary.AlertPopupTypes.Error);
+            }
+        }
+
+        private void ChangeOrderStatusToDelivered(object sender, MouseButtonEventArgs e)
+        {
+            if (customerOrder.OrderStatusId == 3)
             {
                 try
                 {
@@ -109,7 +151,7 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
 
         private void ChangeOrderStatusToCanceled(object sender, MouseButtonEventArgs e)
         {
-            if (CheckStatusChange(customerOrder, 6))
+            if (customerOrder.OrderStatusId != 6 && customerOrder.OrderStatusId != 5)
             {
                 try
                 {
@@ -216,7 +258,7 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
 
         private void ChangeOrderStatusToReady(object sender, MouseButtonEventArgs e)
         {
-            if (CheckStatusChange(customerOrder, 3))
+            if (customerOrder.OrderStatusId == 2)
             {
                 try
                 {
@@ -249,7 +291,7 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
 
         private void ChangeOrderStatusToInKitchen(object sender, MouseButtonEventArgs e)
         {
-            if (CheckStatusChange(customerOrder, 2))
+            if (customerOrder.OrderStatusId == 1)
             {
                 try
                 {
@@ -280,16 +322,17 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
             }
         }
 
-        private void ChangeOrderStatusToOnHold(object sender, MouseButtonEventArgs e)
+        private void ChangeOrderStatusToOnOrderNotDelivered(object sender, MouseButtonEventArgs e)
         {
-            if (CheckStatusChange(customerOrder, 1))
+            if (customerOrder.OrderStatusId != 6 && customerOrder.OrderStatusId != 5)
             {
                 try
                 {
-                    customerOrdersDAO.ModifyOrderStatus(customerOrder.Id, 1);
+                    customerOrdersDAO.ModifyOrderStatus(customerOrder.Id, 10);
                     new AlertPopup("Actualización del estado del pedido",
                         "Se actualizó correctamente el estado del pedido",
                         Auxiliary.AlertPopupTypes.Success);
+                    CancelOrder();
                     CloseForm();
                 }
                 catch (EntityException)

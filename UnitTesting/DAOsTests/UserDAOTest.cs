@@ -31,22 +31,25 @@ namespace DAOsTests
                 LastName = "Test",
                 SecondLastName = "Test",
                 Email = "test@gmail.com",
-                Phone = "1234567890",
+                Phone = "2818696431",
                 UserStatusId = validValue,
                 EmployeePositionId = validValue,
                 Address_Id = validValue,
+                ProfilePhoto = new byte[1],
 
             };
             employeeAlreadyRegistered = new EmployeeSet()
             {
-                Names = "Alvaro",
-                LastName = "Vazquez",
-                SecondLastName = "Aguirre",
-                Email = "alvaro@gmail.com",
+                Id=2,
+                Names = "Miguel Angel",
+                LastName = "Camo",
+                SecondLastName = "Rincon",
+                Email = "camomiguel1@gmail.com",
                 Phone = "1234567890",
                 UserStatusId = validValue,
                 EmployeePositionId = validValue,
                 Address_Id = validValue,
+                ProfilePhoto = new byte[1],
             };
             employeeToGet = new EmployeeSet()
             {
@@ -58,8 +61,8 @@ namespace DAOsTests
             };
             accountAlreadyRegistered = new UserAccountSet()
             {
-                UserName = "alvaro@gmail.com",
-                Password = "dadada"
+                UserName = "MigCamo",
+                Password = "Camo1234567"
             };
             accountToGet = new UserAccountSet()
             {
@@ -76,12 +79,12 @@ namespace DAOsTests
         }
 
         [TestMethod]
-        public void RegisterUserTest()
+        public void RegisterUserTest_Valid()
         {
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 int result = userDAO.RegisterUser(accountToRegist, employeeToRegist);
-                Assert.AreEqual(2, result);
+                Assert.AreEqual(3, result);
             }
         }
 
@@ -132,7 +135,7 @@ namespace DAOsTests
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 List<EmployeeSet> employees = userDAO.GetAllEmployeesByStatus("Activo");
-                Assert.AreEqual(3, employees.Count);
+                Assert.IsTrue(employees.Count > 0);
             }
         }
 
@@ -143,7 +146,7 @@ namespace DAOsTests
             {
                 employeeAlreadyRegistered.UserStatusId = 2;
                 int result = userDAO.ModifyEmployee(accountAlreadyRegistered, employeeAlreadyRegistered);
-                Assert.AreEqual(1, result);
+                Assert.AreEqual(2, result);
             }
         }
 

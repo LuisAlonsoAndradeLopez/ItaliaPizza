@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 
 
 namespace ItalianPizza.DatabaseModel.DataAccessObject
@@ -193,9 +194,6 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
                     .Include(customerOrder => customerOrder.OrderTypeSet)
                     .Include(customerOrder => customerOrder.OrderStatusSet)
                     .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate <= endDate)
-                    .OrderBy(customerOrder => customerOrder.OrderStatusId == 1 ? 0 :
-                                              customerOrder.OrderStatusId == 3 ? 1 : 3) 
-                    .ThenBy(customerOrder => customerOrder.OrderDate)
                     .ToList();
                 }
             }
@@ -211,20 +209,23 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
             return customerOrders;
         }
 
-        public List<CustomerOrderSet> GetCustomerOrdersByStatus(OrderStatusSet status)
+        public List<CustomerOrderSet> GetCustomerOrdersByStatus(OrderStatusSet status, DateTime dateTime)
         {
             List<CustomerOrderSet> customerOrders = new List<CustomerOrderSet>();
+            DateTime startDate = dateTime.Date;
+            DateTime endDate = startDate.AddDays(1).AddTicks(-1);
 
             try
             {
                 using (var context = new ItalianPizzaServerBDEntities())
                 {
                     customerOrders = context.CustomerOrderSet
-                                            .Include(customerOrder => customerOrder.OrderStatusSet)
-                                            .Include(customerOrder => customerOrder.OrderTypeSet)
-                                            .Where(customerOrder => customerOrder.OrderStatusSet.Status == status.Status)
-                                            .OrderByDescending(customerOrder => customerOrder.OrderDate)
-                                            .ToList();
+                                     .Include(customerOrder => customerOrder.OrderStatusSet)
+                                     .Include(customerOrder => customerOrder.OrderTypeSet)
+                                     .Where(customerOrder => customerOrder.OrderDate >= startDate && customerOrder.OrderDate < endDate)
+                                     .Where(customerOrder => customerOrder.OrderStatusSet.Status == status.Status)
+                                     .OrderByDescending(customerOrder => customerOrder.OrderDate)
+                                     .ToList();
                 }
             }
             catch (Exception ex) when (ex is EntityException || ex is InvalidOperationException)

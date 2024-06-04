@@ -57,7 +57,7 @@
             <code lang="XML" escaped="true">
             <appender name="AdoNetAppender_SqlServer" type="log4net.Appender.AdoNetAppender" >
               <connectionType value="System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-              <connectionString value="data source=SQLSVR;initial catalog=test_log4net;integrated security=false;persist security info=True;" />
+              <connectionString value="data source=SQLSVR;initial catalog=test_log4net;integrated security=false;persist security info=True;User ID=sa;Password=sa" />
               <commandText value="INSERT INTO Log ([Date],[Thread],[Level],[Logger],[Message]) VALUES (@log_date, @thread, @log_level, @logger, @message)" />
               <parameter>
                 <parameterName value="@log_date" />
@@ -362,12 +362,6 @@
             </para>
             </remarks>
         </member>
-        <member name="M:log4net.Appender.AdoNetAppender.Prepare(System.Data.IDbCommand)">
-            <summary>
-            Prepare entire database command object to be executed.
-            </summary>
-            <param name="dbCmd">The command to prepare.</param>
-        </member>
         <member name="M:log4net.Appender.AdoNetAppender.GetLogStatement(log4net.Core.LoggingEvent)">
             <summary>
             Formats the log message into database statement text.
@@ -423,7 +417,7 @@
         <member name="M:log4net.Appender.AdoNetAppender.InitializeDatabaseConnection">
             <summary>
             Connects to the database.
-            </summary>    
+            </summary>		
         </member>
         <member name="M:log4net.Appender.AdoNetAppender.DiposeConnection">
             <summary>
@@ -734,14 +728,14 @@
             </para>
             <code lang="XML" escaped="true">
             <mapping>
-              <level value="ERROR" />
-              <foreColor value="White" />
-              <backColor value="Red" />
+            	<level value="ERROR" />
+            	<foreColor value="White" />
+            	<backColor value="Red" />
                 <attributes value="Bright,Underscore" />
             </mapping>
             <mapping>
-              <level value="DEBUG" />
-              <backColor value="Green" />
+            	<level value="DEBUG" />
+            	<backColor value="Green" />
             </mapping>
             </code>
             <para>
@@ -1196,9 +1190,9 @@
             </summary>
             <param name="index">The zero-based index of the element to get or set.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">
-               <para><paramref name="index"/> is less than zero</para>
-               <para>-or-</para>
-               <para><paramref name="index"/> is equal to or greater than <see cref="P:log4net.Appender.AppenderCollection.Count"/>.</para>
+            	<para><paramref name="index"/> is less than zero</para>
+            	<para>-or-</para>
+            	<para><paramref name="index"/> is equal to or greater than <see cref="P:log4net.Appender.AppenderCollection.Count"/>.</para>
             </exception>
         </member>
         <member name="M:log4net.Appender.AppenderCollection.Add(log4net.Appender.IAppender)">
@@ -1534,23 +1528,23 @@
             </para>
             <para>
             <list type="bullet">
-               <item>
-                 <description>
-                 Checks that the severity of the <paramref name="loggingEvent"/>
-                 is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
-                 appender.</description>
-               </item>
-               <item>
-                 <description>
-                 Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
-                 <paramref name="loggingEvent"/>.
-                 </description>
-               </item>
-               <item>
-                 <description>
-                 Calls <see cref="M:PreAppendCheck()"/> and checks that 
-                 it returns <c>true</c>.</description>
-               </item>
+            	<item>
+            		<description>
+            		Checks that the severity of the <paramref name="loggingEvent"/>
+            		is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
+            		appender.</description>
+            	</item>
+            	<item>
+            		<description>
+            		Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
+            		<paramref name="loggingEvent"/>.
+            		</description>
+            	</item>
+            	<item>
+            		<description>
+            		Calls <see cref="M:PreAppendCheck()"/> and checks that 
+            		it returns <c>true</c>.</description>
+            	</item>
             </list>
             </para>
             <para>
@@ -1577,23 +1571,23 @@
             </para>
             <para>
             <list type="bullet">
-               <item>
-                 <description>
-                 Checks that the severity of the <paramref name="loggingEvents"/>
-                 is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
-                 appender.</description>
-               </item>
-               <item>
-                 <description>
-                 Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
-                 <paramref name="loggingEvents"/>.
-                 </description>
-               </item>
-               <item>
-                 <description>
-                 Calls <see cref="M:PreAppendCheck()"/> and checks that 
-                 it returns <c>true</c>.</description>
-               </item>
+            	<item>
+            		<description>
+            		Checks that the severity of the <paramref name="loggingEvents"/>
+            		is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
+            		appender.</description>
+            	</item>
+            	<item>
+            		<description>
+            		Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
+            		<paramref name="loggingEvents"/>.
+            		</description>
+            	</item>
+            	<item>
+            		<description>
+            		Calls <see cref="M:PreAppendCheck()"/> and checks that 
+            		it returns <c>true</c>.</description>
+            	</item>
             </list>
             </para>
             <para>
@@ -1619,18 +1613,18 @@
             </para>
             <para>
             <list type="bullet">
-               <item>
-                 <description>
-                 Checks that the severity of the <paramref name="loggingEvent"/>
-                 is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
-                 appender.</description>
-               </item>
-               <item>
-                 <description>
-                 Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
-                 <paramref name="loggingEvent"/>.
-                 </description>
-               </item>
+            	<item>
+            		<description>
+            		Checks that the severity of the <paramref name="loggingEvent"/>
+            		is greater than or equal to the <see cref="P:log4net.Appender.AppenderSkeleton.Threshold"/> of this
+            		appender.</description>
+            	</item>
+            	<item>
+            		<description>
+            		Checks that the <see cref="T:log4net.Filter.IFilter"/> chain accepts the 
+            		<paramref name="loggingEvent"/>.
+            		</description>
+            	</item>
             </list>
             </para>
             </remarks>
@@ -2278,15 +2272,15 @@
             method) if one of the following conditions is met:
             </para>
             <list type="bullet">
-               <item>
-                 <description>The cyclic buffer is full and this appender is
-                 marked as not lossy (see <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/>)</description>
-               </item>
-               <item>
-                 <description>An <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Evaluator"/> is set and
-                 it is triggered for the <paramref name="loggingEvent"/>
-                 specified.</description>
-               </item>
+            	<item>
+            		<description>The cyclic buffer is full and this appender is
+            		marked as not lossy (see <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Lossy"/>)</description>
+            	</item>
+            	<item>
+            		<description>An <see cref="P:log4net.Appender.BufferingAppenderSkeleton.Evaluator"/> is set and
+            		it is triggered for the <paramref name="loggingEvent"/>
+            		specified.</description>
+            	</item>
             </list>
             <para>
             Before the event is stored in the buffer it is fixed
@@ -2552,13 +2546,13 @@
             </para>
             <code lang="XML" escaped="true">
             <mapping>
-              <level value="ERROR" />
-              <foreColor value="White" />
-              <backColor value="Red, HighIntensity" />
+            	<level value="ERROR" />
+            	<foreColor value="White" />
+            	<backColor value="Red, HighIntensity" />
             </mapping>
             <mapping>
-              <level value="DEBUG" />
-              <backColor value="Green" />
+            	<level value="DEBUG" />
+            	<backColor value="Green" />
             </mapping>
             </code>
             <para>
@@ -3099,12 +3093,12 @@
             </para>
             <code lang="XML">
             &lt;mapping&gt;
-              &lt;level value="ERROR" /&gt;
-              &lt;eventLogEntryType value="Error" /&gt;
+            	&lt;level value="ERROR" /&gt;
+            	&lt;eventLogEntryType value="Error" /&gt;
             &lt;/mapping&gt;
             &lt;mapping&gt;
-              &lt;level value="DEBUG" /&gt;
-              &lt;eventLogEntryType value="Information" /&gt;
+            	&lt;level value="DEBUG" /&gt;
+            	&lt;eventLogEntryType value="Information" /&gt;
             &lt;/mapping&gt;
             </code>
             <para>
@@ -3407,7 +3401,7 @@
             </summary>
             <remarks>
             See ReportEvent API:
-               http://msdn.microsoft.com/en-us/library/aa363679(VS.85).aspx
+            	http://msdn.microsoft.com/en-us/library/aa363679(VS.85).aspx
             ReportEvent's lpStrings parameter:
             "A pointer to a buffer containing an array of 
             null-terminated strings that are merged into the message before Event Viewer 
@@ -3421,7 +3415,7 @@
             an event log using a length of 31877 on Windows 7).
             
             The max size for Windows Vista or higher is documented here:
-               http://msdn.microsoft.com/en-us/library/xzwc042w(v=vs.100).aspx.
+            	http://msdn.microsoft.com/en-us/library/xzwc042w(v=vs.100).aspx.
             Going over this size may succeed a few times but the buffer will overrun and 
             eventually corrupt the log (based on testing).
             
@@ -3827,85 +3821,6 @@
             <summary>
             Disposes all resources that were initialized by this locking model.
             </summary>
-        </member>
-        <member name="T:log4net.Appender.FileAppender.NoLock">
-            <summary>
-            Hold no lock on the output file
-            </summary>
-            <remarks>
-            <para>
-            Open the file once and hold it open until <see cref="M:log4net.Appender.FileAppender.NoLock.CloseFile"/> is called. 
-            Maintains no lock on the file during this time.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.OpenFile(System.String,System.Boolean,System.Text.Encoding)">
-            <summary>
-            Open the file specified and prepare for logging.
-            </summary>
-            <param name="filename">The filename to use</param>
-            <param name="append">Whether to append to the file, or overwrite</param>
-            <param name="encoding">The encoding to use</param>
-            <remarks>
-            <para>
-            Open the file specified and prepare for logging. 
-            No writes will be made until <see cref="M:log4net.Appender.FileAppender.NoLock.AcquireLock"/> is called.
-            Must be called before any calls to <see cref="M:log4net.Appender.FileAppender.NoLock.AcquireLock"/>,
-            <see cref="M:log4net.Appender.FileAppender.NoLock.ReleaseLock"/> and <see cref="M:log4net.Appender.FileAppender.NoLock.CloseFile"/>.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.CloseFile">
-            <summary>
-            Close the file
-            </summary>
-            <remarks>
-            <para>
-            Close the file. No further writes will be made.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.AcquireLock">
-            <summary>
-            Acquire the lock on the file
-            </summary>
-            <returns>A stream that is ready to be written to.</returns>
-            <remarks>
-            <para>
-            Does nothing. The lock is already taken
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.ReleaseLock">
-            <summary>
-            Release the lock on the file
-            </summary>
-            <remarks>
-            <para>
-            Does nothing. The lock will be released when the file is closed.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.ActivateOptions">
-            <summary>
-            Initializes all resources used by this locking model.
-            </summary>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.NoLock.OnClose">
-            <summary>
-            Disposes all resources that were initialized by this locking model.
-            </summary>
-        </member>
-        <member name="F:log4net.Appender.FileAppender.defaultLockingModelType">
-            <summary>
-            Default locking model (when no locking model was configured)
-            </summary>
-        </member>
-        <member name="M:log4net.Appender.FileAppender.SetDefaultLockingModelType``1">
-            <summary>
-            Specify default locking model
-            </summary>
-            <typeparam name="TLockingModel">Type of LockingModel</typeparam>
         </member>
         <member name="M:log4net.Appender.FileAppender.#ctor">
             <summary>
@@ -4930,23 +4845,23 @@
             specified to map logging levels to colors. For example:
             </para>
             <code lang="XML" escaped="true">
-             <mapping>
-               <level value="ERROR" />
-               <foreColor value="DarkRed" />
-               <backColor value="White" />
-             </mapping>
-             <mapping>
-               <level value="WARN" />
-               <foreColor value="Yellow" />
-             </mapping>
-             <mapping>
-               <level value="INFO" />
-               <foreColor value="White" />
-             </mapping>
-             <mapping>
-               <level value="DEBUG" />
-               <foreColor value="Blue" />
-             </mapping>
+            <mapping>
+            	<level value="ERROR" />
+            	<foreColor value="DarkRed" />
+            	<backColor value="White" />
+            </mapping>
+            <mapping>
+            	<level value="WARN" />
+            	<foreColor value="Yellow" />
+            </mapping>
+            <mapping>
+            	<level value="INFO" />
+            	<foreColor value="White" />
+            </mapping>
+            <mapping>
+            	<level value="DEBUG" />
+            	<foreColor value="Blue" />
+            </mapping>
             </code>
             <para>
             The Level is the standard log4net logging level while
@@ -5855,14 +5770,6 @@
             </para>
             </remarks>
         </member>
-        <member name="M:log4net.Appender.RemoteSyslogAppender.AppendMessage(System.String,System.Int32@,System.Text.StringBuilder)">
-            <summary>
-            Appends the rendered message to the buffer
-            </summary>
-            <param name="message">rendered message</param>
-            <param name="characterIndex">index of the current character in the message</param>
-            <param name="builder">buffer</param>
-        </member>
         <member name="M:log4net.Appender.RemoteSyslogAppender.ActivateOptions">
             <summary>
             Initialize the options for this appender
@@ -6619,7 +6526,7 @@
         </member>
         <member name="M:log4net.Appender.RollingFileAppender.DetermineCurSizeRollBackups">
             <summary>
-             Determines curSizeRollBackups (only within the current roll point)
+            Determines curSizeRollBackups (only within the current roll point)
             </summary>
         </member>
         <member name="M:log4net.Appender.RollingFileAppender.GetWildcardPatternForFile(System.String)">
@@ -6652,10 +6559,10 @@
             Initializes based on existing conditions at time of <see cref="M:log4net.Appender.RollingFileAppender.ActivateOptions"/>.
             The following is done
             <list type="bullet">
-             <item>determine curSizeRollBackups (only within the current roll point)</item>
-             <item>initiates a roll over if needed for crossing a date boundary since the last run.</item>
-             </list>
-             </para>
+            <item>determine curSizeRollBackups (only within the current roll point)</item>
+            <item>initiates a roll over if needed for crossing a date boundary since the last run.</item>
+            </list>
+            </para>
             </remarks>
         </member>
         <member name="M:log4net.Appender.RollingFileAppender.InitializeFromOneFile(System.String,System.String)">
@@ -7509,7 +7416,7 @@
             <summary>
             Appender that allows clients to connect via Telnet to receive log messages
             </summary>
-            <remarks>  
+            <remarks>	
             <para>
             The TelnetAppender accepts socket connections and streams logging messages
             back to the client.  
@@ -8916,10 +8823,10 @@
             </para>
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net-config-file" value="log.config"/>
-               </appSettings>
-             </configuration>
+            	<appSettings>
+            		<add key="log4net-config-file" value="log.config"/>
+            	</appSettings>
+            </configuration>
             </code>
             </remarks>
         </member>
@@ -8981,10 +8888,10 @@
             </para>
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net-config-file" value="log.config"/>
-               </appSettings>
-             </configuration>
+            	<appSettings>
+            		<add key="log4net-config-file" value="log.config"/>
+            	</appSettings>
+            </configuration>
             </code>
             </remarks>
         </member>
@@ -9097,12 +9004,12 @@
             Example of registering the log4net section handler :
             <code lang="XML" escaped="true">
             <configuration>
-               <configSections>
-                 <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
-               </configSections>
-               <log4net>
-                 log4net configuration XML goes here
-               </log4net>
+            	<configSections>
+            		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+            	</configSections>
+            	<log4net>
+            		log4net configuration XML goes here
+            	</log4net>
             </configuration>
             </code>
             </example>
@@ -9470,8 +9377,8 @@
             complain. Set the type for the section handler to <see cref="T:System.Configuration.IgnoreSectionHandler"/>, for example:
             <code lang="XML" escaped="true">
             <configSections>
-               <section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
-             </configSections>
+            	<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
+            </configSections>
             </code>
             </para>
             <example>
@@ -9492,10 +9399,10 @@
             </para>
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net-config-file" value="log.config"/>
-               </appSettings>
-             </configuration>
+            	<appSettings>
+            		<add key="log4net-config-file" value="log.config"/>
+            	</appSettings>
+            </configuration>
             </code>
             </remarks>
         </member>
@@ -9568,8 +9475,8 @@
             complain. Set the type for the section handler to <see cref="T:System.Configuration.IgnoreSectionHandler"/>, for example:
             <code lang="XML" escaped="true">
             <configSections>
-               <section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
-             </configSections>
+            	<section name="log4net" type="System.Configuration.IgnoreSectionHandler" />
+            </configSections>
             </code>
             </para>
             <example>
@@ -9590,10 +9497,10 @@
             </para>
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net-config-file" value="log.config"/>
-               </appSettings>
-             </configuration>
+            	<appSettings>
+            		<add key="log4net-config-file" value="log.config"/>
+            	</appSettings>
+            </configuration>
             </code>
             </remarks>
         </member>
@@ -10381,9 +10288,9 @@
             </para>
             </remarks>
             <exception cref="T:System.ArgumentNullException">
-             <para><paramref name="repositoryAlias" /> is <see langword="null" />.</para>
-             <para>-or-</para>
-             <para><paramref name="repositoryTarget" /> is <see langword="null" />.</para>
+            <para><paramref name="repositoryAlias" /> is <see langword="null" />.</para>
+            <para>-or-</para>
+            <para><paramref name="repositoryTarget" /> is <see langword="null" />.</para>
             </exception>
         </member>
         <member name="M:log4net.Core.DefaultRepositorySelector.OnLoggerRepositoryCreatedEvent(log4net.Repository.ILoggerRepository)">
@@ -10414,9 +10321,9 @@
             attributes which define the configuration for the repository.</param>
             <param name="repository">The repository to configure.</param>
             <exception cref="T:System.ArgumentNullException">
-             <para><paramref name="assembly" /> is <see langword="null" />.</para>
-             <para>-or-</para>
-             <para><paramref name="repository" /> is <see langword="null" />.</para>
+            <para><paramref name="assembly" /> is <see langword="null" />.</para>
+            <para>-or-</para>
+            <para><paramref name="repository" /> is <see langword="null" />.</para>
             </exception>
         </member>
         <member name="M:log4net.Core.DefaultRepositorySelector.LoadPlugins(System.Reflection.Assembly,log4net.Repository.ILoggerRepository)">
@@ -10426,9 +10333,9 @@
             <param name="assembly">The assembly that contains the attributes.</param>
             <param name="repository">The repository to add the plugins to.</param>
             <exception cref="T:System.ArgumentNullException">
-             <para><paramref name="assembly" /> is <see langword="null" />.</para>
-             <para>-or-</para>
-             <para><paramref name="repository" /> is <see langword="null" />.</para>
+            <para><paramref name="assembly" /> is <see langword="null" />.</para>
+            <para>-or-</para>
+            <para><paramref name="repository" /> is <see langword="null" />.</para>
             </exception>
         </member>
         <member name="M:log4net.Core.DefaultRepositorySelector.LoadAliases(System.Reflection.Assembly,log4net.Repository.ILoggerRepository)">
@@ -10438,9 +10345,9 @@
             <param name="assembly">The assembly that contains the attributes.</param>
             <param name="repository">The repository to alias to.</param>
             <exception cref="T:System.ArgumentNullException">
-             <para><paramref name="assembly" /> is <see langword="null" />.</para>
-             <para>-or-</para>
-             <para><paramref name="repository" /> is <see langword="null" />.</para>
+            <para><paramref name="assembly" /> is <see langword="null" />.</para>
+            <para>-or-</para>
+            <para><paramref name="repository" /> is <see langword="null" />.</para>
             </exception>
         </member>
         <member name="F:log4net.Core.DefaultRepositorySelector.declaringType">
@@ -10557,103 +10464,6 @@
             passed to <see cref="M:IsTriggeringEvent(LoggingEvent)"/>
             is <see cref="P:log4net.Core.ExceptionEvaluator.ExceptionType"/>.
             </para>
-            </remarks>
-        </member>
-        <member name="T:log4net.Core.FixFlags">
-            <summary>
-            Flags passed to the <see cref="P:log4net.Core.LoggingEvent.Fix"/> property
-            </summary>
-            <remarks>
-            <para>
-            Flags passed to the <see cref="P:log4net.Core.LoggingEvent.Fix"/> property
-            </para>
-            </remarks>
-            <author>Nicko Cadell</author>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Mdc">
-            <summary>
-            Fix the MDC
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Ndc">
-            <summary>
-            Fix the NDC
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Message">
-            <summary>
-            Fix the rendered message
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.ThreadName">
-            <summary>
-            Fix the thread name
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.LocationInfo">
-            <summary>
-            Fix the callers location information
-            </summary>
-            <remarks>
-            CAUTION: Very slow to generate
-            </remarks>
-        </member>
-        <member name="F:log4net.Core.FixFlags.UserName">
-            <summary>
-            Fix the callers windows user name
-            </summary>
-            <remarks>
-            CAUTION: Slow to generate
-            </remarks>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Domain">
-            <summary>
-            Fix the domain friendly name
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Identity">
-            <summary>
-            Fix the callers principal name
-            </summary>
-            <remarks>
-            CAUTION: May be slow to generate
-            </remarks>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Exception">
-            <summary>
-            Fix the exception text
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Properties">
-            <summary>
-            Fix the event properties. Active properties must implement <see cref="T:log4net.Core.IFixingRequired"/> in order to be eligible for fixing.
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.None">
-            <summary>
-            No fields fixed
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.All">
-            <summary>
-            All fields fixed
-            </summary>
-        </member>
-        <member name="F:log4net.Core.FixFlags.Partial">
-            <summary>
-            Partial fields fixed
-            </summary>
-            <remarks>
-            <para>
-            This set of partial fields gives good performance. The following fields are fixed:
-            </para>
-            <list type="bullet">
-            <item><description><see cref="F:log4net.Core.FixFlags.Message"/></description></item>
-            <item><description><see cref="F:log4net.Core.FixFlags.ThreadName"/></description></item>
-            <item><description><see cref="F:log4net.Core.FixFlags.Exception"/></description></item>
-            <item><description><see cref="F:log4net.Core.FixFlags.Domain"/></description></item>
-            <item><description><see cref="F:log4net.Core.FixFlags.Properties"/></description></item>
-            </list>
             </remarks>
         </member>
         <member name="T:log4net.Core.IAppenderAttachable">
@@ -11225,27 +11035,27 @@
             Some of the predefined levels recognized by the system are:
             </para>
             <list type="bullet">
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Off"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Fatal"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Error"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Warn"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Info"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.Debug"/>.</description>
-               </item>
-               <item>
-                 <description><see cref="F:log4net.Core.Level.All"/>.</description>
-               </item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Off"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Fatal"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Error"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Warn"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Info"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.Debug"/>.</description>
+            	</item>
+            	<item>
+            		<description><see cref="F:log4net.Core.Level.All"/>.</description>
+            	</item>
             </list>
             </remarks>
             <author>Nicko Cadell</author>
@@ -11370,26 +11180,26 @@
             A 32-bit signed integer that indicates the relative order of the 
             values compared. The return value has these meanings:
             <list type="table">
-               <listheader>
-                 <term>Value</term>
-                 <description>Meaning</description>
-               </listheader>
-               <item>
-                 <term>Less than zero</term>
-                 <description>This instance is less than <paramref name="r" />.</description>
-               </item>
-               <item>
-                 <term>Zero</term>
-                 <description>This instance is equal to <paramref name="r" />.</description>
-               </item>
-               <item>
-                 <term>Greater than zero</term>
-                 <description>
-                   <para>This instance is greater than <paramref name="r" />.</para>
-                   <para>-or-</para>
-                   <para><paramref name="r" /> is <see langword="null" />.</para>
-                   </description>
-               </item>
+            	<listheader>
+            		<term>Value</term>
+            		<description>Meaning</description>
+            	</listheader>
+            	<item>
+            		<term>Less than zero</term>
+            		<description>This instance is less than <paramref name="r" />.</description>
+            	</item>
+            	<item>
+            		<term>Zero</term>
+            		<description>This instance is equal to <paramref name="r" />.</description>
+            	</item>
+            	<item>
+            		<term>Greater than zero</term>
+            		<description>
+            			<para>This instance is greater than <paramref name="r" />.</para>
+            			<para>-or-</para>
+            			<para><paramref name="r" /> is <see langword="null" />.</para>
+            			</description>
+            	</item>
             </list>
             </returns>
             <remarks>
@@ -11512,22 +11322,22 @@
             A 32-bit signed integer that indicates the relative order of the 
             two values compared. The return value has these meanings:
             <list type="table">
-               <listheader>
-                 <term>Value</term>
-                 <description>Meaning</description>
-               </listheader>
-               <item>
-                 <term>Less than zero</term>
-                 <description><paramref name="l" /> is less than <paramref name="r" />.</description>
-               </item>
-               <item>
-                 <term>Zero</term>
-                 <description><paramref name="l" /> is equal to <paramref name="r" />.</description>
-               </item>
-               <item>
-                 <term>Greater than zero</term>
-                 <description><paramref name="l" /> is greater than <paramref name="r" />.</description>
-               </item>
+            	<listheader>
+            		<term>Value</term>
+            		<description>Meaning</description>
+            	</listheader>
+            	<item>
+            		<term>Less than zero</term>
+            		<description><paramref name="l" /> is less than <paramref name="r" />.</description>
+            	</item>
+            	<item>
+            		<term>Zero</term>
+            		<description><paramref name="l" /> is equal to <paramref name="r" />.</description>
+            	</item>
+            	<item>
+            		<term>Greater than zero</term>
+            		<description><paramref name="l" /> is greater than <paramref name="r" />.</description>
+            	</item>
             </list>
             </returns>
             <remarks>
@@ -11812,7 +11622,7 @@
             <returns>
             The zero-based index of the first occurrence of <paramref name="item"/> 
             in the entire <c>LevelCollection</c>, if found; otherwise, -1.
-             </returns>
+            </returns>
         </member>
         <member name="M:log4net.Core.LevelCollection.Insert(System.Int32,log4net.Core.Level)">
             <summary>
@@ -12676,7 +12486,7 @@
             sets their additivity flag to <c>true</c> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set its default "off" value.
-            </para>    
+            </para>		
             </remarks>
         </member>
         <member name="M:log4net.Core.LoggerManager.ResetConfiguration(System.Reflection.Assembly)">
@@ -12692,7 +12502,7 @@
             sets their additivity flag to <c>true</c> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set its default "off" value.
-            </para>    
+            </para>		
             </remarks>
         </member>
         <member name="M:log4net.Core.LoggerManager.CreateDomain(System.String)">
@@ -13077,6 +12887,103 @@
             properties to specific events. These properties
             have a string key and an object value.
             </para>
+            </remarks>
+        </member>
+        <member name="T:log4net.Core.FixFlags">
+            <summary>
+            Flags passed to the <see cref="P:log4net.Core.LoggingEvent.Fix"/> property
+            </summary>
+            <remarks>
+            <para>
+            Flags passed to the <see cref="P:log4net.Core.LoggingEvent.Fix"/> property
+            </para>
+            </remarks>
+            <author>Nicko Cadell</author>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Mdc">
+            <summary>
+            Fix the MDC
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Ndc">
+            <summary>
+            Fix the NDC
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Message">
+            <summary>
+            Fix the rendered message
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.ThreadName">
+            <summary>
+            Fix the thread name
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.LocationInfo">
+            <summary>
+            Fix the callers location information
+            </summary>
+            <remarks>
+            CAUTION: Very slow to generate
+            </remarks>
+        </member>
+        <member name="F:log4net.Core.FixFlags.UserName">
+            <summary>
+            Fix the callers windows user name
+            </summary>
+            <remarks>
+            CAUTION: Slow to generate
+            </remarks>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Domain">
+            <summary>
+            Fix the domain friendly name
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Identity">
+            <summary>
+            Fix the callers principal name
+            </summary>
+            <remarks>
+            CAUTION: May be slow to generate
+            </remarks>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Exception">
+            <summary>
+            Fix the exception text
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Properties">
+            <summary>
+            Fix the event properties. Active properties must implement <see cref="T:log4net.Core.IFixingRequired"/> in order to be eligible for fixing.
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.None">
+            <summary>
+            No fields fixed
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.All">
+            <summary>
+            All fields fixed
+            </summary>
+        </member>
+        <member name="F:log4net.Core.FixFlags.Partial">
+            <summary>
+            Partial fields fixed
+            </summary>
+            <remarks>
+            <para>
+            This set of partial fields gives good performance. The following fields are fixed:
+            </para>
+            <list type="bullet">
+            <item><description><see cref="F:log4net.Core.FixFlags.Message"/></description></item>
+            <item><description><see cref="F:log4net.Core.FixFlags.ThreadName"/></description></item>
+            <item><description><see cref="F:log4net.Core.FixFlags.Exception"/></description></item>
+            <item><description><see cref="F:log4net.Core.FixFlags.Domain"/></description></item>
+            <item><description><see cref="F:log4net.Core.FixFlags.Properties"/></description></item>
+            </list>
             </remarks>
         </member>
         <member name="T:log4net.Core.LoggingEvent">
@@ -13465,12 +13372,12 @@
                 <description>Results</description>
               </listheader>
               <item>
-                 <term><c>WindowsIdentity.GetCurrent()</c></term>
-                 <description>10000 loops, 00:00:00.2031250 seconds</description>
+                <term><c>WindowsIdentity.GetCurrent()</c></term>
+                <description>10000 loops, 00:00:00.2031250 seconds</description>
               </item>
               <item>
-                 <term><c>WindowsIdentity.GetCurrent().Name</c></term>
-                 <description>10000 loops, 00:00:08.0468750 seconds</description>
+                <term><c>WindowsIdentity.GetCurrent().Name</c></term>
+                <description>10000 loops, 00:00:08.0468750 seconds</description>
               </item>
             </list>
             <para>
@@ -13704,27 +13611,27 @@
             This event has composite properties that combine together properties from
             several different contexts in the following order:
             <list type="definition">
-               <item>
-                <term>this events properties</term>
-                <description>
-                This event has <see cref="P:log4net.Core.LoggingEvent.Properties"/> that can be set. These 
-                properties are specific to this event only.
-                </description>
-              </item>
-              <item>
-                <term>the thread properties</term>
-                <description>
-                The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
-                thread. These properties are shared by all events logged on this thread.
-                </description>
-              </item>
-              <item>
-                <term>the global properties</term>
-                <description>
-                The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
-                properties are shared by all the threads in the AppDomain.
-                </description>
-              </item>
+            	<item>
+            		<term>this events properties</term>
+            		<description>
+            		This event has <see cref="P:log4net.Core.LoggingEvent.Properties"/> that can be set. These 
+            		properties are specific to this event only.
+            		</description>
+            	</item>
+            	<item>
+            		<term>the thread properties</term>
+            		<description>
+            		The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
+            		thread. These properties are shared by all events logged on this thread.
+            		</description>
+            	</item>
+            	<item>
+            		<term>the global properties</term>
+            		<description>
+            		The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
+            		properties are shared by all the threads in the AppDomain.
+            		</description>
+            	</item>
             </list>
             </para>
             </remarks>
@@ -14756,7 +14663,7 @@
             <code lang="C#">
             if (log.IsDebugEnabled())
             { 
-              log.Debug("This is entry number: " + i );
+             log.Debug("This is entry number: " + i );
             }
             </code>
             <para>
@@ -16426,7 +16333,7 @@
             
             if (log.IsDebugEnabled)
             {
-               log.Debug("This is another debug message");
+            	log.Debug("This is another debug message");
             }
             </code>
             </example>
@@ -17344,7 +17251,7 @@
             to perform the same as PatternLayout.</para>
             <para>Please see <see cref="T:log4net.Layout.PatternLayout"/> for complete documentation.</para>
             <example>
-             &lt;layout type="log4net.Layout.DynamicPatternLayout"&gt;
+            &lt;layout type="log4net.Layout.DynamicPatternLayout"&gt;
               &lt;param name="Header" value="%newline**** Trace Opened     Local: %date{yyyy-MM-dd HH:mm:ss.fff}     UTC: %utcdate{yyyy-MM-dd HH:mm:ss.fff} ****%newline" /&gt;
               &lt;param name="Footer" value="**** Trace Closed %date{yyyy-MM-dd HH:mm:ss.fff} ****%newline" /&gt;
             &lt;/layout&gt;
@@ -17860,8 +17767,8 @@
                 <item>
                     <term>appdomain</term>
                     <description>
-                   Used to output the friendly name of the AppDomain where the 
-                   logging event was generated. 
+            			Used to output the friendly name of the AppDomain where the 
+            			logging event was generated. 
                     </description>
                 </item>
                 <item>
@@ -17925,89 +17832,89 @@
                     <description>Equivalent to <b>date</b></description>
                 </item>
                 <item>
-                 <term>date</term> 
-                 <description>
-                  <para>
-                  Used to output the date of the logging event in the local time zone. 
-                  To output the date in universal time use the <c>%utcdate</c> pattern.
-                  The date conversion 
-                  specifier may be followed by a <i>date format specifier</i> enclosed 
-                  between braces. For example, <b>%date{HH:mm:ss,fff}</b> or
-                  <b>%date{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
-                  given then ISO8601 format is
-                  assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
-                  </para>
-                  <para>
-                  The date format specifier admits the same syntax as the
-                  time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                  <para>
-                  For better results it is recommended to use the log4net date
-                  formatters. These can be specified using one of the strings
-                  "ABSOLUTE", "DATE" and "ISO8601" for specifying 
-                  <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
-                  <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
-                  <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
-                  <b>%date{ISO8601}</b> or <b>%date{ABSOLUTE}</b>.
-                  </para>
-                  <para>
-                  These dedicated date formatters perform significantly
-                  better than <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>exception</term>
-                 <description>
-                   <para>
-                   Used to output the exception passed in with the log message.
-                   </para>
-                   <para>
-                  If an exception object is stored in the logging event
-                  it will be rendered into the pattern output with a
-                  trailing newline.
-                  If there is no exception then nothing will be output
-                  and no trailing newline will be appended.
-                  It is typical to put a newline before the exception
-                  and to have the exception as the last data in the pattern.
-                   </para>
-                 </description>
-               </item>
+            		<term>date</term> 
+            		<description>
+            			<para>
+            			Used to output the date of the logging event in the local time zone. 
+            			To output the date in universal time use the <c>%utcdate</c> pattern.
+            			The date conversion 
+            			specifier may be followed by a <i>date format specifier</i> enclosed 
+            			between braces. For example, <b>%date{HH:mm:ss,fff}</b> or
+            			<b>%date{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
+            			given then ISO8601 format is
+            			assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
+            			</para>
+            			<para>
+            			The date format specifier admits the same syntax as the
+            			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            			<para>
+            			For better results it is recommended to use the log4net date
+            			formatters. These can be specified using one of the strings
+            			"ABSOLUTE", "DATE" and "ISO8601" for specifying 
+            			<see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
+            			<see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
+            			<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
+            			<b>%date{ISO8601}</b> or <b>%date{ABSOLUTE}</b>.
+            			</para>
+            			<para>
+            			These dedicated date formatters perform significantly
+            			better than <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>exception</term>
+            		<description>
+            			<para>
+            			Used to output the exception passed in with the log message.
+            			</para>
+            			<para>
+            			If an exception object is stored in the logging event
+            			it will be rendered into the pattern output with a
+            			trailing newline.
+            			If there is no exception then nothing will be output
+            			and no trailing newline will be appended.
+            			It is typical to put a newline before the exception
+            			and to have the exception as the last data in the pattern.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>F</term>
                     <description>Equivalent to <b>file</b></description>
                 </item>
-               <item>
-                 <term>file</term>
-                 <description>
-                   <para>
-                   Used to output the file name where the logging request was
-                   issued.
-                   </para>
-                   <para>
-                   <b>WARNING</b> Generating caller location information is
-                   extremely slow. Its use should be avoided unless execution speed
-                   is not an issue.
-                   </para>
-                  <para>
-                  See the note below on the availability of caller location information.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>identity</term>
-                 <description>
-                   <para>
-                   Used to output the user name for the currently active user
-                   (Principal.Identity.Name).
-                   </para>
-                   <para>
-                   <b>WARNING</b> Generating caller information is
-                   extremely slow. Its use should be avoided unless execution speed
-                   is not an issue.
-                   </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>file</term>
+            		<description>
+            			<para>
+            			Used to output the file name where the logging request was
+            			issued.
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating caller location information is
+            			extremely slow. Its use should be avoided unless execution speed
+            			is not an issue.
+            			</para>
+            			<para>
+            			See the note below on the availability of caller location information.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>identity</term>
+            		<description>
+            			<para>
+            			Used to output the user name for the currently active user
+            			(Principal.Identity.Name).
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating caller information is
+            			extremely slow. Its use should be avoided unless execution speed
+            			is not an issue.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>l</term>
                     <description>Equivalent to <b>location</b></description>
@@ -18016,72 +17923,72 @@
                     <term>L</term>
                     <description>Equivalent to <b>line</b></description>
                 </item>
-               <item>
-                 <term>location</term>
-                 <description>
-                  <para>
-                  Used to output location information of the caller which generated
-                  the logging event.
-                  </para>
-                  <para>
-                  The location information depends on the CLI implementation but
-                  usually consists of the fully qualified name of the calling
-                  method followed by the callers source the file name and line
-                  number between parentheses.
-                  </para>
-                  <para>
-                  The location information can be very useful. However, its
-                  generation is <b>extremely</b> slow. Its use should be avoided
-                  unless execution speed is not an issue.
-                  </para>
-                  <para>
-                  See the note below on the availability of caller location information.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>level</term>
-                 <description>
-                  <para>
-                  Used to output the level of the logging event.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>line</term>
-                 <description>
-                   <para>
-                   Used to output the line number from where the logging request
-                   was issued.
-                   </para>
-                   <para>
-                   <b>WARNING</b> Generating caller location information is
-                   extremely slow. Its use should be avoided unless execution speed
-                   is not an issue.
-                   </para>
-                  <para>
-                  See the note below on the availability of caller location information.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>location</term>
+            		<description>
+            			<para>
+            			Used to output location information of the caller which generated
+            			the logging event.
+            			</para>
+            			<para>
+            			The location information depends on the CLI implementation but
+            			usually consists of the fully qualified name of the calling
+            			method followed by the callers source the file name and line
+            			number between parentheses.
+            			</para>
+            			<para>
+            			The location information can be very useful. However, its
+            			generation is <b>extremely</b> slow. Its use should be avoided
+            			unless execution speed is not an issue.
+            			</para>
+            			<para>
+            			See the note below on the availability of caller location information.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>level</term>
+            		<description>
+            			<para>
+            			Used to output the level of the logging event.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>line</term>
+            		<description>
+            			<para>
+            			Used to output the line number from where the logging request
+            			was issued.
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating caller location information is
+            			extremely slow. Its use should be avoided unless execution speed
+            			is not an issue.
+            			</para>
+            			<para>
+            			See the note below on the availability of caller location information.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>logger</term>
                     <description>
                         <para>
-                   Used to output the logger of the logging event. The
-                  logger conversion specifier can be optionally followed by
-                  <i>precision specifier</i>, that is a decimal constant in
-                  brackets.
+            			Used to output the logger of the logging event. The
+            			logger conversion specifier can be optionally followed by
+            			<i>precision specifier</i>, that is a decimal constant in
+            			brackets.
                         </para>
-                  <para>
-                  If a precision specifier is given, then only the corresponding
-                  number of right most components of the logger name will be
-                  printed. By default the logger name is printed in full.
-                  </para>
-                  <para>
-                  For example, for the logger name "a.b.c" the pattern
-                  <b>%logger{2}</b> will output "b.c".
-                  </para>
+            			<para>
+            			If a precision specifier is given, then only the corresponding
+            			number of right most components of the logger name will be
+            			printed. By default the logger name is printed in full.
+            			</para>
+            			<para>
+            			For example, for the logger name "a.b.c" the pattern
+            			<b>%logger{2}</b> will output "b.c".
+            			</para>
                     </description>
                 </item>
                 <item>
@@ -18092,69 +17999,69 @@
                     <term>M</term>
                     <description>Equivalent to <b>method</b></description>
                 </item>
-               <item>
-                 <term>message</term>
-                 <description>
-                  <para>
-                  Used to output the application supplied message associated with 
-                  the logging event.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>mdc</term>
-                 <description>
-                  <para>
-                  The MDC (old name for the ThreadContext.Properties) is now part of the
-                  combined event properties. This pattern is supported for compatibility
-                  but is equivalent to <b>property</b>.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>method</term>
-                 <description>
-                   <para>
-                   Used to output the method name where the logging request was
-                   issued.
-                   </para>
-                   <para>
-                   <b>WARNING</b> Generating caller location information is
-                   extremely slow. Its use should be avoided unless execution speed
-                   is not an issue.
-                   </para>
-                  <para>
-                  See the note below on the availability of caller location information.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>message</term>
+            		<description>
+            			<para>
+            			Used to output the application supplied message associated with 
+            			the logging event.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>mdc</term>
+            		<description>
+            			<para>
+            			The MDC (old name for the ThreadContext.Properties) is now part of the
+            			combined event properties. This pattern is supported for compatibility
+            			but is equivalent to <b>property</b>.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>method</term>
+            		<description>
+            			<para>
+            			Used to output the method name where the logging request was
+            			issued.
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating caller location information is
+            			extremely slow. Its use should be avoided unless execution speed
+            			is not an issue.
+            			</para>
+            			<para>
+            			See the note below on the availability of caller location information.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>n</term>
                     <description>Equivalent to <b>newline</b></description>
                 </item>
-               <item>
-                 <term>newline</term>
-                 <description>
-                  <para>
-                  Outputs the platform dependent line separator character or
-                  characters.
-                  </para>
-                  <para>
-                  This conversion pattern offers the same performance as using 
-                  non-portable line separator strings such as  "\n", or "\r\n". 
-                  Thus, it is the preferred way of specifying a line separator.
-                  </para> 
-                 </description>
-               </item>
-               <item>
-                 <term>ndc</term>
-                 <description>
-                  <para>
-                  Used to output the NDC (nested diagnostic context) associated
-                  with the thread that generated the logging event.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>newline</term>
+            		<description>
+            			<para>
+            			Outputs the platform dependent line separator character or
+            			characters.
+            			</para>
+            			<para>
+            			This conversion pattern offers the same performance as using 
+            			non-portable line separator strings such as	"\n", or "\r\n". 
+            			Thus, it is the preferred way of specifying a line separator.
+            			</para> 
+            		</description>
+            	</item>
+            	<item>
+            		<term>ndc</term>
+            		<description>
+            			<para>
+            			Used to output the NDC (nested diagnostic context) associated
+            			with the thread that generated the logging event.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>p</term>
                     <description>Equivalent to <b>level</b></description>
@@ -18167,192 +18074,192 @@
                     <term>properties</term>
                     <description>Equivalent to <b>property</b></description>
                 </item>
-               <item>
-                 <term>property</term>
-                 <description>
-                  <para>
-                  Used to output the an event specific property. The key to 
-                  lookup must be specified within braces and directly following the
-                  pattern specifier, e.g. <b>%property{user}</b> would include the value
-                  from the property that is keyed by the string 'user'. Each property value
-                  that is to be included in the log must be specified separately.
-                  Properties are added to events by loggers or appenders. By default 
-                  the <c>log4net:HostName</c> property is set to the name of machine on 
-                  which the event was originally logged.
-                  </para>
-                  <para>
-                  If no key is specified, e.g. <b>%property</b> then all the keys and their
-                  values are printed in a comma separated list.
-                  </para>
-                  <para>
-                  The properties of an event are combined from a number of different
-                  contexts. These are listed below in the order in which they are searched.
-                  </para>
-                  <list type="definition">
-                    <item>
-                      <term>the event properties</term>
-                      <description>
-                      The event has <see cref="P:log4net.Core.LoggingEvent.Properties"/> that can be set. These 
-                      properties are specific to this event only.
-                      </description>
-                    </item>
-                    <item>
-                      <term>the thread properties</term>
-                      <description>
-                      The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
-                      thread. These properties are shared by all events logged on this thread.
-                      </description>
-                    </item>
-                    <item>
-                      <term>the global properties</term>
-                      <description>
-                      The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
-                      properties are shared by all the threads in the AppDomain.
-                      </description>
-                    </item>
-                  </list>
-                  
-                 </description>
-               </item>
+            	<item>
+            		<term>property</term>
+            		<description>
+            			<para>
+            			Used to output the an event specific property. The key to 
+            			lookup must be specified within braces and directly following the
+            			pattern specifier, e.g. <b>%property{user}</b> would include the value
+            			from the property that is keyed by the string 'user'. Each property value
+            			that is to be included in the log must be specified separately.
+            			Properties are added to events by loggers or appenders. By default 
+            			the <c>log4net:HostName</c> property is set to the name of machine on 
+            			which the event was originally logged.
+            			</para>
+            			<para>
+            			If no key is specified, e.g. <b>%property</b> then all the keys and their
+            			values are printed in a comma separated list.
+            			</para>
+            			<para>
+            			The properties of an event are combined from a number of different
+            			contexts. These are listed below in the order in which they are searched.
+            			</para>
+            			<list type="definition">
+            				<item>
+            					<term>the event properties</term>
+            					<description>
+            					The event has <see cref="P:log4net.Core.LoggingEvent.Properties"/> that can be set. These 
+            					properties are specific to this event only.
+            					</description>
+            				</item>
+            				<item>
+            					<term>the thread properties</term>
+            					<description>
+            					The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
+            					thread. These properties are shared by all events logged on this thread.
+            					</description>
+            				</item>
+            				<item>
+            					<term>the global properties</term>
+            					<description>
+            					The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
+            					properties are shared by all the threads in the AppDomain.
+            					</description>
+            				</item>
+            			</list>
+            			
+            		</description>
+            	</item>
                 <item>
                     <term>r</term>
                     <description>Equivalent to <b>timestamp</b></description>
                 </item>
-              <item>
-                 <term>stacktrace</term> 
-                 <description>
-                  <para>
-                  Used to output the stack trace of the logging event
-                  The stack trace level specifier may be enclosed 
-                  between braces. For example, <b>%stacktrace{level}</b>.  
-                  If no stack trace level specifier is given then 1 is assumed 
-                  </para>
-                  <para>
-                  Output uses the format:
-                  type3.MethodCall3 > type2.MethodCall2 > type1.MethodCall1
-                  </para>
+            	<item>
+            		<term>stacktrace</term> 
+            		<description>
+            			<para>
+            			Used to output the stack trace of the logging event
+            			The stack trace level specifier may be enclosed 
+            			between braces. For example, <b>%stacktrace{level}</b>.  
+            			If no stack trace level specifier is given then 1 is assumed 
+            			</para>
+            			<para>
+            			Output uses the format:
+            			type3.MethodCall3 > type2.MethodCall2 > type1.MethodCall1
+            			</para>
                         <para>
                         This pattern is not available for Compact Framework assemblies.
                         </para>
-                 </description>
-               </item>
-              <item>
-                 <term>stacktracedetail</term> 
-                 <description>
-                  <para>
-                  Used to output the stack trace of the logging event
-                  The stack trace level specifier may be enclosed 
-                  between braces. For example, <b>%stacktracedetail{level}</b>.  
-                  If no stack trace level specifier is given then 1 is assumed 
-                  </para>
-                  <para>
-                  Output uses the format:
+            		</description>
+            	</item>
+            	<item>
+            		<term>stacktracedetail</term> 
+            		<description>
+            			<para>
+            			Used to output the stack trace of the logging event
+            			The stack trace level specifier may be enclosed 
+            			between braces. For example, <b>%stacktracedetail{level}</b>.  
+            			If no stack trace level specifier is given then 1 is assumed 
+            			</para>
+            			<para>
+            			Output uses the format:
                         type3.MethodCall3(type param,...) > type2.MethodCall2(type param,...) > type1.MethodCall1(type param,...)
-                  </para>
+            			</para>
                         <para>
                         This pattern is not available for Compact Framework assemblies.
                         </para>
-                 </description>
-               </item>
+            		</description>
+            	</item>
                 <item>
                     <term>t</term>
                     <description>Equivalent to <b>thread</b></description>
                 </item>
-               <item>
-                 <term>timestamp</term>
-                 <description>
-                  <para>
-                  Used to output the number of milliseconds elapsed since the start
-                  of the application until the creation of the logging event.
-                  </para>
-                 </description>
-               </item>
-               <item>
-                 <term>thread</term>
-                 <description>
-                  <para>
-                  Used to output the name of the thread that generated the
-                  logging event. Uses the thread number if no name is available.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>timestamp</term>
+            		<description>
+            			<para>
+            			Used to output the number of milliseconds elapsed since the start
+            			of the application until the creation of the logging event.
+            			</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term>thread</term>
+            		<description>
+            			<para>
+            			Used to output the name of the thread that generated the
+            			logging event. Uses the thread number if no name is available.
+            			</para>
+            		</description>
+            	</item>
                 <item>
-                 <term>type</term> 
-                 <description>
-                  <para>
-                  Used to output the fully qualified type name of the caller
-                  issuing the logging request. This conversion specifier
-                  can be optionally followed by <i>precision specifier</i>, that
-                  is a decimal constant in brackets.
-                  </para>
-                  <para>
-                  If a precision specifier is given, then only the corresponding
-                  number of right most components of the class name will be
-                  printed. By default the class name is output in fully qualified form.
-                  </para>
-                  <para>
-                  For example, for the class name "log4net.Layout.PatternLayout", the
-                  pattern <b>%type{1}</b> will output "PatternLayout".
-                  </para>
-                  <para>
-                  <b>WARNING</b> Generating the caller class information is
-                  slow. Thus, its use should be avoided unless execution speed is
-                  not an issue.
-                  </para>
-                  <para>
-                  See the note below on the availability of caller location information.
-                  </para>
-                 </description>
+            		<term>type</term> 
+            		<description>
+            			<para>
+            			Used to output the fully qualified type name of the caller
+            			issuing the logging request. This conversion specifier
+            			can be optionally followed by <i>precision specifier</i>, that
+            			is a decimal constant in brackets.
+            			</para>
+            			<para>
+            			If a precision specifier is given, then only the corresponding
+            			number of right most components of the class name will be
+            			printed. By default the class name is output in fully qualified form.
+            			</para>
+            			<para>
+            			For example, for the class name "log4net.Layout.PatternLayout", the
+            			pattern <b>%type{1}</b> will output "PatternLayout".
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating the caller class information is
+            			slow. Thus, its use should be avoided unless execution speed is
+            			not an issue.
+            			</para>
+            			<para>
+            			See the note below on the availability of caller location information.
+            			</para>
+            		</description>
                 </item>
                 <item>
                     <term>u</term>
                     <description>Equivalent to <b>identity</b></description>
                 </item>
-               <item>
-                 <term>username</term>
-                 <description>
-                   <para>
-                   Used to output the WindowsIdentity for the currently
-                   active user.
-                   </para>
-                   <para>
-                   <b>WARNING</b> Generating caller WindowsIdentity information is
-                   extremely slow. Its use should be avoided unless execution speed
-                   is not an issue.
-                   </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>username</term>
+            		<description>
+            			<para>
+            			Used to output the WindowsIdentity for the currently
+            			active user.
+            			</para>
+            			<para>
+            			<b>WARNING</b> Generating caller WindowsIdentity information is
+            			extremely slow. Its use should be avoided unless execution speed
+            			is not an issue.
+            			</para>
+            		</description>
+            	</item>
                 <item>
-                 <term>utcdate</term> 
-                 <description>
-                  <para>
-                  Used to output the date of the logging event in universal time. 
-                  The date conversion 
-                  specifier may be followed by a <i>date format specifier</i> enclosed 
-                  between braces. For example, <b>%utcdate{HH:mm:ss,fff}</b> or
-                  <b>%utcdate{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
-                  given then ISO8601 format is
-                  assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
-                  </para>
-                  <para>
-                  The date format specifier admits the same syntax as the
-                  time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                  <para>
-                  For better results it is recommended to use the log4net date
-                  formatters. These can be specified using one of the strings
-                  "ABSOLUTE", "DATE" and "ISO8601" for specifying 
-                  <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
-                  <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
-                  <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
-                  <b>%utcdate{ISO8601}</b> or <b>%utcdate{ABSOLUTE}</b>.
-                  </para>
-                  <para>
-                  These dedicated date formatters perform significantly
-                  better than <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                 </description>
-               </item>
+            		<term>utcdate</term> 
+            		<description>
+            			<para>
+            			Used to output the date of the logging event in universal time. 
+            			The date conversion 
+            			specifier may be followed by a <i>date format specifier</i> enclosed 
+            			between braces. For example, <b>%utcdate{HH:mm:ss,fff}</b> or
+            			<b>%utcdate{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
+            			given then ISO8601 format is
+            			assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
+            			</para>
+            			<para>
+            			The date format specifier admits the same syntax as the
+            			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            			<para>
+            			For better results it is recommended to use the log4net date
+            			formatters. These can be specified using one of the strings
+            			"ABSOLUTE", "DATE" and "ISO8601" for specifying 
+            			<see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
+            			<see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
+            			<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
+            			<b>%utcdate{ISO8601}</b> or <b>%utcdate{ABSOLUTE}</b>.
+            			</para>
+            			<para>
+            			These dedicated date formatters perform significantly
+            			better than <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            		</description>
+            	</item>
                 <item>
                     <term>w</term>
                     <description>Equivalent to <b>username</b></description>
@@ -18365,14 +18272,14 @@
                     <term>X</term>
                     <description>Equivalent to <b>mdc</b></description>
                 </item>
-               <item>
-                 <term>%</term>
-                 <description>
-                  <para>
-                  The sequence %% outputs a single percent sign.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>%</term>
+            		<description>
+            			<para>
+            			The sequence %% outputs a single percent sign.
+            			</para>
+            		</description>
+            	</item>
             </list>
             <para>
             The single letter patterns are deprecated in favor of the 
@@ -18416,82 +18323,82 @@
             conversion specifier.
             </para>
             <div class="tablediv">
-               <table class="dtTABLE" cellspacing="0">
-                 <tr>
-                   <th>Format modifier</th>
-                   <th>left justify</th>
-                   <th>minimum width</th>
-                   <th>maximum width</th>
-                   <th>comment</th>
-                 </tr>
-                 <tr>
-                   <td align="center">%20logger</td>
-                   <td align="center">false</td>
-                   <td align="center">20</td>
-                   <td align="center">none</td>
-                   <td>
-                     <para>
-                     Left pad with spaces if the logger name is less than 20
-                     characters long.
-                     </para>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td align="center">%-20logger</td>
-                   <td align="center">true</td>
-                   <td align="center">20</td>
-                   <td align="center">none</td>
-                   <td>
-                     <para>
-                     Right pad with spaces if the logger 
-                     name is less than 20 characters long.
-                     </para>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td align="center">%.30logger</td>
-                   <td align="center">NA</td>
-                   <td align="center">none</td>
-                   <td align="center">30</td>
-                   <td>
-                     <para>
-                     Truncate from the beginning if the logger 
-                     name is longer than 30 characters.
-                     </para>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td align="center"><nobr>%20.30logger</nobr></td>
-                   <td align="center">false</td>
-                   <td align="center">20</td>
-                   <td align="center">30</td>
-                   <td>
-                     <para>
-                     Left pad with spaces if the logger name is shorter than 20
-                     characters. However, if logger name is longer than 30 characters,
-                     then truncate from the beginning.
-                     </para>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td align="center">%-20.30logger</td>
-                   <td align="center">true</td>
-                   <td align="center">20</td>
-                   <td align="center">30</td>
-                   <td>
-                     <para>
-                     Right pad with spaces if the logger name is shorter than 20
-                     characters. However, if logger name is longer than 30 characters,
-                     then truncate from the beginning.
-                     </para>
-                   </td>
-                 </tr>
-               </table>
-             </div>
-             <para>
-             <b>Note about caller location information.</b><br />
-             The following patterns <c>%type %file %line %method %location %class %C %F %L %l %M</c> 
-             all generate caller location information.
+            	<table class="dtTABLE" cellspacing="0">
+            		<tr>
+            			<th>Format modifier</th>
+            			<th>left justify</th>
+            			<th>minimum width</th>
+            			<th>maximum width</th>
+            			<th>comment</th>
+            		</tr>
+            		<tr>
+            			<td align="center">%20logger</td>
+            			<td align="center">false</td>
+            			<td align="center">20</td>
+            			<td align="center">none</td>
+            			<td>
+            				<para>
+            				Left pad with spaces if the logger name is less than 20
+            				characters long.
+            				</para>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td align="center">%-20logger</td>
+            			<td align="center">true</td>
+            			<td align="center">20</td>
+            			<td align="center">none</td>
+            			<td>
+            				<para>
+            				Right pad with spaces if the logger 
+            				name is less than 20 characters long.
+            				</para>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td align="center">%.30logger</td>
+            			<td align="center">NA</td>
+            			<td align="center">none</td>
+            			<td align="center">30</td>
+            			<td>
+            				<para>
+            				Truncate from the beginning if the logger 
+            				name is longer than 30 characters.
+            				</para>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td align="center"><nobr>%20.30logger</nobr></td>
+            			<td align="center">false</td>
+            			<td align="center">20</td>
+            			<td align="center">30</td>
+            			<td>
+            				<para>
+            				Left pad with spaces if the logger name is shorter than 20
+            				characters. However, if logger name is longer than 30 characters,
+            				then truncate from the beginning.
+            				</para>
+            			</td>
+            		</tr>
+            		<tr>
+            			<td align="center">%-20.30logger</td>
+            			<td align="center">true</td>
+            			<td align="center">20</td>
+            			<td align="center">30</td>
+            			<td>
+            				<para>
+            				Right pad with spaces if the logger name is shorter than 20
+            				characters. However, if logger name is longer than 30 characters,
+            				then truncate from the beginning.
+            				</para>
+            			</td>
+            		</tr>
+            	</table>
+            </div>
+            <para>
+            <b>Note about caller location information.</b><br />
+            The following patterns <c>%type %file %line %method %location %class %C %F %L %l %M</c> 
+            all generate caller location information.
             Location information uses the <c>System.Diagnostics.StackTrace</c> class to generate
             a call stack. The caller's information is then extracted from this stack.
             </para>
@@ -18885,41 +18792,41 @@
             The value of the <see cref="P:log4net.Util.PatternConverter.Option"/> determines 
             the formatting of the date. The following values are allowed:
             <list type="definition">
-               <listheader>
-                <term>Option value</term>
-                <description>Output</description>
-              </listheader>
-               <item>
-                <term>ISO8601</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/> formatter. 
-                Formats using the <c>"yyyy-MM-dd HH:mm:ss,fff"</c> pattern.
-                </description>
-              </item>
-              <item>
-                <term>DATE</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> formatter. 
-                Formats using the <c>"dd MMM yyyy HH:mm:ss,fff"</c> for example, <c>"06 Nov 1994 15:49:37,459"</c>.
-                </description>
-              </item>
-              <item>
-                <term>ABSOLUTE</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/> formatter. 
-                Formats using the <c>"HH:mm:ss,yyyy"</c> for example, <c>"15:49:37,459"</c>.
-                </description>
-              </item>
-              <item>
-                <term>other</term>
-                <description>
-                Any other pattern string uses the <see cref="T:log4net.DateFormatter.SimpleDateFormatter"/> formatter. 
-                This formatter passes the pattern string to the <see cref="T:System.DateTime"/> 
-                <see cref="M:DateTime.ToString(string)"/> method.
-                For details on valid patterns see 
-                <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp">DateTimeFormatInfo Class</a>.
-                </description>
-              </item>
+            	<listheader>
+            		<term>Option value</term>
+            		<description>Output</description>
+            	</listheader>
+            	<item>
+            		<term>ISO8601</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/> formatter. 
+            		Formats using the <c>"yyyy-MM-dd HH:mm:ss,fff"</c> pattern.
+            		</description>
+            	</item>
+            	<item>
+            		<term>DATE</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> formatter. 
+            		Formats using the <c>"dd MMM yyyy HH:mm:ss,fff"</c> for example, <c>"06 Nov 1994 15:49:37,459"</c>.
+            		</description>
+            	</item>
+            	<item>
+            		<term>ABSOLUTE</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/> formatter. 
+            		Formats using the <c>"HH:mm:ss,yyyy"</c> for example, <c>"15:49:37,459"</c>.
+            		</description>
+            	</item>
+            	<item>
+            		<term>other</term>
+            		<description>
+            		Any other pattern string uses the <see cref="T:log4net.DateFormatter.SimpleDateFormatter"/> formatter. 
+            		This formatter passes the pattern string to the <see cref="T:System.DateTime"/> 
+            		<see cref="M:DateTime.ToString(string)"/> method.
+            		For details on valid patterns see 
+            		<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp">DateTimeFormatInfo Class</a>.
+            		</description>
+            	</item>
             </list>
             </para>
             <para>
@@ -19029,21 +18936,21 @@
             Recognized values for the Option parameter are:
             </para>
             <list type="bullet">
-               <item>
-                 <description>Message</description>
-               </item>
-               <item>
-                 <description>Source</description>
-               </item>
-               <item>
-                 <description>StackTrace</description>
-               </item>
-               <item>
-                 <description>TargetSite</description>
-               </item>
-               <item>
-                 <description>HelpLink</description>
-               </item>    
+            	<item>
+            		<description>Message</description>
+            	</item>
+            	<item>
+            		<description>Source</description>
+            	</item>
+            	<item>
+            		<description>StackTrace</description>
+            	</item>
+            	<item>
+            		<description>TargetSite</description>
+            	</item>
+            	<item>
+            		<description>HelpLink</description>
+            	</item>		
             </list>
             </remarks>
         </member>
@@ -20276,16 +20183,16 @@
             <example>Example of using the thread context properties to store a username.
             <code lang="C#">
             LogicalThreadContext.Properties["user"] = userName;
-             log.Info("This log message has a LogicalThreadContext Property called 'user'");
+            log.Info("This log message has a LogicalThreadContext Property called 'user'");
             </code>
             </example>
             <example>Example of how to push a message into the context stack
             <code lang="C#">
-             using(LogicalThreadContext.Stacks["LDC"].Push("my context message"))
-             {
-               log.Info("This log message has a LogicalThreadContext Stack message that includes 'my context message'");
-             
-             } // at the end of the using block the message is automatically popped 
+            using(LogicalThreadContext.Stacks["LDC"].Push("my context message"))
+            {
+            	log.Info("This log message has a LogicalThreadContext Stack message that includes 'my context message'");
+            
+            } // at the end of the using block the message is automatically popped 
             </code>
             </example>
             <threadsafety static="true" instance="true" />
@@ -20361,7 +20268,7 @@
             
             if (log.IsDebugEnabled)
             {
-               log.Debug("This is another debug message");
+            	log.Debug("This is another debug message");
             }
             </code>
             </example>
@@ -20653,7 +20560,7 @@
             sets their additivity flag to <c>true</c> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
-            </para>    
+            </para>		
             </remarks>
         </member>
         <member name="M:log4net.LogManager.ResetConfiguration(System.String)">
@@ -20668,7 +20575,7 @@
             sets their additivity flag to <c>true</c> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
-            </para>    
+            </para>		
             </remarks>
             <param name="repository">The repository to reset.</param>
         </member>
@@ -20684,7 +20591,7 @@
             sets their additivity flag to <c>true</c> and sets the level
             of the root logger to <see cref="F:log4net.Core.Level.Debug"/>. Moreover,
             message disabling is set to its default "off" value.
-            </para>    
+            </para>		
             </remarks>
             <param name="repositoryAssembly">The assembly to use to lookup the repository to reset.</param>
         </member>
@@ -21103,11 +21010,11 @@
             </remarks>
             <example>How to push a message into the context
             <code lang="C#">
-             using(NDC.Push("my context message"))
-             {
-               ... all log calls will have 'my context message' included ...
-             
-             } // at the end of the using block the message is automatically removed 
+            using(NDC.Push("my context message"))
+            {
+            	... all log calls will have 'my context message' included ...
+            
+            } // at the end of the using block the message is automatically removed 
             </code>
             </example>
             <threadsafety static="true" instance="true" />
@@ -21251,8 +21158,8 @@
             <code lang="C#">
             using(log4net.NDC.Push("NDC_Message"))
             {
-               log.Warn("This should have an NDC message");
-             }
+            	log.Warn("This should have an NDC message");
+            }
             </code>
             </example>
         </member>
@@ -21285,8 +21192,8 @@
             var someValue = "ExampleContext"
             using(log4net.NDC.PushFormat("NDC_Message {0}", someValue))
             {
-               log.Warn("This should have an NDC message");
-             }
+            	log.Warn("This should have an NDC message");
+            }
             </code>
             </example>
         </member>
@@ -21375,69 +21282,69 @@
             The default renderer supports rendering objects to strings as follows:
             </para>
             <list type="table">
-               <listheader>
-                 <term>Value</term>
-                 <description>Rendered String</description>
-               </listheader>
-               <item>
-                 <term><c>null</c></term>
-                 <description>
-                 <para>"(null)"</para>
-                 </description>
-               </item>
-               <item>
-                 <term><see cref="T:System.Array"/></term>
-                 <description>
-                 <para>
-                 For a one dimensional array this is the
-                 array type name, an open brace, followed by a comma
-                 separated list of the elements (using the appropriate
-                 renderer), followed by a close brace. 
-                 </para>
-                 <para>
-                 For example: <c>int[] {1, 2, 3}</c>.
-                 </para>
-                 <para>
-                 If the array is not one dimensional the 
-                 <c>Array.ToString()</c> is returned.
-                 </para>
-                 </description>
-               </item>
-               <item>
-                 <term><see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> &amp; <see cref="T:System.Collections.IEnumerator"/></term>
-                 <description>
-                 <para>
-                 Rendered as an open brace, followed by a comma
-                 separated list of the elements (using the appropriate
-                 renderer), followed by a close brace.
-                 </para>
-                 <para>
-                 For example: <c>{a, b, c}</c>.
-                 </para>
-                 <para>
-                 All collection classes that implement <see cref="T:System.Collections.ICollection"/> its subclasses, 
-                 or generic equivalents all implement the <see cref="T:System.Collections.IEnumerable"/> interface.
-                 </para>
-                 </description>
-               </item>    
-               <item>
-                 <term><see cref="T:System.Collections.DictionaryEntry"/></term>
-                 <description>
-                 <para>
-                 Rendered as the key, an equals sign ('='), and the value (using the appropriate
-                 renderer). 
-                 </para>
-                 <para>
-                 For example: <c>key=value</c>.
-                 </para>
-                 </description>
-               </item>    
-               <item>
-                 <term>other</term>
-                 <description>
-                 <para><c>Object.ToString()</c></para>
-                 </description>
-               </item>
+            	<listheader>
+            		<term>Value</term>
+            		<description>Rendered String</description>
+            	</listheader>
+            	<item>
+            		<term><c>null</c></term>
+            		<description>
+            		<para>"(null)"</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term><see cref="T:System.Array"/></term>
+            		<description>
+            		<para>
+            		For a one dimensional array this is the
+            		array type name, an open brace, followed by a comma
+            		separated list of the elements (using the appropriate
+            		renderer), followed by a close brace. 
+            		</para>
+            		<para>
+            		For example: <c>int[] {1, 2, 3}</c>.
+            		</para>
+            		<para>
+            		If the array is not one dimensional the 
+            		<c>Array.ToString()</c> is returned.
+            		</para>
+            		</description>
+            	</item>
+            	<item>
+            		<term><see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> &amp; <see cref="T:System.Collections.IEnumerator"/></term>
+            		<description>
+            		<para>
+            		Rendered as an open brace, followed by a comma
+            		separated list of the elements (using the appropriate
+            		renderer), followed by a close brace.
+            		</para>
+            		<para>
+            		For example: <c>{a, b, c}</c>.
+            		</para>
+            		<para>
+            		All collection classes that implement <see cref="T:System.Collections.ICollection"/> its subclasses, 
+            		or generic equivalents all implement the <see cref="T:System.Collections.IEnumerable"/> interface.
+            		</para>
+            		</description>
+            	</item>		
+            	<item>
+            		<term><see cref="T:System.Collections.DictionaryEntry"/></term>
+            		<description>
+            		<para>
+            		Rendered as the key, an equals sign ('='), and the value (using the appropriate
+            		renderer). 
+            		</para>
+            		<para>
+            		For example: <c>key=value</c>.
+            		</para>
+            		</description>
+            	</item>		
+            	<item>
+            		<term>other</term>
+            		<description>
+            		<para><c>Object.ToString()</c></para>
+            		</description>
+            	</item>
             </list>
             </remarks>
         </member>
@@ -21451,15 +21358,15 @@
             <remarks>
             <para>
             For a one dimensional array this is the
-             array type name, an open brace, followed by a comma
-             separated list of the elements (using the appropriate
-             renderer), followed by a close brace. For example:
-             <c>int[] {1, 2, 3}</c>.
-             </para>
-             <para>
-             If the array is not one dimensional the 
-             <c>Array.ToString()</c> is returned.
-             </para>
+            array type name, an open brace, followed by a comma
+            separated list of the elements (using the appropriate
+            renderer), followed by a close brace. For example:
+            <c>int[] {1, 2, 3}</c>.
+            </para>
+            <para>
+            If the array is not one dimensional the 
+            <c>Array.ToString()</c> is returned.
+            </para>
             </remarks>
         </member>
         <member name="M:log4net.ObjectRenderer.DefaultRenderer.RenderEnumerator(log4net.ObjectRenderer.RendererMap,System.Collections.IEnumerator,System.IO.TextWriter)">
@@ -21472,10 +21379,10 @@
             <remarks>
             <para>
             Rendered as an open brace, followed by a comma
-             separated list of the elements (using the appropriate
-             renderer), followed by a close brace. For example:
-             <c>{a, b, c}</c>.
-             </para>
+            separated list of the elements (using the appropriate
+            renderer), followed by a close brace. For example:
+            <c>{a, b, c}</c>.
+            </para>
             </remarks>
         </member>
         <member name="M:log4net.ObjectRenderer.DefaultRenderer.RenderDictionaryEntry(log4net.ObjectRenderer.RendererMap,System.Collections.DictionaryEntry,System.IO.TextWriter)">
@@ -21488,8 +21395,8 @@
             <remarks>
             <para>
             Render the key, an equals sign ('='), and the value (using the appropriate
-             renderer). For example: <c>key=value</c>.
-             </para>
+            renderer). For example: <c>key=value</c>.
+            </para>
             </remarks>
         </member>
         <member name="T:log4net.ObjectRenderer.IObjectRenderer">
@@ -21545,6 +21452,16 @@
             </remarks>
             <author>Nicko Cadell</author>
             <author>Gert Driesen</author>
+        </member>
+        <member name="M:log4net.ObjectRenderer.RendererMap.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+            <remarks>
+            <para>
+            Default constructor.
+            </para>
+            </remarks>
         </member>
         <member name="M:log4net.ObjectRenderer.RendererMap.FindAndRender(System.Object)">
             <summary>
@@ -21736,7 +21653,7 @@
         </member>
         <member name="T:log4net.Plugin.PluginCollection">
             <summary>
-             A strongly-typed collection of <see cref="T:log4net.Plugin.IPlugin"/> objects.
+            A strongly-typed collection of <see cref="T:log4net.Plugin.IPlugin"/> objects.
             </summary>
             <author>Nicko Cadell</author>
         </member>
@@ -21748,29 +21665,29 @@
         </member>
         <member name="P:log4net.Plugin.PluginCollection.IPluginCollectionEnumerator.Current">
             <summary>
-             Gets the current element in the collection.
+            Gets the current element in the collection.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.IPluginCollectionEnumerator.MoveNext">
             <summary>
-             Advances the enumerator to the next element in the collection.
+            Advances the enumerator to the next element in the collection.
             </summary>
             <returns>
-             <c>true</c> if the enumerator was successfully advanced to the next element; 
-             <c>false</c> if the enumerator has passed the end of the collection.
+            <c>true</c> if the enumerator was successfully advanced to the next element; 
+            <c>false</c> if the enumerator has passed the end of the collection.
             </returns>
             <exception cref="T:System.InvalidOperationException">
-             The collection was modified after the enumerator was created.
+            The collection was modified after the enumerator was created.
             </exception>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.IPluginCollectionEnumerator.Reset">
             <summary>
-             Sets the enumerator to its initial position, before the first element in the collection.
+            Sets the enumerator to its initial position, before the first element in the collection.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.ReadOnly(log4net.Plugin.PluginCollection)">
             <summary>
-             Creates a read-only wrapper for a <c>PluginCollection</c> instance.
+            Creates a read-only wrapper for a <c>PluginCollection</c> instance.
             </summary>
             <param name="list">list to create a readonly wrapper arround</param>
             <returns>
@@ -21779,8 +21696,8 @@
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor">
             <summary>
-             Initializes a new instance of the <c>PluginCollection</c> class
-             that is empty and has the default initial capacity.
+            Initializes a new instance of the <c>PluginCollection</c> class
+            that is empty and has the default initial capacity.
             </summary>
         </member>
         <member name="M:log4net.Plugin.PluginCollection.#ctor(System.Int32)">
@@ -22889,29 +22806,29 @@
             <paramref name="log"/>. There 3 possible cases:
             </para>
             <list type="number">
-               <item>
-                 <term>No entry for the potential parent of <paramref name="log"/> exists</term>
-                 <description>
-                 We create a ProvisionNode for this potential 
-                 parent and insert <paramref name="log"/> in that provision node.
-                 </description>
-               </item>
-               <item>
-                 <term>The entry is of type Logger for the potential parent.</term>
-                 <description>
-                 The entry is <paramref name="log"/>'s nearest existing parent. We 
-                 update <paramref name="log"/>'s parent field with this entry. We also break from 
-                 he loop because updating our parent's parent is our parent's 
-                 responsibility.
-                 </description>
-               </item>
-               <item>
-                 <term>The entry is of type ProvisionNode for this potential parent.</term>
-                 <description>
-                 We add <paramref name="log"/> to the list of children for this 
-                 potential parent.
-                 </description>
-               </item>
+            	<item>
+            		<term>No entry for the potential parent of <paramref name="log"/> exists</term>
+            		<description>
+            		We create a ProvisionNode for this potential 
+            		parent and insert <paramref name="log"/> in that provision node.
+            		</description>
+            	</item>
+            	<item>
+            		<term>The entry is of type Logger for the potential parent.</term>
+            		<description>
+            		The entry is <paramref name="log"/>'s nearest existing parent. We 
+            		update <paramref name="log"/>'s parent field with this entry. We also break from 
+            		he loop because updating our parent's parent is our parent's 
+            		responsibility.
+            		</description>
+            	</item>
+            	<item>
+            		<term>The entry is of type ProvisionNode for this potential parent.</term>
+            		<description>
+            		We add <paramref name="log"/> to the list of children for this 
+            		potential parent.
+            		</description>
+            	</item>
             </list>
             </remarks>
         </member>
@@ -24644,16 +24561,16 @@
             <example>Example of using the thread context properties to store a username.
             <code lang="C#">
             ThreadContext.Properties["user"] = userName;
-             log.Info("This log message has a ThreadContext Property called 'user'");
+            log.Info("This log message has a ThreadContext Property called 'user'");
             </code>
             </example>
             <example>Example of how to push a message into the context stack
             <code lang="C#">
-             using(ThreadContext.Stacks["NDC"].Push("my context message"))
-             {
-               log.Info("This log message has a ThreadContext Stack message that includes 'my context message'");
-             
-             } // at the end of the using block the message is automatically popped 
+            using(ThreadContext.Stacks["NDC"].Push("my context message"))
+            {
+            	log.Info("This log message has a ThreadContext Stack message that includes 'my context message'");
+            
+            } // at the end of the using block the message is automatically popped 
             </code>
             </example>
             <threadsafety static="true" instance="true" />
@@ -26043,22 +25960,10 @@
             <code lang="C#">
             using(log4net.LogicalThreadContext.Stacks["NDC"].Push("Stack_Message"))
             {
-               log.Warn("This should have an ThreadContext Stack message");
-             }
+            	log.Warn("This should have an ThreadContext Stack message");
+            }
             </code>
             </example>
-        </member>
-        <member name="M:log4net.Util.LogicalThreadContextStack.Peek">
-            <summary>
-            Returns the top context from this stack.
-            </summary>
-            <returns>The message in the context from the top of this stack.</returns>
-            <remarks>
-            <para>
-            Returns the top context from this stack. If this stack is empty then an
-            empty string (not <see langword="null"/>) is returned.
-            </para>
-            </remarks>
         </member>
         <member name="M:log4net.Util.LogicalThreadContextStack.GetFullMessage">
             <summary>
@@ -26370,9 +26275,9 @@
             </para>
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net.Internal.Debug" value="true" />
-               </appSettings>
+            	<appSettings>
+            		<add key="log4net.Internal.Debug" value="true" />
+            	</appSettings>
             </configuration>
             </code>
             </example>
@@ -26406,9 +26311,9 @@
             application configuration file :
             <code lang="XML" escaped="true">
             <configuration>
-               <appSettings>
-                 <add key="log4net.Internal.Quiet" value="true" />
-               </appSettings>
+            	<appSettings>
+            		<add key="log4net.Internal.Quiet" value="true" />
+            	</appSettings>
             </configuration>
             </code>
             </example>
@@ -26449,8 +26354,8 @@
             <param name="message">The message to log.</param>
             <remarks>
             <para>
-             All internal debug messages are prepended with 
-             the string "log4net: ".
+            All internal debug messages are prepended with 
+            the string "log4net: ".
             </para>
             </remarks>
         </member>
@@ -26464,8 +26369,8 @@
             <param name="exception">An exception to log.</param>
             <remarks>
             <para>
-             All internal debug messages are prepended with 
-             the string "log4net: ".
+            All internal debug messages are prepended with 
+            the string "log4net: ".
             </para>
             </remarks>
         </member>
@@ -26491,8 +26396,8 @@
             <param name="message">The message to log.</param>
             <remarks>
             <para>
-             All internal warning messages are prepended with 
-             the string "log4net:WARN ".
+            All internal warning messages are prepended with 
+            the string "log4net:WARN ".
             </para>
             </remarks>
         </member>
@@ -26506,8 +26411,8 @@
             <param name="exception">An exception to log.</param>
             <remarks>
             <para>
-             All internal warning messages are prepended with 
-             the string "log4net:WARN ".
+            All internal warning messages are prepended with 
+            the string "log4net:WARN ".
             </para>
             </remarks>
         </member>
@@ -26533,8 +26438,8 @@
             <param name="message">The message to log.</param>
             <remarks>
             <para>
-             All internal error messages are prepended with 
-             the string "log4net:ERROR ".
+            All internal error messages are prepended with 
+            the string "log4net:ERROR ".
             </para>
             </remarks>
         </member>
@@ -26548,8 +26453,8 @@
             <param name="exception">An exception to log.</param>
             <remarks>
             <para>
-             All internal debug messages are prepended with 
-             the string "log4net:ERROR ".
+            All internal debug messages are prepended with 
+            the string "log4net:ERROR ".
             </para>
             </remarks>
         </member>
@@ -27371,7 +27276,7 @@
             </code>
             </para>
             <para>
-            will set <s>s</s> to "Value of nonExistentKey is []".   
+            will set <s>s</s> to "Value of nonExistentKey is []".	 
             </para>
             <para>
             An Exception is thrown if <paramref name="value"/> contains a start 
@@ -27775,43 +27680,43 @@
                 <item>
                     <term>date</term>
                     <description>
-                  <para>
-                  Used to output the current date and time in the local time zone. 
-                  To output the date in universal time use the <c>%utcdate</c> pattern.
-                  The date conversion 
-                  specifier may be followed by a <i>date format specifier</i> enclosed 
-                  between braces. For example, <b>%date{HH:mm:ss,fff}</b> or
-                  <b>%date{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
-                  given then ISO8601 format is
-                  assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
-                  </para>
-                  <para>
-                  The date format specifier admits the same syntax as the
-                  time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                  <para>
-                  For better results it is recommended to use the log4net date
-                  formatters. These can be specified using one of the strings
-                  "ABSOLUTE", "DATE" and "ISO8601" for specifying 
-                  <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
-                  <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
-                  <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
-                  <b>%date{ISO8601}</b> or <b>%date{ABSOLUTE}</b>.
-                  </para>
-                  <para>
-                  These dedicated date formatters perform significantly
-                  better than <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
+            			<para>
+            			Used to output the current date and time in the local time zone. 
+            			To output the date in universal time use the <c>%utcdate</c> pattern.
+            			The date conversion 
+            			specifier may be followed by a <i>date format specifier</i> enclosed 
+            			between braces. For example, <b>%date{HH:mm:ss,fff}</b> or
+            			<b>%date{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
+            			given then ISO8601 format is
+            			assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
+            			</para>
+            			<para>
+            			The date format specifier admits the same syntax as the
+            			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            			<para>
+            			For better results it is recommended to use the log4net date
+            			formatters. These can be specified using one of the strings
+            			"ABSOLUTE", "DATE" and "ISO8601" for specifying 
+            			<see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
+            			<see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
+            			<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
+            			<b>%date{ISO8601}</b> or <b>%date{ABSOLUTE}</b>.
+            			</para>
+            			<para>
+            			These dedicated date formatters perform significantly
+            			better than <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
                     </description>
                 </item>
                 <item>
                     <term>env</term>
                     <description>
                         <para>
-                  Used to output the a specific environment variable. The key to 
-                  lookup must be specified within braces and directly following the
-                  pattern specifier, e.g. <b>%env{COMPUTERNAME}</b> would include the value
-                  of the <c>COMPUTERNAME</c> environment variable.
+            			Used to output the a specific environment variable. The key to 
+            			lookup must be specified within braces and directly following the
+            			pattern specifier, e.g. <b>%env{COMPUTERNAME}</b> would include the value
+            			of the <c>COMPUTERNAME</c> environment variable.
                         </para>
                         <para>
                         The <c>env</c> pattern is not supported on the .NET Compact Framework.
@@ -27821,71 +27726,71 @@
                 <item>
                     <term>identity</term>
                     <description>
-                   <para>
-                   Used to output the user name for the currently active user
-                   (Principal.Identity.Name).
-                   </para>
+            			<para>
+            			Used to output the user name for the currently active user
+            			(Principal.Identity.Name).
+            			</para>
                     </description>
                 </item>
                 <item>
                     <term>newline</term>
                     <description>
-                  <para>
-                  Outputs the platform dependent line separator character or
-                  characters.
-                  </para>
-                  <para>
-                  This conversion pattern name offers the same performance as using 
-                  non-portable line separator strings such as  "\n", or "\r\n". 
-                  Thus, it is the preferred way of specifying a line separator.
-                  </para> 
+            			<para>
+            			Outputs the platform dependent line separator character or
+            			characters.
+            			</para>
+            			<para>
+            			This conversion pattern name offers the same performance as using 
+            			non-portable line separator strings such as	"\n", or "\r\n". 
+            			Thus, it is the preferred way of specifying a line separator.
+            			</para> 
                     </description>
                 </item>
                 <item>
                     <term>processid</term>
                     <description>
                         <para>
-                   Used to output the system process ID for the current process.
+            			Used to output the system process ID for the current process.
                         </para>
                     </description>
                 </item>
                 <item>
                     <term>property</term>
                     <description>
-                  <para>
-                  Used to output a specific context property. The key to 
-                  lookup must be specified within braces and directly following the
-                  pattern specifier, e.g. <b>%property{user}</b> would include the value
-                  from the property that is keyed by the string 'user'. Each property value
-                  that is to be included in the log must be specified separately.
-                  Properties are stored in logging contexts. By default 
-                  the <c>log4net:HostName</c> property is set to the name of machine on 
-                  which the event was originally logged.
-                  </para>
-                  <para>
-                  If no key is specified, e.g. <b>%property</b> then all the keys and their
-                  values are printed in a comma separated list.
-                  </para>
-                  <para>
-                  The properties of an event are combined from a number of different
-                  contexts. These are listed below in the order in which they are searched.
-                  </para>
-                  <list type="definition">
-                    <item>
-                      <term>the thread properties</term>
-                      <description>
-                      The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
-                      thread. These properties are shared by all events logged on this thread.
-                      </description>
-                    </item>
-                    <item>
-                      <term>the global properties</term>
-                      <description>
-                      The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
-                      properties are shared by all the threads in the AppDomain.
-                      </description>
-                    </item>
-                  </list>
+            			<para>
+            			Used to output a specific context property. The key to 
+            			lookup must be specified within braces and directly following the
+            			pattern specifier, e.g. <b>%property{user}</b> would include the value
+            			from the property that is keyed by the string 'user'. Each property value
+            			that is to be included in the log must be specified separately.
+            			Properties are stored in logging contexts. By default 
+            			the <c>log4net:HostName</c> property is set to the name of machine on 
+            			which the event was originally logged.
+            			</para>
+            			<para>
+            			If no key is specified, e.g. <b>%property</b> then all the keys and their
+            			values are printed in a comma separated list.
+            			</para>
+            			<para>
+            			The properties of an event are combined from a number of different
+            			contexts. These are listed below in the order in which they are searched.
+            			</para>
+            			<list type="definition">
+            				<item>
+            					<term>the thread properties</term>
+            					<description>
+            					The <see cref="P:log4net.ThreadContext.Properties"/> that are set on the current
+            					thread. These properties are shared by all events logged on this thread.
+            					</description>
+            				</item>
+            				<item>
+            					<term>the global properties</term>
+            					<description>
+            					The <see cref="P:log4net.GlobalContext.Properties"/> that are set globally. These 
+            					properties are shared by all the threads in the AppDomain.
+            					</description>
+            				</item>
+            			</list>
                     </description>
                 </item>
                 <item>
@@ -27895,58 +27800,58 @@
                         Used to output a random string of characters. The string is made up of
                         uppercase letters and numbers. By default the string is 4 characters long.
                         The length of the string can be specified within braces directly following the
-                  pattern specifier, e.g. <b>%random{8}</b> would output an 8 character string.
+            			pattern specifier, e.g. <b>%random{8}</b> would output an 8 character string.
                         </para>
                     </description>
                 </item>
                 <item>
                     <term>username</term>
                     <description>
-                   <para>
-                   Used to output the WindowsIdentity for the currently
-                   active user.
-                   </para>
+            			<para>
+            			Used to output the WindowsIdentity for the currently
+            			active user.
+            			</para>
                     </description>
                 </item>
                 <item>
                     <term>utcdate</term>
                     <description>
-                  <para>
-                  Used to output the date of the logging event in universal time. 
-                  The date conversion 
-                  specifier may be followed by a <i>date format specifier</i> enclosed 
-                  between braces. For example, <b>%utcdate{HH:mm:ss,fff}</b> or
-                  <b>%utcdate{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
-                  given then ISO8601 format is
-                  assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
-                  </para>
-                  <para>
-                  The date format specifier admits the same syntax as the
-                  time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
-                  <para>
-                  For better results it is recommended to use the log4net date
-                  formatters. These can be specified using one of the strings
-                  "ABSOLUTE", "DATE" and "ISO8601" for specifying 
-                  <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
-                  <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
-                  <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
-                  <b>%utcdate{ISO8601}</b> or <b>%utcdate{ABSOLUTE}</b>.
-                  </para>
-                  <para>
-                  These dedicated date formatters perform significantly
-                  better than <see cref="M:DateTime.ToString(string)"/>.
-                  </para>
+            			<para>
+            			Used to output the date of the logging event in universal time. 
+            			The date conversion 
+            			specifier may be followed by a <i>date format specifier</i> enclosed 
+            			between braces. For example, <b>%utcdate{HH:mm:ss,fff}</b> or
+            			<b>%utcdate{dd MMM yyyy HH:mm:ss,fff}</b>.  If no date format specifier is 
+            			given then ISO8601 format is
+            			assumed (<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>).
+            			</para>
+            			<para>
+            			The date format specifier admits the same syntax as the
+            			time pattern string of the <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
+            			<para>
+            			For better results it is recommended to use the log4net date
+            			formatters. These can be specified using one of the strings
+            			"ABSOLUTE", "DATE" and "ISO8601" for specifying 
+            			<see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/>, 
+            			<see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> and respectively 
+            			<see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/>. For example, 
+            			<b>%utcdate{ISO8601}</b> or <b>%utcdate{ABSOLUTE}</b>.
+            			</para>
+            			<para>
+            			These dedicated date formatters perform significantly
+            			better than <see cref="M:DateTime.ToString(string)"/>.
+            			</para>
                     </description>
                 </item>
-               <item>
-                 <term>%</term>
-                 <description>
-                  <para>
-                  The sequence %% outputs a single percent sign.
-                  </para>
-                 </description>
-               </item>
+            	<item>
+            		<term>%</term>
+            		<description>
+            			<para>
+            			The sequence %% outputs a single percent sign.
+            			</para>
+            		</description>
+            	</item>
             </list>
             <para>
             Additional pattern converters may be registered with a specific <see cref="T:log4net.Util.PatternString"/>
@@ -28181,41 +28086,41 @@
             The value of the <see cref="P:log4net.Util.PatternConverter.Option"/> determines 
             the formatting of the date. The following values are allowed:
             <list type="definition">
-               <listheader>
-                <term>Option value</term>
-                <description>Output</description>
-              </listheader>
-               <item>
-                <term>ISO8601</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/> formatter. 
-                Formats using the <c>"yyyy-MM-dd HH:mm:ss,fff"</c> pattern.
-                </description>
-              </item>
-              <item>
-                <term>DATE</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> formatter. 
-                Formats using the <c>"dd MMM yyyy HH:mm:ss,fff"</c> for example, <c>"06 Nov 1994 15:49:37,459"</c>.
-                </description>
-              </item>
-              <item>
-                <term>ABSOLUTE</term>
-                <description>
-                Uses the <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/> formatter. 
-                Formats using the <c>"HH:mm:ss,fff"</c> for example, <c>"15:49:37,459"</c>.
-                </description>
-              </item>
-              <item>
-                <term>other</term>
-                <description>
-                Any other pattern string uses the <see cref="T:log4net.DateFormatter.SimpleDateFormatter"/> formatter. 
-                This formatter passes the pattern string to the <see cref="T:System.DateTime"/> 
-                <see cref="M:DateTime.ToString(string)"/> method.
-                For details on valid patterns see 
-                <a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp">DateTimeFormatInfo Class</a>.
-                </description>
-              </item>
+            	<listheader>
+            		<term>Option value</term>
+            		<description>Output</description>
+            	</listheader>
+            	<item>
+            		<term>ISO8601</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.Iso8601DateFormatter"/> formatter. 
+            		Formats using the <c>"yyyy-MM-dd HH:mm:ss,fff"</c> pattern.
+            		</description>
+            	</item>
+            	<item>
+            		<term>DATE</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.DateTimeDateFormatter"/> formatter. 
+            		Formats using the <c>"dd MMM yyyy HH:mm:ss,fff"</c> for example, <c>"06 Nov 1994 15:49:37,459"</c>.
+            		</description>
+            	</item>
+            	<item>
+            		<term>ABSOLUTE</term>
+            		<description>
+            		Uses the <see cref="T:log4net.DateFormatter.AbsoluteTimeDateFormatter"/> formatter. 
+            		Formats using the <c>"HH:mm:ss,fff"</c> for example, <c>"15:49:37,459"</c>.
+            		</description>
+            	</item>
+            	<item>
+            		<term>other</term>
+            		<description>
+            		Any other pattern string uses the <see cref="T:log4net.DateFormatter.SimpleDateFormatter"/> formatter. 
+            		This formatter passes the pattern string to the <see cref="T:System.DateTime"/> 
+            		<see cref="M:DateTime.ToString(string)"/> method.
+            		For details on valid patterns see 
+            		<a href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/cpref/html/frlrfsystemglobalizationdatetimeformatinfoclasstopic.asp">DateTimeFormatInfo Class</a>.
+            		</description>
+            	</item>
             </list>
             </para>
             <para>
@@ -29732,7 +29637,7 @@
             <param name="typeName">The name of the type to load.</param>
             <param name="throwOnError">Flag set to <c>true</c> to throw an exception if the type cannot be loaded.</param>
             <param name="ignoreCase"><c>true</c> to ignore the case of the type name; otherwise, <c>false</c></param>
-            <returns>The type loaded or <c>null</c> if it could not be loaded.</returns>    
+            <returns>The type loaded or <c>null</c> if it could not be loaded.</returns>		
             <remarks>
             <para>
             If the type name is fully qualified, i.e. if contains an assembly name in 
@@ -29952,16 +29857,6 @@
             </para>
             </remarks>
             <author>Nicko Cadell</author>
-        </member>
-        <member name="P:log4net.Util.SystemStringFormat.Format">
-            <summary>
-            Format
-            </summary>
-        </member>
-        <member name="P:log4net.Util.SystemStringFormat.Args">
-            <summary>
-            Args
-            </summary>
         </member>
         <member name="M:log4net.Util.SystemStringFormat.#ctor(System.IFormatProvider,System.String,System.Object[])">
             <summary>
@@ -30345,22 +30240,10 @@
             <code lang="C#">
             using(log4net.ThreadContext.Stacks["NDC"].Push("Stack_Message"))
             {
-               log.Warn("This should have an ThreadContext Stack message");
-             }
+            	log.Warn("This should have an ThreadContext Stack message");
+            }
             </code>
             </example>
-        </member>
-        <member name="M:log4net.Util.ThreadContextStack.Peek">
-            <summary>
-            Returns the top context from this stack.
-            </summary>
-            <returns>The message in the context from the top of this stack.</returns>
-            <remarks>
-            <para>
-            Returns the top context from this stack. If this stack is empty then an
-            empty string (not <see langword="null"/>) is returned.
-            </para>
-            </remarks>
         </member>
         <member name="M:log4net.Util.ThreadContextStack.GetFullMessage">
             <summary>
