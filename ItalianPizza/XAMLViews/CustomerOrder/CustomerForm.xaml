@@ -167,7 +167,7 @@
 
             <TextBox 
                 x:Name="txtZipCode"
-                MaxLength="10" 
+                MaxLength="5" 
                 PreviewTextInput="NumericTextBox_PreviewTextInput"
                 HorizontalAlignment="Left" 
                  Margin="50,412,0,0" 
@@ -211,7 +211,7 @@
             <TextBox 
                 x:Name="txtStreetNumber"
                 HorizontalAlignment="Left"
-                MaxLength="5" 
+                MaxLength="3" 
                 PreviewTextInput="NumericTextBox_PreviewTextInput"
                  Margin="344,518,0,0"
                  TextWrapping="Wrap"
