@@ -458,6 +458,9 @@
     <Compile Include="XAMLViews\Users\GUI-ReviewUsers.xaml.cs">
       <DependentUpon>GUI-ReviewUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XAMLViews\Users\UserAddress.xaml.cs">
+      <DependentUpon>UserAddress.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -587,6 +590,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XAMLViews\Users\GUI-ReviewUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLViews\Users\UserAddress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
