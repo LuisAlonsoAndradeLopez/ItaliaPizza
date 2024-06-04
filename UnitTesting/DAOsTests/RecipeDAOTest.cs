@@ -103,8 +103,22 @@ namespace UnitTesting.DAOsTests
             using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadUncommitted }))
             {
                 int result = recipeDAO.ModifyRecipe(modifiedRecipe, recipeDetailsToRegist);
-                Assert.AreEqual(9, result);
+                Assert.AreEqual(10, result);
             }
+        }
+
+        [TestMethod]
+        public void GetRecipeByNameTest()
+        {
+            RecipeSet recipe = recipeDAO.GetRecipeByProduct(recipeAlreadyRegistered.Name);
+            Assert.AreEqual("Pizza Pepperoni", recipe.Name);
+        }
+
+        [TestMethod]
+        public void GetRecipeFailedByInexistentName()
+        {
+            RecipeSet recipe = recipeDAO.GetRecipeByProduct(recipeToRegist.Name);
+            Assert.IsNull(recipe);
         }
     }
 }
