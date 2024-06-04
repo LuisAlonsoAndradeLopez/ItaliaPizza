@@ -295,7 +295,7 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
         }
 
 
-        public int ModifyUser(UserAccountSet account, EmployeeSet employee)
+        public int ModifyUser(UserAccountSet account, EmployeeSet employee, UserAccountSet newUserAccount)
         {
             int result = 0;
             try
@@ -316,8 +316,8 @@ namespace ItalianPizza.DatabaseModel.DataAccessObject
 
                     if (userAccountToModify != null && employeeToModify != null)
                     {
-                        userAccountToModify.UserName = account.UserName;
-                        userAccountToModify.Password = account.Password;
+                        userAccountToModify.UserName = newUserAccount.UserName;
+                        userAccountToModify.Password = newUserAccount.Password;
                         employeeToModify.Names = employee.Names;
                         employeeToModify.LastName = employee.LastName;
                         employeeToModify.SecondLastName = employee.SecondLastName;

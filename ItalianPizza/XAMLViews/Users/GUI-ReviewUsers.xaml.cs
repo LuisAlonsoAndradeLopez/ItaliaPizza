@@ -64,9 +64,18 @@ namespace ItalianPizza.XAMLViews
             txtPhoneNumber.Text = employee.Phone;
             txtRol.Text = employee.EmployeePositionSet.Position;
             txtState.Text = employee.UserStatusSet.Status;
-            txtAddress.Text = userDAO.GetUserAddressByEmployeeID(employee.Id);
-            if (employee.ProfilePhoto != null)
-                imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
+            try
+            {
+                txtAddress.Text = userDAO.GetUserAddressByEmployeeID(employee.Id);
+
+                if (employee.ProfilePhoto != null)
+                    imgUser.Source = userDAO.GetUserImage(employee.ProfilePhoto);
+            }
+            catch (EntityException ex)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+                return;
+            }
         }
 
         private void GetAllUsers()
@@ -201,29 +210,44 @@ namespace ItalianPizza.XAMLViews
         private void ComboBox_StatusSelection(object sender, SelectionChangedEventArgs e)
         {
             string status = cboUserStatus.SelectedItem.ToString();
-            employees = userDAO.GetAllEmployeesByStatus(status);
-            if (employees.Count == 0)
+            try
             {
-                new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+                employees = userDAO.GetAllEmployeesByStatus(status);
+                if (employees.Count == 0)
+                {
+                    new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+                }
+                else
+                {
+                    ShowAllUsers(employees);
+                }
             }
-            else
+            catch (EntityException ex)
             {
-                ShowAllUsers(employees);
+                new AlertPopup("Error de conexión", "Error al acceder a la base de datos.", AlertPopupTypes.Error);
             }
         }
 
         private void ComboBox_TipeSelection(object sender, SelectionChangedEventArgs e)
         {
             string position = cboUserType.SelectedItem.ToString();
-            employees = userDAO.GetAllEmployeesByPosition(position);
-            if (employees.Count == 0)
+            try
             {
-                new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+                employees = userDAO.GetAllEmployeesByPosition(position);
+                if (employees.Count == 0)
+                {
+                    new AlertPopup("No se encontraron usuarios", "No se encontraron usuarios con el estado seleccionado", AlertPopupTypes.Warning);
+                }
+                else
+                {
+                    ShowAllUsers(employees);
+                }
             }
-            else
+            catch(EntityException ex)
             {
-                ShowAllUsers(employees);
+                new AlertPopup("Error de conexión", "Error al acceder a la base de datos.", AlertPopupTypes.Error);
             }
+            
         }
 
         private void GoToModifyUserWindows(object sender, RoutedEventArgs e)

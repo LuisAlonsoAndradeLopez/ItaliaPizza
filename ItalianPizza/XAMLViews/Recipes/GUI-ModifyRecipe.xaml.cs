@@ -50,10 +50,18 @@ namespace ItalianPizza.XAMLViews.Recipes
 
         private void ShowRecipeIngredients()
         {
-            List<RecipeDetailsSet> recipeDetails = recipeDAO.GetRecipeDetailsByProductSale(product);
-            for(int i = 0; i < recipeDetails.Count; i++)
+            try
             {
-                AddSupplyToRecipe(recipeDetails[i].SupplySet, recipeDetails[i].Quantity);
+                List<RecipeDetailsSet> recipeDetails = recipeDAO.GetRecipeDetailsByProductSale(product);
+                for (int i = 0; i < recipeDetails.Count; i++)
+                {
+                    AddSupplyToRecipe(recipeDetails[i].SupplySet, recipeDetails[i].Quantity);
+                }
+            }
+            catch
+            {
+                new AlertPopup("Error", "Error con la base de datos",
+                                                                             Auxiliary.AlertPopupTypes.Error);
             }
 
         }
