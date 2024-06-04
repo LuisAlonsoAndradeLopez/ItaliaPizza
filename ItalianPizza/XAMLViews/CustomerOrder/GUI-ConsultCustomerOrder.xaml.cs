@@ -133,9 +133,10 @@ namespace ItalianPizza.XAMLViews
                 .OrderBy(order => order.OrderDate)
                 .ToList();
 
-            customerOrders = prioritizedOrders.Concat(remainingOrders).ToList();
+            customerOrders.Clear();
+            customerOrders.AddRange(prioritizedOrders);
+            customerOrders.AddRange(remainingOrders);
         }
-
 
         public void UpdateDatePickerField(DateTime date)
         {
