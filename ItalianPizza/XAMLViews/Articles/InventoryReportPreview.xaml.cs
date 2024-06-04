@@ -1,7 +1,9 @@
 ﻿using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Windows.Forms;
+using ItalianPizza.Auxiliary;
 using ItalianPizza.DatabaseModel.DataAccessObject;
 using ItalianPizza.Resources;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -85,8 +87,15 @@ namespace ItalianPizza.XAMLViews.Articles
 
         private void ExitButtonOnClick(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            navigationService.Navigate(new GUI_InventoryReport());
+            try
+            {
+                NavigationService navigationService = NavigationService.GetNavigationService(this);
+                navigationService.Navigate(new GUI_InventoryReport());
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
     }
 }

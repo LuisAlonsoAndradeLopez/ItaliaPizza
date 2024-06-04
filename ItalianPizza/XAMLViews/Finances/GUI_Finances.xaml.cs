@@ -46,6 +46,10 @@ namespace ItalianPizza.XAMLViews.Finances
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void RealizationDatePickerSelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -58,6 +62,10 @@ namespace ItalianPizza.XAMLViews.Finances
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -100,6 +108,10 @@ namespace ItalianPizza.XAMLViews.Finances
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void AddFinancialTransactionButtonOnClick(object sender, RoutedEventArgs e)
@@ -119,6 +131,10 @@ namespace ItalianPizza.XAMLViews.Finances
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -243,6 +259,10 @@ namespace ItalianPizza.XAMLViews.Finances
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 

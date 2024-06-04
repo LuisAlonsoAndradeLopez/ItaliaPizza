@@ -5,7 +5,6 @@ using ItalianPizza.XAMLViews.Articles;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -49,6 +48,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -116,6 +119,7 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+
         }
 
         private void ShowArticles(string textForFindingArticle)
