@@ -71,7 +71,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                         "la conexion a la base de datos, intentelo mas tarde por favor, gracias!",
                         Auxiliary.AlertPopupTypes.Error);
                 }
-                catch (InvalidOperationException)
+                catch (Exception)
                 {
                     new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un" +
                         " error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
@@ -103,7 +103,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
                     "la conexion a la base de datos, intentelo mas tarde por favor, gracias!",
                     Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un" +
                     " error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
@@ -473,17 +473,33 @@ namespace ItalianPizza.XAMLViews.Suppliers
                 List<string> errorMessages = CheckSuppliesWithSupplier();
                 if (errorMessages.Count == 0)
                 {
-                    OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
-                    orderSupplierDAO.AddSupplierOrder(supplierOrder, listSupplySupplierOrder);
-                    if((bool)supplierOrder.IsPaid)
+                    try
                     {
-                        PaySupplierOrder_Click(supplierOrder);
+                        OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
+                        orderSupplierDAO.AddSupplierOrder(supplierOrder, listSupplySupplierOrder);
+                        if ((bool)supplierOrder.IsPaid)
+                        {
+                            PaySupplierOrder_Click(supplierOrder);
+                        }
+                        new AlertPopup("Registro Completado",
+                            "Se ha registrado el Pedido a proveedor corectamente",
+                            Auxiliary.AlertPopupTypes.Success);
+                        listSupplySupplierOrder.Clear();
+                        ShowOrderSupplies(listSupplySupplierOrder);
                     }
-                    new AlertPopup("Registro Completado",
-                        "Se ha registrado el Pedido a proveedor corectamente",
-                        Auxiliary.AlertPopupTypes.Success);
-                    listSupplySupplierOrder.Clear();
-                    ShowOrderSupplies(listSupplySupplierOrder);
+                    catch (EntityException)
+                    {
+                        new AlertPopup("Error con la base de datos",
+                            "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                            "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                    }
+                    catch (Exception)
+                    {
+                        new AlertPopup("Error con la base de datos",
+                            "Lo siento, pero a ocurrido un error con la base de datos, " +
+                            "verifique que los datos que usted ingresa no esten corrompidos!",
+                            Auxiliary.AlertPopupTypes.Error);
+                    }
                 }
                 else
                 {
@@ -508,17 +524,33 @@ namespace ItalianPizza.XAMLViews.Suppliers
             SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
             if(supplierSet != null)
             {
-                List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
-                List<SupplySet> supplySetListAux = new List<SupplySet>();
-                foreach (int supplyID in SupplierSuppliesID)
+                try
                 {
-                    SupplySet supply = supplySetList.FirstOrDefault(s => s.Id == supplyID);
-                    if (supply != null)
+                    List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
+                    List<SupplySet> supplySetListAux = new List<SupplySet>();
+                    foreach (int supplyID in SupplierSuppliesID)
                     {
-                        supplySetListAux.Add(supply);
+                        SupplySet supply = supplySetList.FirstOrDefault(s => s.Id == supplyID);
+                        if (supply != null)
+                        {
+                            supplySetListAux.Add(supply);
+                        }
                     }
+                    AddVisualSuppliesToWindow(supplySetListAux);
                 }
-                AddVisualSuppliesToWindow(supplySetListAux);
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                        "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (Exception)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la base de datos, " +
+                        "verifique que los datos que usted ingresa no esten corrompidos!",
+                        Auxiliary.AlertPopupTypes.Error);
+                }
             }
             else
             {
@@ -530,58 +562,89 @@ namespace ItalianPizza.XAMLViews.Suppliers
         private List<string> CheckSuppliesWithSupplier()
         {
             List<string> errorMessages = new List<string>();
-            SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
-            List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
-            foreach(SupplySet supply in listSupplySupplierOrder)
+            try
             {
-                int aux = SupplierSuppliesID.FirstOrDefault(a => a ==  supply.Id);
-                if(aux == 0)
+                
+                SupplierSet supplierSet = lboSuppliers.SelectedItem as SupplierSet;
+                List<int> SupplierSuppliesID = supplyDAO.GetAllSuppliesBySupplier(supplierSet.Id);
+                foreach (SupplySet supply in listSupplySupplierOrder)
                 {
-                    errorMessages.Add(supply.Name);
+                    int aux = SupplierSuppliesID.FirstOrDefault(a => a == supply.Id);
+                    if (aux == 0)
+                    {
+                        errorMessages.Add(supply.Name);
+                    }
                 }
             }
-
+            catch (EntityException)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
+            }
             return errorMessages;
         }
 
         private void ModifySupplierOrder_Click(object sender, MouseButtonEventArgs e)
         {
-            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            try
             {
-                if (lboSuppliers.SelectedItem != null && listSupplySupplierOrder.Count > 0)
+                if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
                 {
-                    List<string> errorMessages = CheckSuppliesWithSupplier();
-                    if (errorMessages.Count == 0)
+                    if (lboSuppliers.SelectedItem != null && listSupplySupplierOrder.Count > 0)
                     {
-                        OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
-                        orderSupplierDAO.ModifySupplierOrder(supplierOrderSet, listSupplySupplierOrder);
-                        new AlertPopup("Modificación Completada",
-                            "Se ha modificado correctamente el Pedido a proveedor",
-                            Auxiliary.AlertPopupTypes.Success);
-                        NavigationService.Navigate(new GUI_SuppliersModule());
+                        List<string> errorMessages = CheckSuppliesWithSupplier();
+                        if (errorMessages.Count == 0)
+                        {
+                            OrderSupplierDAO orderSupplierDAO = new OrderSupplierDAO();
+                            orderSupplierDAO.ModifySupplierOrder(supplierOrderSet, listSupplySupplierOrder);
+                            new AlertPopup("Modificación Completada",
+                                "Se ha modificado correctamente el Pedido a proveedor",
+                                Auxiliary.AlertPopupTypes.Success);
+                            NavigationService.Navigate(new GUI_SuppliersModule());
+                        }
+                        else
+                        {
+                            string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
+                            new AlertPopup("Insumos no validos", "Los insumos " + WrongFields
+                                + " no estan asociados con el proveedor que selecionaste",
+                                Auxiliary.AlertPopupTypes.Warning);
+                        }
                     }
                     else
                     {
-                        string WrongFields = "'" + string.Join("', '", errorMessages) + "'";
-                        new AlertPopup("Insumos no validos", "Los insumos " + WrongFields
-                            + " no estan asociados con el proveedor que selecionaste",
-                            Auxiliary.AlertPopupTypes.Warning);
+                        new AlertPopup("Datos faltantes",
+                                "Por favor verifique el pedido ya tenga selecionado un proveedor y al menos un insumo",
+                                Auxiliary.AlertPopupTypes.Warning);
                     }
                 }
                 else
                 {
-                    new AlertPopup("Datos faltantes",
-                            "Por favor verifique el pedido ya tenga selecionado un proveedor y al menos un insumo",
-                            Auxiliary.AlertPopupTypes.Warning);
+                    new AlertPopup("Modificacion no valida",
+                                "Los pedidos cancelados o ya entregados, no se pueden modificar",
+                                Auxiliary.AlertPopupTypes.Warning);
                 }
             }
-            else
+            catch (EntityException)
             {
-                new AlertPopup("Modificacion no valida",
-                            "Los pedidos cancelados o ya entregados, no se pueden modificar",
-                            Auxiliary.AlertPopupTypes.Warning);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
-            
+            catch (Exception)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
+            }   
         }
 
         private bool AreValidFields()
@@ -624,7 +687,7 @@ namespace ItalianPizza.XAMLViews.Suppliers
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
             }
@@ -665,55 +728,103 @@ namespace ItalianPizza.XAMLViews.Suppliers
 
         private void ChangeOrderStatusToDeliveryOrderToday(object sender, MouseButtonEventArgs e)
         {
-            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            try
             {
-                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 9);
-                new AlertPopup("Actualización del estado del pedido",
-                    "Se actualizó correctamente el estado del pedido",
-                    Auxiliary.AlertPopupTypes.Success);
-                grdChangeStatusForm.Visibility = Visibility.Hidden;
+                if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+                {
+                    new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 9);
+                    new AlertPopup("Actualización del estado del pedido",
+                        "Se actualizó correctamente el estado del pedido",
+                        Auxiliary.AlertPopupTypes.Success);
+                    grdChangeStatusForm.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    new AlertPopup("Cambio no Valido",
+                            "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                            Auxiliary.AlertPopupTypes.Error);
+                }
             }
-            else
+            catch (EntityException)
             {
-                new AlertPopup("Cambio no Valido",
-                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
-                        Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
         }
 
         private void ChangeOrderStatusToStandby(object sender, MouseButtonEventArgs e)
         {
-            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            try
             {
-                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 8);
-                new AlertPopup("Actualización del estado del pedido",
-                    "Se actualizó correctamente el estado del pedido",
-                    Auxiliary.AlertPopupTypes.Success);
-                grdChangeStatusForm.Visibility = Visibility.Hidden;
+                if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+                {
+                    new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 8);
+                    new AlertPopup("Actualización del estado del pedido",
+                        "Se actualizó correctamente el estado del pedido",
+                        Auxiliary.AlertPopupTypes.Success);
+                    grdChangeStatusForm.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    new AlertPopup("Cambio no Valido",
+                            "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                            Auxiliary.AlertPopupTypes.Error);
+                }
             }
-            else
+            catch (EntityException)
             {
-                new AlertPopup("Cambio no Valido",
-                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
-                        Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
         }
 
         private void ChangeOrderStatusToInShipping(object sender, MouseButtonEventArgs e)
         {
-            if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+            try
             {
-                new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 6);
-                new AlertPopup("Actualización del estado del pedido",
-                    "Se actualizó correctamente el estado del pedido",
-                    Auxiliary.AlertPopupTypes.Success);
-                grdChangeStatusForm.Visibility = Visibility.Hidden;
+                if (supplierOrderSet.OrderStatusId != 6 && supplierOrderSet.OrderStatusId != 7)
+                {
+                    new OrderSupplierDAO().ModifyOrderStatus(supplierOrderSet.Id, 6);
+                    new AlertPopup("Actualización del estado del pedido",
+                        "Se actualizó correctamente el estado del pedido",
+                        Auxiliary.AlertPopupTypes.Success);
+                    grdChangeStatusForm.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    new AlertPopup("Cambio no Valido",
+                            "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
+                            Auxiliary.AlertPopupTypes.Error);
+                }
             }
-            else
+            catch (EntityException)
             {
-                new AlertPopup("Cambio no Valido",
-                        "Los pedidos cancelados o ya entregados, no se pueden cambiar estado",
-                        Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                    "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
         }
 
