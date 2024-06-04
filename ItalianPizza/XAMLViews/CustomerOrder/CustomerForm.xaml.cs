@@ -403,37 +403,37 @@ namespace ItalianPizza.XAMLViews
         {
             List<string> errorMessages = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(txtCity.Text.Trim()))
+            if (!RegexChecker.CheckName(txtCity.Text))
             {
                 txtCity.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Ciudad'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtColony.Text.Trim()))
+            if (!RegexChecker.CheckName(txtColony.Text))
             {
                 txtColony.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Colonia'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtState.Text.Trim()))
+            if (!RegexChecker.CheckName(txtState.Text))
             {
                 txtState.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Estado'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtStreet.Text.Trim()))
+            if (!RegexChecker.CheckName(txtStreet.Text))
             {
                 txtStreet.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Calle'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtStreetNumber.Text.Trim()))
+            if (string.IsNullOrWhiteSpace(txtStreetNumber.Text.Trim()) && txtStreetNumber.Text.Length == 3)
             {
                 txtStreetNumber.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Numero de Calle'");
             }
 
-            if (string.IsNullOrWhiteSpace(txtZipCode.Text.Trim()))
+            if (string.IsNullOrWhiteSpace(txtStreetNumber.Text.Trim()) && txtStreetNumber.Text.Length == 5)
             {
                 txtZipCode.BorderBrush = Brushes.Red;
                 errorMessages.Add("'Codigo Postal'");

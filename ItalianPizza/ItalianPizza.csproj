@@ -1009,6 +1009,7 @@
     <Content Include="packages\CrystalDecisions.Shared.1.0.0\lib\CrystalDecisions.Shared.dll" />
     <Content Include="packages\CrystalDecisions.Web.1.0.1\lib\CrystalDecisions.Web.dll" />
     <Content Include="packages\CrystalDecisions.Windows.Forms.1.0.0\lib\CrystalDecisions.Windows.Forms.dll" />
+    <Resource Include="Resources\Pictures\ICON-NoEntregado.png" />
     <Resource Include="Resources\Pictures\CashDenominations\100bill.png" />
     <Resource Include="Resources\Pictures\CashDenominations\10coin.png" />
     <Resource Include="Resources\Pictures\CashDenominations\1coin.png" />
