@@ -53,6 +53,10 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void ShowComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -82,6 +86,10 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void FindByComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -105,6 +113,10 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void FindProductTypeComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,6 +129,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -132,6 +148,10 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void GenerateInventoryReportOnClick(object sender, RoutedEventArgs e)
@@ -145,6 +165,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -185,6 +209,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -244,6 +272,10 @@ namespace ItalianPizza.XAMLViews
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
             }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
+            }
         }
 
         private void ConsultProductRecipeButtonOnClick(object sender, RoutedEventArgs e)
@@ -257,6 +289,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -305,6 +341,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
@@ -414,6 +454,10 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
                 new ExceptionLogger().LogException(ex);
+            }
+            catch (Exception)
+            {
+                new AlertPopup("¡Ocurrió un problema!", "Comuniquese con los desarrolladores para solucionar el problema", AlertPopupTypes.Error);
             }
         }
 
