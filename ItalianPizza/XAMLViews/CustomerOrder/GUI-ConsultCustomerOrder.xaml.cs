@@ -53,7 +53,7 @@ namespace ItalianPizza.XAMLViews
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
                     "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 new AlertPopup("Error con la base de datos", 
                     "Lo siento, pero a ocurrido un error con la base de datos, " +
@@ -87,10 +87,11 @@ namespace ItalianPizza.XAMLViews
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", 
                     Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
-                new AlertPopup("Error con la base de datos", 
-                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
             }
 
@@ -159,10 +160,11 @@ namespace ItalianPizza.XAMLViews
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!",
                     Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
                 new AlertPopup("Error con la base de datos",
-                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
             }
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;
@@ -341,9 +343,12 @@ namespace ItalianPizza.XAMLViews
             {
                 new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
-                new AlertPopup("Error con la base de datos", "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", Auxiliary.AlertPopupTypes.Error);
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
+                    Auxiliary.AlertPopupTypes.Error);
             }
         }
 
@@ -537,10 +542,11 @@ namespace ItalianPizza.XAMLViews
                     "Lo siento, pero a ocurrido un error con la conexion a la base de datos, intentelo mas tarde por favor, gracias!", 
                     Auxiliary.AlertPopupTypes.Error);
             }
-            catch (InvalidOperationException)
+            catch (Exception)
             {
-                new AlertPopup("Error con la base de datos", 
-                    "Lo siento, pero a ocurrido un error con la base de datos, verifique que los datos que usted ingresa no esten corrompidos!", 
+                new AlertPopup("Error con la base de datos",
+                    "Lo siento, pero a ocurrido un error con la base de datos, " +
+                    "verifique que los datos que usted ingresa no esten corrompidos!",
                     Auxiliary.AlertPopupTypes.Error);
             }
             grdVirtualWindowSelectOrderAlert.Visibility = Visibility.Visible;

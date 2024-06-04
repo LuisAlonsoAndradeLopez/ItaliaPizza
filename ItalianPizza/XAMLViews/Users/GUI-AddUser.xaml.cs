@@ -266,7 +266,7 @@ namespace ItalianPizza.XAMLViews
 
             if (userDAO.CheckUserExistence(new UserAccountSet()
             {
-                UserName = txtEmail.Text
+                UserName = txtUser.Text
             }))
             {
                 new AlertPopup("¡Error!", "El correo electrónico ya está registrado", AlertPopupTypes.Error);

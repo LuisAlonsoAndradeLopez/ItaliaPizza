@@ -4,6 +4,7 @@ using ItalianPizza.DatabaseModel.DatabaseMapping;
 using ItalianPizza.SingletonClasses;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -234,14 +235,31 @@ namespace ItalianPizza.XAMLViews
             {
                 CustomerSet customerSet = GetDataCustomer();
                 AddressSet customerAddress = GetClientAddress();
-                userDAO.AddCustomer(customerSet, customerAddress);
-                new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
-                    Auxiliary.AlertPopupTypes.Success);
-                ResetColorFields();
-                CleanFields();
-                grdCustomerModule.Visibility = Visibility.Visible;
-                grdCustomerForm.Visibility = Visibility.Hidden;
-                ShowCustomers();
+
+                try
+                {
+                    userDAO.AddCustomer(customerSet, customerAddress);
+                    new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
+                        Auxiliary.AlertPopupTypes.Success);
+                    ResetColorFields();
+                    CleanFields();
+                    grdCustomerModule.Visibility = Visibility.Visible;
+                    grdCustomerForm.Visibility = Visibility.Hidden;
+                    ShowCustomers();
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                        "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (Exception)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la base de datos, " +
+                        "verifique que los datos que usted ingresa no esten corrompidos!",
+                        Auxiliary.AlertPopupTypes.Error);
+                }
             }
             else
             {
@@ -258,16 +276,33 @@ namespace ItalianPizza.XAMLViews
 
             if (errorMessages.Count == 0)
             {
-                CustomerSet customerSet = GetDataCustomer();
-                AddressSet customerAddress = GetClientAddress();
-                userDAO.UpdateCustomer(customerSet, customerAddress);
-                new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
-                    Auxiliary.AlertPopupTypes.Success);
-                ResetColorFields();
-                CleanFields();
-                grdCustomerModule.Visibility = Visibility.Visible;
-                grdCustomerForm.Visibility = Visibility.Hidden;
-                ShowCustomers();
+                try
+                {
+                    CustomerSet customerSet = GetDataCustomer();
+                    AddressSet customerAddress = GetClientAddress();
+                    userDAO.UpdateCustomer(customerSet, customerAddress);
+                    new AlertPopup("Registro Correcto", "El registro del nuevo cliente se realizo correctamente",
+                        Auxiliary.AlertPopupTypes.Success);
+                    ResetColorFields();
+                    CleanFields();
+                    grdCustomerModule.Visibility = Visibility.Visible;
+                    grdCustomerForm.Visibility = Visibility.Hidden;
+                    ShowCustomers();
+                }
+                catch (EntityException)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
+                        "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
+                }
+                catch (Exception)
+                {
+                    new AlertPopup("Error con la base de datos",
+                        "Lo siento, pero a ocurrido un error con la base de datos, " +
+                        "verifique que los datos que usted ingresa no esten corrompidos!",
+                        Auxiliary.AlertPopupTypes.Error);
+                }
+                
             }
             else
             {

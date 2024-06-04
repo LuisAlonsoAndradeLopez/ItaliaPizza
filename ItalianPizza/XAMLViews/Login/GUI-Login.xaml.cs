@@ -53,7 +53,7 @@ namespace ItalianPizza.XAMLViews
                         "Lo siento, pero a ocurrido un error con la conexion a la base de datos, " +
                         "intentelo mas tarde por favor, gracias!", Auxiliary.AlertPopupTypes.Error);
                 }
-                catch (InvalidOperationException)
+                catch (Exception)
                 {
                     new AlertPopup("Error con la base de datos",
                         "Lo siento, pero a ocurrido un error con la base de datos, " +
