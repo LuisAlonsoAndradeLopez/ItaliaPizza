@@ -88,80 +88,98 @@ namespace ItalianPizza.XAMLViews
             {
                 btnRegister.Content = "Siguiente";
 
-                int employeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id;
-
-                if (employeePositionId == recepcionistID)
+                try
                 {
-                    if (!ValidateInputsForDeliveryDriver())
+                    int employeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id;
+                    if (employeePositionId == recepcionistID)
                     {
-                        return;
+                        if (!ValidateInputsForDeliveryDriver())
+                        {
+                            return;
+                        }
+
+                        DeliveryDriverSet deliveryDriver = new DeliveryDriverSet()
+                        {
+                            Names = txtName.Text,
+                            LastName = txtLastName.Text,
+                            SecondLastName = txtSecondLastName.Text,
+                            Email = txtEmail.Text,
+                            Phone = txtPhoneNumber.Text,
+                            UserStatusId = 1,
+                            EmployeeId = UserToken.GetEmployeeID(),
+                        };
+
+                        result = userDAO.AddDeliveryDriver(deliveryDriver);
+
+                        if (result != -1)
+                        {
+                            new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
+                            NavigationService.GoBack();
+                        }
+                    }
+                    else
+                    {
+                        if (!ValidateInputsForEmployee())
+                        {
+                            return;
+                        }
+
+                        if (userImage.Source == null)
+                        {
+                            new AlertPopup("¡Error!", "Necesita seleccionar una imagen para poder continuar", AlertPopupTypes.Error);
+                            return;
+                        }
+
+                        int addressId = userDAO.RegisterAddress(address);
+
+                        UserAccountSet account = new UserAccountSet()
+                        {
+                            UserName = txtUser.Text,
+                            Password = txtPassword.Text
+                        };
+
+                        EmployeeSet employee = new EmployeeSet()
+                        {
+                            Names = txtName.Text,
+                            LastName = txtLastName.Text,
+                            SecondLastName = txtSecondLastName.Text,
+                            Email = txtEmail.Text,
+                            Phone = txtPhoneNumber.Text,
+                            ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
+                            UserStatusId = 1,
+                            EmployeePositionId = employeePositionId,
+                            Address_Id = addressId
+                        };
+
+                        try
+                        {
+                            result = userDAO.RegisterUser(account, employee);
+
+                            if (result == 3)
+                            {
+                                new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
+                                NavigationService.GoBack();
+                            }
+                            else if (result == -1)
+                            {
+                                new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            new AlertPopup("¡Error!", "No hay conexión en la base de datos", AlertPopupTypes.Error);
+                            return;
+                        }
                     }
 
-                    DeliveryDriverSet deliveryDriver = new DeliveryDriverSet()
-                    {
-                        Names = txtName.Text,
-                        LastName = txtLastName.Text,
-                        SecondLastName = txtSecondLastName.Text,
-                        Email = txtEmail.Text,
-                        Phone = txtPhoneNumber.Text,
-                        UserStatusId = 1,
-                        EmployeeId = UserToken.GetEmployeeID(),
-                    };
-
-                    result = userDAO.AddDeliveryDriver(deliveryDriver);
-
-                    if (result != -1)
-                    {
-                        new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
-                        NavigationService.GoBack();
-                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    if (!ValidateInputsForEmployee())
-                    {
-                        return;
-                    }
-
-                    if (userImage.Source == null)
-                    {
-                        new AlertPopup("¡Error!", "Necesita seleccionar una imagen para poder continuar", AlertPopupTypes.Error);
-                        return;
-                    }
-
-                    int addressId = userDAO.RegisterAddress(address);
-
-                    UserAccountSet account = new UserAccountSet()
-                    {
-                        UserName = txtUser.Text,
-                        Password = txtPassword.Text
-                    };
-
-                    EmployeeSet employee = new EmployeeSet()
-                    {
-                        Names = txtName.Text,
-                        LastName = txtLastName.Text,
-                        SecondLastName = txtSecondLastName.Text,
-                        Email = txtEmail.Text,
-                        Phone = txtPhoneNumber.Text,
-                        ProfilePhoto = new ImageManager().GetBitmapImageBytes((BitmapImage)userImage.Source),
-                        UserStatusId = 1,
-                        EmployeePositionId = employeePositionId,
-                        Address_Id = addressId
-                    };
-
-                    result = userDAO.RegisterUser(account, employee);
-
-                    if (result == 3)
-                    {
-                        new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
-                        NavigationService.GoBack();
-                    }
-                    else if (result == -1)
-                    {
-                        new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
-                    }
+                    new AlertPopup("¡Error!", "No hay conexión en la base de datos", AlertPopupTypes.Error);
+                    return;
                 }
+
+                
             }
 
         }
@@ -264,30 +282,38 @@ namespace ItalianPizza.XAMLViews
                 return false;
             }
 
-            if (userDAO.CheckUserExistence(new UserAccountSet()
+            try
             {
-                UserName = txtUser.Text
-            }))
-            {
-                new AlertPopup("¡Error!", "El correo electrónico ya está registrado", AlertPopupTypes.Error);
-                return false;
-            }
+                if (userDAO.CheckUserExistence(new UserAccountSet()
+                {
+                    UserName = txtUser.Text
+                }))
+                {
+                    new AlertPopup("¡Error!", "El correo electrónico ya está registrado", AlertPopupTypes.Error);
+                    return false;
+                }
 
-            if(userDAO.CheckEmployeeExistence(new EmployeeSet {Names = txtName.Text,
-                        LastName = txtLastName.Text,
-                        SecondLastName = txtSecondLastName.Text,
-            }))
-            {
-                new AlertPopup("¡Error!", "Ya existe un empleado registrado con esos nombres y apellidos", AlertPopupTypes.Error);
-                return false;
+                if (userDAO.CheckEmployeeExistence(new EmployeeSet
+                {
+                    Names = txtName.Text,
+                    LastName = txtLastName.Text,
+                    SecondLastName = txtSecondLastName.Text,
+                }))
+                {
+                    new AlertPopup("¡Error!", "Ya existe un empleado registrado con esos nombres y apellidos", AlertPopupTypes.Error);
+                    return false;
+                }
+                if (userDAO.CheckEmployeeEmailExistence(new EmployeeSet { Email = txtEmail.Text }))
+                {
+                    new AlertPopup("¡Error!", "Ya existe un empleado registrado con ese correo electrónico", AlertPopupTypes.Error);
+                    return false;
+                }
             }
-
-            if(userDAO.CheckEmployeeEmailExistence(new EmployeeSet { Email = txtEmail.Text }))
+            catch(Exception ex)
             {
-                new AlertPopup("¡Error!", "Ya existe un empleado registrado con ese correo electrónico", AlertPopupTypes.Error);
+                new AlertPopup("¡Error!", "No hay conexión en la base de datos", AlertPopupTypes.Error);
                 return false;
-            }
-
+            }            
             return true;
         }
 

@@ -17,6 +17,8 @@ namespace ItalianPizza.XAMLViews
     public partial class GUI_ModifyUser : Page
     {
         private UserDAO userDAO;
+        private EmployeeSet employee;
+        private UserAccountSet account;
 
         public GUI_ModifyUser(EmployeeSet employeeToModify, UserAccountSet userAccount)
         {
@@ -24,6 +26,8 @@ namespace ItalianPizza.XAMLViews
             InitalizeComboBox();
             userDAO = new UserDAO();
             FillFields(employeeToModify, userAccount);
+            account = userAccount;
+            employee = employeeToModify;
         }
 
         private void FillFields(EmployeeSet employeeToModify, UserAccountSet userAccount)
@@ -36,7 +40,15 @@ namespace ItalianPizza.XAMLViews
             cboUserRol.SelectedItem = employeeToModify.EmployeePositionSet.Position;
             if (employeeToModify.ProfilePhoto != null)
             {
-                userImage.Source = userDAO.GetUserImage(employeeToModify.ProfilePhoto);
+                try
+                {
+                    userImage.Source = userDAO.GetUserImage(employeeToModify.ProfilePhoto);
+                }
+                catch(Exception e)
+                {
+                    new AlertPopup("¡Error!", "No hay conexión con la base de datos", AlertPopupTypes.Error);
+                    return;
+                }
             }
             txtPassword.Text = userAccount.Password;
             txtUser.Text = userAccount.UserName;
@@ -115,7 +127,7 @@ namespace ItalianPizza.XAMLViews
                 else
                 {
                     userDAO = new UserDAO();
-                    UserAccountSet account = new UserAccountSet()
+                    UserAccountSet newAccount = new UserAccountSet()
                     {
                         UserName = txtUser.Text,
                         Password = txtPassword.Text
@@ -132,17 +144,22 @@ namespace ItalianPizza.XAMLViews
                         EmployeePositionId = userDAO.GetEmployeePosition(cboUserRol.SelectedItem?.ToString()).Id,
                         Address_Id = 1
                     };
-                    int result = userDAO.ModifyUser(account, employee);
-                    if (result != -1)
+                    try
                     {
-                        new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
-                        GUI_ReviewUsers VENTANA = new GUI_ReviewUsers();
-                        this.NavigationService.Navigate(VENTANA);
+                        int result = userDAO.ModifyUser(account, employee, newAccount);
+                        if (result != -1)
+                        {
+                            new AlertPopup("¡Correcto!", "Usuario registrado con éxito", AlertPopupTypes.Success);
+                            GUI_ReviewUsers VENTANA = new GUI_ReviewUsers();
+                            this.NavigationService.Navigate(VENTANA);
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        new AlertPopup("¡Error!", "El usuario no ha podido ser registrado con éxito", AlertPopupTypes.Error);
+                        new AlertPopup("¡Error!", "No hay conexión con la base de datos", AlertPopupTypes.Error);
+                        return;
                     }
+                    
                 }
             }
 

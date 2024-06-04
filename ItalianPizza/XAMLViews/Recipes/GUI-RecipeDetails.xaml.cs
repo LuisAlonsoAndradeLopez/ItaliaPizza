@@ -70,16 +70,24 @@ namespace ItalianPizza.XAMLViews.Recipes
 
         private void FillIngredientsTextbox()
         {
-           List<RecipeDetailsSet> recipeIngredients = recipeDAO.GetRecipeDetailsByProductSale(product);
-
-            foreach (RecipeDetailsSet recipeDetail in recipeIngredients)
+            try
             {
-                string ingredient = recipeDetail.SupplySet.Name;
-                string quantity = recipeDetail.Quantity.ToString();
-                string measure = recipeDetail.SupplySet.SupplyUnitSet.Unit;
-                txtRecipeIngredients.Text += $". * {quantity} {measure} de {ingredient} \n";
+                List<RecipeDetailsSet> recipeIngredients = recipeDAO.GetRecipeDetailsByProductSale(product);
 
+                foreach (RecipeDetailsSet recipeDetail in recipeIngredients)
+                {
+                    string ingredient = recipeDetail.SupplySet.Name;
+                    string quantity = recipeDetail.Quantity.ToString();
+                    string measure = recipeDetail.SupplySet.SupplyUnitSet.Unit;
+                    txtRecipeIngredients.Text += $". * {quantity} {measure} de {ingredient} \n";
+
+                }
             }
+            catch(Exception e)
+            {
+                new AlertPopup("Error", "No hay conexión con la base de datos",AlertPopupTypes.Error);
+            }
+          
         }
 
         private void btnModifyRecipeClicked(object sender, RoutedEventArgs e)
