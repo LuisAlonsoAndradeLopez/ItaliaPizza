@@ -127,12 +127,12 @@ namespace ItalianPizza.XAMLViews
 
         private void EnableOrDisableToggleButtonChecked(object sender, RoutedEventArgs e)
         {
-            EnableOrDisableToggleButton.Content = "Si";
+            EnableOrDisableRecipeToggleButton.Content = "Si";
         }
 
         private void EnableOrDisableToggleButtonUnchecked(object sender, RoutedEventArgs e)
         {
-            EnableOrDisableToggleButton.Content = "No";
+            EnableOrDisableRecipeToggleButton.Content = "No";
         }
 
         private void BackButtonOnClick(object sender, RoutedEventArgs e)
@@ -217,6 +217,16 @@ namespace ItalianPizza.XAMLViews
                                                 Description = DescriptionTextBox.Text,
                                                 Observations = ""
                                             };
+
+                                            if ((bool)EnableOrDisableRecipeToggleButton.IsChecked)
+                                            {
+                                                product.Recipee = true;
+                                            }
+
+                                            if (!(bool)EnableOrDisableRecipeToggleButton.IsChecked)
+                                            {
+                                                product.Recipee = false;
+                                            }
 
                                             new ProductDAO().AddProduct(product);
                                         }

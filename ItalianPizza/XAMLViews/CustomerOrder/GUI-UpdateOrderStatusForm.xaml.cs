@@ -118,7 +118,7 @@ namespace ItalianPizza.XAMLViews.CustomerOrder
 
         private void ChangeOrderStatusToDelivered(object sender, MouseButtonEventArgs e)
         {
-            if (customerOrder.OrderStatusId == 3)
+            if (customerOrder.OrderStatusId == 4)
             {
                 try
                 {

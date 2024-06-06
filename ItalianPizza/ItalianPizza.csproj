@@ -381,12 +381,6 @@
     <Compile Include="XAMLViews\AlertPopup.xaml.cs">
       <DependentUpon>AlertPopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XAMLViews\Articles\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="XAMLViews\Articles\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="XAMLViews\Articles\GUI_AddArticle.xaml.cs">
       <DependentUpon>GUI_AddArticle.xaml</DependentUpon>
     </Compile>
@@ -620,9 +614,6 @@
     <EmbeddedResource Include="Resources\InventoryReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>InventoryReport.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="XAMLViews\Articles\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EntityDeploy Include="DatabaseModel\DatabaseMapping\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

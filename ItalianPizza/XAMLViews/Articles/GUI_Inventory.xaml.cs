@@ -192,16 +192,27 @@ namespace ItalianPizza.XAMLViews
                     SelectedArticleDetailsStackPanel.Visibility = Visibility.Visible;
                     SelectedArticleButtonsStackPanel.Visibility = Visibility.Visible;
 
+
+                    if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
+                    {
+                        ProductSaleSet product = new ProductDAO().GetProductByName(selectedArticleNameTextBlock.Text);
+
+                        if ((bool)product.Recipee)
+                        {
+                            ConsultProductRecipeButton.Visibility = Visibility.Visible;
+                            ModifyArticleButton1.Margin = new Thickness(90, 0, 0, 0);
+                        }
+                        else
+                        {
+                            ConsultProductRecipeButton.Visibility = Visibility.Collapsed;
+                            ModifyArticleButton1.Margin = new Thickness(200, 0, 0, 0);
+                        }
+                    }
+
                     if (selectedArticleTypeTextBlock.Text == ArticleTypes.Insumo.ToString())
                     {
                         ConsultProductRecipeButton.Visibility = Visibility.Collapsed;
                         ModifyArticleButton1.Margin = new Thickness(200, 0, 0, 0);
-                    }
-
-                    if (selectedArticleTypeTextBlock.Text == ArticleTypes.Producto.ToString())
-                    {
-                        ConsultProductRecipeButton.Visibility = Visibility.Visible;
-                        ModifyArticleButton1.Margin = new Thickness(90, 0, 0, 0);
                     }
                 }
             }
@@ -470,7 +481,7 @@ namespace ItalianPizza.XAMLViews
                 ShowComboBox.Items.Add(showType);
             }
 
-            ShowComboBox.SelectedItem = ShowComboBox.Items[0];
+            ShowComboBox.SelectedItem = ShowComboBox.Items[1];
 
 
             string[] findByTypes = { "Nombre", "Código" };
