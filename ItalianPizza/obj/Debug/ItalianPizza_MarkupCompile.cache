@@ -1,0 +1,20 @@
+﻿ItalianPizza
+
+
+winexe
+C#
+.cs
+C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\obj\Debug\
+ItalianPizza
+none
+false
+DEBUG;TRACE
+C:\Users\Luis Alonso\Documents\ItaliaPizza\ItalianPizza\App.xaml
+32-1821310199
+1311-1624728025
+97-475559887
+56-753140146
+MainWindow.xaml;XAMLViews\AlertPopup.xaml;XAMLViews\Articles\InventoryReportPreview.xaml;XAMLViews\CustomerOrder\CustomerForm.xaml;XAMLViews\CustomerOrder\DeliveryDriverForm.xaml;XAMLViews\CustomerOrder\GUI-ConsultCustomerOrder.xaml;XAMLViews\CustomerOrder\GUI-CustomerOrderManagementForm.xaml;XAMLViews\CustomerOrder\GUI-UpdateOrderStatusForm.xaml;XAMLViews\Finances\CashBalanceForm.xaml;XAMLViews\Finances\DailyBalanceJustification.xaml;XAMLViews\Finances\GUI_DailyBalance.xaml;XAMLViews\Finances\GUI_Finances.xaml;XAMLViews\GUIComponentsStyles\ButtonsStyles.xaml;XAMLViews\GUIComponentsStyles\ComboBoxesStyles.xaml;XAMLViews\GUIComponentsStyles\ScrollViewersStyles.xaml;XAMLViews\GUIComponentsStyles\TextBoxStyles.xaml;XAMLViews\Articles\GUI_AddArticle.xaml;XAMLViews\Articles\GUI_Inventory.xaml;XAMLViews\Articles\GUI_InventoryReport.xaml;XAMLViews\GUIComponentsStyles\ToggleButtonsStyles.xaml;XAMLViews\Login\GUI-Login.xaml;XAMLViews\NavigationBar.xaml;XAMLViews\Recipes\GUI-AddRecipe.xaml;XAMLViews\Recipes\GUI-ModifyRecipe.xaml;XAMLViews\Recipes\GUI-RecipeDetails.xaml;XAMLViews\Suppliers\GUI-SupplierOrdersModule.xaml;XAMLViews\Suppliers\GUI-SuppliersModule.xaml;XAMLViews\Suppliers\SuppliersForm.xaml;XAMLViews\Users\GUI-AddUser.xaml;XAMLViews\Users\GUI-ModifyUser.xaml;XAMLViews\Users\GUI-ReviewUsers.xaml;XAMLViews\Users\UserAddress.xaml;
+
+False
+
